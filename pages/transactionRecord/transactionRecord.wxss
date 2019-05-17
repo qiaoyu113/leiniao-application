@@ -1,0 +1,49 @@
+/* pages/transactionRecord/transactionRecord.wxss */
+
+page {
+  background: #f2f2f2;
+}
+
+.recordList {
+  width: 100%;
+  overflow: hidden;
+  background: #fff;
+  margin-top: 11rpx;
+}
+
+.recordList .listLeft {
+  width: 50%;
+  float: left;
+  font-size: 28rpx;
+  padding: 30rpx 0rpx;
+  padding-left: 45rpx;
+  box-sizing: border-box;
+  color: #000 #000;
+  line-height: 40rpx;
+}
+
+.recordList .listRight {
+  width: 50%;
+  float: left;
+  text-align: right;
+  padding: 30rpx 0rpx;
+  padding-right: 45rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  color: #000;
+  line-height: 40rpx;
+}
+
+.recordList .listRight .date {
+  font-size: 24rpx;
+  color: #9b9b9b;
+  margin-top: 6rpx;
+}
+
+.hint {
+  font-size: 24rpx;
+  color: #838383;
+  width:100%;
+  text-align: center;
+  margin-top:10rpx;
+}

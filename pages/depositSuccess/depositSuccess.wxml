@@ -1,0 +1,7 @@
+<view class='successIssue'>
+  <image src='https://oss-qzn.yunniao.cn/img/d4ff55e1e1544f8f85d1cc096b2116e0' mode='widthFix'></image>
+  <view class='title'>申请成功</view>
+  <view class='text'>提现申请成功，梧桐喜鹊客服
+会第一时间联系您，具体到账时间1-3天</view>
+  <view class='myRecommend' bindtap='goHome'>知道了</view>
+</view>

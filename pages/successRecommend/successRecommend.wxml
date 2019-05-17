@@ -1,0 +1,9 @@
+<view class='successIssue'>
+  <image src='https://oss-qzn.yunniao.cn/img/d4ff55e1e1544f8f85d1cc096b2116e0' mode='widthFix'></image>
+  <view class='title'>操作成功</view>
+  <view class='text'>恭喜您推荐成功，司机入驻后会有客服联系您</view>
+  <view class='text'>更多问题可联系客服</view>
+  <view class='text'>{{time}}秒后自动跳转至首页</view>
+  <view class='myRecommend' bindtap='goMyRecommend'>我的推荐</view>
+  <view class='home' bindtap='goHome'>首页</view>
+</view>

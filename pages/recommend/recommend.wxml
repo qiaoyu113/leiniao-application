@@ -1,0 +1,40 @@
+<view class='recommend'>
+  <view class='formData'>
+    <view class='formList'>
+      <view class='formLeft'>姓名</view>
+      <view class='formRight'>
+        <input class='inpRight' placeholder='请输入姓名' placeholder-class='inpHover' maxlength='7' bindinput='inputChange' value='{{name}}' data-type='1'></input>
+      </view>
+    </view>
+    <view class='formList'>
+      <view class='formLeft'>联系方式</view>
+      <view class='formRight'>
+        <input class='inpRight' placeholder='请输入手机号' placeholder-class='inpHover' maxlength='11' bindinput='inputChange' value='{{phone}}' data-type='2' type='number'></input>
+      </view>
+    </view>
+    <picker bindchange="bindPickerChange" value="{{index}}" range="{{cityArray}}">
+      <view class='formList'>
+        <view class='formLeft'>城市</view>
+        <view class='formRight'>
+          <view class="{{address == '请选择'?'inpRightNo' : 'inpRight'}}">{{address}}
+            <text class="icon-right marginLeft"></text>
+          </view>
+        </view>
+      </view>
+    </picker>
+    <picker bindchange="bindPickerChange2" value="{{index2}}" range="{{carArray}}">
+      <view class='formList'>
+        <view class='formLeft'>意向车型</view>
+        <view class='formRight'>
+          <view class="{{carName == '请选择'?'inpRightNo' : 'inpRight'}}">{{carName}}
+            <text class="icon-right marginLeft"></text>
+          </view>
+        </view>
+      </view>
+    </picker>
+    <view id='submit' class='submit' bindtap='submit'>提交信息</view>
+    <view class='text'>活动期间，非城市梧桐人员成功推荐身边亲朋好友通过梧桐车服购车并缴纳全额线路服务费，获得300 元/单现金奖励。</view>
+  </view>
+</view>
+<!--警告弹窗-->
+<van-notify id="van-notify" />

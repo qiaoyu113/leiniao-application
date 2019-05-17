@@ -1,0 +1,60 @@
+<wxs module="filter" src="../../filter/commonFilter.wxs"></wxs>
+<view class='lineListBox'>
+  <view class='SearchBox'>
+    <image src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/539e47df1c024da4aa9216b36b6c9ff8' mode='widthFix'></image>
+    <view class='searchInp'>
+      <picker bindchange="bindPickerChange" value="{{index}}" range="{{cityArray}}">
+        <view class="picker">
+          <view class='searchLeft'>{{cityArray[index]}}
+            <text class="icon-unfold marginLeft"></text>
+          </view>
+        </view>
+      </picker>
+      <!-- <view class='searchRight'>
+        <text class="icon-search marginLeft"></text>
+        <input type='text' placeholder='输入搜索信息' placeholder-class='inputHolder'></input>
+      </view> -->
+    </view>
+  </view>
+  <!--列表-->
+  <view class='lineBox'>
+    <view class='lineList' wx:for='{{list}}' wx:key='{{item}}' data-id='{{item.lineId}}' bindtap='goDetail'>
+      <view class='lineListTop'>
+        <view class='name'>
+          <view>{{item.customerName}}</view>
+        </view>
+        <view class='center'>
+          <image class='center_left' src='../../lib/image/lineIcon.png' mode='widthFix'></image>
+          <view class='center_right'>
+            <view class='center_right_box'>
+              <view class='center_right_name'>仓库位置：{{item.warehouse}}</view>
+              <view class='center_right_cal margin24'>车型：{{item.carTypeName}}</view>
+            </view>
+            <view class='center_right_box'>
+              <view class='center_right_name'>配送线路：{{item.lineName}}</view>
+              <view class='center_right_cal margin24'>配送点位数：{{item.deliveryNum}}</view>
+            </view>
+            <view class='center_right_box'>
+              <view class='center_right_name'>配送区域：{{filter.hasVal(item.provinceAreaName,item.cityName)}}<span wx:if='{{item.cityAreaName}}'>{{filter.hasVal(item.cityAreaName)}}</span></view>
+              <view class='center_right_cal'>月频次：{{item.month}}趟/月</view>
+            </view>
+          </view>
+        </view>
+        <view class='price'>
+          <view class='priceTip'>客户报价：{{item.preLowestQuotations}}元/趟</view>
+        </view>
+        <view class='tip'>推荐线路</view>
+        <view class='tip2'>可上车数：{{item.deployNum}}</view>
+      </view>
+      <view class='bottom'>
+        <view>公里数：{{item.distance}}</view>
+        <view>总耗时：{{item.timeDiff}}</view>
+      </view>
+    </view>
+  </view>
+  <!--咨询-->
+  <view class='consulting' data-hi='WeChat' bindtap='talphone'>咨询</view>
+  <!--绑定手机号-->
+  <view class='bgShow' wx:if='{{!flag}}' catchtouchmove="myCatchTouch"></view>
+  <button class='loginBtn' wx:if='{{!flag}}'  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">授权登陆</button>
+</view>
