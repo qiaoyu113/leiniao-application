@@ -1,0 +1,27 @@
+<view class='recommendDetail'>
+  <view class='lineDetail'>
+    <view class='lineDetailBox'>
+      <view class='lineTitle'>货源线路信息</view>
+      <view class='lineBox'>
+        <view class='lineList'>京东</view>
+        <view class='lineList'>线路吗阿斯顿发</view>
+        <view class='lineList'>京东</view>
+        <view class='lineList'>京东</view>
+        <view class='lineList'>京东</view>
+      </view>
+    </view>
+    <view class='recommendHasGrif'>
+      <image class='recommendHasGrifIMG' src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/9822a7d7236943f4bc4fae140787ab1a' mode='widthFix' style='width:100%'></image>
+      <view class='rule'>1、推荐他人成功到公司面试者，1-9人每人奖励
+        <text>30元</text>,10-19人每人奖励
+        <text>50元</text>，20人以上每人奖励
+        <text>80元</text>
+      </view>
+      <view class='rule'>2、通过邀请面试成功后司机完成了成交，推荐人可额外奖励
+        <text>200元</text>
+      </view>
+      <view class='rule'>3、多人推荐同一司机信息，提交时间最早的一人可获得奖励。</view>
+    </view>
+    <view class='saveImg'>保存图片</view>
+  </view>
+</view>

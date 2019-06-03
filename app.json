@@ -1,0 +1,70 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/transactionRecord/transactionRecord",
+    "pages/recommendDetail/recommendDetail",
+    "pages/lineDetail/lineDetail",
+    "pages/depositSuccess/depositSuccess",
+    "pages/deposit/deposit",
+    "pages/myRecommend/myRecommend",
+    "pages/myCenter/myCenter",
+    "pages/lineList/lineList",
+    "pages/login/login",
+    "pages/recommend/recommend",
+    "pages/successRecommend/successRecommend",
+    "pages/advertising/advertising",
+    "pages/home/home",
+    "components/table/table",
+    "pages/immediatelyEnter/immediatelyEnter"
+  ],
+  "usingComponents": {
+    "component-log": "components/logs/logs",
+    "hint": "components/hint/hint",
+    "popup": "components/popup/popup",
+    "van-tab": "miniprogram_npm/vant-weapp/tab/index",
+    "van-icon": "miniprogram_npm/vant-weapp/icon/index",
+    "ec-canvas": "../../ec-canvas/ec-canvas",
+    "c-table": "components/table/table",
+    "van-loading": "miniprogram_npm/vant-weapp/loading/index",
+    "van-tabs": "miniprogram_npm/vant-weapp/tabs/index",
+    "van-popup": "miniprogram_npm/vant-weapp/popup/index",
+    "van-dialog": "miniprogram_npm/vant-weapp/dialog/index",
+    "van-notify": "miniprogram_npm/vant-weapp/notify/index",
+    "van-datetime-picker": "miniprogram_npm/vant-weapp/datetime-picker/index"
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationStyle": "default",
+    "navigationBarBackgroundColor": "#ffffff",
+    "navigationBarTitleText": "梧桐喜鹊",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#ffffff",
+    "enablePullDownRefresh": false
+  },
+  "tabBar": {
+    "color": "#333",
+    "selectedColor": "#FDB82D",
+    "borderStyle": "white",
+    "list": [
+      {
+        "selectedIconPath": "lib/image/icon1_1.png",
+        "iconPath": "lib/image/icon1.png",
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "selectedIconPath": "lib/image/icon2_1.png",
+        "iconPath": "lib/image/icon2.png",
+        "pagePath": "pages/lineList/lineList",
+        "text": "货源大厅"
+      },
+      {
+        "selectedIconPath": "lib/image/icon3_1.png",
+        "iconPath": "lib/image/icon3.png",
+        "pagePath": "pages/myCenter/myCenter",
+        "text": "个人中心"
+      }
+    ]
+  },
+  "sitemapLocation": "sitemap.json"
+}

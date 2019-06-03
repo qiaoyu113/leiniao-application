@@ -1,0 +1,94 @@
+var formatDate = function (timestamp, option) {
+  var date = getDate(parseInt(timestamp));
+  var year = date.getFullYear()
+  var month = date.getMonth() + 1
+  var day = date.getDate()
+  var hour = function () {
+    if (date.getHours() < 10) {  //补‘0’
+      return '0' + date.getHours()
+    }
+    return date.getHours();
+  }
+  var minute = function () {
+    if (date.getMinutes() < 10) {
+      return '0' + date.getMinutes()
+    }
+    return date.getMinutes();
+  }
+  var second = function () {
+    if (date.getSeconds() < 10) {
+      return '0' + date.getSeconds()
+    }
+    return date.getSeconds();
+  }
+
+  if (option == 'notime') {  //不需要时间
+    return year + '-' + month + '-' + day;
+  }
+
+  return year + '-' + month + '-' + day + ' ' + hour() + ':' + minute() + ":" + second();
+}
+
+var tableNameFilter = function tableNameFilter(name) {
+  switch (name) {
+    //司机数据
+    case 'cityName': return '城市';
+    case 'depositAdd': return '订金司机数';
+    case 'depositAll': return '累计订金司机数';
+    case 'depositDay': return '订金司机数';
+    case 'depositMonth': return '月总订金司机数';
+    case 'downDrivers': return '掉线司机数';
+    case 'driverDeliveryAll': return '累计交付司机数';
+    case 'driverDeliveryDay': return '交付司机数';
+    case 'driverDeliveryMonth': return '月总司机交付数';
+    case 'driverMonthIncome': return '上月司机人均运费';
+    case 'driversMonthBid': return '司机平均标书数';
+    case 'goToWorkAll': return '累计首岗司机数';
+    case 'goToWorkDay': return '首岗司机数';
+    case 'goToWorkMonth': return '月总首岗司机数';
+    case 'intentionAll': return '累计意向司机数';
+    case 'intentionMonth': return '月总意向司机数';
+    case 'intentionNew': return '意向司机数';
+    case 'signingAdd': return '成交司机数';
+    case 'signingAll': return '累计成交司机数';
+    case 'signingDay': return '成交司机数';
+    case 'signingMonth': return '月总成交司机数';
+    //线路标书数据
+    case 'addBidNum': return ' 标书数';
+    case 'addLineNum': return '线路数';
+    case 'bidAverageIncome': return '平均标书收入';
+    case 'canSupportLineNum': return '当前可用线路总数';
+    case 'downBidNum': return '下线标书数';
+    case 'downBidNumM': return '月总下线标书数';
+    case 'freeLineNum': return '闲置线路数';
+    case 'freeLineNumM': return '月总闲置线路数';
+    case 'monLineNumber': return '月总线路数';
+    case 'monTenderNumber': return '月总标书数';
+    case 'ranking': return '排名';
+    case 'startLineNum': return '可用线路数';
+    case 'totalBidNum': return '累计标书总数';
+    case 'totalLineNum': return '累计线路总数';
+    default: return name
+  }
+}
+
+var nullFilter = function (val) {
+  if(!val){
+    val = 0
+  }
+  return val
+}
+
+var hasVal = function (val,val2) {
+  if (!val) {
+    val = val2
+  }
+  return val
+}
+
+module.exports = {
+  formatDate: formatDate,
+  tableNameFilter: tableNameFilter,
+  nullFilter: nullFilter,
+  hasVal: hasVal
+};

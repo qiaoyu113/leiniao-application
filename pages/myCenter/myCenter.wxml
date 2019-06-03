@@ -1,0 +1,58 @@
+<view class='UCenter-bg'>
+  <image src='https://image.weilanwl.com/gif/wave.gif' mode='scaleToFill' class='gif-wave'></image>
+  <view class='topCenter'>
+    <view class='topCenterRight'>
+      <view>您好，
+        <open-data type="userNickName"></open-data>
+      </view>
+      <view>欢迎来到梧桐喜鹊</view>
+    </view>
+    <view class='topCenterLeft'>
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+  </view>
+</view>
+
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
+  <view class="cu-item arrow" bindtap='goRouter' data-type='3'>
+    <text class='icon-profile text-orange margin_right_20'></text>
+    <text class='text-grey content'>个人信息</text>
+  </view>
+  <view class="cu-item arrow" bindtap='goRouter' data-type='2'>
+    <text class='icon-favor text-orange margin_right_20'></text>
+    <text class='text-grey content'>我的收藏</text>
+  </view>
+  <view class="cu-item arrow" bindtap='goRouter' data-type='1'>
+    <text class='icon-redpacket text-orange margin_right_20'></text>
+    <text class='text-grey content'>我的推荐与奖励</text>
+  </view>
+  <view class="cu-item arrow" data-hi='WeChat' bindtap='talphone'>
+    <text class='icon-service text-orange margin_right_20'></text>
+    <view class='text-grey content'>客服
+      <text style='float:right;'>01086469220</text>
+    </view>
+  </view>
+</view>
+
+<!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
+  <view class="cu-item arrow">
+    <navigator class='content' url='../test/list' hover-class='none'>
+      <view class='text-grey'>客服<text style='float:right;'>01086469220</text></view>
+    </navigator>
+  </view>
+</view> -->
+
+<!-- <view class="cu-modal {{modalName=='QrcodeModal'?'show':''}}">
+  <view class="cu-dialog">
+    <view class="bg-img" style="background-image: url('https://image.weilanwl.com/color2.0/zanCode.jpg');height:544rpx;">
+      <view class="cu-bar justify-end none-bg text-white">
+        <view class='action' bindtap='hideModal'>
+          <text class='icon-close '></text>
+        </view>
+      </view>
+    </view>
+    <view class="cu-bar">
+      <view class='justify-center flex-sub' bindtap='SaveQrcode'>保存到相册</view>
+    </view>
+  </view>
+</view> -->

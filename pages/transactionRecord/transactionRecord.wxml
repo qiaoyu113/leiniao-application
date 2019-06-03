@@ -1,0 +1,13 @@
+<view class='transationRecord'>
+  <view class='recordList'>
+    <view class='listLeft'>
+      <view>提现</view>
+      <view>200.00元</view>
+    </view>
+    <view class='listRight'>
+      <view>申请成功</view>
+      <view class='date'>2019-05-12 12:00</view>
+    </view>
+  </view>
+  <view class='hint'>如有提现问题可咨询客服01086469220</view>
+</view>
