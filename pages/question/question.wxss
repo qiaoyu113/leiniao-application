@@ -1,0 +1,82 @@
+/* pages/question/question.wxss */
+
+.question {
+  width: 100%;
+  padding: 15rpx 32rpx;
+  box-sizing: border-box;
+}
+
+.title {
+  width: 100%;
+  height: 60rpx;
+  font-size: 32rpx;
+  color: #4a4a4a;
+  font-weight: blod;
+}
+
+.title span {
+  color: red;
+}
+
+.topBox {
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.questionList {
+  padding: 5rpx 15rpx;
+  box-sizing: border-box;
+  float: left;
+  margin: 15rpx;
+  background: #ffa000;
+  text-align: center;
+  color: #656565;
+  background: #f2f2f2;
+  border: 1px solid #838383;
+  border-radius: 7px;
+}
+
+.checked {
+  color: #fff;
+  border: 1px solid #ffa000;
+  border-radius: 7px;
+  background: #ffa000;
+}
+
+.marginTop45 {
+  margin-top: 45rpx;
+}
+
+.marginTop45 span {
+  color: red;
+}
+
+.textarea {
+  width: 100%;
+  background: rgba(155, 155, 155, 0.08);
+  border-radius: 8px;
+  font-size: 28rpx;
+  color: #333;
+  padding: 30rpx;
+  box-sizing: border-box;
+  min-height: 200rpx;
+}
+
+.help {
+  width: 100%;
+  margin-top:10rpx;
+  font-size: 28rpx;
+  color: #656565;
+  text-align: right;
+}
+
+.btn {
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  color: #fff;
+  background: #ffa000;
+  border-radius: 10rpx;
+  margin-top: 60rpx;
+}

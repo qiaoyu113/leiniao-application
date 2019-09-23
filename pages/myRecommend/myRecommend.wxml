@@ -8,15 +8,13 @@
   </view> -->
   <view class='topBox'>
     <view class='topBoxTop'>
-      <view class='topBoxTopLeft'>
-        <view class='name'>账户余额（元）</view>
-        <view class='price'>220.00</view>
-        <view class='deposit' bindtap='goDeposit'>提现</view>
-      </view>
       <view class='topBoxTopRight'>
         <view class='depositLog' bindtap='goRecord'>提现记录</view>
-        <view class='recommendMakeMoney' bindtap='goRecommendDetail'>推荐赚现金
-    <text class='icon-right'></text></view>
+      </view>
+      <view class='topBoxTopLeft'>
+        <view class='name'>账户余额（元）</view>
+        <view class='price'>{{canExtract}}</view>
+        <view class='deposit' bindtap='goDeposit'>提现</view>
       </view>
     </view>
     <view class='topBoxBottom'>{{text}}</view>
@@ -28,8 +26,8 @@
         <view class='phone'>{{item.phone}}</view>
       </view>
       <view class='listRight'>
-        <view class='date' wx:if='{{item.state == 3}}'>已入驻</view>
-        <view class='dateNo' wx:if='{{item.state != 3}}'>未入驻</view>
+        <view class='date' wx:if='{{item.rewardAmount}}'>{{item.stateName}}({{item.rewardAmount}})</view>
+        <view class='dateNo' wx:if='{{!item.rewardAmount}}'>{{item.stateName}}</view>
         <view class='day'>{{item.createDate}}</view>
       </view>
     </view>

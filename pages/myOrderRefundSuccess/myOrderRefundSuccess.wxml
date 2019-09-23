@@ -1,0 +1,10 @@
+<view>
+  <view class="image">
+    <image src="https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/5d58379ca3634276b8b13ee1773dfd75" mode="widthFix"></image>
+  </view>
+  <view class="title">申请成功</view>
+  <view class="hint">已将退款申请提交至总部审核，具体到账时间按审核后打款为准。</view>
+  <view class="hint2">详情可咨询：400-688-9179</view>
+  <view class="submit" bindtap="goDetail">查看退款详情</view>
+  <view class="goHome" bindtap="goIndex">返回首页</view>
+</view>

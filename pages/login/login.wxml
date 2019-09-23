@@ -1,5 +1,5 @@
 <view class='login'>
   <image class='logo' src='../../lib/image/logo.png' mode='widthFix'></image>
   <view class='name'>欢迎来到梧桐喜鹊</view>
-  <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 授权登陆 </button>
+  <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 授权登录 </button>
 </view>

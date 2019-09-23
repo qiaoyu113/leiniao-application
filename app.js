@@ -61,11 +61,12 @@ App({
     })
   },
   globalData: {
-    token:null,
+    token:null, 
     userInfo:null,
     url: 'https://firmiana-bss-api-m1.yunniao.cn/', 
     // url: 'https://firmiana-bss-api.yunniao.cn/', 
     // url: 'http://172.17.101.77:20150/',
+    // url: 'http://172.17.101.77:20166/',
     imgUrl: 'http://test.resource.vjuzhen.com/'
   }
 })

@@ -1,0 +1,57 @@
+/* pages/myOrderRefundSuccess/myOrderRefundSuccess.wxss */
+
+.image {
+  width: 100%;
+  text-align: center;
+}
+
+image {
+  width: 140rpx;
+  margin: 140rpx auto 40rpx;
+}
+
+.title {
+  width: 100%;
+  text-align: center;
+  font-size: 40rpx;
+  color: #000;
+}
+
+.hint {
+  width: 100%;
+  padding: 50rpx 100rpx 30rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  text-align: center;
+  color: #636363;
+}
+
+.hint2 {
+  width: 100%;
+  padding: 0 100rpx 30rpx;
+  box-sizing: border-box;
+  font-size: 28rpx;
+  text-align: center;
+  color: #636363;
+}
+
+.submit {
+  width: 88%;
+  height: 88rpx;
+  line-height: 88rpx;
+  margin: 30rpx auto 0;
+  text-align: center;
+  background: #ffa000;
+  border-radius: 10rpx;
+  font-size: 34rpx;
+  color: #fff;
+}
+
+.goHome {
+  width: 88%;
+  text-align: right;
+  color:#999;
+  font-size: 24rpx;
+  line-height: 68rpx;
+  margin: 0 auto;
+}

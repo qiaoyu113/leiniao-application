@@ -73,3 +73,18 @@ page {
 .margin_right_20{
   margin-right: 20rpx;
 }
+
+.getPhoneBox2{
+  position: relative;
+  text-align: left;
+}
+
+.getPhoneBox2::after{
+  border: none;
+}
+
+.getPhone{
+  position: absolute;
+  left:0;
+  top:0;
+}

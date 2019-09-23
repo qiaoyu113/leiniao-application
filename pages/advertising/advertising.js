@@ -61,6 +61,14 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    let userId = wx.getStorageSync('userId')
+    return {
+      title: '自主创业，随时上岗；货源稳定、线路优质；购车保收入10万+/年',
+      path: '/pages/index/index?puserId=' + userId + '&source=2',
+      imageUrl: '../../lib/image/shareImg.jpg',
+      success: function (res) {
+        // 转发成功
+      },
+    }
   }
 })

@@ -1,34 +1,35 @@
+<wxs module="filter" src="../../filter/commonFilter.wxs"></wxs>
 <view class='lineDetail'>
-  <map id="myMap" class='imgSHow' wx:if='{{mapShow}}' ongitude="{{poi.longitude}}"
-    latitude="{{poi.latitude}}"
-    scale='16' show-location>
+  <map id="myMap" class='imgSHow' wx:if='{{mapShow}}' longitude="{{poi.longitude}}" latitude="{{poi.latitude}}" markers="{{markers}}" scale='16' show-location>
   </map>
-  <image class='imgSHow' wx:if='{{!mapShow}}' src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/7987d191ed6f4975b0259934cc4ffaec'></image>
+  <image class='imgSHow' wx:if='{{!mapShow}}' src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/7abd909c0edf4b8e8108513341bc715e' mode='widthFix'></image>
   <view class='detailBox'>
     <view class='boxCss'>
       <view class='boxCss_top'>
-        <view class='boxCss_top_left'>就哦方急哦啊司机地方</view>
+        <view class='boxCss_top_left'>{{detail.lineName}}</view>
         <view class='boxCss_top_right'>
-          <text class="icon-attentionfavor marginLeft"></text> 10
-          <text class="icon-friendfavor marginLeft"></text> 20
+          <text class="icon-favor marginLeft"></text> {{numDetail}}
+          <text class="icon-friendfavor marginLeft"></text> {{numDetail2}}
         </view>
       </view>
       <view class='boxCss_center'>
-        <view class='boxCss_list'>
+        <!-- <view class='boxCss_list'>
           <view class='boxCss_list_left'>客户名称:</view>
-          <view class='boxCss_list_right'>123</view>
-        </view>
+          <view class='boxCss_list_right'>{{detail.customerName}}</view>
+        </view> -->
         <view class='boxCss_list'>
           <view class='boxCss_list_left'>车型:</view>
-          <view class='boxCss_list_right'>222</view>
+          <view class='boxCss_list_right'>{{detail.carTypeName}}</view>
         </view>
         <view class='boxCss_list'>
-          <view class='boxCss_list_left'>客户单趟报价:</view>
-          <view class='boxCss_list_right'>280</view>
+          <view class='boxCss_list_left'>月收入:</view>
+          <view class='boxCss_list_right'>
+            <span wx:if='{{(detail.preLowestQuotations * detail.month * detail.dayNum) <= 15000 }}'>{{detail.preLowestQuotations * detail.month * detail.dayNum}}</span>
+            <span wx:if='{{(detail.preLowestQuotations * detail.month * detail.dayNum) > 15000 }}'>15000</span>元以上</view>
         </view>
         <view class='boxCss_list'>
-          <view class='boxCss_list_left'>预计月收入:</view>
-          <view class='boxCss_list_right'>{{}}</view>
+          <view class='boxCss_list_left'>预计月成交:</view>
+          <view class='boxCss_list_right'>{{detail.preLowestQuotations * detail.dayNum * detail.month}}元</view>
         </view>
       </view>
     </view>
@@ -36,60 +37,61 @@
       <view class='boxCss_center'>
         <view class='boxCss_list'>
           <view class='boxCss_list_left'>区域:</view>
-          <view class='boxCss_list_right'>222</view>
+          <view class='boxCss_list_right'>
+            <span wx:if='{{detail.provinceAreaName}}'>{{detail.provinceAreaName}}</span>{{detail.districtArea}}</view>
         </view>
         <view class='boxCss_list'>
           <view class='boxCss_list_left'>货物类型:</view>
-          <view class='boxCss_list_right'>222</view>
+          <view class='boxCss_list_right'>{{detail.cargoType}}</view>
         </view>
         <view class='boxCss_list'>
           <view class='boxCss_list_left'>每日趟数:</view>
-          <view class='boxCss_list_right'>222</view>
+          <view class='boxCss_list_right'>{{detail.dayNum}}趟</view>
         </view>
         <view class='boxCss_list'>
-          <view class='boxCss_list_left'>配送点位书:</view>
-          <view class='boxCss_list_right'>222</view>
+          <view class='boxCss_list_left'>配送点位数:</view>
+          <view class='boxCss_list_right'>{{detail.deliveryNum}}个</view>
         </view>
         <view class='boxCss_list'>
           <view class='boxCss_list_left'>仓位置:</view>
-          <view class='boxCss_list_right'>222</view>
+          <view class='boxCss_list_right'>{{detail.warehouse}}</view>
         </view>
         <view class='boxCss_list'>
           <view class='boxCss_list_left'>收货人类型:</view>
-          <view class='boxCss_list_right'>222</view>
+          <view class='boxCss_list_right'>{{detail.receiverType}}</view>
         </view>
         <view class='boxCss_list'>
           <view class='boxCss_list_left'>月频次:</view>
-          <view class='boxCss_list_right'>222</view>
+          <view class='boxCss_list_right'>{{detail.month}}</view>
         </view>
         <view class='boxCss_list'>
           <view class='boxCss_list_left'>货物总体积(立方米):</view>
-          <view class='boxCss_list_right'>222</view>
+          <view class='boxCss_list_right'>{{detail.volume}}</view>
         </view>
         <view class='boxCss_list'>
           <view class='boxCss_list_left'>工作时长:</view>
-          <view class='boxCss_list_right'>222</view>
+          <view class='boxCss_list_right'>{{detail.timeDiff}}</view>
         </view>
         <view class='boxCss_list'>
-          <view class='boxCss_list_left'>出车时间:</view>
+          <view class='boxCss_list_left'>预计工作时间:</view>
           <view class='boxCss_list_right'>
-            <view class='time'>08:00——12:00</view>
-            <view class='time'>08:00——12:00</view>
-            <view class='time'>08:00——12:00</view>
-            <view class='time'>08:00——12:00</view>
+            <view class='time' wx:for='{{detail.workingTimeRegin}}' wx:key='i'>{{item}}</view>
           </view>
         </view>
       </view>
     </view>
-    <view class='boxCss margin100'>
+    <view class='boxCss margin100' wx:if='{{detail.remark}}'>
       <view class='boxCss_center textarea'>
-        备注:
+        备注: {{detail.remark}}
       </view>
     </view>
   </view>
   <view class='btnMent'>
-    <view class='btnLeft'>立即入驻</view>
-    <view class='btnRight' bindtap='openRecommend'>推荐有礼</view>
+    <view class='btnLeft' wx:if='{{!entranceType}}' bindtap='enTranceNow'>立即入驻</view>
+    <button wx:if='{{!flag && !entranceType}}' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber2"></button>
+    <view class='btnLeft' wx:if='{{entranceType && !collect}}' data-type='1' bindtap='collectBtn'>收藏</view>
+    <view class='btnLeft' wx:if='{{entranceType && collect}}' data-type='2' bindtap='collectBtn'>已收藏</view>
+    <!-- <view class='btnRight' bindtap='openRecommend'>推荐有礼</view> -->
   </view>
   <!--推荐有礼-->
   <view class='recommend' wx:if='{{recommendState}}'>
@@ -97,23 +99,45 @@
     <view class='title'>
       <text class="icon-presentfill marginLeft"></text>推荐有礼</view>
     <view class='content'>
-      <view class='contentList'>1、推荐他人成功到公司面试者，1-9人每人奖励30元，10-19人每人奖励50元，20人以上每人奖励80元。</view>
-      <view class='contentList'>2、通过邀请面试成功后司机完成了成交，推荐人可额外奖励200元。</view>
-      <view class='contentList'>3、多人推荐同一司机信息，提交时间最早的一人可获得奖励。</view>
+      <view class='contentList'>1、推荐面试奖励：
+        <text>30元/人</text>
+      </view>
+      <view class='contentList'>成功推荐司机到公司进行面试，推荐人获得
+        <text>30元/人</text>现金奖励，将通过银行打款方式，发放到推荐人账户内。</view>
+      <!-- <view class='contentList'>2、司机跟车奖励：
+        <text>10元/人</text>
+      </view>
+      <view class='contentList'>成功推荐司机缴纳看线押金300元（可退）跟车看线，推荐人获得
+        <text>10元/人</text>现金奖励。</view>
+      <view class='contentList'>3、新车成交奖励：
+        <text>600元/人</text>
+      </view>
+      <view class='contentList'>成功推荐司机购车并缴纳全额线路服务费，推荐人获得
+        <text>600元/人</text>现金奖励。</view>
+      <view class='contentList'>4、个人新车成交冠军奖励：
+        <text>1000元</text>
+      </view> -->
+      <view class='contentList'>2、多人推荐同一司机信息，提交时间最早的一人可获得奖励。</view>
+      <view class='contentList'>3、活动截止时间：2019年6月16日。本规则解释权归梧桐喜鹊项目组所有。</view>
       <view class='contentList'>4、推荐方式：（三选一）</view>
       <view class='contentList'>
         <text>➀</text> 点击
-        <text>右上角三点</text>， 转发至好友，好友访问分享链接申请咨询试驾</view>
+        <text>右上角三点</text>或
+        <text>分享好友</text>， 转发至好友，好友访问分享链接申请咨询试驾</view>
       <view class='contentList'>
         <text>➁</text> 点击
         <text>“活动页分享”</text>，截图或下载图片发送朋友圈，意向司机访问分享链接申请咨询入驻</view>
       <view class='contentList'>
         <text>➂</text> 点击
         <text>“提交推荐司机信息”</text>，直接提交信息</view>
-      <view class='contentList'>5、本规则解释权归梧桐喜鹊项目组所有。</view>
     </view>
+    <button class='btn marginTop' open-type="share">分享好友</button>
     <view class='btn marginTop' bindtap='goRecommendDetail'>活动页分享</view>
     <view class='btn' bindtap='goRecommend'>提交推荐司机信息</view>
   </view>
   <view class='recommendBg' wx:if='{{recommendState}}' bindtap='closeRecommend' catchtouchmove="myCatchTouch"></view>
+  <!--首页-->
+  <view class='consulting' wx:if='{{firstCome}}' bindtap='goHome'>首页</view>
 </view>
+<!--警告弹窗-->
+<van-toast id="van-toast" />

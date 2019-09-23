@@ -1,13 +1,14 @@
 <view class='transationRecord'>
-  <view class='recordList'>
+  <view class='recordList' wx:for='{{list}}' wx:key='{{index}}'>
     <view class='listLeft'>
       <view>提现</view>
-      <view>200.00元</view>
+      <view>{{item.cash}}元</view>
     </view>
     <view class='listRight'>
-      <view>申请成功</view>
-      <view class='date'>2019-05-12 12:00</view>
+      <view>{{item.stateName}}</view>
+      <view class='date'>{{item.createDate}}</view>
     </view>
   </view>
-  <view class='hint'>如有提现问题可咨询客服01086469220</view>
+  <view class='noMore' wx:if='{{list.length == 0}}'>暂无数据</view>
+  <view class='hint'>如有提现问题可咨询客服400-688-9179</view>
 </view>

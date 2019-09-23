@@ -40,6 +40,10 @@ function requestLoading(url, params, met, message, types, success, fail) {
         method: met,
         success: function (res) {
           if (res.data.code == 40101) {
+            wx.removeStorage({
+              key: 'token',
+              success: function(res) {}
+            })
             getRouter();
           } else if (res.data.code == 40301) {
             wx.showToast({
@@ -136,25 +140,26 @@ function requestLoading(url, params, met, message, types, success, fail) {
 function getRouter() {
   let router = getCurrentPages()[getCurrentPages().length - 1].route;
   getWxOpenId();
-  let index = router.lastIndexOf("\/");
-  router = router.substring(index + 1, router.length);
-  let roterList = ['index','lineList','myCenter','myRecommend'];
-  for (let i = 0; i < roterList.length; i++) {
-    if (roterList[i] == router) {
-      wx.showToast({
-        title: "登陆已过期",
-        icon: 'loading',//图标，支持"success"、"loading" 
-        duration: 1000,
-      })
-      setTimeout(()=>{
-        wx.redirectTo({
-          // url: '/pages/login/login'
-          url: router
-        });
-      },1000)
-      break;
-    }
-  }
+  // let index = router.lastIndexOf("\/");
+  // router = router.substring(index + 1, router.length);
+  // let roterList = ['index','lineList','myCenter','myRecommend'];
+  // for (let i = 0; i < roterList.length; i++) {
+  //   if (roterList[i] == router) {
+      // wx.showToast({
+      //   title: "登录已过期",
+      //   icon: 'loading',//图标，支持"success"、"loading" 
+      //   duration: 1000,
+      // })
+  //     console.log(router)
+  //     setTimeout(()=>{
+  //       wx.redirectTo({
+  //         // url: '/pages/login/login'
+  //         url: 'myCenter'
+  //       });
+  //     },1000)
+  //     break;
+  //   }
+  // }
   return true
   // getWxOpenId();
 }
@@ -163,7 +168,7 @@ function getRouter() {
 function getWxOpenId() {
   var pagelist = getCurrentPages();
   wx.showToast({
-    title: "正在登录",
+    title: "正在连接",
     icon: 'loading',//图标，支持"success"、"loading" 
     duration: 2000,
   })
@@ -185,6 +190,11 @@ function getWxOpenId() {
         'json',
         function (res) {
           if (res.success) {
+            wx.setStorage({
+              key: 'userId',
+              data: res.data.userId,
+              success: function (res) { }
+            })
             wx.setStorage({
               key: 'openId',
               data: res.data.openId,

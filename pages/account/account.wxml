@@ -1,0 +1,11 @@
+<view class='account'>
+  <view class='list' bindtap='goRouter' data-type='3'>
+    <image class='images' src="{{image_filepath}}"></image>
+  </view>
+  <view class='list' bindtap='goRouter' data-type='1'>
+    <image class='images' src='{{image_filepath2}}'></image>
+  </view>
+  <!-- <view class='list' bindtap='goRouter' data-type='2'>
+    <image class='images' src="https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/d95e1c606b054f4ab6fffafd6a5d8bf6"></image>
+  </view> -->
+</view>

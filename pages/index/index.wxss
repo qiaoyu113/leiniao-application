@@ -126,7 +126,7 @@
 
 .swiper-box {
   width: 100%;
-  height:380rpx;
+  height: 380rpx;
 }
 
 .swiperList {
@@ -510,15 +510,59 @@
   box-sizing: border-box;
 }
 
+.carImage {
+  width: 250rpx;
+  position: absolute;
+  right: -10rpx;
+  bottom: 0;
+}
+
 .recommendedList {
   background: #f2f2f2;
-  margin-bottom: 15rpx;
+  margin-bottom: 30rpx;
   padding: 24rpx;
-  padding-bottom: 0;
+  padding-bottom: 100rpx;
   box-sizing: border-box;
   position: relative;
-  border-radius: 6rpx;
   overflow: hidden;
+  box-shadow: 2px 2px 5px 6px rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
+}
+
+.recommendedList:nth-child(1) {
+  background: url('https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/c4d48ad73ad44beea5088c5e1b7a11f0')no-repeat;
+  background-size: 100% 100%;
+}
+
+.recommendedList:nth-child(2) {
+  background: url('https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/d3246f5aa43f43ec99b96542ffdc27b8')no-repeat;
+  background-size: 100% 100%;
+}
+
+.recommendedList:nth-child(1) .name {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-image: linear-gradient(180deg, #f76b1c 0%, #fab861 100%);
+  width: 204rpx;
+  height: 55rpx;
+  line-height: 55rpx;
+  border-bottom-right-radius: 50rpx;
+  text-align: center;
+  color: #fff;
+}
+
+.recommendedList:nth-child(2) .name {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background-image: linear-gradient(180deg, #3b69fc 0%, #4eb8f9 100%);
+  width: 204rpx;
+  height: 55rpx;
+  line-height: 55rpx;
+  border-bottom-right-radius: 50rpx;
+  text-align: center;
+  color: #fff;
 }
 
 .recommendedList_top {
@@ -544,6 +588,7 @@
   float: left;
   width: calc(100% - 48rpx);
   padding-left: 20rpx;
+  padding-top: 70rpx;
   box-sizing: border-box;
 }
 
@@ -562,8 +607,9 @@
 
 .recommendedList_top .right .value {
   font-size: 28rpx;
-  color: #656565;
+  color: #4a4a4a;
   line-height: 40rpx;
+  font-weight: bold;
 }
 
 .recomendedList_center {
@@ -573,62 +619,91 @@
   overflow: hidden;
 }
 
-.recomendedList_center .advertising {
-  width: 170rpx;
+.recommendedList:nth-child(1) .recomendedList_center .advertising {
   text-align: center;
-  padding: 15rpx 0;
+  padding: 20rpx;
   box-sizing: border-box;
   float: left;
-  color: #fff;
-  margin: 0 18rpx;
+  margin: 0 5rpx;
   font-size: 24rpx;
+  border: 1px solid #ffa000;
+  color: #ffa000;
+}
+
+.recommendedList:nth-child(2) .recomendedList_center .advertising {
+  text-align: center;
+  padding: 20rpx;
+  box-sizing: border-box;
+  float: left;
+  margin: 0 5rpx;
+  font-size: 24rpx;
+  border: 1px solid #3585fb;
+  color: #3585fb;
 }
 
 .advertisingBox {
   width: 100%;
-  padding:16rpx;
+  padding: 16rpx;
   overflow: hidden;
   margin: auto;
 }
 
-.recomendedList_center .advertising:nth-child(1) {
-  background-image: linear-gradient(-180deg, #fcc854 0%, #ff9750 100%);
-}
-
-.recomendedList_center .advertising:nth-child(2) {
-  background-image: linear-gradient(-180deg, #5ddaa0 0%, #04b370 100%);
-}
-
-.recomendedList_center .advertising:nth-child(3) {
-  background-image: linear-gradient(0deg, #01b4ed 0%, #04d3ce 97%);
-}
-
 .recomended_bottom {
-  width: 100%;
+  width: 200rpx;
   text-align: right;
   font-size: 24rpx;
   color: #656565;
-  height: 80rpx;
-  line-height: 80rpx;
+  height: 60rpx;
+  line-height: 60rpx;
+  position: absolute;
+  right: 27rpx;
+  top: 0;
 }
 
-.state {
+.recommendedList:nth-child(2) .state {
   position: absolute;
-  right: 0;
-  top: 0;
-  background: #FAC844;
-  color: #fff;
+  right: 27rpx;
+  top: 60rpx;
+  color: #3f79fb;
   font-size: 28rpx;
   text-align: center;
-  width: 200rpx;
+  width: 144rpx;
   height: 55rpx;
-  line-height: 55rpx;
+  line-height: 51rpx;
+  background: #e1e7fc;
+  border: 1px solid #426efa;
+  border-radius: 6px;
+}
+
+.recommendedList:nth-child(1) .state {
+  position: absolute;
+  right: 27rpx;
+  top: 60rpx;
+  color: #f76f1f;
+  font-size: 28rpx;
+  text-align: center;
+  width: 144rpx;
+  height: 55rpx;
+  line-height: 51rpx;
+  background: #fbd6b7;
+  border: 1px solid #ffa000;
+  border-radius: 6px;
 }
 
 .cooperation {
   width: 100%;
   text-align: center;
-  overflow: hidden;
+  padding: 0 30rpx;
+  padding-bottom: 20rpx;
+  box-sizing: border-box;
+}
+
+.cooperation .box {
+  width: 100%;
+  box-shadow: 2px 2px 5px 6px rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
+  padding: 30rpx 0;
+  box-sizing: border-box;
 }
 
 .cooperation .cooperationImg {
@@ -638,6 +713,12 @@
 
 .driverList {
   width: 100%;
+}
+
+.driverBox {
+  margin: 10rpx 25rpx;
+  box-shadow: 2px 2px 5px 6px rgba(0, 0, 0, 0.04);
+  border-radius: 8px;
 }
 
 .driverImage {
@@ -675,18 +756,29 @@
 }
 
 .consulting {
-  width: 90rpx;
-  height: 90rpx;
-  line-height: 90rpx;
+  width: 110rpx;
+  height: 110rpx;
+  line-height: 135rpx;
+  border: 10rpx solid#ffa64d;
+  opacity: 0.85;
   position: fixed;
   right: 43rpx;
   bottom: 140rpx;
-  background: #ffa000;
-  box-shadow: 3px 3px 14px 0 rgba(0, 0, 0, 0.50);
+  background: #fff;
   text-align: center;
-  color: #fff;
-  font-size: 26rpx;
+  color: #8b572a;
+  font-size: 14rpx;
   border-radius: 100%;
+}
+
+.icon-service {
+  display: block;
+  font-size: 48rpx;
+  position: absolute;
+  top: -30rpx;
+  left: 0;
+  right: 0;
+  margin: auto;
 }
 
 .telphoneBtn {
@@ -704,11 +796,51 @@
   border: none;
 }
 
-.recommend{
-  width:100%;
-  height:220rpx;
+.recommend {
+  width: 100%;
+  padding-top: 10rpx;
 }
 
-.recommend image{
-  width:100%;
+.recommend image {
+  width: 100%;
+}
+
+.activityEntrance {
+  padding: 10rpx 30rpx;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.activityEntrance .image {
+  width: 100%;
+  height: 222rpx;
+  box-shadow: 2px 2px 8px 7px rgba(0, 0, 0, 0.04);
+  border-radius: 10rpx;
+}
+
+.activityEntrance .img {
+  width: 100%;
+}
+
+.activityEntrance .getPhone {
+  width: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  opacity: 0;
+  background: red;
+}
+
+.hindBg {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background: rgba(0, 0, 0, 0.50);
 }

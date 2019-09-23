@@ -1,0 +1,50 @@
+/* pages/myOrderDetail/myOrderDetail.wxss */
+
+page {
+  background: #f6f6f6;
+}
+
+.myOrderDetailBox {
+  width: 100%;
+  background: #fff;
+  overflow: hidden;
+  padding: 15rpx 50rpx;
+  box-sizing: border-box;
+  border-bottom: 10rpx solid #f6f6f6;
+}
+
+.myOrderDetailBox .myOrderDetaillist {
+  line-height: 60rpx;
+  color: #9b9b9b;
+  font-size: 32rpx;
+}
+
+.myOrderDetailBox .myOrderDetaillist text {
+  font-size: 32rpx;
+  color: #333;
+  float: right;
+}
+
+.myOrderDetail {
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.checkPay {
+  width: 88%;
+  height: 88rpx;
+  background: #ffa000;
+  border-radius: 10rpx;
+  text-align: center;
+  line-height: 88rpx;
+  color: #fff;
+  font-size: 32rpx;
+  margin: 64rpx auto 20rpx;
+}
+
+.refund {
+  float: right;
+  color: #656565;
+  margin-right: 30rpx;
+  margin-top: 20rpx;
+}

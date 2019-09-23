@@ -1,0 +1,22 @@
+<view class='checkPayment'>
+  <view class="checkPaymentList">
+    <view class="top">
+      <view class="left">订单编号：14878374</view>
+      <view class='right'>成交时间：2019.08.08</view>
+    </view>
+    <view class='bottom'>
+      <view class="left">车型：金杯</view>
+      <view class='right'>查看收入</view>
+    </view>
+  </view>
+  <view class="checkPaymentList">
+    <view class="top">
+      <view class="left">订单编号：14878374</view>
+      <view class='right'>成交时间：2019.08.08</view>
+    </view>
+    <view class='bottom'>
+      <view class="left">车型：金杯</view>
+      <view class='right'>查看收入</view>
+    </view>
+  </view>
+</view>

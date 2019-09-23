@@ -1,0 +1,23 @@
+<!--pages/activityApply/activityApply.wxml-->
+<view class="activityApply">
+  <van-notice-bar left-icon="https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/c5f41a9c666a427093f6ffa9d35bf6f6" speed='30' text="{{ noticeVal }}" />
+  <view class="edit-list">
+    <view class="list-name list-first">上传参加活动照片
+      <text class="red">*</text>
+    </view>
+    <view class='hint'>请上传您需要参加活动的照片，可上传工作照，全家福，亲子照</view>
+    <view class="imageBox">
+      <image class="head-portrait" src="{{avatar}}" bindtap='changeAvatar' mode="widthFix"></image>
+    </view>
+    <view class="list-name list-first">请送上您的中秋祝福语
+      <text class="red">*</text>
+    </view>
+    <view class='blessingBox'>
+      <view class="{{checkIndex == index ? 'blessingListCheck' : 'blessingList'}}" wx:for='{{blessList}}' bindtap="checkBless" data-index='{{index}}' wx:key='inx'>{{ item }}</view>
+      <textarea class="textarea" value='{{textareaVal}}' bindinput='_input' placeholder="送上您的中秋祝福吧～"></textarea>
+    </view>
+    <view class="submit" bindtap="submitForm">提交</view>
+  </view>
+</view>
+<!--警告弹窗-->
+<van-notify id="van-notify" />

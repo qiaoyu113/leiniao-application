@@ -3,25 +3,38 @@
     <view class='lineDetailBox'>
       <view class='lineTitle'>货源线路信息</view>
       <view class='lineBox'>
-        <view class='lineList'>京东</view>
-        <view class='lineList'>线路吗阿斯顿发</view>
-        <view class='lineList'>京东</view>
-        <view class='lineList'>京东</view>
-        <view class='lineList'>京东</view>
+        <view class='lineList'>{{lineDetail.value1}}</view>
+        <view class='lineList'>{{lineDetail.value2}}</view>
+        <view class='lineList'>{{lineDetail.value3}}</view>
+        <view class='lineList'>{{lineDetail.value4}}</view>
+        <view class='lineList'>{{lineDetail.value5}}</view>
       </view>
     </view>
     <view class='recommendHasGrif'>
       <image class='recommendHasGrifIMG' src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/9822a7d7236943f4bc4fae140787ab1a' mode='widthFix' style='width:100%'></image>
-      <view class='rule'>1、推荐他人成功到公司面试者，1-9人每人奖励
-        <text>30元</text>,10-19人每人奖励
-        <text>50元</text>，20人以上每人奖励
-        <text>80元</text>
+      <view class='rule'>1、推荐面试奖励：<text>30元/人</text></view>
+      <view class='rule'>对成功邀约到公司面试的司机，对推荐人给予<text>30元/人</text>现金奖励，将通过银行打款方式，发放到推荐人账户内。</view>
+      <view class='rule'></view>
+      <view class='rule'>【推荐奖励规则】</view>
+      <view class='rule'>1、推荐人推荐司机需到公司正常面试，并完整填写面试信息表。</view>
+      <view class='rule'>2、面试推荐奖在活动结束时统一由银行打款进行发放。</view>
+      <view class='rule'>3、同一推荐人推荐人连续推荐三人均未成交的，奖励先发放2人面试奖励，从第三人开始，暂停发放，成交后将一次发放累计面试奖励。</view>
+      <!-- <view class='rule'>6、活动截止时间：2019年6月16日。本规则解释权归梧桐喜鹊项目组所有。</view> -->
+      <!-- <view class='rule'>7、推荐方式：（三选一）</view>
+      <view class='rule'><text>①</text>点击右上角三点， 转发至好友，好友访问分享链接申请咨询试驾</view>
+      <view class='rule'><text>②</text>点击“活动页分享”，截图或下载图片发送朋友圈，意向司机访问分享链接申请咨询入驻</view>
+      <view class='rule'><text>③</text>点击“提交推荐司机信息”，直接提交信息</view> -->
+      <view class='qrCodeImg'>
+        <image src='{{qrcode}}' mode='widthFix'></image>
+        <view class='text'>长按识别直接咨询梧桐喜鹊小程序</view>
       </view>
-      <view class='rule'>2、通过邀请面试成功后司机完成了成交，推荐人可额外奖励
-        <text>200元</text>
-      </view>
-      <view class='rule'>3、多人推荐同一司机信息，提交时间最早的一人可获得奖励。</view>
     </view>
-    <view class='saveImg'>保存图片</view>
+    <view wx:if="{{bkImg == ''}}" class='saveImg'>正在生成海报...</view>
+    <view wx:if="{{bkImg != '' && !openSettingBtnHidden}}" class='saveImg' bindtap='saveImageToPhotosAlbum'>保存图片</view>
+    <button type='primary' class='saveImg' open-type="openSetting"
+bindopensetting='handleSetting' hidden='{{!openSettingBtnHidden}}'>去授权</button>
+    <canvas canvas-id='share' style='width:92vw;height:120vh;' hidden='{{canvasHidden}}'></canvas>
   </view>
 </view>
+<!--警告弹窗-->
+<van-notify id="van-notify" />

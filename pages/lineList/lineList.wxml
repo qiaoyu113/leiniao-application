@@ -1,15 +1,46 @@
 <wxs module="filter" src="../../filter/commonFilter.wxs"></wxs>
 <view class='lineListBox'>
   <view class='SearchBox'>
-    <image src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/539e47df1c024da4aa9216b36b6c9ff8' mode='widthFix'></image>
+    <image src='{{image_filepath}}' mode='widthFix'></image>
     <view class='searchInp'>
-      <picker bindchange="bindPickerChange" value="{{index}}" range="{{cityArray}}">
-        <view class="picker">
-          <view class='searchLeft'>{{cityArray[index]}}
-            <text class="icon-unfold marginLeft"></text>
+      <view class='searchLeft'>
+        <picker bindchange="bindPickerChange" value="{{index}}" range="{{cityArray}}">
+          <view class="picker">
+            <view class='searchLefts'>{{cityArray[index]}}
+              <text class="icon-triangledownfill marginLeft"></text>
+            </view>
           </view>
+        </picker>
+      </view>
+      <view class='searchRight'>
+        <view class='li'>
+          <picker bindchange="bindPickerChange2" value="{{index2}}" range="{{areaArr}}">
+            <view class="picker">
+              <view class='searchLefts borderR'>{{areaVal}}
+                <text class="icon-triangledownfill marginLeft"></text>
+              </view>
+            </view>
+          </picker>
         </view>
-      </picker>
+        <view class='li'>
+          <picker bindchange="bindPickerChange3" value="{{index3}}" range="{{goodArray}}">
+            <view class="picker">
+              <view class='searchLefts borderR'>{{goodVal}}
+                <text class="icon-triangledownfill marginLeft"></text>
+              </view>
+            </view>
+          </picker>
+        </view>
+        <view class='li'>
+          <picker bindchange="bindPickerChange4" value="{{index4}}" range="{{carArray}}">
+            <view class="picker">
+              <view class='searchLefts'>{{carVal}}
+                <text class="icon-triangledownfill marginLeft"></text>
+              </view>
+            </view>
+          </picker>
+        </view>
+      </view>
       <!-- <view class='searchRight'>
         <text class="icon-search marginLeft"></text>
         <input type='text' placeholder='输入搜索信息' placeholder-class='inputHolder'></input>
@@ -19,9 +50,11 @@
   <!--列表-->
   <view class='lineBox'>
     <view class='lineList' wx:for='{{list}}' wx:key='{{item}}' data-id='{{item.lineId}}' bindtap='goDetail'>
+      <image class="iconSale"  wx:if='{{item.isSoldOut == 1}}'  src="https://oss-qzn.yunniao.cn/img/1b819fc72e5a4153b749ff46dbe9ac19"></image>
       <view class='lineListTop'>
         <view class='name'>
-          <view>{{item.customerName}}</view>
+          <!-- <view>{{item.customerName}}</view> -->
+          <view>{{item.cargoType}} <span>NO.{{item.lineId}}</span></view>
         </view>
         <view class='center'>
           <image class='center_left' src='../../lib/image/lineIcon.png' mode='widthFix'></image>
@@ -35,26 +68,36 @@
               <view class='center_right_cal margin24'>配送点位数：{{item.deliveryNum}}</view>
             </view>
             <view class='center_right_box'>
-              <view class='center_right_name'>配送区域：{{filter.hasVal(item.provinceAreaName,item.cityName)}}<span wx:if='{{item.cityAreaName}}'>{{filter.hasVal(item.cityAreaName)}}</span></view>
+              <view class='center_right_name'>配送区域：{{filter.hasVal(item.provinceAreaName,item.cityName)}}
+                <span wx:if='{{item.cityAreaName}}'>{{filter.hasVal(item.cityAreaName)}}</span>
+              </view>
               <view class='center_right_cal'>月频次：{{item.month}}趟/月</view>
             </view>
           </view>
         </view>
         <view class='price'>
-          <view class='priceTip'>客户报价：{{item.preLowestQuotations}}元/趟</view>
+          <!-- <view class='priceTip'>客户报价：{{item.preLowestQuotations}}元/趟</view> -->
+          <view class='priceTip'>月收入：<span wx:if='{{(item.preLowestQuotations * item.month * item.dayNum) <= 15000 }}'>{{item.preLowestQuotations * item.month * item.dayNum}}</span><span wx:if='{{(item.preLowestQuotations * item.month * item.dayNum) > 15000 }}'>15000</span>元以上</view>
         </view>
-        <view class='tip'>推荐线路</view>
+        <view class='tip'>{{item.lineRankName}}</view>
         <view class='tip2'>可上车数：{{item.deployNum}}</view>
       </view>
       <view class='bottom'>
         <view>公里数：{{item.distance}}</view>
         <view>总耗时：{{item.timeDiff}}</view>
+        <view class='goDetail'>查看详情
+          <text class="icon-right marginLeft"></text>
+        </view>
       </view>
     </view>
   </view>
+  <view class='noMore' wx:if='{{list.length == 0}}'>暂无数据</view>
   <!--咨询-->
-  <view class='consulting' data-hi='WeChat' bindtap='talphone'>咨询</view>
+  <view class='consulting' data-hi='WeChat' bindtap='talphone'>
+    <text class='icon-service text-orange'></text>
+    <text>咨询</text>
+  </view>
   <!--绑定手机号-->
   <view class='bgShow' wx:if='{{!flag}}' catchtouchmove="myCatchTouch"></view>
-  <button class='loginBtn' wx:if='{{!flag}}'  open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">授权登陆</button>
+  <button class='loginBtn' wx:if='{{!flag}}' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">授权登录</button>
 </view>

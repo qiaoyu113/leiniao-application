@@ -1,0 +1,120 @@
+/* pages/recommendDetail/recommendDetail.wxss */
+
+page {
+  background: #e24d34;
+}
+
+.recommendDetail {
+  width: 100%;
+  padding: 0 35rpx;
+  box-sizing: border-box;
+  background: url('https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/e904722bfa414fa189fa0b29d683e38a')no-repeat;
+  background-size: 100%;
+  padding-bottom:300rpx;
+}
+
+.lineDetail {
+  width: 100%;
+  padding-top: 610rpx;
+}
+
+.lineDetailBox {
+  width: 100%;
+  background: url('https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/e904722bfa414fa189fa0b29d683e38a')no-repeat;
+  background-size: 100% 100%;
+  padding: 20rpx 46rpx;
+  box-sizing: border-box;
+}
+
+.lineDetail .lineTitle {
+  width: 100%;
+  text-align: center;
+  font-size: 34rpx;
+  color: #4a4a4a;
+  font-weight: bold;
+  margin-top: 10rpx;
+}
+
+.lineBox {
+  margin-top: 20rpx;
+  padding-bottom: 10rpx;
+  box-sizing: border-box;
+}
+
+.lineBox .lineList {
+  width: 100%;
+  font-size: 26rpx;
+  color: #4a4a4a;
+}
+
+.recommendHasGrif {
+  width: 100%;
+  padding: 30rpx 46rpx;
+  box-sizing: border-box;
+  background: url('https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/efb661ca71274ef2941b9e1e275c907e')no-repeat;
+  background-size: 100% 100%;
+  margin-top: 15rpx;
+}
+
+.recommendHasGrif .rule {
+  font-size: 26rpx;
+  color: #4a4a4a;
+}
+
+.recommendHasGrif .rule text {
+  font-size: 26rpx;
+  color: #f55e01;
+}
+
+.saveImg {
+  width: 600rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  font-size: 30rpx;
+  color: #f55e01;
+  background: #fffbf2;
+  border-radius: 10rpx;
+  margin: 330rpx auto 0;
+}
+
+.recommendHasGrifIMG {
+  margin-bottom: 30rpx;
+}
+
+.qrCodeImg {
+  width: 100%;
+  text-align: center;
+  margin-top:15rpx;
+}
+
+.qrCodeImg image {
+  width: 176rpx;
+}
+
+.qrCodeImg .text {
+  width: 176rpx;
+  margin: auto;
+  font-size: 20rpx;
+  color: #4a4a4a;
+  margin-top:5rpx;
+}
+
+canvas{
+  background:rgba(255,255,255,0);/*关键点*/
+}
+
+.canvasHidden{
+  opacity: 0;
+}
+
+.hindBg {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background:rgba(0,0,0,0.50);
+}

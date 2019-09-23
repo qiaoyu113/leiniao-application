@@ -1,0 +1,13 @@
+<view class='recommendDetail'>
+  <view class='lineDetail'>
+    <view wx:if="{{bkImg == ''}}" class='saveImg'>正在生成海报...</view>
+    <view wx:if="{{bkImg != '' && !openSettingBtnHidden}}" class='saveImg' bindtap='saveImageToPhotosAlbum'>保存图片</view>
+    <button type='primary' class='saveImg' open-type="openSetting"
+bindopensetting='handleSetting' hidden='{{!openSettingBtnHidden}}'>去授权</button>
+    <canvas class="canvasHidden" canvas-id='share' style='width:92vw;height:120vh;' hidden='{{canvasHidden}}'></canvas>
+  </view>
+</view>
+<!--警告弹窗-->
+<van-notify id="van-notify" />
+<van-dialog id="van-dialog" />
+<view class='hindBg' wx:if='{{hindBgType}}'></view>

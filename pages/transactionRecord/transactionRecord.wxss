@@ -47,3 +47,12 @@ page {
   text-align: center;
   margin-top:10rpx;
 }
+
+.noMore {
+  width:100%;
+  text-align: center;
+  color:#333;
+  height:180rpx;
+  line-height: 180rpx;
+  font-size: 28rpx;
+}
