@@ -1,0 +1,50 @@
+<view class="myOrderRefundDetail">
+  <view class="myOrderRefundTitle">
+    <view class="myOrderRefundList">
+      <view class='left'>退款金额:</view>
+      <view class='right'>{{detail.refundMoney}}元</view>
+    </view>
+    <view class="myOrderRefundList">
+      <view class='left'>退款方式:</view>
+      <view class='right'>微信原路退回</view>
+    </view>
+    <view class="myOrderRefundList">
+      <view class='left'>退款进度:</view>
+      <view class='right' wx:if='{{detail.refundState == 1}}'>待审核</view>
+      <view class='right' wx:if='{{detail.refundState == 2}}'>待退款</view>
+      <view class='right' wx:if='{{detail.refundState == 3}}'>退款审核不通过</view>
+      <view class='right' wx:if='{{detail.refundState == 4}}'>退款中</view>
+      <view class='right' wx:if='{{detail.refundState == 5}}'>退款成功</view>
+      <view class='right' wx:if='{{detail.refundState == 6}}'>退款失败</view>
+    </view>
+  </view>
+  <view class="cu-timeline">
+    <view class="cu-item" wx:if='{{ detail.refundState == 5 }}'>
+      <view class="content">
+        <view class="cu-capsule radius">
+          <view class="cu-tag bg-cyan">退款已入账</view>
+          <view class="cu-tag line-cyan">{{ detail.updateDate }}</view>
+        </view>
+        <view class='margin-top'>
+          <text>微信已在{{ detail.updateDate }}前将{{detail.refundMoney}}元入账至您的微信，您可以打开微信，依次点击我的->钱包->账单查看。如有疑问请拨打微信客服95017咨询。</text>
+        </view>
+      </view>
+    </view>
+    <view wx:if='{{ detail.refundState == 2 || detail.refundState > 3 }}' class="cu-item text-blue">
+      <view class="content">
+        <view class="cu-capsule radius">
+          <view class="cu-tag bg-cyan">微信受理退款</view>
+          <view class="cu-tag line-cyan">{{ detail.updateDate }}</view>
+        </view>
+      </view>
+    </view>
+    <view class="cu-item text-blue">
+      <view class="content">
+        <view class="cu-capsule radius">
+          <view class="cu-tag bg-cyan">退款申请已提交</view>
+          <view class="cu-tag line-cyan">{{ detail.createDate }}</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

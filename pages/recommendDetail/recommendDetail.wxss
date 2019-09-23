@@ -10,18 +10,19 @@ page {
   box-sizing: border-box;
   background: url('https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/17e9e1cd47254f15b2753eb577c4c1cf')no-repeat;
   background-size: 100%;
+  padding-bottom:50rpx;
 }
 
 .lineDetail {
   width: 100%;
-  padding-top:310rpx;
+  padding-top: 310rpx;
 }
 
 .lineDetailBox {
   width: 100%;
   background: url('https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/42ad962f432d4350b22672bad2ae88f2')no-repeat;
   background-size: 100% 100%;
-  padding:20rpx 46rpx;
+  padding: 20rpx 46rpx;
   box-sizing: border-box;
 }
 
@@ -31,7 +32,7 @@ page {
   font-size: 34rpx;
   color: #4a4a4a;
   font-weight: bold;
-  margin-top:10rpx;
+  margin-top: 10rpx;
 }
 
 .lineBox {
@@ -52,7 +53,7 @@ page {
   box-sizing: border-box;
   background: url('https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/efb661ca71274ef2941b9e1e275c907e')no-repeat;
   background-size: 100% 100%;
-  margin-top:15rpx;
+  margin-top: 15rpx;
 }
 
 .recommendHasGrif .rule {
@@ -77,6 +78,28 @@ page {
   margin: 65rpx auto;
 }
 
-.recommendHasGrifIMG{
+.recommendHasGrifIMG {
   margin-bottom: 30rpx;
+}
+
+.qrCodeImg {
+  width: 100%;
+  text-align: center;
+  margin-top:15rpx;
+}
+
+.qrCodeImg image {
+  width: 176rpx;
+}
+
+.qrCodeImg .text {
+  width: 176rpx;
+  margin: auto;
+  font-size: 20rpx;
+  color: #4a4a4a;
+  margin-top:5rpx;
+}
+
+canvas{
+  background:rgba(255,255,255,0);/*关键点*/
 }

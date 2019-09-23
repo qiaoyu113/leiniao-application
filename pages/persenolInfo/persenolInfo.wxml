@@ -1,0 +1,54 @@
+<view class='immediatelyEnter'>
+  <view class='changeBox'>
+    <view class='inpList'>
+      <span class="buy_needs_name">姓名</span>
+      <view class='buy_needs_addtext'>{{detail.name}}</view>
+    </view>
+    <view class='inpList'>
+      <span class="buy_needs_name">联系方式</span>
+      <view class='buy_needs_addtext'>{{detail.phone}}</view>
+    </view>
+    <view class='inpList'>
+      <span class="buy_needs_name">城市</span>
+      <view class='buy_needs_addtext'>{{detail.workCityName}}</view>
+    </view>
+    <view class='inpList' wx:if='{{detail.workExperienceName}}'>
+      <span class="buy_needs_name">物流从业经验</span>
+      <view class='buy_needs_addtext'>{{detail.workExperienceName}}</view>
+    </view>
+    <view class='inpList' wx:if='{{detail.cargoTypeName}}'>
+      <span class="buy_needs_name">货物经验</span>
+      <view class='buy_needs_addtext'>{{detail.cargoTypeName}}</view>
+    </view>
+    <view class='inpList' wx:if='{{detail.expMonthlyIncomeName}}'>
+      <span class="buy_needs_name">期望月收入</span>
+      <view class='buy_needs_addtext'>{{detail.expMonthlyIncomeName}}</view>
+    </view>
+    <view class='inpList' wx:if='{{detail.workHourName}}'>
+      <span class="buy_needs_name">可接受一天工作时长</span>
+      <view class='buy_needs_addtext'>{{detail.workHourName}}</view>
+    </view>
+    <view class='inpList'>
+      <span class="buy_needs_name">意向驾驶车型</span>
+      <view class='buy_needs_addtext'>{{detail.carTypeName}}</view>
+    </view>
+    <view class='inpList' wx:if='{{detail.accountType}}'>
+      <span class="buy_needs_name">户口类型</span>
+      <view class='buy_needs_addtext' wx:if='{{detail.accountType == 1}}'>城镇户口</view>
+      <view class='buy_needs_addtext' wx:if='{{detail.accountType == 2}}'>农村户口</view>
+    </view>
+    <view class='inpList' wx:if='{{detail.isHaveLoan}}'>
+      <span class="buy_needs_name">是否有在还贷款</span>
+      <view class='buy_needs_addtext' wx:if='{{detail.isHaveLoan == 1}}'>是</view>
+      <view class='buy_needs_addtext' wx:if='{{detail.isHaveLoan == 2}}'>否</view>
+    </view>
+    <view class='inpList' wx:if='{{detail.childrenNum}}'>
+      <span class="buy_needs_name">家里有几个孩子</span>
+      <view class='buy_needs_addtext'>{{detail.childrenNum}}个</view>
+    </view>
+    <view class='inpList' wx:if='{{detail.buyCarFollow}}'>
+      <span class="buy_needs_name">购车最关注</span>
+      <view class='buy_needs_addtext'>{{detail.buyCarFollow}}</view>
+    </view>
+  </view>
+</view>

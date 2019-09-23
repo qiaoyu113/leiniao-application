@@ -1,4 +1,5 @@
 <view class='recommend'>
+  <image src='https://oss-qzn.yunniao.cn/img/60602f90442b454fbce44828f2a84052' mode='widthFix' class='banner'></image>
   <view class='formData'>
     <view class='formList'>
       <view class='formLeft'>姓名</view>
@@ -33,7 +34,6 @@
       </view>
     </picker>
     <view id='submit' class='submit' bindtap='submit'>提交信息</view>
-    <view class='text'>活动期间，非城市梧桐人员成功推荐身边亲朋好友通过梧桐车服购车并缴纳全额线路服务费，获得300 元/单现金奖励。</view>
   </view>
 </view>
 <!--警告弹窗-->

@@ -6,11 +6,13 @@ page {
 
 .lineDetail {
   width: 100%;
+  padding-bottom:105rpx;
 }
 
 .imgSHow {
   width: 100%;
-  height:350rpx;
+  height: 350rpx;
+  box-shadow: 2px 2px 8px 7px rgba(0,0,0,0.04);
 }
 
 .detailBox {
@@ -91,30 +93,44 @@ page {
   left: 0;
   right: 0;
   margin: auto;
+  padding: 10rpx 14rpx;
+  box-sizing: border-box;
+  background: #fff;
 }
 
 .btnMent .btnLeft {
-  width: 50%;
-  height: 98rpx;
-  line-height: 98rpx;
+  /* width: 49%; */
+  width: 100%;
+  height: 78rpx;
+  line-height: 78rpx;
   background: #fdeed7;
-  box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.30);
+  border-radius: 17rpx;
   text-align: center;
   font-size: 36rpx;
-  color: #4a4a4a;
+  color: #fa9c46;
   float: left;
+  border:none;
+}
+
+.btnMent button {
+  width: 49%;
+  height: 78rpx;
+  opacity: 0;
+  position: absolute;
+  top:10rpx;
+  left:14rpx;
 }
 
 .btnMent .btnRight {
-  width: 50%;
-  height: 98rpx;
-  line-height: 98rpx;
+  width: 49%;
+  height: 78rpx;
+  line-height: 78rpx;
   text-align: center;
+  background-image: linear-gradient(270deg, #fa9b44 0%, #fdc379 100%);
+  border-radius: 17rpx;
   font-size: 36rpx;
-  color: #4a4a4a;
-  background: #fac844;
-  box-shadow: 0 -1px 3px 0 rgba(0, 0, 0, 0.30);
-  float: left;
+  color: #fff;
+  float: right;
 }
 
 .margin100 {
@@ -164,6 +180,23 @@ page {
   font-size: 30rpx;
   color: #4a4a4a;
   margin-top: 40rpx;
+  max-height:700rpx;
+  overflow-x: scroll;
+  background: /* Shadow covers */
+  linear-gradient(white 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%, /* Shadows */
+  radial-gradient(50% 0, farthest-side, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(50% 100%, farthest-side, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+  background: /* Shadow covers */
+  linear-gradient(white 30%, rgba(255, 255, 255, 0)), linear-gradient(rgba(255, 255, 255, 0), white 70%) 0 100%, /* Shadows */
+  radial-gradient(farthest-side at 50% 0, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)), radial-gradient(farthest-side at 50% 100%, rgba(0, 0, 0, .2), rgba(0, 0, 0, 0)) 0 100%;
+  background-repeat: no-repeat;
+  background-color: white;
+  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+  /* Opera doesn't support this in the shorthand */
+  background-attachment: local, local, scroll, scroll;
+}
+
+.contentList{
+  margin-bottom:10rpx;
 }
 
 .contentList text {
@@ -180,11 +213,13 @@ page {
   border-radius: 10rpx;
   font-size: 30rpx;
   color: #4a4a4a;
-  margin:25rpx 0;
+  margin: 25rpx 0;
 }
 
-.marginTop{
-  margin-top:30rpx;
+button::after{ border: none; }
+
+.marginTop {
+  margin-top: 30rpx;
 }
 
 .recommendBg {
@@ -196,4 +231,19 @@ page {
   z-index: 100;
   right: 0;
   background: rgba(0, 0, 0, 0.50);
+}
+
+.consulting {
+  width: 90rpx;
+  height: 90rpx;
+  line-height: 90rpx;
+  position: fixed;
+  right: 43rpx;
+  bottom: 140rpx;
+  background: #ffa000;
+  box-shadow: 3px 3px 14px 0 rgba(0, 0, 0, 0.50);
+  text-align: center;
+  color: #fff;
+  font-size: 26rpx;
+  border-radius: 100%;
 }

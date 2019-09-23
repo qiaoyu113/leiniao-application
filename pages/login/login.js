@@ -10,7 +10,8 @@ Page({
    */
   data: {
     name: '',
-    password: ''
+    password: '',
+    userId: ''
   },
   //输入账号
   phoneInput: function (e) {
@@ -42,6 +43,7 @@ Page({
             })
             network.requestLoading('api/auth/v1/jwt/getToken', {
               wxCode: that.data.code,
+              puserId: that.data.userId,
               source: 1,
               weChatUserInfo: {
                 city: userInfo.city,
@@ -59,26 +61,31 @@ Page({
                   that.setData({
                     openId: res.data.openId
                   })
-                  if (res.data.phone) {
+                  let token = res.data.token;
+                  let phone = res.data.phone;
+                  let openId = res.data.openId;
+                  if (phone) {
                     wx.setStorage({
                       key: 'phone',
-                      data: res.data.phone,
-                      success: function (res) { },
+                      data: phone,
+                      success: function (res) { 
+                      },
                     })
                   }
                   wx.setStorage({
                     key: 'token',
-                    data: res.data.token,
-                    success: function (res) {},
-                  })
-                  wx.setStorage({
-                    key: 'openId',
-                    data: res.data.openId,
+                    data: token,
                     success: function (res) {
-                      wx.switchTab({
-                        url: '/pages/index/index'
-                      });
-                    }
+                      wx.setStorage({
+                        key: 'openId',
+                        data: openId,
+                        success: function (res) {
+                          wx.switchTab({
+                            url: '/pages/index/index'
+                          });
+                        }
+                      })
+                    },
                   })
                 }
               },
@@ -145,7 +152,7 @@ Page({
             data: res.data.token,
             success: function (res) {
               wx.showToast({
-                title: '登陆成功',
+                title: '登录成功',
                 icon: 'success',
                 duration: 2000
               })
@@ -173,7 +180,7 @@ Page({
       },
       function () {
         wx.showToast({
-          title: '登陆失败',
+          title: '登录失败',
         });
       });
   },
@@ -184,8 +191,13 @@ Page({
   onLoad: function (options) {
     var that = this;
     wx.setNavigationBarTitle({
-      title: '登陆' //页面标题为路由参数
+      title: '登录' //页面标题为路由参数
     });
+    if (options && options.puserId) {
+      that.setData({
+        userId: options.puserId
+      })
+    }
     wx.getStorage({
       //获取数据的key
       key: 'admin',
@@ -245,6 +257,14 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    let userId = wx.getStorageSync('userId')
+    return {
+      title: '自主创业，随时上岗；货源稳定、线路优质；购车保收入10万+/年',
+      path: '/pages/index/index?puserId=' + userId + '&source=2',
+      imageUrl: '../../lib/image/shareImg.jpg',
+      success: function (res) {
+        // 转发成功
+      },
+    }
   }
 })

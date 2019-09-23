@@ -1,0 +1,14 @@
+<view class='checkPayment'>
+  <view class="checkPaymentList" wx:for='{{checkPaymentList}}' wx:key='{{inx}}'>
+    <view class="top">
+      <view class="left">订单编号：{{item.orderId}}</view>
+      <view class='right' wx:if='{{item.dealDate}}'>成交时间：{{item.dealDate}}</view>
+    </view>
+    <view class='bottom'>
+      <view class="left">{{typeList[index].cooperationMode}}<span>/</span></view>
+      <view class="left">车型：{{ item.carTypeName }}</view>
+      <view class='right' bindtap='goChangeBankCard' data-id="{{ item.orderId }}">账户管理</view>
+    </view>
+  </view>
+  <view class="noMore" wx:if='{{checkPaymentList.length == 0}}'>暂无订单</view>
+</view>

@@ -1,0 +1,8 @@
+/* pages/activityResult/activityResult.wxss */
+.activityResult{
+  width:100%;
+}
+
+.activityResult image{
+  width:100%;
+}

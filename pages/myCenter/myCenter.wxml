@@ -1,5 +1,5 @@
 <view class='UCenter-bg'>
-  <image src='https://image.weilanwl.com/gif/wave.gif' mode='scaleToFill' class='gif-wave'></image>
+  <!-- <image src='https://image.weilanwl.com/gif/wave.gif' mode='scaleToFill' class='gif-wave'></image> -->
   <view class='topCenter'>
     <view class='topCenterRight'>
       <view>您好，
@@ -14,33 +14,58 @@
 </view>
 
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
-  <view class="cu-item arrow" bindtap='goRouter' data-type='3'>
+  <button wx:if='{{!flag && !entranceType}}' class='cu-item arrow getPhoneBox2' open-type="getPhoneNumber" bindgetphonenumber= open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber2">
+    <text class='icon-profile text-orange margin_right_20'></text>
+    <text class='text-grey content'>个人信息</text>
+  </button>
+  <view class="cu-item arrow getPhoneBox" wx:if='{{flag && !entranceType}}' bindtap='goRouter' data-type='3'>
     <text class='icon-profile text-orange margin_right_20'></text>
     <text class='text-grey content'>个人信息</text>
   </view>
+  <view class="cu-item arrow" wx:if='{{entranceType}}' bindtap='goRouter' data-type='4'>
+    <text class='icon-profile text-orange margin_right_20'></text>
+    <text class='text-grey content'>个人信息</text>
+  </view>
+  <!--我的收藏-->
   <view class="cu-item arrow" bindtap='goRouter' data-type='2'>
     <text class='icon-favor text-orange margin_right_20'></text>
     <text class='text-grey content'>我的收藏</text>
   </view>
-  <view class="cu-item arrow" bindtap='goRouter' data-type='1'>
+  <!--我的钱包-->
+  <view class="cu-item arrow" bindtap='goRouter' data-type='5'>
+    <text class='icon-pay text-orange margin_right_20'></text>
+    <text class='text-grey content'>我的钱包</text>
+  </view>
+  <!--我的订单-->
+  <view class="cu-item arrow" bindtap='goRouter' data-type='7'>
+    <text class='icon-shop text-orange margin_right_20'></text>
+    <text class='text-grey content'>我的订单</text>
+  </view>
+  <!--我的推荐与奖励-->
+  <!-- <button wx:if='{{!flag}}' class='cu-item arrow getPhoneBox2' open-type="getPhoneNumber" bindgetphonenumber= open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber3">
+    <text class='icon-profile text-orange margin_right_20'></text>
+    <text class='text-grey content'>我的推荐与奖励</text>
+  </button>
+  <view class="cu-item arrow" wx:if='{{flag}}' bindtap='goRouter' data-type='1'>
     <text class='icon-redpacket text-orange margin_right_20'></text>
     <text class='text-grey content'>我的推荐与奖励</text>
+  </view> -->
+  <!--客服-->
+</view>
+
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
+  <!--问题反馈-->
+  <view class="cu-item arrow" bindtap='goRouter' data-type='6'>
+    <text class='icon-question text-orange margin_right_20'></text>
+    <text class='text-grey content'>问题反馈</text>
   </view>
   <view class="cu-item arrow" data-hi='WeChat' bindtap='talphone'>
     <text class='icon-service text-orange margin_right_20'></text>
     <view class='text-grey content'>客服
-      <text style='float:right;'>01086469220</text>
+      <text style='float:right;'>400-688-9179</text>
     </view>
   </view>
 </view>
-
-<!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
-  <view class="cu-item arrow">
-    <navigator class='content' url='../test/list' hover-class='none'>
-      <view class='text-grey'>客服<text style='float:right;'>01086469220</text></view>
-    </navigator>
-  </view>
-</view> -->
 
 <!-- <view class="cu-modal {{modalName=='QrcodeModal'?'show':''}}">
   <view class="cu-dialog">

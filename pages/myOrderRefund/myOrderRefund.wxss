@@ -1,0 +1,199 @@
+/* pages/myOrderRefund/myOrderRefund.wxss */
+
+.refundApplyBox {
+  width: 100%;
+  overflow: hidden;
+  padding: 30rpx 45rpx;
+  box-sizing: border-box;
+  border-bottom: 10rpx solid #f6f6f6;
+}
+
+.refundApplyBox .top {
+  overflow: hidden;
+}
+
+.refundApplyBox .top .left {
+  float: left;
+  font-size: 30rpx;
+  color: #4a4a4a;
+}
+
+.refundApplyBox .top .right {
+  font-size: 24rpx;
+  color: #888;
+  float: right;
+}
+
+.priceCenter {
+  width: 100%;
+  text-align: center;
+  font-size: 40rpx;
+  color: #000;
+  padding: 50rpx 0 0;
+  box-sizing: border-box;
+}
+
+.priceCenter text {
+  font-size: 70rpx;
+  color: #000;
+  font-weight: bold;
+}
+
+.bottom {
+  width: 100%;
+  text-align: center;
+  font-size: 24rpx;
+  color: #838383;
+}
+
+.refundForm {
+  padding: 30rpx 45rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.edit-list {
+  width: 100%;
+  padding-bottom: 30rpx;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.list-name {
+  width: 100%;
+  display: block;
+  font-size: 32rpx;
+  color: #4a4a4a;
+}
+
+.hint {
+  font-size: 24rpx;
+  color: #d3d1d1;
+}
+
+.imageBox {
+  width: 100%;
+  text-align: center;
+  box-sizing: border-box;
+  overflow: hidden;
+  padding: 20rpx 0;
+}
+
+.head-portrait {
+  width: 47.5%;
+  float: left;
+}
+
+.red {
+  color: red;
+}
+
+.blessingBox {
+  width: 100%;
+  padding: 20rpx 0 0;
+  box-sizing: border-box;
+  overflow: hidden;
+  height: 80rpx;
+  line-height: 80rpx;
+}
+
+.searchLefts {
+  width: 100%;
+  text-align: center;
+  color: #4a4a4a;
+}
+
+.blessingList {
+  width: 48%;
+  height: 235rpx;
+  padding: 38rpx 25rpx;
+  box-sizing: border-box;
+  float: left;
+  background: #f2f2f2;
+  border: 1px solid #f55e01;
+  border-radius: 12rpx;
+  margin: 1%;
+  font-size: 24rpx;
+  color: #ab541e;
+}
+
+.blessingListCheck {
+  width: 48%;
+  height: 235rpx;
+  padding: 38rpx 25rpx;
+  box-sizing: border-box;
+  margin-bottom: 10rpx;
+  float: left;
+  background: #fac844;
+  border: 1px solid #f55e01;
+  border-radius: 12rpx;
+  margin: 1%;
+  font-size: 24rpx;
+  color: #ab541e;
+}
+
+.textarea {
+  width: 100%;
+  float: left;
+  border-bottom: 1px solid #d3d1d1;
+  padding: 20rpx;
+  font-size: 28rpx;
+  color: #838383;
+}
+
+.submit {
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  margin: 30rpx auto 0;
+  text-align: center;
+  background: #ffa000;
+  border-radius: 10rpx;
+  font-size: 34rpx;
+  color: #fff;
+}
+
+.imageListBox {
+  position: relative;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.imageIconText {
+  width: 100%;
+  text-align: right;
+  font-size: 22rpx;
+  color: #838383;
+}
+
+.imageListBox image {
+  width: 100%;
+}
+
+.imageList {
+  width: 47.5%;
+  float: left;
+  border-radius: 12rpx;
+  overflow: hidden;
+}
+
+.imageList:nth-child(2) {
+  margin-left: 5%;
+}
+
+.cu-tag {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+.hindBg {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  margin: auto;
+  background:rgba(0,0,0,0.50);
+}

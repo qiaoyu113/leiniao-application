@@ -984,10 +984,10 @@ button.icon.lg {
   bottom: 140rpx;
   left: 0;
   margin: auto;
-  width: 260rpx;
-  height: 260rpx;
-  background: #fff;
-  border-radius: 10rpx;
+  width: 200rpx;
+  height: 200rpx;
+  /* background: #fff; */
+  border-radius: 100%;
   box-shadow: 0 0 0rpx 2000rpx rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
@@ -996,6 +996,11 @@ button.icon.lg {
   font-size: 28rpx;
   z-index: 9999;
   line-height: 2.4em;
+}
+
+.font-load{
+  font-size:24rpx;
+  color:#333;
 }
 
 .cu-load.load-modal [class*="icon"] {
@@ -1018,7 +1023,7 @@ button.icon.lg {
   border-top: 6rpx solid rgba(0, 0, 0, 0.05);
   border-right: 6rpx solid rgba(0, 0, 0, 0.05);
   border-bottom: 6rpx solid rgba(0, 0, 0, 0.05);
-  border-left: 6rpx solid #f37b1d;
+  border-left: 6rpx solid #F2C95D;
   animation: icon-spin 1s infinite linear;
   z-index: -1;
 }

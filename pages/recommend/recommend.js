@@ -97,7 +97,6 @@ Page({
 
   //输入内容
   inputChange(e) {
-    console.log(e.currentTarget.dataset.type)
     let type = e.currentTarget.dataset.type
     if (type == 1) {
       let value = e.detail.value;
@@ -129,6 +128,7 @@ Page({
   bindPickerChange: function(e) {
     this.setData({
       address: this.data.cityArray[e.detail.value],
+      index: e.detail.value,
       addressType: true
     })
   },
@@ -136,7 +136,8 @@ Page({
   bindPickerChange2: function(e) {
     this.setData({
       carName: this.data.carArray[e.detail.value],
-      carType: true
+      carType: true,
+      index2: e.detail.value
     })
   },
 
@@ -265,6 +266,14 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function() {
-
+    let userId = wx.getStorageSync('userId')
+    return {
+      title: '自主创业，随时上岗；货源稳定、线路优质；购车保收入10万+/年',
+      path: '/pages/index/index?puserId=' + userId + '&source=2',
+      imageUrl: '../../lib/image/shareImg.jpg',
+      success: function (res) {
+        // 转发成功
+      },
+    }
   }
 })
