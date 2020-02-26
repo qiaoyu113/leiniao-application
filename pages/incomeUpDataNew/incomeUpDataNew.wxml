@@ -1,0 +1,119 @@
+<view class="incomeUpData">
+  <!-- <view style="padding:0 30rpx;box-sizing:border-box;" class="cu-bar bg-white solid-bottom">
+    <view class='action font32'>
+      <text class='icon-titles text-orange'></text>
+      <view class="lineNameBox">
+        <picker style='flex:1;' bindchange="bindPickerChange" value="{{index}}" range="{{arrayLine}}">
+          <view class="picker" wx:if='{{!lineNameVal}}' style="line-height:44rpx;">
+            请选择线路名称
+          </view>
+          <view wx:else style="line-height:42rpx;">{{lineNameVal}}</view>
+        </picker>
+        <view class="addBtn" bindtap="addIncome">+</view>
+      </view>
+    </view>
+  </view> -->
+  <!--新增线路收入信息-->
+  <view class='LineBoxBg'>
+    <view class="addInformation" bindtap="addIncome">+ 新增线路收入信息</view>
+  </view>
+  <!--运费收入-->
+  <view class="barBox">
+    <view class="incomeBoxList" wx:for='{{inComeUpList}}' wx:key='{{inx}}' item-index='{{index}}'>
+      <view class="cu-bar2 solid-bottom2">
+        <view class='action2'>
+          <view class="flex p-xs mb-sm">
+            <view class='flex-twice'>
+              <view class='action2Left'>
+                <picker style='flex:1;' bindchange="bindPickerChange" data-index='{{index}}' value="{{indexs}}" range="{{arrayLine}}" wx:if='{{!item.checked}}'>
+                  <view wx:if='{{!item.lineName}}' class="picker" style="color:#C7C7CC;line-height:44rpx;">
+                    请选择线路名称
+                  </view>
+                  <view class="picker" style="width:78%;overflow: hidden;text-overflow:ellipsis;white-space: nowrap;">{{item.lineName}}</view>
+                </picker>
+                <view wx:else style="line-height:42rpx;">
+                  <input bindinput="inputLineName" data-index="{{index}}" class="input" value='{{item.lineName}}' placeholder='请输入线路名称' placeholder-class='placeholdColor'></input>
+                </view>
+              </view>
+            </view>
+            <view class='flex-sub' style="text-align: right;">
+              <view class='action2Rights'>
+                <van-switch checked="{{ item.checked }}" data-i="{{index}}" bind:change="onChangeCheck" size="24px" />
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class="cu-bar2">
+        <view class='action2'>
+          <view class="flex p-xs mb-sm">
+            <view class='flex-sub' style="flex:2;">
+              <view class='action2Left'>
+                <text style="color:red;margin-right:10rpx;">*</text>运费收入
+                <text wx:if='{{index != 0}}'>({{index + 1}})</text>
+              </view>
+            </view>
+            <view class='flex-twice'>
+              <view class='action2Right'>
+                <input type='digit' bindinput="inputPrice" data-index="{{index}}" class="input" value='{{item.salary}}' placeholder='请输入收入元' placeholder-class='placeholdColor'></input>
+                <view class="del" wx:if='{{inComeUpList.length > 1}}' data-i='{{index}}' bindtap="delIncomeList">
+                  <van-icon name="close"/>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+
+  </view>
+  <!--配送时间-->
+  <van-collapse value="{{ activeNames }}" bind:change="onChange">
+    <van-collapse-item mustChange='true' title="配送完成日期" name="1" dayMoEvVal='{{ clickDate + changeDayMoEv }}'>
+      <calendar calendar-style="calendar" header-style="calendar-header" board-style="calendar-board" days-color="{{dayStyle}}" weeks-type="cn" binddayClick="dayClick" bindnextMonth="next" bindprevMonth="prev" />
+    </van-collapse-item>
+  </van-collapse>
+  <!--选择上下午-->
+  <!-- <van-action-sheet show="{{ show }}" actions="{{ actions }}" bind:close="onClose" bind:select="onSelect" /> -->
+  <!-- <view class="calendarShadow" wx:if="{{ show }}"></view> -->
+
+  <!--上传签收单-->
+  <view class="edit-list">
+    <view class="list-name list-first">上传签收单
+      <text class='hint'>（实际收入以上传签收单为准）</text>
+    </view>
+    <view class="imageBox">
+      <image wx:if='{{imageUrl.length < 2}}' class="head-portrait" src="{{avatar}}" bindtap='changeAvatar' mode="widthFix"></image>
+      <view class="imageList" wx:for='{{imageUrl}}' wx:key='{{inx}}'>
+        <view class="imageListBox">
+          <image src="{{ item }}" mode="widthFix"></image>
+          <view class="cu-tag bg-red closeBtn" bindtap="delImage" data-index='{{index}}'>
+            <text class="icon-close"></text>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="submit" bindtap="submitForm">提交收入</view>
+  </view>
+</view>
+<!--警告弹窗-->
+<van-notify id="van-notify" />
+<!--提示窗口-->
+<van-toast id="van-toast" />
+<!--组建调用-->
+<van-dialog use-slot title="" show="{{ reviewShow }}" show-cancel-button bind:confirm="checkPushIncome" bind:close="onClose2">
+  <view style="padding:35rpx 20rpx;box-sizing:border-box;">
+      <text style='margin-top: 3rpx;color: #666;font-size: 30rpx;line-height: 18rpx;text-align:center;'>该日期有{{incomeArr.length}}条提交记录，是否追加线路信息？</text>
+      <text style='margin-top: 20rpx;color: #969799;font-size: 28rpx;line-height: 18rpx;text-align:left;'>如不再需要当天数据，点击取消即可</text>
+  </view>
+  <view class="solid-bottom2 LineBoxBg scrollBox">
+    <view class="addLineList" wx:for='{{incomeArr}}' wx:key='inx' data-index='{{index}}'>
+      <view style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;"><text class='icon-title text-orange '></text>线路：{{item.lineName}}</view>
+      <view style="overflow: hidden;text-overflow:ellipsis;white-space: nowrap;"><text class='icon-title text-orange '></text>运费：{{item.salary}}元</view>
+      <view class="num">{{index + 1}}</view>
+    </view>
+  </view>
+
+</van-dialog>
+<!--遮罩层-->
+<view class="bgHind" wx:if='{{ reviewShow }}'></view>

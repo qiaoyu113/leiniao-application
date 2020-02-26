@@ -1,13 +1,12 @@
 //app.js
-import * as echarts from 'ec-canvas/echarts';
 import util from 'utils/util';
 
 App({
   onLaunch: function () {
     // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
+    // var logs = wx.getStorageSync('logs') || []
+    // logs.unshift(Date.now())
+    // wx.setStorageSync('logs', logs)
 
     // 登录
     wx.login({
@@ -59,14 +58,32 @@ App({
         this.globalData.CustomBar = e.platform == 'android' ? e.statusBarHeight + 50 : e.statusBarHeight + 45;
       }
     })
+
+    // 云开发
+    if (!wx.cloud) {
+      wx.showToast({
+        title: '云加载失败',
+        icon: 'none',
+        duration: 2000
+      })
+    } else {
+      wx.cloud.init({
+        env: 'firmiana-m1-wdeku', // m1环境
+        // env:'firmiana-stable-8snod', // 生产环境
+        traceUser: true
+      })
+    }
   },
   globalData: {
     token:null, 
     userInfo:null,
-    url: 'https://firmiana-bss-api-m1.yunniao.cn/', 
-    // url: 'https://firmiana-bss-api.yunniao.cn/', 
+    // m1环境域名
+    url: 'https://firmiana-bss-api-m1.yunniao.cn/',
+    // 生产环境域名
+    // url: 'https://firmiana-bss-api.yunniao.cn/',
+    // d2环境域名
     // url: 'http://172.17.101.77:20150/',
-    // url: 'http://172.17.101.77:20166/',
-    imgUrl: 'http://test.resource.vjuzhen.com/'
+    // 图片域名
+    imgUrl: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/'
   }
 })

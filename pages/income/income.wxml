@@ -1,0 +1,79 @@
+<view class="income">
+  <view class="incomeTop">
+    <view class="incomeText">
+      <view class="incomeTop1">累计月收入</view>
+      <view class="incomeTop2">¥{{detail.cumulativeMonthlyIncome}}
+        <text class="font38">元</text>
+      </view>
+      <view class="incomeTop3">平均日收入: ¥{{detail.averageDailyIncome}}
+      </view>
+    </view>
+    <image src="{{ image_filepath }}" mode="widthFix"></image>
+  </view>
+  <!--选择日期-->
+  <view class="changeDate">
+    <picker mode="date" fields="month" value="{{dateVal}}" start="2016-01-01" bindchange="getDateTime">
+      <view class="selectDate">
+        {{ dateVal }}
+        <text class="icon-filter"></text>
+      </view>
+    </picker>
+  </view>
+  <!--列表-->
+  <view class='clickList' wx:for='{{ detail.vos }}' bindtap="clickDays" data-type='{{item.type}}' wx:key='{{ic}}'>
+    <view class="name">{{item.name}}</view>
+    <view class="val">{{item.days}}天</view>
+  </view>
+  <view class='question' bindtap="goFeedBack">收入异常反馈？</view>
+  <!--收入日历-->
+  <view class='gs_calendar' style='display:{{display}}'>
+    <view class='gs_bg' bindtap='onhide'></view>
+    <view class='gs_gs_calendar_box shadow-blur'>
+      <view class="canlendarBgView">
+        <view class="canlendarView">
+          <view class="canlendarTopView">
+            <!-- <view class="leftBgView" bindtap="handleCalendar" data-handle="prev"> -->
+            <view class="leftBgView">
+              <view class="leftView">
+              </view>
+            </view>
+            <view class="centerView">{{dateVal}}</view>
+            <!-- <view class="rightBgView" bindtap="handleCalendar" data-handle="next"> -->
+            <view class="rightBgView">
+              <view class="rightView">
+                <text wx:if='{{typeVal == 1}}'>出车天数</text>
+                <text wx:if='{{typeVal == 2}}'>休息天数</text>
+                <text wx:if='{{typeVal == 3}}'>请假天数</text>
+              </view>
+            </view>
+          </view>
+          <view class="weekBgView">
+            <view style='width: {{ sysW }}px; height: {{ sysW }}px; line-height: {{ sysW }}px;' class="weekView" wx:for="{{weeks_ch}}" wx:key="{{index}}" data-idx="{{index}}">{{item}}</view>
+          </view>
+          <view class="dateBgView">
+            <view wx:if="{{hasEmptyGrid}}" class="dateEmptyView" wx:for="{{empytGrids}}" wx:key="{{index}}" data-idx="{{index}}">
+            </view>
+            <view style='{{ index == 0 ? "margin-left:" + sysW * marLet + "px;" : "" }}width: {{ sysW }}px; height: {{ sysW }}px; line-height: {{ sysW }}px;' class="dateView" wx:for="{{days}}" wx:key="{{index}}" data-idx="{{index}}" bindtap="dateSelectAction">
+              <view class="datesView {{ item.item ==  getDate && judge==1 ? 'dateOn' : ''}}}">{{item.item}}</view>
+              <view class='clocksucceed' wx:if="{{item.type == 1}}">
+                <!-- <image src='{{ image_filepath2 }}'></image> -->
+                <text class="icon-deliver_fill text-yellow"></text>
+              </view>
+              <view class='clocksucceed' wx:if="{{item.type == 2}}">
+                <!-- <image src='{{ image_filepath3 }}'></image> -->
+                <text class="icon-timefill text-blue"></text>
+              </view>
+              <view class='clocksucceed' wx:if="{{item.type == 3}}">
+                <!-- <image src='{{ image_filepath4 }}'></image> -->
+                <text class="icon-roundclosefill text-grey"></text>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+      <view class='del' bindtap='onHideBlock'>
+        <text class="icon-close"></text>
+      </view>
+    </view>
+  </view>
+</view>

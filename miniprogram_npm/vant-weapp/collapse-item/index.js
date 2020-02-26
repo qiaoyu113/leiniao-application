@@ -12,6 +12,8 @@ VantComponent({
     name: null,
     title: null,
     value: null,
+    dayMoEvVal: null,
+    mustChange: Boolean,
     icon: String,
     label: String,
     disabled: Boolean,

@@ -1,0 +1,12 @@
+<!--pages/test/test.wxml-->
+<view class="test">
+  <view>测试内容</view>
+  <button bindtap='addDB'>添加</button>
+  <view wx:for='{{list}}' wx:key='inx'>
+    <view>{{item.nm}}</view>
+    <view>{{item.rt}}</view>
+    <view>{{item.wish}}</view>
+    <view>{{item.star}}</view>
+    <image src="{{item.img}}" mode="widthFix"></image>
+  </view>
+</view>

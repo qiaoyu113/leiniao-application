@@ -44,7 +44,8 @@
       </view> -->
 
     <view class="list-name list-first">
-      <text class="red">*</text>请上传付款数据（财务开据的粉色底联）
+      <text class="red">*</text>请上传付款数据
+      <text style="color: #F55E01;">（财务开据的粉色底联或转账截图中支付流水号）</text>
     </view>
     <view class='hint'></view>
     <view class="imageBox">

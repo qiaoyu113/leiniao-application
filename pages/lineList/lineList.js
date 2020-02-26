@@ -32,6 +32,7 @@ Page({
     areaVal: '区域',
     goodVal: '货物类型',
     carVal: '车型',
+    puserId: '',
     image_filepath: ''
   },
 
@@ -42,8 +43,11 @@ Page({
     wx.setNavigationBarTitle({
       title: '货源大厅' //页面标题为路由参数
     });
+    // 获取分享人 
+    this.setData({
+      puserId: wx.getStorageSync('puserId')
+    })
     this.getCity()
-    this.getList()
     this.getLoad()
   },
 
@@ -58,7 +62,7 @@ Page({
     } else {
       wx.downloadFile({
         url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/539e47df1c024da4aa9216b36b6c9ff8',
-        success: function (res) {
+        success: function(res) {
           if (res.statusCode === 200) {
             const fs = wx.getFileSystemManager()
             fs.saveFile({
@@ -94,15 +98,27 @@ Page({
             array: res.data
           });
           const arrays = that.data.array
+          let cityCode = wx.getStorageSync('cityCode')
           let arr = [];
-          arrays.forEach(function (item) {
+          let i = 0;
+          arrays.forEach(function (item, index) {
+            if (cityCode) {
+              if (item.cityCode == cityCode) {
+                i = index;
+              }
+            }
             arr.push(item.cityName);
           })
-          that.setData({
-            cityArray: arr
-          });
           //获取区域
-          that.getCityCode(0)
+          that.setData({
+            index: i
+          })
+          that.getCityCode(i)
+          that.setData({
+            cityArray: arr,
+            cityCode: arrays[i].cityCode
+          });
+          that.getList()
         }
       },
       function(res) {
@@ -177,7 +193,7 @@ Page({
     });
     const arrays = that.data.array2
     let arr = [];
-    arrays.forEach(function (item) {
+    arrays.forEach(function(item) {
       arr.push(item.countyName);
     })
     that.setData({
@@ -226,14 +242,18 @@ Page({
       'json',
       function(res) {
         if (res.success) {
+          wx.stopPullDownRefresh()
           let arr = res.data;
           let lists = that.data.list.concat(arr)
           that.setData({
             list: lists
           })
+        } else {
+          wx.stopPullDownRefresh()
         }
       },
       function(res) {
+        wx.stopPullDownRefresh()
         wx.showToast({
           title: '加载数据失败',
         });
@@ -398,6 +418,7 @@ Page({
                 "phone": phone,
                 "sourceType": source,
                 "workCity": cityCode,
+                "puserId": that.data.puserId,
                 "authorizePosition": souceCity
               },
               'POST',
@@ -456,7 +477,11 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function() {
-
+    this.setData({
+      list: [],
+      page: 1
+    })
+    this.getCity()
   },
 
   /**

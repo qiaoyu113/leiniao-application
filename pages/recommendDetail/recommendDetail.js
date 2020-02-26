@@ -173,7 +173,7 @@ Page({
   },
 
   //保存图片
-  saveImageToPhotosAlbum: function() {
+  saveImageToPhotosAlbum: function () {
     wx.showLoading({
       title: '保存中...',
     })
@@ -185,7 +185,6 @@ Page({
     var unit = that.data.screenWidth / 375
     var path1 = that.data.bkImg //背景图
     var path3 = that.data.qrcode //二维码
-    console.log(path3)
     var context = wx.createCanvasContext('share')
     context.drawImage(path1, 0, 0, unit * 375, unit * 880)
     context.drawImage(path3, unit * 140, unit * 660, unit * 100, unit * 110)
@@ -220,75 +219,77 @@ Page({
     context.setTextAlign('left');
     context.fillText(that.data.lineDetail.value5, unit * 35, unit * 295)
     //把画板内容绘制成图片，并回调 画板图片路径
-    context.draw(true, function(e) {
-      wx.canvasToTempFilePath({
-        x: 0,
-        y: 0,
-        width: unit * 400,
-        height: unit * 880,
-        destWidth: unit * 400 * 6,
-        destHeight: unit * 880 * 6,
-        canvasId: 'share',
-        success: function(res) {
-          let imageUrl = res.tempFilePath
-          wx.getImageInfo({
-            src: imageUrl,
-            success: function(sres) {
-              // 画板路径保存成功后，调用方法吧图片保存到用户相册
-              wx.saveImageToPhotosAlbum({
-                filePath: sres.path,
-                //保存成功失败之后，都要隐藏画板，否则影响界面显示。
-                success: (res) => {
-                  wx.hideLoading()
-                  that.setData({
-                    canvasHidden: true
-                  })
-                  wx.showToast({
-                    title: '保存成功',
-                    icon: 'succes',
-                    duration: 1000,
-                    mask: true
-                  })
-                },
-                fail: (err) => {
-                  Notify({
-                    text: '暂无访问相册权限，请先授权并重新保存',
-                    duration: 1000,
-                    selector: '#van-notify',
-                    backgroundColor: '#FAC844'
-                  });
-                  wx.hideLoading()
-                  that.setData({
-                    canvasHidden: true,
-                    openSettingBtnHidden: true
-                  })
-                  if (err.errMsg === "saveImageToPhotosAlbum:fail auth deny") {
-                    wx.openSetting({
-                      success(settingdata) {
-                        console.log(settingdata)
-                        if (settingdata.authSetting["scope.writePhotosAlbum"]) {
-                          console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
-                        } else {
-                          console.log("获取权限失败")
-                        }
-                      }
+    context.draw(true, function (e) {
+      setTimeout(() => {
+        wx.canvasToTempFilePath({
+          x: 0,
+          y: 0,
+          width: unit * 400,
+          height: unit * 880,
+          destWidth: unit * 400 * 8,
+          destHeight: unit * 880 * 8,
+          canvasId: 'share',
+          success: function (res) {
+            let imageUrl = res.tempFilePath
+            wx.getImageInfo({
+              src: imageUrl,
+              success: function (sres) {
+                // 画板路径保存成功后，调用方法吧图片保存到用户相册
+                wx.saveImageToPhotosAlbum({
+                  filePath: sres.path,
+                  //保存成功失败之后，都要隐藏画板，否则影响界面显示。
+                  success: (res) => {
+                    console.log(res)
+                    wx.hideLoading()
+                    that.setData({
+                      canvasHidden: true
                     })
+                    wx.showToast({
+                      title: '保存成功',
+                      icon: 'succes',
+                      duration: 1000,
+                      mask: true
+                    })
+                  },
+                  fail: (err) => {
+                    Notify({
+                      text: '暂无访问相册权限，请先授权并重新保存',
+                      duration: 1000,
+                      selector: '#van-notify',
+                      backgroundColor: '#FAC844'
+                    });
+                    wx.hideLoading()
+                    that.setData({
+                      canvasHidden: true,
+                      openSettingBtnHidden: true
+                    })
+                    if (err.errMsg === "saveImageToPhotosAlbum:fail auth deny") {
+                      wx.openSetting({
+                        success(settingdata) {
+                          if (settingdata.authSetting["scope.writePhotosAlbum"]) {
+                            console.log('获取权限成功，给出再次点击图片保存到相册的提示。')
+                          } else {
+                            console.log("获取权限失败")
+                          }
+                        }
+                      })
+                    }
                   }
-                }
+                })
+              }
+            })
+          },
+          fail: function (err) {
+            if (!res.tempFilePath) {
+              wx.showModal({
+                title: '提示',
+                content: '图片绘制中，请稍后重试',
+                showCancel: false
               })
             }
-          })
-        },
-        fail: function(err) {
-          if (!res.tempFilePath) {
-            wx.showModal({
-              title: '提示',
-              content: '图片绘制中，请稍后重试',
-              showCancel: false
-            })
           }
-        }
-      })
+        })
+      }, 300)
     });
   },
 

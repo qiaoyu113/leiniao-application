@@ -1,0 +1,9 @@
+<view class='incomeSuccess'>
+  <view class="image">
+    <image src="https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/5d58379ca3634276b8b13ee1773dfd75" mode="widthFix"></image>
+  </view>
+  <view class="hint">收入提报成功</view>
+  <view class="hint2">3秒后自动跳转至收入详情</view>
+  <view class="submit" bindtap="goDetail">查看收入</view>
+  <view class="goHome" bindtap="goIndex">返回首页</view>
+</view>

@@ -1,6 +1,6 @@
 <view class='checkPayment'>
   <view class="checkPaymentList" wx:for='{{checkPaymentList}}' wx:key='{{inx}}'>
-    <view class="top">
+    <!-- <view class="top">
       <view class="left">订单编号：{{item.orderId}}</view>
       <view wx:if='{{item.refundStatus > 0}}'>
         <view class='right' wx:if='{{item.refundStatus == 3}}'>退款未通过</view>
@@ -14,18 +14,18 @@
         <view class='right' wx:elif='{{item.payStatus == 5}}'>支付失败</view>
         <view class='right' wx:else>已成交</view>
       </view>
-    </view>
+    </view> -->
     <view class='bottom'>
       <view class="center">{{typeList[index].cooperationMode}}</view>
       <view class="left">车型：{{ item.carTypeName }}</view>
       <view wx:if='{{item.refundStatus > 0}}'>
         <view class='right2' bindtap='goDetail' data-id="{{ item.orderId }}">查看详情</view>
-        <view class='right2' bindtap='goRefundDetail' data-id="{{ item.orderId }}">退款详情</view>
+        <!-- <view class='right2' bindtap='goRefundDetail' data-id="{{ item.orderId }}">退款详情</view> -->
       </view>
 
       <view wx:if='{{item.refundStatus <= 0}}'>
         <view class='right2' bindtap='goDetail' data-id="{{ item.orderId }}" wx:if='{{item.payStatus != 1}}'>查看详情</view>
-        <view class='right' bindtap='goPay' data-id="{{ item.orderId }}" wx:if='{{item.payStatus == 1 || item.refundStatus == 5}}'>前往支付</view>
+        <!-- <view class='right' bindtap='goPay' data-id="{{ item.orderId }}" wx:if='{{item.payStatus == 1 || item.refundStatus == 5}}'>前往支付</view> -->
         <view class='right2' bindtap='goRefund' data-id="{{ item.orderId }}" wx:if='{{ item.payStatus != 1 && item.refundStatus != 5 && item.payStatus != 2 && item.payStatus != 6 }}'>申请退款</view>
       </view>
     </view>

@@ -73,7 +73,7 @@ Page({
     })
   },
 
-  // 切换头像
+  // 添加图片
   changeAvatar: function() {
     var that = this;
     var token = wx.getStorageSync('token');

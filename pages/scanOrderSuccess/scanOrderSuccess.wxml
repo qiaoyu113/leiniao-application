@@ -1,0 +1,13 @@
+<view class="payDepositSuccess">
+  <view class='topText'>
+    <view>恭喜您已加入梧桐大家庭！</view>
+    <view>梧桐工作人员将给您提供定制化优质服务。</view>
+  </view>
+  <view class="successIcon">
+    <image class="icon" src="https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/ad60e642a3f144c7995f34c4a0f62213" mode="widthFix"></image>
+  </view>
+  <view class='successText'>支付成功</view>
+  <view class='hint marginTop100'>支付记录可在“个人中心-我的钱包-交易记录”中查看</view>
+  <view class='hint'>{{time}}秒后自动跳转至首页</view>
+  <!-- <view class='btn'>返回</view> -->
+</view>

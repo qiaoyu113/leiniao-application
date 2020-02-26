@@ -58,12 +58,10 @@ Page({
       })
     }
     wx.setStorageSync('sourceType', this.data.source)
-    // 获取分享人
-    if (options && options.puserId) {
-      this.setData({
-        puserId: options.puserId
-      })
-    }
+    // 获取分享人 
+    this.setData({
+      puserId: wx.getStorageSync('puserId')
+    })
     // 线路Id
     if (options && options.id) {
       this.setData({
@@ -454,6 +452,7 @@ Page({
                 "phone": phone,
                 "sourceType": that.data.source,
                 "workCity": that.data.city,
+                "puserId": that.data.puserId,
                 "authorizePosition": that.data.souceCity
               },
               'POST',

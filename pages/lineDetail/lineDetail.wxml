@@ -21,15 +21,15 @@
           <view class='boxCss_list_left'>车型:</view>
           <view class='boxCss_list_right'>{{detail.carTypeName}}</view>
         </view>
-        <view class='boxCss_list'>
+        <!-- <view class='boxCss_list'>
           <view class='boxCss_list_left'>月收入:</view>
           <view class='boxCss_list_right'>
             <span wx:if='{{(detail.preLowestQuotations * detail.month * detail.dayNum) <= 15000 }}'>{{detail.preLowestQuotations * detail.month * detail.dayNum}}</span>
             <span wx:if='{{(detail.preLowestQuotations * detail.month * detail.dayNum) > 15000 }}'>15000</span>元以上</view>
-        </view>
+        </view> -->
         <view class='boxCss_list'>
-          <view class='boxCss_list_left'>预计月成交:</view>
-          <view class='boxCss_list_right'>{{detail.preLowestQuotations * detail.dayNum * detail.month}}元</view>
+          <view class='boxCss_list_left'>预计月收入:</view>
+          <view class='boxCss_list_right'>约{{detail.monthlyTransaction}}元</view>
         </view>
       </view>
     </view>

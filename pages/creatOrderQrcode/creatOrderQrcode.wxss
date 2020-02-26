@@ -1,0 +1,117 @@
+/* pages/creatOrderQrcode/creatOrderQrcode.wxss */
+
+page {
+  background: #f5a623;
+}
+
+.upDateClass {
+  line-height: 35rpx;
+}
+
+.content {
+  width: 84%;
+  position: relative;
+  top: 180rpx;
+  left: 0;
+  right: 0;
+  margin: auto;
+  background: #fff;
+  border-radius: 15rpx;
+  text-align: center;
+}
+
+.title {
+  height: 180rpx;
+  line-height: 180rpx;
+  font-size: 40rpx;
+  color: #f5a623;
+  border-bottom: 1rpx dashed #f2f2f2;
+  position: relative;
+}
+
+.point_left {
+  width: 26rpx;
+  height: 26rpx;
+  position: absolute;
+  left: -13rpx;
+  bottom: -13rpx;
+  background: #f5a623;
+  border-radius: 100%;
+}
+
+.point_right {
+  width: 26rpx;
+  height: 26rpx;
+  position: absolute;
+  right: -13rpx;
+  bottom: -13rpx;
+  background: #f5a623;
+  border-radius: 100%;
+}
+
+.codeValue {
+  width: 400rpx;
+  padding: 40rpx;
+  box-sizing: border-box;
+  text-align: left;
+  margin: auto;
+}
+
+.list {
+  line-height: 50rpx;
+  font-size: 30rpx;
+  color: #333;
+}
+
+.qrImg {
+  width: 400rpx;
+}
+
+.text {
+  font-size: 34rpx;
+  color: #4a4a4a;
+  padding: 10rpx 20rpx 10rpx 20rpx;
+  box-sizing: border-box;
+}
+
+.priceBox {
+  width: 100%;
+  overflow: hidden;
+  padding:30rpx 47rpx;
+  box-sizing: border-box;
+}
+
+.price_left {
+  width: 30%;
+  float: left;
+  font-size: 30rpx;
+  line-height: 60rpx;
+  color: #4a4a4a;
+}
+
+.price_right{
+  font-size: 30rpx;
+  float: right;
+  line-height: 60rpx;
+  text-align: right;
+  color: #ffa000;
+}
+
+.price_right text{
+  font-size: 50rpx;
+  color: #ffa000;
+}
+
+.header {
+  position: absolute;
+  top: -150rpx;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 200rpx;
+  height: 200rpx;
+  border-radius: 100%;
+  border: 10rpx solid #fff;
+  overflow: hidden;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);
+}

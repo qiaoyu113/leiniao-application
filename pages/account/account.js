@@ -85,6 +85,8 @@ Page({
       routerName = '../checkOrder/checkOrder'
     } else if (type == '3') {
       routerName = '../myRecommend/myRecommend'
+    } else if (type == '4') {
+      routerName = '../transactionLog/transactionLog'
     }
     wx.navigateTo({
       url: routerName

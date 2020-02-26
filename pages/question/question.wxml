@@ -1,7 +1,7 @@
 <view class="question">
   <view class="title"><span>*</span>问题类型</view>
   <view class="topBox">
-    <view class="{{indexCheck == index ? 'questionList checked' : 'questionList'}}" wx:for='{{questionList}}' bindtap="checkIndex" data-index='{{index}}' data-code='{{item.codeVal}}'>{{item.code}}</view>
+    <view class="{{indexCheck == index ? 'questionList checked' : 'questionList'}}" wx:for='{{questionList}}' bindtap="checkIndex" data-index='{{index}}' data-code='{{item.codeVal}}' wx:key='{{is}}'>{{item.code}}</view>
   </view>
   <view class="title marginTop45"><span>*</span>问题描述</view>
   <form bindsubmit="bindFormSubmit">

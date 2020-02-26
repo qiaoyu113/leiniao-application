@@ -37,27 +37,99 @@ Page({
     image_filepath6: '',
   },
 
+  startAuth() {
+    wx.checkIsSupportSoterAuthentication({
+      success(res) {
+        let supportMode = res.supportMode
+        const startSoterAuthentication = () => {
+          wx.startSoterAuthentication({
+            requestAuthModes: supportMode,
+            challenge: 'test',
+            authContent: '小程序示例',
+            success: (res) => {
+              wx.showToast({
+                title: '认证成功'
+              })
+            },
+            fail: (err) => {
+              console.error(err)
+              wx.showModal({
+                title: '失败',
+                content: '认证失败',
+                showCancel: false
+              })
+            }
+          })
+        }
+
+        const checkIsEnrolled = () => {
+          wx.checkIsSoterEnrolledInDevice({
+            checkAuthMode: supportMode[0],
+            success: (res) => {
+              console.log(2, res)
+              if (parseInt(res.isEnrolled) <= 0) {
+                wx.showModal({
+                  title: '错误',
+                  content: '您暂未录入指纹信息，请录入后重试',
+                  showCancel: false
+                })
+                return
+              }
+              startSoterAuthentication();
+            },
+            fail: (err) => {
+              console.error(err)
+            }
+          })
+        }
+
+        wx.checkIsSupportSoterAuthentication({
+          success: (res) => {
+            console.log(1, res)
+            checkIsEnrolled()
+          },
+          fail: (err) => {
+            console.error(err)
+            wx.showModal({
+              title: '错误',
+              content: '您的设备不支持指纹识别',
+              showCancel: false
+            })
+          }
+        })
+      },
+      errMsg(err) {
+        console.log(err)
+      }
+    })
+  },
+
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
-    console.log(options)
+  onLoad: function(options) {
     let phone = wx.getStorageSync('phone')
     let hasToken = wx.getStorageSync('token')
     let puserId = ''
+    if (JSON.stringify(options) != "{}") {
+      wx.reportAnalytics('total_information', {
+        total_information: JSON.stringify(options),
+      });
+    }
     if (options && options.puserId) {
       puserId = options.puserId;
       if (puserId) {
         this.setData({
           puserId: puserId
         })
+        wx.setStorageSync('puserId', puserId)
       }
     }
     if (options && options.city) {
       this.setData({
         cityCode: options.city
       })
-      wx.setStorageSync('cityCode', that.data.cityCode)
+      wx.setStorageSync('cityCode', this.data.cityCode)
       wx.reportAnalytics('city_resource', {
         city: options.city,
       });
@@ -66,6 +138,7 @@ Page({
       this.setData({
         source: options.source
       })
+      console.log(options)
       wx.reportAnalytics('source', {
         source: options.source,
       });
@@ -98,7 +171,7 @@ Page({
     } else {
       wx.downloadFile({
         url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/53b4a46105ee45caaad5035a27e9f485',
-        success: function (res) {
+        success: function(res) {
           if (res.statusCode === 200) {
             const fs = wx.getFileSystemManager()
             fs.saveFile({
@@ -124,7 +197,7 @@ Page({
     } else {
       wx.downloadFile({
         url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/8947c1ad74914f6d8f72eab2efedce18',
-        success: function (res) {
+        success: function(res) {
           if (res.statusCode === 200) {
             const fs = wx.getFileSystemManager()
             fs.saveFile({
@@ -150,7 +223,7 @@ Page({
     } else {
       wx.downloadFile({
         url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/f9e2e843897840b29ae834b52599c6ba',
-        success: function (res) {
+        success: function(res) {
           if (res.statusCode === 200) {
             const fs = wx.getFileSystemManager()
             fs.saveFile({
@@ -176,7 +249,7 @@ Page({
     } else {
       wx.downloadFile({
         url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/4af0c66ef2d44555a82fae815cf60ca1',
-        success: function (res) {
+        success: function(res) {
           if (res.statusCode === 200) {
             const fs = wx.getFileSystemManager()
             fs.saveFile({
@@ -202,7 +275,7 @@ Page({
     } else {
       wx.downloadFile({
         url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/89147cd50ccf4f2293e23cc7438dc7ce',
-        success: function (res) {
+        success: function(res) {
           if (res.statusCode === 200) {
             const fs = wx.getFileSystemManager()
             fs.saveFile({
@@ -228,7 +301,7 @@ Page({
     } else {
       wx.downloadFile({
         url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/d10dffb1c94a445a9b191680181bd8e0',
-        success: function (res) {
+        success: function(res) {
           if (res.statusCode === 200) {
             const fs = wx.getFileSystemManager()
             fs.saveFile({
@@ -384,7 +457,7 @@ Page({
             });
           });
       },
-      fail: function (error) {
+      fail: function(error) {
         console.log('[app-login] :: 微信用户登录失败 > ' + (JSON.stringify(error) || ''));
 
       }
@@ -417,18 +490,18 @@ Page({
 
   enTranceNow() {
     let that = this;
-    wx.navigateTo({
-      url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home'
-    });
-    // if (that.data.puserId && that.data.puserId != '') {
-    //   wx.navigateTo({
-    //     url: '/pages/immediatelyEnter/immediatelyEnter?type=home&puserId=' + that.data.puserId
-    //   });
-    // } else {
-    //   wx.navigateTo({
-    //     url: '/pages/immediatelyEnter/immediatelyEnter?type=home'
-    //   });
-    // }
+    // wx.navigateTo({
+    //   url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home'
+    // });
+    if (that.data.puserId && that.data.puserId != '') {
+      wx.navigateTo({
+        url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home&puserId=' + that.data.puserId
+      });
+    } else {
+      wx.navigateTo({
+        url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home'
+      });
+    }
   },
 
   getDataList() {
@@ -483,49 +556,58 @@ Page({
               let phone = res.data.phone;
               let openId = wx.getStorageSync('openId')
               network.requestLoading('api/auth/v1/jwt/getToken', {
-                openId: openId,
-                phone: phone
-              },
+                  openId: openId,
+                  phone: phone
+                },
                 'post',
                 '',
                 'json',
-                function (res) {
+                function(res) {
                   if (res.success) {
                     wx.setStorage({
                       key: 'token',
                       data: res.data.token,
-                      success: function (res) { },
+                      success: function(res) {},
                     })
                   }
                 },
-                function (res) {
+                function(res) {
                   wx.showToast({
                     title: '加载数据失败',
                   });
                 });
               network.requestLoading('api/driver/driver/clue/create', {
-                "phone": phone,
-                "sourceType": that.data.source,
-                "workCity": that.data.cityCode,
-                "authorizePosition": that.data.souceCity
-              },
+                  "phone": phone,
+                  "sourceType": that.data.source,
+                  "workCity": that.data.cityCode,
+                  "authorizePosition": that.data.souceCity
+                },
                 'POST',
                 '',
                 'json',
-                function (res) {
+                function(res) {
                   if (res.success) {
                     wx.setStorage({
                       key: 'phone',
                       data: phone,
-                      success: function (res) {
-                        wx.navigateTo({
-                          url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home'
-                        });
+                      success: function(res) {
+                        // wx.navigateTo({
+                        //   url: '/pages/immediatelyEnter/immediatelyEnter?type=home'
+                        // });
+                        if (that.data.puserId && that.data.puserId != '') {
+                          wx.navigateTo({
+                            url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home&puserId=' + that.data.puserId
+                          });
+                        } else {
+                          wx.navigateTo({
+                            url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home'
+                          });
+                        }
                       },
                     })
                   }
                 },
-                function (res) {
+                function(res) {
                   wx.showToast({
                     title: '加载数据失败',
                   });

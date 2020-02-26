@@ -13,6 +13,7 @@ function request(url, params, met, message, types, success, fail) {
 // fail：失败的回调
 
 function requestLoading(url, params, met, message, types, success, fail) {
+  console.log(params)
   wx.showNavigationBarLoading()
   if (message != "") {
     wx.showLoading({
@@ -39,6 +40,7 @@ function requestLoading(url, params, met, message, types, success, fail) {
         },
         method: met,
         success: function (res) {
+          console.log(res)
           if (res.data.code == 40101) {
             wx.removeStorage({
               key: 'token',
@@ -69,6 +71,7 @@ function requestLoading(url, params, met, message, types, success, fail) {
           }
         },
         fail: function (res) {
+          console.log(res)
           wx.hideNavigationBarLoading()
           if (message != "") {
             wx.hideLoading()
@@ -97,6 +100,7 @@ function requestLoading(url, params, met, message, types, success, fail) {
         },
         method: met,
         success: function (res) {
+          console.log(res)
           if (res.data.code == 40101) {
             getRouter();
           } else if (res.data.code == 40301) {

@@ -57,7 +57,7 @@
           <view>{{item.cargoType}} <span>NO.{{item.lineId}}</span></view>
         </view>
         <view class='center'>
-          <image class='center_left' src='../../lib/image/lineIcon.png' mode='widthFix'></image>
+          <image class='center_left' src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/4f64c659e4d84136aa228e1e19f8291a' mode='widthFix'></image>
           <view class='center_right'>
             <view class='center_right_box'>
               <view class='center_right_name'>仓库位置：{{item.warehouse}}</view>
@@ -77,7 +77,10 @@
         </view>
         <view class='price'>
           <!-- <view class='priceTip'>客户报价：{{item.preLowestQuotations}}元/趟</view> -->
-          <view class='priceTip'>月收入：<span wx:if='{{(item.preLowestQuotations * item.month * item.dayNum) <= 15000 }}'>{{item.preLowestQuotations * item.month * item.dayNum}}</span><span wx:if='{{(item.preLowestQuotations * item.month * item.dayNum) > 15000 }}'>15000</span>元以上</view>
+          <view class='priceTip'>预计月收入：
+          <!-- <span wx:if='{{(item.preLowestQuotations * item.month * item.dayNum) <= 15000 }}'>{{item.preLowestQuotations * item.month * item.dayNum}}</span><span wx:if='{{(item.preLowestQuotations * item.month * item.dayNum) > 15000 }}'>15000</span> -->
+          <span>约{{item.monthlyTransaction}}</span>
+          元</view>
         </view>
         <view class='tip'>{{item.lineRankName}}</view>
         <view class='tip2'>可上车数：{{item.deployNum}}</view>

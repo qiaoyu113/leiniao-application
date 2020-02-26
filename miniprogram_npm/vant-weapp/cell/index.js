@@ -6,6 +6,7 @@ VantComponent({
   props: {
     title: null,
     value: null,
+    dayMoEvVal: null,
     icon: String,
     size: String,
     label: String,
@@ -13,6 +14,7 @@ VantComponent({
     isLink: Boolean,
     required: Boolean,
     clickable: Boolean,
+    mustChange: Boolean,
     titleWidth: String,
     customStyle: String,
     arrowDirection: String,

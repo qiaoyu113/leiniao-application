@@ -153,11 +153,11 @@
     <view bindtap='submitBtn' wx:if='{{nametype && phonetype && addressType && logisticsType && goodsType && incomeType && acceptType && intentionaType && accountType && isHaveLoanType && childrenNumType && buyCarFollowType}}' class="SubmitBtn">提交</view>
     <view wx:else class="noSubmitBtn" bindtap='submitNoBtn'>提交</view>
   </view>
-  <view class='cu-load load-modal' wx:if="{{loadModal}}"> 
+  <view class='cu-load load-modal' wx:if="{{loadModal}}">
     <!-- <view class='icon-emojifill text-orange'></view> -->
     <image src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/ed840995ff80456fa11763fe1bbf2d7a' class='png' mode='aspectFit'></image>
     <view class='gray-text font-load'>提交成功</view>
-</view>
+  </view>
 </view>
 <!--警告弹窗-->
 <van-notify id="van-notify" />

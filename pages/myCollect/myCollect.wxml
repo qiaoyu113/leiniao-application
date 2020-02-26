@@ -6,11 +6,15 @@
           <view>{{item.customerName}}</view>
         </view>
         <view class='center'>
-          <image class='center_left' src='../../lib/image/lineIcon.png' mode='widthFix'></image>
+          <image class='center_left' src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/4f64c659e4d84136aa228e1e19f8291a' mode='widthFix'></image>
           <view class='center_right'>
             <view class='center_right_box'>
               <view class='center_right_name'>仓库位置：{{item.warehouse}}</view>
               <view class='center_right_cal margin24'>车型：{{item.carTypeName}}</view>
+
+
+
+              
             </view>
             <view class='center_right_box'>
               <view class='center_right_name'>配送线路：{{item.lineName}}</view>

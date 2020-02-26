@@ -491,6 +491,7 @@ Page({
               prevPage.setData({
                 entranceType: true                     // 假数据
               })
+              wx.removeStorageSync('token')
             } else if (type == 'detail') {
               var pages = getCurrentPages();             //  获取页面栈
               var prevPage = pages[pages.length - 2];    // 上一个页面

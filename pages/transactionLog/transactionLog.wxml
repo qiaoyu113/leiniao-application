@@ -1,0 +1,17 @@
+<view class="transactionLog">
+  <view class="transactionLogList flex" wx:for='{{list}}' wx:key='inx'>
+    <view class="left flex-sub">
+      <view class="title">支付</view>
+      <view class="price">¥{{item.paymentMoney}}元</view>
+      <view class="type">{{item.remarks}}</view>
+    </view>
+    <view class="right flex-sub">
+      <view class="payType">{{item.payStatusName}}</view>
+      <view class="time">{{item.payCompleteTime}}</view>
+      <view class="btn" wx:if='{{item.refundStatus == 0}}' bindtap="goRefund" data-id='{{item.orderId}}'>申请退款</view>
+      <view class="btn" wx:if='{{item.refundStatus != 0}}' bindtap="goRefundDetail" data-id='{{item.orderId}}'>查看详情</view>
+    </view>
+  </view>
+  <view class='noMore' wx:if='{{list.length == 0}}'>暂无交易记录</view>
+  <view class='question' bindtap="goFeedBack">问题反馈</view>
+</view>

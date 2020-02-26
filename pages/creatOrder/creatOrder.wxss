@@ -1,0 +1,216 @@
+page {
+  background: #f6f6f6;
+}
+
+.changeBox {
+  width: 100%;
+  background: #fff;
+  margin-top: 7rpx;
+  padding-left: 30rpx;
+  box-sizing: border-box;
+}
+
+.changeBox .inpList {
+  width: 100%;
+  height: 100rpx;
+  line-height: 100rpx;
+  padding-right: 30rpx;
+  box-sizing: border-box;
+  border-bottom: 1px solid #eee;
+  overflow: hidden;
+}
+
+.changeBox .inpList:nth-child(2) {
+  border-bottom: none;
+}
+
+.changeBox .inpList2 {
+  width: 100%;
+  overflow: hidden;
+  border-bottom: 1px solid #eee;
+  padding: 15rpx 0;
+  box-sizing: border-box;
+}
+
+.changeBox .inpList2 .buy_needs_name {
+  width: 100%;
+  height: 60rpx;
+  line-height: 60rpx;
+  font-size: 32rpx;
+  color: #333;
+  float: left;
+}
+
+.changeBox .inpList2 .input2 {
+  width: 100%;
+  height: 60rpx;
+  font-size: 32rpx;
+}
+
+.changeBox .inpList2 .placeholdColor2 {
+  font-size: 30rpx;
+}
+
+.changeBox .inpList .buy_needs_name {
+  width: 300rpx;
+  font-size: 32rpx;
+  color: #333;
+  float: left;
+}
+
+.changeBox .inpList .buy_list_right_text {
+  display: inline-block;
+  font-size: 30rpx;
+  color: #000;
+  float: right;
+  margin-left: 14rpx;
+}
+
+.changeBox .inpList .buy_needs_addtext {
+  font-size: 30rpx;
+  color: #000;
+  display: inline-block;
+  float: right;
+}
+
+.changeBox .inpList .icon_right {
+  float: right;
+  color: #c7c7cc;
+  line-height: 94rpx;
+  margin-left: 14rpx;
+  display: inline-block;
+}
+
+.changeBox .inpList .icon_right .iconfont {
+  font-size: 24rpx !important;
+}
+
+.changeBox .inpList .input {
+  width: 350rpx;
+  height: 100rpx;
+  text-align: right;
+  float: right;
+  display: inline-block;
+}
+
+.placeholdColor {
+  color: #7d7d7d !important;
+}
+
+.placeholdColor2 {
+  color: #c7c7cc !important;
+}
+
+.submit {
+  width: 100%;
+  padding: 0 30rpx;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.submit .noSubmitBtn {
+  width: 100%;
+  height: 88rpx;
+  background: #fbd088;
+  border-radius: 10rpx;
+  text-align: center;
+  line-height: 88rpx;
+  color: #fff;
+  font-size: 32rpx;
+  margin: 64rpx auto;
+}
+
+.submit .SubmitBtn {
+  width: 100%;
+  height: 88rpx;
+  background: #ffa000;
+  border-radius: 10rpx;
+  text-align: center;
+  line-height: 88rpx;
+  color: #fff;
+  font-size: 32rpx;
+  margin: 64rpx auto;
+}
+
+.zz {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+}
+
+.payType {
+  width: 100%;
+  padding: 20rpx;
+  box-sizing: border-box;
+}
+
+.payType .title {
+  font-size: 32rpx;
+  color: #4a4a4a;
+  line-height: 70rpx;
+}
+
+.payList {
+  width: 100%;
+  height: 117rpx;
+  line-height: 117rpx;
+  padding: 0 24rpx;
+  box-sizing: border-box;
+  background: #fff;
+  box-shadow: 0 2px 10px 0 rgba(0, 0, 0, 0.08);
+  font-size: 32rpx;
+  color: #333;
+  margin-bottom: 20rpx;
+}
+
+.text {
+  position: relative;
+  top: -2px;
+}
+
+.margin_right_20 {
+  margin-right: 20rpx;
+  font-size: 44rpx;
+  color: #f76b1c;
+}
+
+.float_right {
+  float: right;
+  font-size: 50rpx;
+  color: #ffa000;
+}
+
+.float_right2{
+  float: right;
+  font-size: 50rpx;
+  color: #D8D8D8;
+}
+
+.imgIcon {
+  width: 44rpx;
+  height: 40rpx;
+  float: left;
+  margin-top: 39rpx;
+  margin-right: 31rpx;
+}
+
+.imgIcon2 {
+  width: 44rpx;
+  height: 40rpx;
+  float: left;
+  margin-top: 31rpx;
+  margin-right: 31rpx;
+}
+
+.imgIcon3 {
+  width: 44rpx;
+  height: 40rpx;
+  float: left;
+  margin-top: 36rpx;
+  margin-right: 31rpx;
+}

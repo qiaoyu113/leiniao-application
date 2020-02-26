@@ -19,6 +19,7 @@ Page({
     detail: '',
     typeBtn: true,
     hindBgType: false,
+    Type: false,
     index: 0,
     refundArray: [],
     arrays: []
@@ -34,18 +35,25 @@ Page({
     this.setData({
       id: options.id
     })
-    this.getDetail()
+    if (options.type) {
+      this.setData({
+        Type: options.type
+      })
+      this.getDetail2()
+    } else {
+      this.getDetail()
+    }
   },
 
   getDetail() {
     let that = this;
     network.requestLoading('api/base/base/dict/qryDictByType', {
-      dictType: 'order_refund_reason'
-    },
+        dictType: 'order_refund_reason'
+      },
       'GET',
       '',
       '',
-      function (res) {
+      function(res) {
         if (res.success) {
           //过滤picker
           that.setData({
@@ -58,18 +66,18 @@ Page({
           });
         }
       },
-      function (res) {
+      function(res) {
         wx.showToast({
           title: '加载数据失败',
         });
       });
     network.requestLoading('api/order/v1/magpie/order/orderDetail', {
-      orderId: that.data.id
-    },
+        orderId: that.data.id
+      },
       'get',
       '',
       '',
-      function (res) {
+      function(res) {
         if (res.success) {
           let data = res.data
           if (data.managementFeeFirst) {
@@ -82,7 +90,59 @@ Page({
           })
         }
       },
-      function (res) {
+      function(res) {
+        wx.showToast({
+          title: '加载数据失败',
+        });
+      });
+  },
+
+  getDetail2() {
+    let that = this;
+    network.requestLoading('api/base/base/dict/qryDictByType', {
+        dictType: 'order_refund_reason'
+      },
+      'GET',
+      '',
+      '',
+      function(res) {
+        if (res.success) {
+          //过滤picker
+          that.setData({
+            array: res.data
+          });
+          const arrays = that.data.array
+          let refundArray = common.picker(arrays)
+          that.setData({
+            refundArray: refundArray
+          });
+        }
+      },
+      function(res) {
+        wx.showToast({
+          title: '加载数据失败',
+        });
+      });
+    network.requestLoading('api/order/v1/magpie/order/queryRefundApplication', {
+        orderId: that.data.id
+      },
+      'get',
+      '',
+      '',
+      function(res) {
+        if (res.success) {
+          let data = res.data
+          if (data.managementFeeFirst) {
+            data.managementFeeFirst = data.managementFeeFirst.toFixed(2)
+          } else {
+            data.managementFeeFirst = '0.00'
+          }
+          that.setData({
+            detail: data
+          })
+        }
+      },
+      function(res) {
         wx.showToast({
           title: '加载数据失败',
         });
@@ -187,76 +247,112 @@ Page({
         })
         return false;
       }
-      network.requestLoading('api/order/v1/magpie/order/checkOrderRefundCondition', {
-        orderId: that.data.id
-      },
-        'get',
-        '',
-        '',
-        function (res) {
-          if (res.success) {
-            network.requestLoading('api/order/v1/magpie/order/refundOrder', {
-              "refundReason": that.data.textareaVal,
-              "receiptPhoto": that.data.imageList.toString(),
-              "orderId": that.data.id
-            },
-              'POST',
-              '',
-              'json',
-              function (res) {
-                if (res.success) {
-                  wx.redirectTo({
-                    url: '../myOrderRefundSuccess/myOrderRefundSuccess?id=' + that.data.id
-                  });
-                  // Dialog.alert({
-                  //   title: '提交成功',
-                  //   message: '已将退款申请提交至总部审核，具体到账时间按审核后打款为准。详情可咨询: 400-688-9179'
-                  // }).then(() => {
-                    
-                  //   that.setData({
-                  //     hindBgType: false
-                  //   })
-                  // })
-                  // that.setData({
-                  //   hindBgType: true
-                  // })
-                } else {
-                  Notify({
-                    text: res.errorMsg,
-                    duration: 2000,
-                    selector: '#van-notify',
-                    backgroundColor: '#FAC844'
-                  });
-                  that.setData({
-                    typeBtn: true
-                  })
-                }
-              },
-              function (res) {
-                that.setData({
-                  typeBtn: true
-                })
-                wx.showToast({
-                  title: '加载数据失败',
-                });
+      if (that.data.Type) {
+        network.requestLoading('api/order/v1/magpie/order/refundApplication', {
+            "reason": that.data.textareaVal,
+            "urls": that.data.imageList.toString(),
+            "orderId": that.data.id
+          },
+          'POST',
+          '',
+          'json',
+          function(res) {
+            if (res.success) {
+              wx.redirectTo({
+                url: '../myOrderRefundSuccess/myOrderRefundSuccess?id=' + that.data.id + '&&type=1'
               });
-          } else {
-            Notify({
-              text: res.errorMsg,
-              duration: 2000,
-              selector: '#van-notify',
-              backgroundColor: '#FAC844'
-            });
+            } else {
+              Notify({
+                text: res.errorMsg,
+                duration: 2000,
+                selector: '#van-notify',
+                backgroundColor: '#FAC844'
+              });
+              that.setData({
+                typeBtn: true
+              })
+            }
+          },
+          function(res) {
             that.setData({
               typeBtn: true
             })
-          }
-        },
-        function (res) {
-          wx.showToast({
-            title: '加载数据失败',
+            wx.showToast({
+              title: '加载数据失败',
+            });
           });
-        });
+      } else {
+        network.requestLoading('api/order/v1/magpie/order/checkOrderRefundCondition', {
+            orderId: that.data.id
+          },
+          'get',
+          '',
+          '',
+          function(res) {
+            if (res.success) {
+              network.requestLoading('api/order/v1/magpie/order/refundOrder', {
+                  "refundReason": that.data.textareaVal,
+                  "receiptPhoto": that.data.imageList.toString(),
+                  "orderId": that.data.id
+                },
+                'POST',
+                '',
+                'json',
+                function(res) {
+                  if (res.success) {
+                    wx.redirectTo({
+                      url: '../myOrderRefundSuccess/myOrderRefundSuccess?id=' + that.data.id
+                    });
+                    // Dialog.alert({
+                    //   title: '提交成功',
+                    //   message: '已将退款申请提交至总部审核，具体到账时间按审核后打款为准。详情可咨询: 400-688-9179'
+                    // }).then(() => {
+
+                    //   that.setData({
+                    //     hindBgType: false
+                    //   })
+                    // })
+                    // that.setData({
+                    //   hindBgType: true
+                    // })
+                  } else {
+                    Notify({
+                      text: res.errorMsg,
+                      duration: 2000,
+                      selector: '#van-notify',
+                      backgroundColor: '#FAC844'
+                    });
+                    that.setData({
+                      typeBtn: true
+                    })
+                  }
+                },
+                function(res) {
+                  that.setData({
+                    typeBtn: true
+                  })
+                  wx.showToast({
+                    title: '加载数据失败',
+                  });
+                });
+            } else {
+              Notify({
+                text: res.errorMsg,
+                duration: 2000,
+                selector: '#van-notify',
+                backgroundColor: '#FAC844'
+              });
+              that.setData({
+                typeBtn: true
+              })
+            }
+          },
+          function(res) {
+            wx.showToast({
+              title: '加载数据失败',
+            });
+          });
+      }
     }
   },
 

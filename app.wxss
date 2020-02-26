@@ -12,3 +12,9 @@
   padding: 200rpx 0;
   box-sizing: border-box;
 } 
+
+[class*="van-icon-"] {
+    font-family: "vant-icon" !important;
+    font-size: inherit;
+    font-style: normal;
+}

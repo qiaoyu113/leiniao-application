@@ -1,0 +1,17 @@
+<view class="incomeList">
+  <view class="incomeBox">
+    <view class="incomeItem shadow-lg" wx:for='{{incomeList}}' wx:key='{{ixs}}'>
+      <view class="incomeItemTop">
+        <view class="incomeItemTopLeft">{{ item.lineName }}</view>
+        <view class="incomeItemTopRight" bindtap="goUpData" data-id='{{item.tenderId}}' data-name='{{item.lineName}}' data-lineId='{{item.lineId}}'>收入上报</view>
+      </view>
+      <view class='incomeItemBottom'>
+        <view class="incomeItemBottomLeft">标书编号：{{ item.tenderId }}</view>
+        <view class="incomeItemBottomRight" wx:if='{{item.incomeSettlementMethod == 1}}'>预计单趟价格：{{ item.lowestQuotations }}元</view>
+        <view class="incomeItemBottomRight" wx:if='{{item.incomeSettlementMethod == 2}}'>预计月收入：{{ item.lowestQuotations }}元</view>
+      </view>
+    </view>
+  </view>
+  <view wx:if='{{!incomeList.length}}' class='noMore'>暂无收入记录</view>
+  <view class='question' bindtap="goFeedBack">问题反馈？</view>
+</view>

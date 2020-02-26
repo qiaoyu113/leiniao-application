@@ -39,6 +39,7 @@ page{
 .lineList .lineListTop .center {
   width: 100%;
   overflow: hidden;
+  padding-top: 15rpx;
 }
 
 .lineList .lineListTop .center .center_left {

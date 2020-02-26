@@ -7,14 +7,15 @@
       </view>
       <view>欢迎来到梧桐喜鹊</view>
     </view>
-    <view class='topCenterLeft'>
+    <button wx:if="{{canIUse}}" class="topCenterLeftBtn" open-type="getUserInfo" bindgetuserinfo="getUserInfoFun">授权登录</button>
+    <view wx:else class='topCenterLeft'>
       <open-data type="userAvatarUrl"></open-data>
     </view>
   </view>
 </view>
 
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
-  <button wx:if='{{!flag && !entranceType}}' class='cu-item arrow getPhoneBox2' open-type="getPhoneNumber" bindgetphonenumber= open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber2">
+  <button wx:if='{{!flag && !entranceType}}' class='cu-item arrow getPhoneBox2' open-type="getPhoneNumber" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber2">
     <text class='icon-profile text-orange margin_right_20'></text>
     <text class='text-grey content'>个人信息</text>
   </button>
@@ -40,6 +41,26 @@
   <view class="cu-item arrow" bindtap='goRouter' data-type='7'>
     <text class='icon-shop text-orange margin_right_20'></text>
     <text class='text-grey content'>我的订单</text>
+  </view>
+  <!--收入提报-->
+  <!-- <view class="cu-item arrow" bindtap='goRouter' data-type='8' wx:if='{{entranceType2}}'>
+    <text class='icon-refund text-orange margin_right_20'></text>
+    <text class='text-grey content'>收入提报</text>
+  </view> -->
+  <!--收入提报-->
+  <view class="cu-item arrow" bindtap='goRouter' data-type='9' wx:if='{{abilityCreatOrder}}'>
+    <text class='icon-pullup text-orange margin_right_20'></text>
+    <text class='text-grey content'>创建订单</text>
+  </view>
+  <!--我的账薄-->
+  <view class="cu-item arrow" bindtap='goRouter' data-type='10' wx:if='{{entranceType}}'>
+    <text class='icon-form text-orange margin_right_20'></text>
+    <text class='text-grey content'>我的账薄</text>
+  </view>
+  <!--司机满意度反馈-->
+  <view class="cu-item arrow" bindtap='goRouter' data-type='11' wx:if='{{entranceType}}'>
+    <text class='icon-we text-orange margin_right_20'></text>
+    <text class='text-grey content'>司机满意度反馈</text>
   </view>
   <!--我的推荐与奖励-->
   <!-- <button wx:if='{{!flag}}' class='cu-item arrow getPhoneBox2' open-type="getPhoneNumber" bindgetphonenumber= open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber3">

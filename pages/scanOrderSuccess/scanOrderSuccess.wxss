@@ -1,0 +1,62 @@
+/* pages/payDepositSuccess/payDepositSuccess.wxss */
+
+.payDepositSuccess {
+  width: 100%;
+  padding: 60rpx 30rpx;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.payDepositSuccess .icon {
+  width: 80rpx;
+  margin: auto;
+}
+
+.successText {
+  font-size: 36rpx;
+  color: #09bb07;
+  margin-top: 10rpx;
+}
+
+.checkText {
+  font-size: 30rpx;
+  color: #666;
+  margin-top: 100rpx;
+}
+
+.checkprice {
+  font-size: 70rpx;
+  color: #000;
+}
+
+.hint {
+  font-size: 28rpx;
+  color: #87919a;
+}
+
+.marginTop100 {
+  margin-top: 100rpx;
+}
+
+.btn {
+  width: 100%;
+  height: 88rpx;
+  line-height: 88rpx;
+  text-align: center;
+  font-size: 32rpx;
+  color: #fff;
+  background: #ffa000;
+  border-radius: 10rpx;
+  margin-top: 100rpx;
+}
+
+.topText {
+  width: 100%;
+  text-align: center;
+  font-size: 28rpx;
+  color: #f5a623;
+}
+
+.successIcon{
+  margin-top:100rpx;
+}

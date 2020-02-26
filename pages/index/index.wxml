@@ -1,4 +1,5 @@
 <view class='index'>
+  <!-- <button type="primary" bindtap="startAuth">开始认证</button> -->
   <!--轮播图-->
   <swiper class="swiper-box" indicator-dots="{{indicatorDots}}" autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
     <block wx:for="{{bannerImg}}" wx:key='key'>
@@ -15,13 +16,16 @@
   <view class='recommend'>
     <!-- <image class='imageTop' mode='widthFix' src='https://oss-qzn.yunniao.cn/img/b9da66d22ff3425eb5436898206641cd'></image> -->
   </view>
-  <view class='activityEntrance'>
+  <!-- <view class='activityEntrance'>
     <image class='img' src='{{image_filepath}}' bindtap='goActivity' mode='widthFix'></image>
+    <image class='img' src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/53b4a46105ee45caaad5035a27e9f485' bindtap='goActivity' mode='widthFix'></image>
     <button wx:if='{{!flag && !entranceType}}' class='getPhone' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber2"></button>
-  </view>
+  </view> -->
   <view class='activityEntrance'>
-    <image class='image'  src='{{image_filepath2}}' wx:if='{{entranceType}}' bindtap='goLineList' mode='widthFix'></image>
-    <image class='image' src='{{image_filepath3}}' wx:if='{{!entranceType}}' bindtap='enTranceNow' mode='widthFix'></image>
+    <!-- <image class='image'  src='{{image_filepath2}}' wx:if='{{entranceType}}' bindtap='goLineList' mode='widthFix'></image> -->
+    <image class='image'  src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/8947c1ad74914f6d8f72eab2efedce18' wx:if='{{entranceType}}' bindtap='goLineList' mode='widthFix'></image>
+    <!-- <image class='image' src='{{image_filepath3}}' wx:if='{{!entranceType}}' bindtap='enTranceNow' mode='widthFix'></image> -->
+    <image class='image' src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/f9e2e843897840b29ae834b52599c6ba' wx:if='{{!entranceType}}' bindtap='enTranceNow' mode='widthFix'></image>
     <button wx:if='{{!flag && !entranceType}}' class='getPhone' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber2"></button>
   </view>
   <!--热门文章-->
@@ -30,10 +34,10 @@
       <view class="Line"></view>
       梧桐推荐
       <!-- <span bindtap='moreAr'>更多</span> -->
-      <button wx:if='{{!flag}}' class='moreBtn' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">更多
+      <button wx:if='{{!flag}}' class='moreBtn' name='moreBtn_test1' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">更多
         <text class="icon-right marginLeft"></text>
       </button>
-      <view wx:if='{{flag}}' class='moreBtn' bindtap='goLineList'>更多
+      <view wx:if='{{flag}}' class='moreBtn' name='moreBtn_test2' bindtap='goLineList'>更多
         <text class="icon-right marginLeft"></text>
       </view>
     </view>
@@ -91,7 +95,8 @@
     <view class='driverBox'>
       <view class='driverImage'>
         <view class='left'>
-          <image src='{{image_filepath6}}' mode='widthFix'></image>
+          <!-- <image src='{{image_filepath6}}' mode='widthFix'></image> -->
+          <image src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/d10dffb1c94a445a9b191680181bd8e0' mode='widthFix'></image>
         </view>
         <view class='right'>
           <view>杨安容（上海司机）</view>

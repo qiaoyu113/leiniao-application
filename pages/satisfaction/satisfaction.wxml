@@ -1,0 +1,33 @@
+<view class="satisfaction">
+  <view class="rate-list">
+    <view class="rate-title">
+      <text style="color:red;">*</text> 您对当前的收入满意吗？</view>
+    <van-rate value="{{ value1 }}" icon="like" void-icon="like-o" data-id='1' bind:change="onChange" style='font-size:32rpx !important;' />
+  </view>
+  <view class="rate-list">
+    <view class="rate-title">
+      <text style="color:red;">*</text> 您对收入结算的时效满意吗？</view>
+    <van-rate value="{{ value2 }}" icon="like" void-icon="like-o" data-id='2' bind:change="onChange" />
+  </view>
+  <view class="rate-list">
+    <view class="rate-title">
+      <text style="color:red;">*</text> 当您遇到问题时，对我们的异常处理满意吗？</view>
+    <van-rate value="{{ value3 }}" icon="like" void-icon="like-o" data-id='3' bind:change="onChange" />
+  </view>
+  <view class="rate-list">
+    <view class="rate-title">
+      <text style="color:red;">*</text> 您能接受现在的工作时长吗？</view>
+    <van-rate value="{{ value4 }}" icon="like" void-icon="like-o" data-id='4' bind:change="onChange" />
+  </view>
+  <view class="rate-list">
+    <view class="rate-title">您有什么想对我们反馈的吗？</view>
+    <form bindsubmit="bindFormSubmit">
+      <textarea placeholder="请输入您想要反馈的内容 (限150字内)" name="textarea" maxlength='150'/>
+      <button form-type="submit" class='submit'> 提交 </button>
+    </form>
+  </view>
+</view>
+<!--警告弹窗-->
+<van-toast id="van-toast" />
+<!--警告弹窗-->
+<van-notify id="van-notify" />

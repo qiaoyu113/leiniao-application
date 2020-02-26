@@ -9,7 +9,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    questionList:[],
+    questionList: [],
     indexCheck: -1,
     issueDesc: '',
     submitType: true,
@@ -19,31 +19,42 @@ Page({
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function(options) {
     wx.setNavigationBarTitle({
       title: '问题反馈' //页面标题为路由参数
     });
-    this.getDirList()
+    if (options.type) {
+      this.getDirList(options.type)
+    } else {
+      this.getDirList()
+    }
+    
   },
 
-  getDirList() {
+  getDirList(type) {
     let that = this;
     //获取车型
     network.requestLoading('api/base/base/dict/qryDictByType', {
-      dictType: 'xcx_driver_feedback_issue_type'
-    },
+        dictType: 'xcx_driver_feedback_issue_type'
+      },
       'GET',
       '',
       '',
-      function (res) {
+      function(res) {
         if (res.success) {
           //过滤picker
           that.setData({
             questionList: res.data
           });
+          if(type){
+            that.setData({
+              indexCheck: type,
+              code: that.data.questionList[type].codeVal
+            })
+          }
         }
       },
-      function (res) {
+      function(res) {
         wx.showToast({
           title: '加载数据失败',
         });
@@ -57,13 +68,13 @@ Page({
     })
   },
 
-  bindTextAreaBlur: function (e) {
+  bindTextAreaBlur: function(e) {
     this.setData({
       issueDesc: e.detail.value
     })
   },
 
-  bindFormSubmit: function(e){
+  bindFormSubmit: function(e) {
     let that = this;
     if (that.data.code == '') {
       Notify({
@@ -88,19 +99,21 @@ Page({
         submitType: false
       })
       network.requestLoading('api/driver/driver/xcx/save-driver-feedback-issue-info', {
-        issueType: that.data.code,
-        issueContent: e.detail.value.textarea
-      },
+          issueType: that.data.code,
+          issueContent: e.detail.value.textarea
+        },
         'post',
         '',
         'json',
-        function (res) {
+        function(res) {
           console.log(res)
           if (res.success) {
             if (res.data.flag) {
               Toast('操作成功，工作人员会尽快与您取得联系');
               setTimeout(() => {
-                wx.navigateBack({ changed: true });
+                wx.navigateBack({
+                  changed: true
+                });
               }, 1000)
             } else {
               Notify({
@@ -116,7 +129,7 @@ Page({
             })
           }
         },
-        function (res) {
+        function(res) {
           wx.showToast({
             title: '加载数据失败',
           });
@@ -137,49 +150,49 @@ Page({
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
+  onReady: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
+  onHide: function() {
 
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
+  onUnload: function() {
 
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
+  onPullDownRefresh: function() {
 
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
+  onReachBottom: function() {
 
   },
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
+  onShareAppMessage: function() {
 
   }
 })

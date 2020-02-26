@@ -2,6 +2,8 @@
 
 <view class="van-collapse-item van-hairline--top custom-class">
   <van-cell
+    mustChange='{{ mustChange }}'
+    dayMoEvVal='{{ dayMoEvVal }}'
     title="{{ title }}"
     title-class="title-class"
     icon="{{ icon }}"

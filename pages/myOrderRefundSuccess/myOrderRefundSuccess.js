@@ -6,6 +6,7 @@ Page({
    */
   data: {
     id: '',
+    type: ''
   },
 
   /**
@@ -13,7 +14,8 @@ Page({
    */
   onLoad: function(options) {
     this.setData({
-      id: options.id
+      id: options.id,
+      type: options.type
     })
     wx.setNavigationBarTitle({
       title: '申请成功' //页面标题为路由参数
@@ -22,9 +24,15 @@ Page({
 
   goDetail: function() {
     let that = this;
-    wx.navigateTo({
-      url: '../myOrderRefundDetail/myOrderRefundDetail?id=' + that.data.id
-    });
+    if(that.data.type) {
+      wx.navigateTo({
+        url: '../myOrderRefundDetail/myOrderRefundDetail?id=' + that.data.id + '&&type=1'
+      });
+    } else {
+      wx.navigateTo({
+        url: '../myOrderRefundDetail/myOrderRefundDetail?id=' + that.data.id
+      });
+    }
   },
 
   goIndex: function () {

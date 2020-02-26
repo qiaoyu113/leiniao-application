@@ -1,0 +1,32 @@
+<view class="creatOrderQrcode">
+  <view class="content">
+    <view class="header">
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+    <view class="title">
+      恭喜{{name_first}}师傅加入梧桐大家庭！
+      <view class="point_left"></view>
+      <view class="point_right"></view>
+    </view>
+    <view class='codeValue'>
+      <view class='list'>司机姓名：{{name}}</view>
+      <!-- <view class='list'>支付金额：{{price}}</view> -->
+      <view class='list'>支付方式：微信支付</view>
+      <view class='list'>支付类型：{{checkName}}</view>
+    </view>
+    <view class='qrCodeImg'>
+      <image class="qrImg" src='{{qrcode}}' mode='widthFix'></image>
+      <view class='text' style='color: #9B9B9B;'>付款码</view>
+    </view>
+    <view class="priceBox">
+      <view class="price_left">支付金额：</view>
+      <view class='price_right'><text>{{price}}</text>元</view>
+    </view>
+  </view>
+  <view class='cu-load load-modal' wx:if="{{loadModal}}">
+    <text class='icon-qrcode text-orange'></text>
+    <view class='gray-text font-load upDateClass'>{{loadText}}</view>
+  </view>
+</view>
+<!--警告弹窗-->
+<van-notify id="van-notify" />

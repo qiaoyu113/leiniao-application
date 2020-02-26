@@ -3,15 +3,25 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
-		"postcss": true,
+		"enhance": false,
+		"postcss": false,
 		"minified": true,
 		"newFeature": true,
 		"nodeModules": true,
 		"autoAudits": false,
-		"checkInvalidKey": true
+		"uglifyFileName": true,
+		"checkInvalidKey": true,
+		"checkSiteMap": true,
+		"uploadWithSourceMap": true,
+		"babelSetting": {
+			"ignore": [],
+			"disablePlugins": [],
+			"outputPath": ""
+		},
+		"bundle": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.7.1",
+	"libVersion": "2.8.3",
 	"appid": "wxe9e35289dc334782",
 	"projectname": "%E6%A2%A7%E6%A1%90%E5%8F%B8%E6%9C%BA%E7%AB%AF%E5%B0%8F%E7%A8%8B%E5%BA%8F",
 	"simulatorType": "wechat",
@@ -33,6 +43,7 @@
 			"list": []
 		},
 		"miniprogram": {
+			"cloudfunctionRoot": "couldfunctions/",
 			"current": 0,
 			"list": [
 				{
