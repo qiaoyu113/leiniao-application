@@ -15,6 +15,25 @@ const formatNumber = n => {
   return n[1] ? n : '0' + n
 }
 
+// 金钱2位小数转化
+const toDecimal2 = x => {
+  var f = parseFloat(x);
+  if (isNaN(f)) {
+    return false;
+  }
+  var f = Math.round(x * 100) / 100;
+  var s = f.toString();
+  var rs = s.indexOf('.');
+  if (rs < 0) {
+    rs = s.length;
+    s = '.';
+  }
+  while (s.length <= rs + 2) {
+    s = '0';
+  }
+  return s;
+}
+
 //普通选择器picker
 const picker = val => {
   let arr = [];
@@ -84,5 +103,6 @@ module.exports = {
   formatTime: formatTime,
   picker: picker,
   picker2: picker2,
+  toDecimal2: toDecimal2,
   checkUpdateVersion: checkUpdateVersion
 }

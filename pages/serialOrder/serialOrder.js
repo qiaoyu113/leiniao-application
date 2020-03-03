@@ -1,4 +1,7 @@
 // pages/serialOrder/serialOrder.js
+var network = require("../../utils/network.js");
+var common = require("../../utils/util.js");
+
 Page({
 
   /**
@@ -12,7 +15,86 @@ Page({
     ],
     dateName: '日期',
     date: '',
-    value2: '0'
+    value2: '0',
+    activeName: '1',
+    orderList: [
+      {
+        name: '2020-01',
+        totalPrice: '200',
+        incomeList: [
+          {
+            time: '2020-01-10',
+            price: '350',
+            type: '1',
+          },
+          {
+            time: '2020-01-10',
+            price: '350',
+            type: '3',
+          },
+          {
+            time: '2020-01-10',
+            price: '350',
+            type: '1',
+          },
+          {
+            time: '2020-01-10',
+            price: '350',
+            type: '2',
+          },
+        ]
+      },
+      {
+        name: '2020-02',
+        totalPrice: '200',
+        checked: false,
+        incomeList: [
+          {
+            time: '2020-01-10',
+            price: '350'
+          },
+          {
+            time: '2020-01-10',
+            price: '350'
+          },
+          {
+            time: '2020-01-10',
+            price: '350'
+          },
+          {
+            time: '2020-01-10',
+            price: '350'
+          },
+        ]
+      },
+      {
+        name: '2020-03',
+        totalPrice: '200',
+        checked: false,
+        incomeList: [
+          {
+            time: '2020-01-10',
+            price: '350',
+            checked: false
+          },
+          {
+            time: '2020-01-10',
+            price: '350',
+            checked: true
+          },
+          {
+            time: '2020-01-10',
+            price: '350',
+            checked: true
+          },
+          {
+            time: '2020-01-10',
+            price: '350',
+            checked: false
+          },
+        ]
+      },
+    ]
   },
 
   /**
@@ -21,6 +103,29 @@ Page({
   onLoad: function (options) {
     wx.setNavigationBarTitle({
       title: '运费流水' //页面标题为路由参数
+    });
+  },
+
+  //日期选择
+  getDateTime(e) {
+    let that = this;
+    let stringTime = e.detail.value + "-01 00:00:00";
+    let timestamp2 = new Date(stringTime.replace(/-/g, "/")).getTime();
+    this.setData({
+      date: timestamp2,
+      dateName: e.detail.value
+    })
+  },
+
+  //塞选
+  onSwitch1Change({ detail }) {
+    this.setData({ value2: detail });
+  },
+
+  //选择时间订单
+  onChange(event) {
+    this.setData({
+      activeName: event.detail
     });
   },
 

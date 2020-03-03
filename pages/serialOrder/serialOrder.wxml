@@ -1,6 +1,7 @@
+<wxs src='../../filter/commonFilter.wxs' module='filter' />
 <view class="serialOrder">
 	<van-dropdown-menu active-color='#f76b1c'>
-		<van-dropdown-item value="{{ value2 }}" options="{{ option2 }}" />
+		<van-dropdown-item value="{{ value2 }}" options="{{ option2 }}" bind:change="onSwitch1Change"/>
     <view class='van-dropdown-menu__item'>
       <picker mode="date" fields="month" value="{{date}}" start="2019-01-01" bindchange="getDateTime">
         <view class="picker">
@@ -11,4 +12,20 @@
       </picker>
     </view>
 	</van-dropdown-menu>
+  <!--时间内容-->
+  <van-collapse value="{{ activeName }}" bind:change="onChange" accordion>
+    <van-collapse-item wx:for='{{orderList}}' wx:key='ins' item-index='{{index}}' name="{{index + 1}}">
+      <view slot="title">{{item.name}}</view>
+      <view slot="value" style='color:#ffa400;'>
+        <van-icon class="moneyIcon" name="cash-back-record" style="font-size:38rpx;"/><text style="float:right;">{{filter.toDecimal2(item.totalPrice)}}</text>
+        <!-- <van-icon class="moneyIcon" name="completed" style="font-size:38rpx;"/><text>待确认</text> -->
+      </view>
+      <view class="list" wx:for="{{item.incomeList}}" wx:for-item="i">
+        <text class="left">{{i.time}}</text>
+        <text class="right noCar" wx:if='{{i.type == 1}}'>未出车</text>
+        <text class="right moneyColor" wx:if='{{i.type == 2}}'>¥ {{filter.toDecimal2(i.price)}}</text>
+        <text class="right checkBtn" style='color:#409EFF;' wx:if='{{i.type == 3}}'>待确认</text>
+      </view>
+    </van-collapse-item>
+  </van-collapse>
 </view>

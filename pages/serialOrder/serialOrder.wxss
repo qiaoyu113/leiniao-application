@@ -9,3 +9,53 @@
   justify-content: center;
   min-width: 0;  
 }
+
+.moneyIcon{
+  top:6rpx;
+  right: 15rpx;
+  position: relative;
+}
+
+.list{
+  width:100%;
+  padding:16rpx 0;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.list .left{
+  float:left;
+  line-height: 60rpx;
+  padding-left:20rpx;
+}
+
+.list .right{
+  float:right;
+  font-size:28rpx;
+}
+
+.list .noCar{
+  color: #C0C4CC;
+}
+
+.list .moneyColor{
+  color:#909399;
+}
+
+.list .waitCheck{
+  color:#409EFF;
+}
+
+.checkBtn{
+  height: 50rpx;
+  line-height: 46rpx;
+  border-radius: 35rpx;
+  padding:3rpx 30rpx;
+  box-sizing: border-box;
+  margin: auto;
+  font-size: 24rpx !important;
+  border: 2rpx solid #8DC5FF;
+  color:#409EFF;
+  background: #EFF6FF;
+  text-align: center;
+}
