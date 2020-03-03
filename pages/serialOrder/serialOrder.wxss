@@ -1,0 +1,11 @@
+/* pages/serialOrder/serialOrder.wxss */
+.serialOrder .van-dropdown-menu__item{
+  display: flex;
+  -webkit-flex: 1;
+  flex: 1;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  min-width: 0;  
+}

@@ -198,6 +198,8 @@ Page({
       routerName = '../incomeUpDataNew/incomeUpDataNew'
     } else if (type == '11') {
       routerName = '../satisfaction/satisfaction'
+    } else if (type == '12') {
+      routerName = '../serialOrder/serialOrder'
     }
     wx.navigateTo({
       url: routerName

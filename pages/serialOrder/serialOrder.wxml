@@ -1,0 +1,14 @@
+<view class="serialOrder">
+	<van-dropdown-menu active-color='#f76b1c'>
+		<van-dropdown-item value="{{ value2 }}" options="{{ option2 }}" />
+    <view class='van-dropdown-menu__item'>
+      <picker mode="date" fields="month" value="{{date}}" start="2019-01-01" bindchange="getDateTime">
+        <view class="picker">
+          <view class='searchLefts'>{{ dateName }}
+            <text class="icon-triangledownfill marginLeft"></text>
+          </view>
+        </view>
+      </picker>
+    </view>
+	</van-dropdown-menu>
+</view>
