@@ -71,7 +71,6 @@ function requestLoading(url, params, met, message, types, success, fail) {
           }
         },
         fail: function (res) {
-          console.log(res)
           wx.hideNavigationBarLoading()
           if (message != "") {
             wx.hideLoading()
@@ -100,7 +99,6 @@ function requestLoading(url, params, met, message, types, success, fail) {
         },
         method: met,
         success: function (res) {
-          console.log(res)
           if (res.data.code == 40101) {
             getRouter();
           } else if (res.data.code == 40301) {
@@ -176,6 +174,22 @@ function getWxOpenId() {
     icon: 'loading',//图标，支持"success"、"loading" 
     duration: 2000,
   })
+  // wx.qy.login({
+  //   success: function (res) {
+  //     if (res.code) {
+  //       console.log(1111,res)
+  //       wx.setStorage({
+  //         key: 'qyCode',
+  //         data: code
+  //       })
+  //     } else {
+  //       console.log('登录失败！' + res.errMsg)
+  //     }
+  //   },
+  //   fail: res => {
+  //     console.log(res)
+  //   }
+  // });
   wx.login({
     success: res => {
       // 发送 res.code 到后台换取 openId, sessionKey, unionId

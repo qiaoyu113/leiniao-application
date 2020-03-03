@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/test/test",
     "pages/incomeUpDataNew/incomeUpDataNew",
     "pages/satisfaction/satisfaction",
     "pages/transactionLog/transactionLog",
@@ -8,7 +9,6 @@
     "pages/scanOrder/scanOrder",
     "pages/creatOrder/creatOrder",
     "pages/creatOrderQrcode/creatOrderQrcode",
-    "pages/test/test",
     "pages/myCenter/myCenter",
     "pages/income/income",
     "pages/incomeUpData/incomeUpData",

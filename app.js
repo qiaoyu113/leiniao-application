@@ -7,7 +7,19 @@ App({
     // var logs = wx.getStorageSync('logs') || []
     // logs.unshift(Date.now())
     // wx.setStorageSync('logs', logs)
-
+    // wx.qy.login({
+    //   success: function (res) {
+    //     console.log(333333, res)
+    //     if (res.code) {
+    //       console.log(res)
+    //     } else {
+    //       console.log('登录失败！' + res.errMsg)
+    //     }
+    //   },
+    //   fail: res => {
+    //     console.log(4444, res)
+    //   }
+    // });
     // 登录
     wx.login({
       success: res => {

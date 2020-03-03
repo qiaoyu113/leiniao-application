@@ -158,6 +158,7 @@ Page({
     // }
     // }
     this.getLoadImg()
+
   },
 
   getLoadImg() {
