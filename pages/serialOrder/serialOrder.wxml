@@ -20,12 +20,13 @@
         <van-icon class="moneyIcon" name="cash-back-record" style="font-size:38rpx;"/><text style="float:right;">{{filter.toDecimal2(item.totalPrice)}}</text>
         <!-- <van-icon class="moneyIcon" name="completed" style="font-size:38rpx;"/><text>待确认</text> -->
       </view>
-      <view class="list" wx:for="{{item.incomeList}}" wx:for-item="i">
+      <view class="list" wx:if='{{orderList.length}}' wx:for="{{item.incomeList}}" wx:for-item="i" wx:key='ic'>
         <text class="left">{{i.time}}</text>
         <text class="right noCar" wx:if='{{i.type == 1}}'>未出车</text>
-        <text class="right moneyColor" wx:if='{{i.type == 2}}'>¥ {{filter.toDecimal2(i.price)}}</text>
-        <text class="right checkBtn" style='color:#409EFF;' wx:if='{{i.type == 3}}'>待确认</text>
+        <text class="right moneyColor" wx:if='{{i.type == 2}}' data-id="{{i.orderId}}" bindtap="goDetail">¥ {{filter.toDecimal2(i.price)}}</text>
+        <text class="right checkBtn" style='color:#3ACB8D;' wx:if='{{i.type == 3}}' data-id="{{i.orderId}}" bindtap="goCheck">待确认</text>
       </view>
+      <view wx:if='{{!orderList.length}}' style="text-align:center;">本月暂无出车记录</view>
     </van-collapse-item>
   </van-collapse>
 </view>

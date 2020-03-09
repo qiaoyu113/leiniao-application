@@ -33,7 +33,7 @@ Page({
     goodVal: '货物类型',
     carVal: '车型',
     puserId: '',
-    image_filepath: ''
+    image_filepath: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/539e47df1c024da4aa9216b36b6c9ff8'
   },
 
   /**
@@ -43,10 +43,22 @@ Page({
     wx.setNavigationBarTitle({
       title: '货源大厅' //页面标题为路由参数
     });
-    // 获取分享人 
-    this.setData({
-      puserId: wx.getStorageSync('puserId')
-    })
+    console.log(options)
+    if (options && options.puserId) {
+      let puserId = options.puserId;
+      if (puserId) {
+        this.setData({
+          puserId: puserId
+        })
+        wx.setStorageSync('puserId', puserId)
+        this.loginPuserId();
+      }
+    } else {
+      // 获取分享人 
+      this.setData({
+        puserId: wx.getStorageSync('puserId')
+      })
+    }
     this.getCity()
     this.getLoad()
   },
@@ -54,32 +66,115 @@ Page({
   getLoad() {
     // 获取图片
     let that = this;
-    const path = wx.getStorageSync('image_cache_Line')
-    if (path && path != null) {
-      that.setData({
-        image_filepath: path
-      })
-    } else {
-      wx.downloadFile({
-        url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/539e47df1c024da4aa9216b36b6c9ff8',
-        success: function(res) {
-          if (res.statusCode === 200) {
-            const fs = wx.getFileSystemManager()
-            fs.saveFile({
-              tempFilePath: res.tempFilePath, // 传入一个临时文件路径
-              success(res) {
-                that.setData({
-                  image_filepath: res.savedFilePath
-                })
-                wx.setStorageSync('image_cache_Line', res.savedFilePath)
-              }
-            })
-          } else {
-            console.log('响应失败', res.statusCode)
-          }
+    // const path = wx.getStorageSync('image_cache_Line')
+    // if (path && path != null) {
+    //   that.setData({
+    //     image_filepath: path
+    //   })
+    // } else {
+    //   wx.downloadFile({
+    //     url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/539e47df1c024da4aa9216b36b6c9ff8',
+    //     success: function(res) {
+    //       if (res.statusCode === 200) {
+    //         const fs = wx.getFileSystemManager()
+    //         fs.saveFile({
+    //           tempFilePath: res.tempFilePath, // 传入一个临时文件路径
+    //           success(res) {
+    //             that.setData({
+    //               image_filepath: res.savedFilePath
+    //             })
+    //             wx.setStorageSync('image_cache_Line', res.savedFilePath)
+    //           }
+    //         })
+    //       } else {
+    //         console.log('响应失败', res.statusCode)
+    //       }
+    //     }
+    //   })
+    // }
+    wx.getStorage({
+      //获取数据的key
+      key: 'phone',
+      success: function (res) {
+        var flag = res.data;
+        if (flag) {
+          flag = true
+        } else {
+          flag = false
         }
-      })
-    }
+        that.setData({
+          flag: flag
+        })
+      }
+    })
+  },
+
+  // 有推荐人
+  loginPuserId() {
+    let that = this;
+    // wx.removeStorage({
+    //   key: 'token',
+    //   success: function(res) {}
+    // })
+    wx.login({
+      success: function (res) {
+        that.setData({
+          code: res.code
+        })
+        network.requestLoading('api/auth/v1/jwt/getToken', {
+          wxCode: that.data.code,
+          puserId: that.data.puserId
+        },
+          'post',
+          '',
+          'json',
+          function (res) {
+            if (res.success) {
+              that.setData({
+                openId: res.data.openId
+              })
+              let token = res.data.token;
+              let phone = res.data.phone;
+              let openId = res.data.openId;
+              let userId = res.data.userId;
+              wx.setStorage({
+                key: 'openId',
+                data: openId,
+                success: function (res) {
+                  wx.setStorage({
+                    key: 'userId',
+                    data: userId,
+                    success: function (res) {
+                      if (phone) {
+                        wx.setStorage({
+                          key: 'phone',
+                          data: phone,
+                          success: function (res) { },
+                        })
+                      }
+                      wx.setStorage({
+                        key: 'token',
+                        data: token,
+                        success: function (res) {
+                          that.loginFunction()
+                        },
+                      })
+                    }
+                  })
+                }
+              })
+            }
+          },
+          function (res) {
+            wx.showToast({
+              title: '加载数据失败',
+            });
+          });
+      },
+      fail: function (error) {
+        console.log('[app-login] :: 微信用户登录失败 > ' + (JSON.stringify(error) || ''));
+      }
+    })
   },
 
   getCity() {
@@ -503,7 +598,7 @@ Page({
     let userId = wx.getStorageSync('userId')
     return {
       title: '自主创业，随时上岗；货源稳定、线路优质；购车保收入10万+/年',
-      path: '/pages/index/index?puserId=' + userId + '&source=2',
+      path: '/pages/lineList/lineList?puserId=' + userId + '&source=2',
       imageUrl: '../../lib/image/shareImg.jpg',
       success: function(res) {
         // 转发成功

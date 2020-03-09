@@ -1,5 +1,7 @@
 // pages/serialOrder/serialOrder.js
 var network = require("../../utils/network.js");
+import Notify from '../../miniprogram_npm/vant-weapp/notify/notify';
+import Toast from '../../miniprogram_npm/vant-weapp/toast/toast';
 var common = require("../../utils/util.js");
 
 Page({
@@ -16,7 +18,7 @@ Page({
     dateName: '日期',
     date: '',
     value2: '0',
-    activeName: '1',
+    activeName: 1,
     orderList: [
       {
         name: '2020-01',
@@ -106,6 +108,22 @@ Page({
     });
   },
 
+  //当前时间
+  nowTime(){
+    let that = this;
+    var date = new Date;
+    var year = date.getFullYear();
+    var month = date.getMonth() + 1;
+    month = (month < 10 ? "0" + month : month);
+    var mydate = (year.toString() + '-' + month.toString());
+    let e = {
+      detail:{
+        value: mydate
+      }
+    }
+    that.getDateTime(e)
+  },
+
   //日期选择
   getDateTime(e) {
     let that = this;
@@ -115,6 +133,43 @@ Page({
       date: timestamp2,
       dateName: e.detail.value
     })
+    that.getList()
+  },
+
+  // 获取流水
+  getList() {
+    let that = this;
+    network.requestLoading('api/base/base/dict/qryDictByType', {
+      dictType: 'online_city'
+    },
+      'GET',
+      '',
+      '',
+      function (res) {
+        if (res.success) {
+          //过滤picker
+          // that.setData({
+          //   orderList: res.data
+          // });
+        }
+      },
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        });
+      });
+  },
+
+  goCheck(e) {
+    wx.navigateTo({
+      url: '../freightCheck/freightCheck?id=' + e.currentTarget.dataset.id
+    });
+  },
+
+  goDetail(e) {
+    wx.navigateTo({
+      url: '../freightDetail/freightDetail?id=' + e.currentTarget.dataset.id
+    });
   },
 
   //塞选
@@ -140,7 +195,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    this.nowTime();
   },
 
   /**

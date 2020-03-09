@@ -1,0 +1,40 @@
+<wxs src='../../filter/commonFilter.wxs' module='filter' />
+<view class="freightCheck">
+  <view class="topBG">
+    <view class="title">总金额（元）</view>
+    <view class="price"><text>¥</text> {{filter.toDecimal2(totalPrice)}}</view>
+    <view class='date'>日期：{{date}}</view>
+  </view>
+  <view class="bottomBG">
+    <view class="list" wx:for='{{list}}' wx:key='ind'>
+      <view class="{{ item.checked ? 'listTop' : 'listTopNo'}}">
+       <text wx:if='{{item.checked}}'>已出车</text>
+       <text wx:if='{{!item.checked}}' class="lineNameSingle">线路{{index + 1}}：{{ item.lineName }}</text>
+       <van-switch class="btn" checked="{{ item.checked }}" index='{{index}}' active-color="#3ACB8D"
+  inactive-color="#9B9B9B" size="20px" bind:change="onChange"/>
+      </view>
+      <view class="listBottom" wx:if='{{item.checked}}'>
+        <view class="lineName">线路{{index + 1}}：{{ item.lineName }}</view>
+        <view class="lineInp">
+          <view class="yuan">元</view>
+          <input class="inp" type="digit" value='{{item.price}}'bindinput="inputName" data-i='{{index}}'></input>
+          <view class='text'>金额:</view>
+        </view>
+      </view>
+    </view>
+    <view class="btnBox">
+      <view class="noCarBtn" bindtap="noFreight">今日未出车</view>
+      <view class="yesBtn" bindtap="yesFreight">确认</view>
+    </view>
+    <view class="hint">
+      <view class="hintTitle">说明：</view>
+      <view>1、日期是指：出车配送完成的日期。</view>
+      <view>2、总金额=当日的所有线路数运费总和。</view>
+      <view>3、同一条线路，存在多趟数，填写多趟数的总金额。</view>
+      <view>4、如果当天线路数没有出车，可以关闭已出车按钮。</view>
+    </view>
+  </view>
+  <van-dialog id="van-dialog"/>
+</view>
+<!--警告弹窗-->
+<van-notify id="van-notify" />

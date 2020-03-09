@@ -44,16 +44,26 @@
 		"game": {
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
-			"cloudfunctionRoot": "couldfunctions/",
 			"current": 0,
 			"list": [
 				{
 					"id": 0,
 					"name": "join",
 					"pathName": "pages/index/index",
-					"query": "source=10",
+					"query": "source=2&puerId=7234897234",
 					"scene": 1011
+				},
+				{
+					"id": 1,
+					"name": "linelist",
+					"pathName": "pages/lineList/lineList",
+					"query": "source=2&puserId=7234897234",
+					"scene": 1007
 				}
 			]
 		}

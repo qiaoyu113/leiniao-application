@@ -1,0 +1,16 @@
+<wxs src='../../filter/commonFilter.wxs' module='filter' />
+<view class="freightCheck">
+  <view class="topBG">
+    <view class="title">总金额（元）</view>
+    <view class="price"><text>¥</text> {{filter.toDecimal2(totalPrice)}}</view>
+    <view class='date'>日期：{{date}}</view>
+  </view>
+  <view class="list" wx:for='{{list}}' wx:key='ins'>
+    <view class="listName">
+      <van-tag color="#3acb8d" size="medium">线路{{index + 1}}</van-tag> {{item.name}}
+    </view>
+    <view class="price">金额：<text>¥{{filter.toDecimal2(item.price)}}</text></view>
+    <view class="checkDate">确认时间：<text>{{item.date}}</text></view>
+    <view class="checkDate">运费变更时间：<text>{{item.date}}</text></view>
+  </view>
+</view>

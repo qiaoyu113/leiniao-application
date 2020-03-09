@@ -13,6 +13,6 @@
       wx:if="{{ safeAreaInsetTop }}"
       style="height: {{ statusBarHeight }}px"
     ></view>
-    <text>{{ message }}</text>
+    <text>{{ text }}</text>
   </view>
 </van-transition>

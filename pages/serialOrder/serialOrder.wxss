@@ -39,11 +39,21 @@
 }
 
 .list .moneyColor{
-  color:#909399;
+  color:#ffa400;
+  height: 50rpx;
+  line-height: 46rpx;
+  border-radius: 35rpx;
+  padding:3rpx 30rpx;
+  box-sizing: border-box;
+  margin: auto;
+  font-size: 24rpx !important;
+  border: 2rpx solid #ffa400;
+  background: #FFF;
+  text-align: center;
 }
 
 .list .waitCheck{
-  color:#409EFF;
+  color:#3ACB8D;
 }
 
 .checkBtn{
@@ -54,8 +64,8 @@
   box-sizing: border-box;
   margin: auto;
   font-size: 24rpx !important;
-  border: 2rpx solid #8DC5FF;
-  color:#409EFF;
+  border: 2rpx solid #3ACB8D;
+  color:#3ACB8D;
   background: #EFF6FF;
   text-align: center;
 }

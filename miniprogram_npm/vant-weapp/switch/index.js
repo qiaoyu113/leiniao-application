@@ -11,6 +11,7 @@ VantComponent({
                 this.setData({ value, loadingColor });
             }
         },
+        index: String,
         loading: Boolean,
         disabled: Boolean,
         activeColor: String,
@@ -39,12 +40,16 @@ VantComponent({
             return checked ? activeColor || BLUE : inactiveColor || GRAY_DARK;
         },
         onClick() {
-            const { activeValue, inactiveValue } = this.data;
+          const { activeValue, inactiveValue, index } = this.data;
             if (!this.data.disabled && !this.data.loading) {
                 const checked = this.data.checked === activeValue;
                 const value = checked ? inactiveValue : activeValue;
-                this.$emit('input', value);
-                this.$emit('change', value);
+                const newValue = {
+                  value: value,
+                  index: index
+                };
+                this.$emit('input', newValue);
+                this.$emit('change', newValue);
             }
         }
     }

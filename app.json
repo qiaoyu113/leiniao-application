@@ -1,6 +1,9 @@
 {
   "pages": [
+    "pages/freightDetail/freightDetail",
+    "pages/freightCheck/freightCheck",
     "pages/serialOrder/serialOrder",
+    "pages/lineList/lineList",
     "pages/index/index",
     "pages/test/test",
     "pages/incomeUpDataNew/incomeUpDataNew",
@@ -31,7 +34,6 @@
     "pages/checkOrder/checkOrder",
     "pages/recommend/recommend",
     "pages/myRecommend/myRecommend",
-    "pages/lineList/lineList",
     "pages/lineDetail/lineDetail",
     "pages/myCollect/myCollect",
     "pages/persenolInfo/persenolInfo",

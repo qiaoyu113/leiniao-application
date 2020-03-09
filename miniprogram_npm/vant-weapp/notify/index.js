@@ -2,6 +2,7 @@ import { VantComponent } from '../common/component';
 import { WHITE } from '../common/color';
 VantComponent({
     props: {
+        text: String,
         message: String,
         background: String,
         type: {
