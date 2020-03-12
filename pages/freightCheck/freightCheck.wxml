@@ -9,15 +9,15 @@
     <view class="list" wx:for='{{list}}' wx:key='ind'>
       <view class="{{ item.checked ? 'listTop' : 'listTopNo'}}">
        <text wx:if='{{item.checked}}'>已出车</text>
-       <text wx:if='{{!item.checked}}' class="lineNameSingle">线路{{index + 1}}：{{ item.lineName }}</text>
+       <view wx:if='{{!item.checked}}' class="lineNameSingle"><van-tag round class='tag'>未出车</van-tag> 线路{{index + 1}}：{{ item.lineName }}</view>
        <van-switch class="btn" checked="{{ item.checked }}" index='{{index}}' active-color="#3ACB8D"
   inactive-color="#9B9B9B" size="20px" bind:change="onChange"/>
       </view>
       <view class="listBottom" wx:if='{{item.checked}}'>
-        <view class="lineName">线路{{index + 1}}：{{ item.lineName }}</view>
+        <view class="lineName">线路{{index + 1}}：{{ item.lineName }} / <text wx:if='{{item.incomeSettlementMethod == 1}}'>趟结算</text><text wx:if='{{item.incomeSettlementMethod == 2}}'>月结算</text></view>
         <view class="lineInp">
           <view class="yuan">元</view>
-          <input class="inp" type="digit" value='{{item.price}}'bindinput="inputName" data-i='{{index}}'></input>
+          <input class="inp" type="digit" value='{{item.predictCost}}'bindinput="inputName" data-i='{{index}}'></input>
           <view class='text'>金额:</view>
         </view>
       </view>

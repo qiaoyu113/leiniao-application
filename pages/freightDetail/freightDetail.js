@@ -10,20 +10,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    date: '2020-03-10',
+    date: '',
     totalPrice: 0,
-    list: [
-      {
-        name: '12asdfasf',
-        price: '300',
-        date: '2020-10-20'
-      },
-      {
-        name: '12asdfasf',
-        price: '300',
-        date: '2020-10-20'
-      }
-    ]
+    list: []
   },
 
   /**
@@ -33,27 +22,30 @@ Page({
     wx.setNavigationBarTitle({
       title: '运费详情' //页面标题为路由参数
     });
-    let id = options.id;
+    let date = options.date;
     this.setData({
-      id: id
+      date: date
     })
-    this.getDetail(id);
+    this.getDetail(date);
   },
 
-  getDetail(id) {
+  getDetail(date) {
     let that = this;
-    network.requestLoading('api/base/base/dict/qryDictByType', {
-      dictType: 'online_city'
+    let stringTime = date + " 00:00:00";
+    let timestamp2 = new Date(stringTime.replace(/-/g, "/")).getTime();
+    network.requestLoading('api/dispatch/driver/dispatch/xcx/get_delivery_record_detail', {
+      runningDate: timestamp2
     },
-      'GET',
+      'post',
       '',
-      '',
+      'json',
       function (res) {
         if (res.success) {
           //过滤picker
-          // that.setData({
-          //   orderList: res.data
-          // });
+          that.setData({
+            list: res.data.detailInfoVOList,
+            totalPrice: res.data.totalCost
+          });
         }
       },
       function (res) {

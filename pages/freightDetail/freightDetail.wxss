@@ -45,9 +45,10 @@ page {
 }
 
 .list .listName {
-  font-size: 32rpx;
-  height: 80rpx;
-  line-height: 80rpx;
+  font-size: 29rpx;
+  line-height: 36rpx;
+  padding: 16rpx 0;
+  color:#333;
 }
 
 .list .price {
@@ -70,4 +71,9 @@ page {
 
 .checkDate text{
   float: right;
+}
+
+.tag{
+  position: relative;
+  top: -3rpx;
 }

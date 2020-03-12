@@ -3,7 +3,7 @@
 	<van-dropdown-menu active-color='#f76b1c'>
 		<van-dropdown-item value="{{ value2 }}" options="{{ option2 }}" bind:change="onSwitch1Change"/>
     <view class='van-dropdown-menu__item'>
-      <picker mode="date" fields="month" value="{{date}}" start="2019-01-01" bindchange="getDateTime">
+      <picker mode="date" fields="month" value="{{dateName}}" start="2019-01-01" bindchange="getDateTime">
         <view class="picker">
           <view class='searchLefts'>{{ dateName }}
             <text class="icon-triangledownfill marginLeft"></text>
@@ -13,20 +13,20 @@
     </view>
 	</van-dropdown-menu>
   <!--时间内容-->
-  <van-collapse value="{{ activeName }}" bind:change="onChange" accordion>
-    <van-collapse-item wx:for='{{orderList}}' wx:key='ins' item-index='{{index}}' name="{{index + 1}}">
-      <view slot="title">{{item.name}}</view>
-      <view slot="value" style='color:#ffa400;'>
-        <van-icon class="moneyIcon" name="cash-back-record" style="font-size:38rpx;"/><text style="float:right;">{{filter.toDecimal2(item.totalPrice)}}</text>
-        <!-- <van-icon class="moneyIcon" name="completed" style="font-size:38rpx;"/><text>待确认</text> -->
+  <van-collapse value="{{ activeName }}" bind:change="onChange" accordion  wx:if='{{orderList.length > 0}}'>
+    <van-collapse-item name="{{1}}">
+      <view slot="title">{{orderList[0].runningMonthDate}}</view>
+        <view slot="value" style='color:#ffa400;'>
+          <van-icon class="moneyIcon" name="cash-back-record" style="font-size:38rpx;"/><text style="float:right;">{{filter.toDecimal2(totalPrice)}}</text>
+          <!-- <van-icon class="moneyIcon" name="completed" style="font-size:38rpx;"/><text>待确认</text> -->
       </view>
-      <view class="list" wx:if='{{orderList.length}}' wx:for="{{item.incomeList}}" wx:for-item="i" wx:key='ic'>
-        <text class="left">{{i.time}}</text>
-        <text class="right noCar" wx:if='{{i.type == 1}}'>未出车</text>
-        <text class="right moneyColor" wx:if='{{i.type == 2}}' data-id="{{i.orderId}}" bindtap="goDetail">¥ {{filter.toDecimal2(i.price)}}</text>
-        <text class="right checkBtn" style='color:#3ACB8D;' wx:if='{{i.type == 3}}' data-id="{{i.orderId}}" bindtap="goCheck">待确认</text>
+      <view class="list" wx:if='{{orderList.length > 0}}' wx:for="{{orderList[0].recordFlowSheetVOS}}" wx:for-item="i" wx:key='ic'>
+        <text class="left">{{i.runningDate}}</text>
+        <!-- <text class="right noCar" wx:if='{{i.state == 3}}'>未出车</text> -->
+        <text class="right moneyColor" wx:if='{{i.state == 2 || i.state == 3 || i.state == 4}}'  data-dateName="{{i.runningDate}}" bindtap="goDetail">¥ {{filter.toDecimal2(i.cost)}}</text>
+        <text class="right checkBtn" style='color:#3ACB8D;' wx:if='{{i.state == 1}}' data-dateName="{{i.runningDate}}" bindtap="goCheck">待确认</text>
       </view>
-      <view wx:if='{{!orderList.length}}' style="text-align:center;">本月暂无出车记录</view>
     </van-collapse-item>
   </van-collapse>
+  <view wx:if='{{orderList.length == 0}}' class="noMore">本月暂无出车记录</view>
 </view>

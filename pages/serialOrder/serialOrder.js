@@ -11,92 +11,16 @@ Page({
    */
   data: {
     option2: [
-      { text: '全部', value: '0' },
-      { text: '已确认', value: '1' },
-      { text: '未确认', value: '2' }
+      { text: '全部', value: '' },
+      { text: '已确认', value: '2' },
+      { text: '未确认', value: '1' }
     ],
     dateName: '日期',
     date: '',
-    value2: '0',
+    value2: '',
     activeName: 1,
-    orderList: [
-      {
-        name: '2020-01',
-        totalPrice: '200',
-        incomeList: [
-          {
-            time: '2020-01-10',
-            price: '350',
-            type: '1',
-          },
-          {
-            time: '2020-01-10',
-            price: '350',
-            type: '3',
-          },
-          {
-            time: '2020-01-10',
-            price: '350',
-            type: '1',
-          },
-          {
-            time: '2020-01-10',
-            price: '350',
-            type: '2',
-          },
-        ]
-      },
-      {
-        name: '2020-02',
-        totalPrice: '200',
-        checked: false,
-        incomeList: [
-          {
-            time: '2020-01-10',
-            price: '350'
-          },
-          {
-            time: '2020-01-10',
-            price: '350'
-          },
-          {
-            time: '2020-01-10',
-            price: '350'
-          },
-          {
-            time: '2020-01-10',
-            price: '350'
-          },
-        ]
-      },
-      {
-        name: '2020-03',
-        totalPrice: '200',
-        checked: false,
-        incomeList: [
-          {
-            time: '2020-01-10',
-            price: '350',
-            checked: false
-          },
-          {
-            time: '2020-01-10',
-            price: '350',
-            checked: true
-          },
-          {
-            time: '2020-01-10',
-            price: '350',
-            checked: true
-          },
-          {
-            time: '2020-01-10',
-            price: '350',
-            checked: false
-          },
-        ]
-      },
-    ]
+    totalPrice: 0,
+    orderList: []
   },
 
   /**
@@ -139,21 +63,29 @@ Page({
   // 获取流水
   getList() {
     let that = this;
-    network.requestLoading('api/base/base/dict/qryDictByType', {
-      dictType: 'online_city'
+    let date = that.data.date;
+    network.requestLoading('api/dispatch/driver/dispatch/xcx/records', {
+      "queryDate": date,
+      "state": that.data.value2
     },
-      'GET',
+      'POST',
       '',
-      '',
+      'json',
       function (res) {
         if (res.success) {
+          let totalPrices = 0;
+          let arr = res.data
+          arr.forEach((i) => {
+            totalPrices = totalPrices + i.totalCost
+          })
           //过滤picker
-          // that.setData({
-          //   orderList: res.data
-          // });
+          that.setData({
+            orderList: res.data,
+            totalPrice: totalPrices
+          });
         }
       },
-      function (res) {
+      function (err) {
         wx.showToast({
           title: '加载数据失败',
         });
@@ -162,19 +94,20 @@ Page({
 
   goCheck(e) {
     wx.navigateTo({
-      url: '../freightCheck/freightCheck?id=' + e.currentTarget.dataset.id
+      url: '../freightCheck/freightCheck?date=' + e.currentTarget.dataset.datename
     });
   },
 
   goDetail(e) {
     wx.navigateTo({
-      url: '../freightDetail/freightDetail?id=' + e.currentTarget.dataset.id
+      url: '../freightDetail/freightDetail?date=' + e.currentTarget.dataset.datename
     });
   },
 
   //塞选
   onSwitch1Change({ detail }) {
     this.setData({ value2: detail });
+    this.getList();
   },
 
   //选择时间订单

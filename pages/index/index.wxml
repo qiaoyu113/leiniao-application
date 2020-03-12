@@ -67,7 +67,7 @@
             </view>
           </view>
         </view>
-        <view class='recomended_bottom'>待售线路数：{{item.line_num}}条</view>
+        <view class='recomended_bottom'>可选线路数：{{item.line_num}}条</view>
         <view class='state'>优质货源</view>
         <image wx:if='{{index == 0}}' class='carImage' mode='widthFix' src='{{image_filepath4}}'></image>
         <image wx:if='{{index == 1}}' class='carImage' mode='widthFix' src='{{image_filepath5}}'></image>

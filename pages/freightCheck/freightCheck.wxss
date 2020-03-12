@@ -165,7 +165,7 @@ page {
 }
 
 .hint {
-  padding:0 10rpx;
+  padding:0 10rpx 30rpx 10rpx;
   box-sizing: border-box;
   margin-top: 40rpx;
   font-size: 26rpx;
@@ -174,4 +174,9 @@ page {
 
 .hintTitle{
   margin-bottom: 16rpx;
+}
+
+.tag{
+  position: relative;
+  top: -3rpx;
 }

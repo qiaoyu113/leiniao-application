@@ -7,10 +7,10 @@
   </view>
   <view class="list" wx:for='{{list}}' wx:key='ins'>
     <view class="listName">
-      <van-tag color="#3acb8d" size="medium">线路{{index + 1}}</van-tag> {{item.name}}
+      <van-tag color="#3acb8d" size="medium" class='tag'>线路{{index + 1}}</van-tag> {{item.lineName}}
     </view>
-    <view class="price">金额：<text>¥{{filter.toDecimal2(item.price)}}</text></view>
-    <view class="checkDate">确认时间：<text>{{item.date}}</text></view>
-    <view class="checkDate">运费变更时间：<text>{{item.date}}</text></view>
+    <view class="price">金额：<text>¥{{filter.toDecimal2(item.cost)}}</text></view>
+    <view class="checkDate" wx:if='{{item.state == 2 || item.state == 3 || item.state == 4}}'>确认时间：<text>{{item.updateDate}}</text></view>
+    <view class="checkDate" wx:if='{{item.state == 4}}'>运费变更时间：<text>{{item.updateDate}}</text></view>
   </view>
 </view>

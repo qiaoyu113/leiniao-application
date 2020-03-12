@@ -14,20 +14,8 @@ Page({
     date: '2020-03-10',
     totalPrice: 0,
     checked: true,
-    list: [{
-        checked: true,
-        lineName: '阿斯顿飞机哦奥神队飞机哦i啊就是东方i家傲娇阿斯顿发阿斯顿发阿斯顿发',
-        id: 1,
-        price: 100
-      },
-      {
-        checked: false,
-        lineName: '阿斯顿飞机哦奥神队飞机哦i啊就是东方i家傲娇阿斯顿发而为 阿斯顿发阿斯顿发',
-        id: 2,
-        price: 200
-      }
-    ],
-    id: ''
+    list: [],
+    date: ''
   },
 
   /**
@@ -37,27 +25,36 @@ Page({
     wx.setNavigationBarTitle({
       title: '运费确认' //页面标题为路由参数
     });
-    let id = options.id;
+    let date = options.date;
     this.setData({
-      id: id
+      date: date
     })
-    this.getDetail(id);
+    this.getDetail(date);
+
+    // options 中的 scene 需要使用 decodeURIComponent 才能获取到生成二维码时传入的 scene
+    // var scene = decodeURIComponent(options.scene)
+    // var query = options.query.dentistId // 3736
   },
 
-  getDetail(id) {
+  getDetail(date) {
     let that = this;
-    network.requestLoading('api/base/base/dict/qryDictByType', {
-        dictType: 'online_city'
+    let stringTime = date + " 00:00:00";
+    let timestamp2 = new Date(stringTime.replace(/-/g, "/")).getTime();
+    network.requestLoading('api/dispatch/driver/dispatch/xcx/get_confirm_record', {
+        runningDate: timestamp2
       },
-      'GET',
+      'post',
       '',
-      '',
+      'json',
       function(res) {
         if (res.success) {
-          // let arr = res.data.list;
-          // that.setData({
-          //   orderList: arr,
-          // });
+          let arr = res.data.runningLineInfoVOList;
+          arr.forEach((i) => {
+            i.checked = true
+          })
+          that.setData({
+            list: arr,
+          });
           that.totalCalcPrice();
         }
       },
@@ -74,7 +71,7 @@ Page({
     let val = e.detail.value;
     let i = e.currentTarget.dataset.i;
     that.setData({
-      ['list[' + i + '].price']: val,
+      ['list[' + i + '].predictCost']: val,
     });
     that.totalCalcPrice()
   },
@@ -104,11 +101,12 @@ Page({
       let arrAdd = []
       arr.forEach((i) => {
         arrAdd.push({
-          price: i.price,
-          id: i.id
+          confirmedCost: 0,
+          deliveryId: i.deliveryId,
+          workable: false,
         })
       })
-      console.log(arrAdd)
+      that.submitCheckOperation(arrAdd,0)
     }).catch(() => {
       // on cancel
     });
@@ -120,7 +118,7 @@ Page({
     let totalPrice = 0;
     arr.forEach((i) => {
       if (i.checked) {
-        totalPrice = totalPrice + Number(i.price)
+        totalPrice = totalPrice + Number(i.predictCost)
       }
     })
     that.setData({
@@ -135,28 +133,60 @@ Page({
     let arrAdd = []
     arr.forEach((i) => {
       arrAdd.push({
-        price: i.price,
-        id: i.id
+        confirmedCost: i.predictCost,
+        deliveryId: i.deliveryId,
+        workable: i.checked,
       })
     })
-    if(Number(total)){
+    // if(Number(total)){
       Dialog.confirm({
-        title: '提示',
-        message: '确定:' + that.data.date + '的运费金额是:¥' + total,
+        title: '请确认',
+        message: that.data.date + '的运费总金额是:¥' + total,
       }).then(() => {
-        Notify({ type: 'success', text: that.data.date + '的运费已提交' });
-        wx.navigateBack({ changed: true });
+        that.submitCheckOperation(arrAdd,1)
       }).catch(() => {
         // on cancel
       });
-    } else {
-      Notify({
-        text: '确认运费金额不能小于0',
-        duration: 1000,
-        selector: '#van-notify',
-        background: '#fac844'
+    // } else {
+    //   Notify({
+    //     text: '确认运费金额不能小于0',
+    //     duration: 1000,
+    //     selector: '#van-notify',
+    //     background: '#fac844'
+    //   });
+    // }
+  },
+
+  // 提价出车
+  submitCheckOperation(arrAdd,type){
+    let that = this;
+    network.requestLoading('api/dispatch/driver/dispatch/xcx/confirm_record', 
+    arrAdd,
+      'post',
+      '',
+      'json',
+      function(res) {
+        if (res.data) {
+          if(type){
+            Notify({ type: 'success', text: that.data.date + '的运费已提交' });
+            setTimeout(() => {
+              wx.navigateBack({ changed: true });
+            },1000)
+          } else {
+            Notify({ type: 'success', text: '今日运费已提交' });
+            setTimeout(() => {
+              wx.navigateBack({ changed: true });
+            },1000)
+          }
+        } else {
+          Notify({ type: 'danger', text: res.errorMsg });
+        }
+      },
+      function(res) {
+        wx.showToast({
+          title: '加载数据失败',
+        });
       });
-    }
   },
 
   /**

@@ -41,7 +41,7 @@
 .list .moneyColor{
   color:#ffa400;
   height: 50rpx;
-  line-height: 46rpx;
+  line-height: 44rpx;
   border-radius: 35rpx;
   padding:3rpx 30rpx;
   box-sizing: border-box;
@@ -58,7 +58,7 @@
 
 .checkBtn{
   height: 50rpx;
-  line-height: 46rpx;
+  line-height: 44rpx;
   border-radius: 35rpx;
   padding:3rpx 30rpx;
   box-sizing: border-box;
@@ -68,4 +68,12 @@
   color:#3ACB8D;
   background: #EFF6FF;
   text-align: center;
+}
+
+.noMore{
+  width: 100%;
+  text-align: center;
+  height: 300rpx;
+  line-height: 300rpx;
+  color:#C0C4CC;
 }
