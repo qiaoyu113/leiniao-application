@@ -1,0 +1,21 @@
+/* pages/sceneAnalyze/sceneAnalyze.wxss */
+.analyzeBox{
+  width: 80%;
+  position: fixed;
+  transform: translate(-50%, -50%);
+  top: 40%;
+  left: 50%;
+  margin: auto;
+  text-align: center;
+}
+
+image{
+  width:40%;
+  margin: auto;
+}
+
+.text{
+  color: #666;
+  font-size: 16px;
+  margin-top: 20rpx;
+}

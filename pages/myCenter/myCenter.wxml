@@ -53,10 +53,10 @@
     <text class='text-grey content'>创建订单</text>
   </view>
   <!--我的账薄-->
-  <!-- <view class="cu-item arrow" bindtap='goRouter' data-type='10' wx:if='{{entranceType}}'>
+  <view class="cu-item arrow" bindtap='goRouter' data-type='10' wx:if='{{entranceType}}'>
     <text class='icon-form text-orange margin_right_20'></text>
     <text class='text-grey content'>我的账薄</text>
-  </view> -->
+  </view>
   <!--我的运费-->
   <view class="cu-item arrow" bindtap='goRouter' data-type='12' wx:if='{{entranceType}}'>
     <text class='icon-form text-orange margin_right_20'></text>

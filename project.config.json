@@ -58,9 +58,9 @@
 				},
 				{
 					"id": 1,
-					"name": "linelist",
-					"pathName": "pages/lineList/lineList",
-					"query": "source=2&puserId=7234897234",
+					"name": "analyze",
+					"pathName": "pages/sceneAnalyze/sceneAnalyze",
+					"query": "scene=123123123",
 					"scene": 1007
 				}
 			]

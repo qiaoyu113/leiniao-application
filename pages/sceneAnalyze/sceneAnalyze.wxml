@@ -1,0 +1,7 @@
+<view class="sceneAnalyze">
+  <view class="analyzeBox">
+    <image src="https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/5e1dbf92554d4a3a9bef721c90d4f577" mode="widthFix"></image>
+    <view class="text">正在识别二维码...</view>
+  </view>
+  <van-dialog id="van-dialog" />
+</view>

@@ -163,7 +163,6 @@ function getRouter() {
   //   }
   // }
   return true
-  // getWxOpenId();
 }
 
 //获取openid
