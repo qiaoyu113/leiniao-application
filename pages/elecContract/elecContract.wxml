@@ -1,0 +1,2 @@
+<web-view src='{{ linkUrl }}'></web-view>
+<!-- <web-view src="https://firmiana-bss-m1.yunniao.cn/qiyuesuo_js_sdk"></web-view> -->

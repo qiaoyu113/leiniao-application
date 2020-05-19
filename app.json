@@ -51,7 +51,8 @@
     "pages/immediatelyEnterNew/immediatelyEnterNew",
     "pages/bankCard/bankCard",
     "pages/myOrderRefundDetail/myOrderRefundDetail",
-    "pages/incomeMenu/incomeMenu"
+    "pages/incomeMenu/incomeMenu",
+    "pages/elecContract/elecContract"
   ],
   "usingComponents": {
     "component-log": "components/logs/logs",

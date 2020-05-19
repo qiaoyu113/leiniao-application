@@ -151,7 +151,8 @@ Page({
               that.setData({
                 collect: true
               })
-              Toast('成功收藏');
+              // Toast('成功收藏');
+              Toast('您的加盟经理会尽快联系您');
             } else {
               that.setData({
                 collect: false

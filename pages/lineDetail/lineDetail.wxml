@@ -89,8 +89,10 @@
   <view class='btnMent'>
     <view class='btnLeft' wx:if='{{!entranceType}}' bindtap='enTranceNow'>立即入驻</view>
     <button wx:if='{{!flag && !entranceType}}' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber2"></button>
-    <view class='btnLeft' wx:if='{{entranceType && !collect}}' data-type='1' bindtap='collectBtn'>收藏</view>
-    <view class='btnLeft' wx:if='{{entranceType && collect}}' data-type='2' bindtap='collectBtn'>已收藏</view>
+    <!-- <view class='btnLeft' wx:if='{{entranceType && !collect}}' data-type='1' bindtap='collectBtn'>收藏</view> -->
+    <view class='btnLeft' wx:if='{{entranceType && !collect}}' data-type='1' bindtap='collectBtn'>我要接活</view>
+    <!-- <view class='btnLeft' wx:if='{{entranceType && collect}}' data-type='2' bindtap='collectBtn'>已收藏</view> -->
+    <view class='btnLeft' wx:if='{{entranceType && collect}}' data-type='2'>已报名</view>
     <!-- <view class='btnRight' bindtap='openRecommend'>推荐有礼</view> -->
   </view>
   <!--推荐有礼-->

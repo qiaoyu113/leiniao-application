@@ -49,6 +49,28 @@ page {
   color: #9b9b9b;
 }
 
+.checkPaymentList .bottom .topVal {
+  width: 100%;
+  font-size: 28rpx;
+  color: #9b9b9b;
+  padding-bottom: 18rpx;
+}
+
+.checkPaymentList .bottom .topVal2 {
+  width: 100%;
+  font-size: 28rpx;
+  color: #9b9b9b;
+  padding-bottom: 4rpx;
+}
+
+.checkPaymentList .bottom .bottomVal {
+  width: 100%;
+  font-size: 28rpx;
+  color: #9b9b9b;
+  padding-bottom: 30rpx;
+  overflow: hidden;
+}
+
 .checkPaymentList .bottom .left {
   font-size: 28rpx;
   color: #9b9b9b;

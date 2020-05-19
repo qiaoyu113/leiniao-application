@@ -1,6 +1,7 @@
 // pages/checkPayment/checkPayment.js
 var app = getApp();
 var network = require("../../utils/network.js");
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 
 Page({
 
@@ -8,7 +9,9 @@ Page({
    * 页面的初始数据
    */
   data: {
-    checkPaymentList: []
+    checkPaymentList: [],
+    checkPaymentList2: [],
+    active: 0,
   },
 
   /**
@@ -23,6 +26,31 @@ Page({
 
   getLoad() {
     let that = this;
+    network.requestLoading('api/bss/v1/magpie/order/selectDealByPhone',
+      {
+        "limit": 100,
+        "page": 1
+      },
+      'post',
+      '',
+      'json',
+      function (res) {
+        if (res.success) {
+          let arrs = res.data
+          let types = []
+          for (var i = 0; i < arrs.length; i++) {
+            types.push(arrs[i].orderId)
+          }
+          that.setData({
+            checkPaymentList2: arrs
+          })
+        }
+      },
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        });
+      });
     network.requestLoading('api/bss/v1/magpie/order/selectListByPhone',
       {
         "limit": 100,
@@ -67,6 +95,10 @@ Page({
       });
   },
 
+  onChange(event) {
+    let index = event.detail.name;
+  },
+
   goChangeBankCard(e) {
     let id = e.currentTarget.dataset.id
     wx.navigateTo({
@@ -79,6 +111,32 @@ Page({
     wx.navigateTo({
       url: '../myOrderDetail/myOrderDetail?id=' + id + '&type=2'
     });
+  },
+
+  goSign(e) {
+    let id = e.currentTarget.dataset.id
+    let phone = e.currentTarget.dataset.phone
+    let contractStatus = e.currentTarget.dataset.contractstatus
+    if (contractStatus !== '无') {
+      if (contractStatus === '未签约') {
+        Dialog.confirm({
+          title: '提示',
+          message: '确定开始签约合同,第一步：需要完善认证信息。第二步：仔细阅读合同后，并在底部签字签订合同后，立即生效，具有法律依据。',
+        })
+          .then(() => {
+            wx.navigateTo({
+              url: '../elecContract/elecContract?id=' + id + '&phone=' + phone
+            });
+          })
+          .catch(() => {
+            // on cancel
+          });
+      } else {
+        wx.navigateTo({
+          url: '../elecContract/elecContract?id=' + id + '&phone=' + phone
+        });
+      }
+    }
   },
 
   goRefund(e) {
