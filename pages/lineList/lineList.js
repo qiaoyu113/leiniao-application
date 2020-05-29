@@ -24,6 +24,9 @@ Page({
     array: [],
     carCheckList: [],
     cargoCheckList: [],
+    checkListName: [],
+    carCheckListName: [],
+    diffCheckListName: [],
     difficultyCheckList: [],
     index: 0,
     index2: '',
@@ -39,6 +42,9 @@ Page({
     goodArray: [],
     array4: [],
     carArray: [],
+    cityName: '',
+    wareName: '',
+    wareHouseVal: '仓库位置',
     areaVal: '配送区域',
     goodVal: '更多',
     carVal: '车型',
@@ -227,6 +233,8 @@ Page({
             cityArray: cityArray,
             cityArray2: cityArray2,
             cityCode: arrays[i].cityCode,
+            cityName: arrays[i].cityName,
+            wareName: arrays[i].cityName,
             cityCode2: arrays[i].cityCode
           });
           that.getCityCode(i, 1)
@@ -414,9 +422,11 @@ Page({
     let that = this;
     let i = e.currentTarget.dataset.index
     let cityCode = e.currentTarget.dataset.citycode
+    let cityName = e.currentTarget.dataset.cityname
     that.setData({
       checkAreaCode: [],
-      cityCode: cityCode
+      cityCode: cityCode,
+      wareName: cityName
     })
     that.getCityCode(i, 1)
   },
@@ -425,9 +435,11 @@ Page({
     let that = this;
     let i = e.currentTarget.dataset.index
     let cityCode = e.currentTarget.dataset.citycode
+    let cityName = e.currentTarget.dataset.cityname
     that.setData({
       checkAreaCode2: [],
-      cityCode2: cityCode
+      cityCode2: cityCode,
+      cityName: cityName
     })
     that.getCityCode(i, 2)
   },
@@ -435,10 +447,48 @@ Page({
   checkYes(e) {
     let that = this;
     let type = e.currentTarget.dataset.type
+    let carVal = that.data.carVal
+    let goodVal = that.data.goodVal
     if (type == 3) {
+      if (that.data.carCheckListName.length > 0) {
+        let name = ''
+        console.log(that.data.carCheckListName.length)
+        if ( that.data.carCheckListName.length != 1) {
+          name = that.data.carCheckListName[0] + that.data.carCheckListName[1];
+        } else {
+          name = that.data.carCheckListName[0] 
+        }
+        if (name.length > 3) {
+          name = name.slice(0, 3)
+          carVal = name + '...'
+        } else {
+          carVal = name
+        }
+      } else {
+        carVal = '车型'
+      }
+      let arrayList = that.data.diffCheckListName.concat(that.data.checkListName)
+      if (arrayList.length > 0) {
+        let name = ''
+        if ( arrayList.length != 1) {
+          name = arrayList[0] + arrayList[1];
+        } else {
+          name = arrayList[0] 
+        }
+        if (name.length > 3) {
+          name = name.slice(0, 3)
+          goodVal = name + '...'
+        } else {
+          goodVal = name
+        }
+      } else {
+        goodVal = '更多'
+      }
       that.setData({
         page: 1,
-        list: []
+        list: [],
+        carVal: carVal,
+        goodVal: goodVal
       })
       that.getList()
     } else {
@@ -447,7 +497,8 @@ Page({
         if (checkAreaCode.length) {
           that.setData({
             page: 1,
-            list: []
+            list: [],
+            wareHouseVal: that.data.wareName
           })
           that.getList()
         } else {
@@ -459,7 +510,8 @@ Page({
         if (checkAreaCode2.length) {
           that.setData({
             page: 1,
-            list: []
+            list: [],
+            areaVal: that.data.cityName
           })
             that.getList()
           } else {
@@ -487,12 +539,14 @@ Page({
     if (type == 1) {
       that.setData({
         cityCode: cityCode,
-        checkAreaCode: []
+        checkAreaCode: [],
+        wareHouseVal: '仓库位置'
       })
     } else {
       that.setData({
         cityCode2: cityCode,
-        checkAreaCode2: []
+        checkAreaCode2: [],
+        areaVal: '配送区域'
       })
     }
     that.getCityCode(i, type)
@@ -508,6 +562,7 @@ Page({
       })
       that.setData({
         carCheckList: [],
+        carCheckListName: [],
         carArray: carArray
       })
     } else {
@@ -521,7 +576,9 @@ Page({
       })
       that.setData({
         cargoCheckList: [],
+        checkListName: [],
         difficultyCheckList: [],
+        diffCheckListName: [],
         goodArray: goodArray,
         arrayDifficulty: arrayDifficulty
       })
@@ -571,22 +628,26 @@ Page({
   selectCarType(e) {
     let that = this;
     let checkList = that.data.carCheckList
+    let carCheckListName = that.data.carCheckListName
     let i = e.currentTarget.dataset.index
     let item = e.currentTarget.dataset.item
     let carArray = that.data.carArray
     if (!item.check) {
       carArray[i].check = !item.check
       checkList.push(item.codeVal)
+      carCheckListName.push(item.code)
     } else {
       carArray[i].check = !item.check;
       checkList.forEach((item, index, arr) => {
         if(item == carArray[i].codeVal) {
           arr.splice(index, 1)
+          carCheckListName.splice(index, 1)
         }
       })
     }
     that.setData({
       carCheckList: checkList,
+      carCheckListName: carCheckListName,
       carArray: carArray
     })
   },
@@ -594,22 +655,26 @@ Page({
   selectCargo(e){
     let that = this;
     let checkList = that.data.cargoCheckList
+    let checkListName = that.data.checkListName
     let i = e.currentTarget.dataset.index
     let item = e.currentTarget.dataset.item
     let goodArray = that.data.goodArray
     if (!item.check) {
       goodArray[i].check = !item.check
       checkList.push(item.codeVal)
+      checkListName.push(item.code)
     } else {
       goodArray[i].check = !item.check;
       checkList.forEach((item, index, arr) => {
         if(item == goodArray[i].codeVal) {
           arr.splice(index, 1)
+          checkListName.splice(index, 1)
         }
       })
     }
     that.setData({
       cargoCheckList: checkList,
+      checkListName: checkListName,
       goodArray: goodArray
     })
   },
@@ -617,22 +682,26 @@ Page({
   selectDifficulty(e) {
     let that = this;
     let checkList = that.data.difficultyCheckList
+    let diffCheckListName = that.data.diffCheckListName
     let i = e.currentTarget.dataset.index
     let item = e.currentTarget.dataset.item
     let arrayDifficulty = that.data.arrayDifficulty
     if (!item.check) {
       arrayDifficulty[i].check = !item.check
       checkList.push(item.codeVal)
+      diffCheckListName.push(item.code)
     } else {
       arrayDifficulty[i].check = !item.check;
       checkList.forEach((item, index, arr) => {
         if(item == arrayDifficulty[i].codeVal) {
           arr.splice(index, 1)
+          diffCheckListName.splice(index, 1)
         }
       })
     }
     that.setData({
       difficultyCheckList: checkList,
+      diffCheckListName: diffCheckListName,
       arrayDifficulty: arrayDifficulty
     })
   },
@@ -719,6 +788,12 @@ Page({
           flag: flag
         })
       }
+    })
+    that.setData({
+      selectCityType: false,
+      selectCityType2: false,
+      otherType: false,
+      carType: false
     })
   },
 

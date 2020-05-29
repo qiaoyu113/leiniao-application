@@ -20,7 +20,7 @@
       </view>
       <view class='detail_box_bottom'>
         <view class="detail_box_bottom_top">
-          <view class="title">车厢货物信息</view>
+          <view class="title">车辆货物信息</view>
           <view class="val">{{detail.carTypeName}}、{{detail.cargoType}}、{{detail.volume}}m³</view>
         </view>
         <view class='detail_box_bottom_bottom'>

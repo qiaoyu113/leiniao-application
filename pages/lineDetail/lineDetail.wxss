@@ -337,8 +337,8 @@ button::after{ border: none; }
 }
 
 .detail_box_bottom .detail_box_bottom_top .val{
-  font-size: 29rpx;
-  line-height:50rpx;
+  font-size: 31rpx;
+  line-height:58rpx;
   color: #4A4A4A;
   letter-spacing: 0;
 }
@@ -356,8 +356,8 @@ button::after{ border: none; }
 }
 
 .detail_box_bottom_bottom .val{
-  font-size: 29rpx;
-  line-height:50rpx;
+  font-size: 31rpx;
+  line-height:58rpx;
   color: #4A4A4A;
   letter-spacing: 0;
 }

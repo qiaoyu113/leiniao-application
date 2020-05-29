@@ -1,6 +1,5 @@
 <view class='myCollect'>
-  <view class='lineBox'>
-    <view class='lineList' wx:for='{{list}}' wx:key='{{item}}' data-id='{{item.lineId}}' bindtap='goDetail'>
+    <!-- <view class='lineList' wx:for='{{list}}' wx:key='{{item}}' data-id='{{item.lineId}}' bindtap='goDetail'>
       <view class='lineListTop'>
         <view class='name'>
           <view>{{item.customerName}}</view>
@@ -36,6 +35,36 @@
         <view>公里数：{{item.distance}}</view>
         <view>总耗时：{{item.timeDiff}}</view>
         <view class='goDetail'>查看详情<text class="icon-right marginLeft"></text></view>
+      </view>
+    </view> -->
+    <!--列表-->
+  <view class='lineBox'>
+    <view class='lineList' wx:for='{{list}}' wx:key='lineId' data-id='{{item.lineId}}' bindtap='goDetail'>
+      <view class="lineListTop">
+         <view class='name'>
+          <!-- <view>{{item.customerName}}</view> -->
+          <view>{{item.cargoType}} <span wx:if='{{item.carTypeName}}'>/ {{item.carTypeName}}</span></view>
+          <view class="subsidiary">可上车数: {{item.deployNum}}</view>
+          <view class="income_month">预计月收入: {{item.monthlyTransaction}}元</view>
+        </view>
+      </view>
+      <view class="lineListBottom">
+        <view class="lineListBottom_top">
+          <view class="lineListBottom_top_list">仓库位置: {{item.warehouse}}</view>
+          <view class="lineListBottom_top_list">配送区域: {{filter.hasVal(item.provinceAreaName,item.cityName)}}</view>
+          <view class="lineListBottom_top_list"><span>里程时间: {{item.distance}}km ( 预计耗时: {{item.timeDiff}} )</span></view>
+          <!--咨询-->
+          <view class='consulting' data-hi='WeChat' catchtap='talphone' data-phone='{{item.managerPhone}}'>
+            <van-icon class='text-white' name="phone" />
+            <!-- <text class='icon-dianhua text-white'></text> -->
+          </view>
+        </view>
+        <view class="lineListBottom_bottom">
+          <span wx:if='{{item.carTypeName}}'>{{ item.carTypeName }}</span>
+          <span wx:if='{{item.cargoType}}'>{{ item.cargoType }}</span>
+          <span wx:if='{{item.handlingDifficultyDegreeName}}'> 装卸{{ item.handlingDifficultyDegreeName }}</span>
+          <span wx:if='{{item.workingTimeRegin}}'> {{ item.workingTimeRegin }}</span>
+        </view>
       </view>
     </view>
   </view>
