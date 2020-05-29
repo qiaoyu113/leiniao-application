@@ -379,6 +379,7 @@ page {
   bottom: 0;
   background: #fff;
   border-bottom: 1rpx solid #EDECEC;
+  z-index: 201;
 }
 
 .selectCity .selectTop{

@@ -437,7 +437,8 @@ Page({
     let type = e.currentTarget.dataset.type
     if (type == 3) {
       that.setData({
-        page: 1
+        page: 1,
+        list: []
       })
       that.getList()
     } else {
@@ -445,7 +446,8 @@ Page({
         let checkAreaCode = that.data.checkAreaCode
         if (checkAreaCode.length) {
           that.setData({
-            page: 1
+            page: 1,
+            list: []
           })
           that.getList()
         } else {
@@ -456,7 +458,8 @@ Page({
         let checkAreaCode2 = that.data.checkAreaCode2
         if (checkAreaCode2.length) {
           that.setData({
-            page: 1
+            page: 1,
+            list: []
           })
             that.getList()
           } else {
@@ -850,7 +853,7 @@ Page({
       list: [],
       page: 1
     })
-    this.getCity()
+    this.getList()
   },
 
   /**
