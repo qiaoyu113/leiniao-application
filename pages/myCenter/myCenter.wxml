@@ -30,7 +30,7 @@
   <!--我的收藏-->
   <view class="cu-item arrow" bindtap='goRouter' data-type='2'>
     <text class='icon-favor text-orange margin_right_20'></text>
-    <text class='text-grey content'>我的收藏</text>
+    <text class='text-grey content'>我的报名</text>
   </view>
   <!--我的钱包-->
   <view class="cu-item arrow" bindtap='goRouter' data-type='5'>

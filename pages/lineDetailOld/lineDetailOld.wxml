@@ -1,47 +1,92 @@
 <wxs module="filter" src="../../filter/commonFilter.wxs"></wxs>
 <view class='lineDetail'>
+  <map id="myMap" class='imgSHow' wx:if='{{mapShow}}' longitude="{{poi.longitude}}" latitude="{{poi.latitude}}" markers="{{markers}}" scale='16' show-location>
+  </map>
+  <image class='imgSHow' wx:if='{{!mapShow}}' src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/7abd909c0edf4b8e8108513341bc715e' mode='widthFix'></image>
   <view class='detailBox'>
     <view class='boxCss'>
-      <view class="boxCss_top_top">{{detail.carTypeName}}</view>
       <view class='boxCss_top'>
-        <view class='boxCss_top_left'>
-          线路编号：NO.{{detail.lineId}}
-        </view>
+        <view class='boxCss_top_left'>{{detail.lineName}}</view>
         <view class='boxCss_top_right'>
           <text class="icon-favor marginLeft"></text> {{numDetail}}
           <text class="icon-friendfavor marginLeft"></text> {{numDetail2}}
         </view>
       </view>
-    </view>
-    <view class='detail_box'>
-      <view class="addressBox">
-        <view class="addressBox_list"><van-icon class="icon" name="https://oss-qzn.yunniao.cn/img/61194fff87a0437cb8ba5d29e80894d2" />仓库位置：{{detail.warehouse}}</view>
-        <view class="addressBox_list"><van-icon class="icon" name="https://oss-qzn.yunniao.cn/img/df190626a5e44a6aa861eb9684b128c1" />配送区域：<span wx:if='{{detail.provinceAreaName}}'>{{detail.provinceAreaName}}</span>{{detail.districtArea}}</view>
-      </view>
-      <view class='detail_box_bottom'>
-        <view class="detail_box_bottom_top">
-          <view class="title">车厢货物信息</view>
-          <view class="val">{{detail.carTypeName}}、{{detail.cargoType}}、{{detail.volume}}m³</view>
+      <view class='boxCss_center'>
+        <!-- <view class='boxCss_list'>
+          <view class='boxCss_list_left'>客户名称:</view>
+          <view class='boxCss_list_right'>{{detail.customerName}}</view>
+        </view> -->
+        <view class='boxCss_list'>
+          <view class='boxCss_list_left'>车型:</view>
+          <view class='boxCss_list_right'>{{detail.carTypeName}}</view>
         </view>
-        <view class='detail_box_bottom_bottom'>
-          <view class="title">配送信息</view>
-          <view class="val">收货人类型：{{detail.receiverType}}</view>
-          <view class="val">每日趟数：{{detail.dayNum}}趟</view>
-          <view class="val">预计每日平均配送点位数：{{detail.deliveryNum}}个</view>
-          <view class="val">预计月频次：{{detail.month}}</view>
-          <view class="val">工作时长：{{detail.timeDiff}}</view>
-          <view class="val" wx:for='{{detail.workingTimeRegin}}' wx:key='i'>预计日工作时间：{{item}}</view>
+        <!-- <view class='boxCss_list'>
+          <view class='boxCss_list_left'>月收入:</view>
+          <view class='boxCss_list_right'>
+            <span wx:if='{{(detail.preLowestQuotations * detail.month * detail.dayNum) <= 15000 }}'>{{detail.preLowestQuotations * detail.month * detail.dayNum}}</span>
+            <span wx:if='{{(detail.preLowestQuotations * detail.month * detail.dayNum) > 15000 }}'>15000</span>元以上</view>
+        </view> -->
+        <view class='boxCss_list'>
+          <view class='boxCss_list_left'>预计月收入:</view>
+          <view class='boxCss_list_right'>约{{detail.monthlyTransaction}}元</view>
         </view>
       </view>
     </view>
-    <!-- <view class='boxCss margin100' wx:if='{{detail.remark}}'>
+    <view class='boxCss'>
+      <view class='boxCss_center'>
+        <view class='boxCss_list'>
+          <view class='boxCss_list_left'>区域:</view>
+          <view class='boxCss_list_right'>
+            <span wx:if='{{detail.provinceAreaName}}'>{{detail.provinceAreaName}}</span>{{detail.districtArea}}</view>
+        </view>
+        <view class='boxCss_list'>
+          <view class='boxCss_list_left'>货物类型:</view>
+          <view class='boxCss_list_right'>{{detail.cargoType}}</view>
+        </view>
+        <view class='boxCss_list'>
+          <view class='boxCss_list_left'>每日趟数:</view>
+          <view class='boxCss_list_right'>{{detail.dayNum}}趟</view>
+        </view>
+        <view class='boxCss_list'>
+          <view class='boxCss_list_left'>配送点位数:</view>
+          <view class='boxCss_list_right'>{{detail.deliveryNum}}个</view>
+        </view>
+        <view class='boxCss_list'>
+          <view class='boxCss_list_left'>仓位置:</view>
+          <view class='boxCss_list_right'>{{detail.warehouse}}</view>
+        </view>
+        <view class='boxCss_list'>
+          <view class='boxCss_list_left'>收货人类型:</view>
+          <view class='boxCss_list_right'>{{detail.receiverType}}</view>
+        </view>
+        <view class='boxCss_list'>
+          <view class='boxCss_list_left'>月频次:</view>
+          <view class='boxCss_list_right'>{{detail.month}}</view>
+        </view>
+        <view class='boxCss_list'>
+          <view class='boxCss_list_left'>货物总体积(立方米):</view>
+          <view class='boxCss_list_right'>{{detail.volume}}</view>
+        </view>
+        <view class='boxCss_list'>
+          <view class='boxCss_list_left'>工作时长:</view>
+          <view class='boxCss_list_right'>{{detail.timeDiff}}</view>
+        </view>
+        <view class='boxCss_list'>
+          <view class='boxCss_list_left'>预计工作时间:</view>
+          <view class='boxCss_list_right'>
+            <view class='time' wx:for='{{detail.workingTimeRegin}}' wx:key='i'>{{item}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class='boxCss margin100' wx:if='{{detail.remark}}'>
       <view class='boxCss_center textarea'>
         备注: {{detail.remark}}
       </view>
-    </view> -->
+    </view>
   </view>
   <view class='btnMent'>
-    <view class='btnTop'>预计月收入: <span>{{ detail.monthlyTransaction }}元</span></view>
     <view class='btnLeft' wx:if='{{!entranceType}}' bindtap='enTranceNow'>立即入驻</view>
     <button wx:if='{{!flag && !entranceType}}' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber2"></button>
     <!-- <view class='btnLeft' wx:if='{{entranceType && !collect}}' data-type='1' bindtap='collectBtn'>收藏</view> -->
@@ -49,7 +94,6 @@
     <!-- <view class='btnLeft' wx:if='{{entranceType && collect}}' data-type='2' bindtap='collectBtn'>已收藏</view> -->
     <view class='btnLeft' wx:if='{{entranceType && collect}}' data-type='2'>已报名</view>
     <!-- <view class='btnRight' bindtap='openRecommend'>推荐有礼</view> -->
-    <view class='btnRight' data-hi='WeChat' catchtap='talphone' data-phone='{{detail.managerPhone}}'><van-icon class='text-white' name="phone" />咨询</view>
   </view>
   <!--推荐有礼-->
   <view class='recommend' wx:if='{{recommendState}}'>
@@ -96,14 +140,6 @@
   <view class='recommendBg' wx:if='{{recommendState}}' bindtap='closeRecommend' catchtouchmove="myCatchTouch"></view>
   <!--首页-->
   <view class='consulting' wx:if='{{firstCome}}' bindtap='goHome'>首页</view>
-  <!--未入驻弹窗-->
-  <view class="noEnter" wx:if='{{!noEnter}}'>
-    <view class="detel" bindtap='closeEnter'><van-icon name="cross" /></view>
-    <view class="title">您暂未入驻平台</view>
-    <view class="value">填写入信息后可马上接活</view>
-    <view class="btn" bindtap='enTranceNow'>去入驻</view>
-  </view>
-  <view class='recommendBg' wx:if='{{!noEnter}}' bindtap='closeRecommend' catchtouchmove="myCatchTouch"></view>
 </view>
 <!--警告弹窗-->
 <van-toast id="van-toast" />

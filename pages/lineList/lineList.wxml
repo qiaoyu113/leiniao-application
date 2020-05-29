@@ -1,44 +1,35 @@
 <wxs module="filter" src="../../filter/commonFilter.wxs"></wxs>
 <view class='lineListBox'>
   <view class='SearchBox'>
-    <image src='{{image_filepath}}' mode='widthFix'></image>
     <view class='searchInp'>
-      <view class='searchLeft'>
-        <picker bindchange="bindPickerChange" value="{{index}}" range="{{cityArray}}">
+      <view class='searchRight'>
+        <view class='li' bindtap="selectAddress" data-type='1'>
           <view class="picker">
-            <view class='searchLefts'>{{cityArray[index]}}
+            <view class="{{selectCityType ? 'searchLefts check' : 'searchLefts'}}">仓库位置
               <text class="icon-triangledownfill marginLeft"></text>
             </view>
           </view>
-        </picker>
-      </view>
-      <view class='searchRight'>
-        <view class='li'>
-          <picker bindchange="bindPickerChange2" value="{{index2}}" range="{{areaArr}}">
-            <view class="picker">
-              <view class='searchLefts borderR'>{{areaVal}}
-                <text class="icon-triangledownfill marginLeft"></text>
-              </view>
-            </view>
-          </picker>
         </view>
-        <view class='li'>
-          <picker bindchange="bindPickerChange3" value="{{index3}}" range="{{goodArray}}">
-            <view class="picker">
-              <view class='searchLefts borderR'>{{goodVal}}
-                <text class="icon-triangledownfill marginLeft"></text>
-              </view>
+        <view class='li' bindtap="selectAddress" data-type='2'>
+          <view class="picker">
+            <view class="{{selectCityType2 ? 'searchLefts check' : 'searchLefts'}}">{{areaVal}}
+              <text class="icon-triangledownfill marginLeft"></text>
             </view>
-          </picker>
+          </view>
         </view>
-        <view class='li'>
-          <picker bindchange="bindPickerChange4" value="{{index4}}" range="{{carArray}}">
-            <view class="picker">
-              <view class='searchLefts'>{{carVal}}
-                <text class="icon-triangledownfill marginLeft"></text>
-              </view>
+        <view class='li' bindtap="selectCar">
+          <view class="picker">
+            <view class='searchLefts'>{{carVal}}
+              <text class="icon-triangledownfill marginLeft"></text>
             </view>
-          </picker>
+          </view>
+        </view>
+        <view class='li' bindtap="selectGood">
+          <view class="picker">
+            <view class='searchLefts'>{{goodVal}}
+              <text class="icon-triangledownfill marginLeft"></text>
+            </view>
+          </view>
         </view>
       </view>
       <!-- <view class='searchRight'>
@@ -49,58 +40,105 @@
   </view>
   <!--列表-->
   <view class='lineBox'>
-    <view class='lineList' wx:for='{{list}}' wx:key='{{item}}' data-id='{{item.lineId}}' bindtap='goDetail'>
-      <image class="iconSale"  wx:if='{{item.isSoldOut == 1}}'  src="https://oss-qzn.yunniao.cn/img/1b819fc72e5a4153b749ff46dbe9ac19"></image>
-      <view class='lineListTop'>
-        <view class='name'>
+    <view class='lineList' wx:for='{{list}}' wx:key='lineId' data-id='{{item.lineId}}' bindtap='goDetail'>
+      <view class="lineListTop">
+         <view class='name'>
           <!-- <view>{{item.customerName}}</view> -->
-          <view>{{item.cargoType}} <span>NO.{{item.lineId}}</span></view>
+          <view>{{item.cargoType}} <span wx:if='{{item.carTypeName}}'>/ {{item.carTypeName}}</span></view>
+          <view class="subsidiary">可上车数: {{item.deployNum}}</view>
+          <view class="income_month">预计月收入: {{item.monthlyTransaction}}元</view>
         </view>
-        <view class='center'>
-          <image class='center_left' src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/4f64c659e4d84136aa228e1e19f8291a' mode='widthFix'></image>
-          <view class='center_right'>
-            <view class='center_right_box'>
-              <view class='center_right_name'>仓库位置：{{item.warehouse}}</view>
-              <view class='center_right_cal margin24'>车型：{{item.carTypeName}}</view>
-            </view>
-            <view class='center_right_box'>
-              <view class='center_right_name'>配送线路：{{item.lineName}}</view>
-              <view class='center_right_cal margin24'>配送点位数：{{item.deliveryNum}}</view>
-            </view>
-            <view class='center_right_box'>
-              <view class='center_right_name'>配送区域：{{filter.hasVal(item.provinceAreaName,item.cityName)}}
-                <span wx:if='{{item.cityAreaName}}'>{{filter.hasVal(item.cityAreaName)}}</span>
-              </view>
-              <view class='center_right_cal'>月频次：{{item.month}}趟/月</view>
-            </view>
+      </view>
+      <view class="lineListBottom">
+        <view class="lineListBottom_top">
+          <view class="lineListBottom_top_list">仓库位置: {{item.warehouse}}</view>
+          <view class="lineListBottom_top_list">配送区域: {{filter.hasVal(item.provinceAreaName,item.cityName)}}</view>
+          <view class="lineListBottom_top_list"><span>里程时间: {{item.distance}}km ( 预计耗时: {{item.timeDiff}} )</span></view>
+          <!--咨询-->
+          <view class='consulting' data-hi='WeChat' catchtap='talphone' data-phone='{{item.managerPhone}}'>
+            <van-icon class='text-white' name="phone" />
+            <!-- <text class='icon-dianhua text-white'></text> -->
           </view>
         </view>
-        <view class='price'>
-          <!-- <view class='priceTip'>客户报价：{{item.preLowestQuotations}}元/趟</view> -->
-          <view class='priceTip'>预计月收入：
-          <!-- <span wx:if='{{(item.preLowestQuotations * item.month * item.dayNum) <= 15000 }}'>{{item.preLowestQuotations * item.month * item.dayNum}}</span><span wx:if='{{(item.preLowestQuotations * item.month * item.dayNum) > 15000 }}'>15000</span> -->
-          <span>约{{item.monthlyTransaction}}</span>
-          元</view>
-        </view>
-        <view class='tip'>{{item.lineRankName}}</view>
-        <view class='tip2'>可上车数：{{item.deployNum}}</view>
-      </view>
-      <view class='bottom'>
-        <view>公里数：{{item.distance}}</view>
-        <view>总耗时：{{item.timeDiff}}</view>
-        <view class='goDetail'>查看详情
-          <text class="icon-right marginLeft"></text>
+        <view class="lineListBottom_bottom">
+          <span wx:if='{{item.cargoType}}'>{{ item.cargoType }}</span>
+          <span wx:if='{{item.carTypeName}}'>{{ item.carTypeName }}</span>
+          <span wx:if='{{item.goodsWeightName}}'> 装卸{{ item.goodsWeightName }}</span>
+          <view style="display: inline;" wx:if='{{item.lineDeliveryInfoFORMS.length}}' wx:for='{{item.lineDeliveryInfoFORMS}}'  wx:for-item="items" wx:key="id">
+            <span>{{items.workingTimeStart}} - {{ items.workingTimeEnd }}</span>
+          </view>
         </view>
       </view>
     </view>
   </view>
   <view class='noMore' wx:if='{{list.length == 0}}'>暂无数据</view>
-  <!--咨询-->
-  <view class='consulting' data-hi='WeChat' bindtap='talphone'>
-    <text class='icon-service text-orange'></text>
-    <text>咨询</text>
-  </view>
   <!--绑定手机号-->
   <view class='bgShow' wx:if='{{!flag}}' catchtouchmove="myCatchTouch"></view>
   <button class='loginBtn' wx:if='{{!flag}}' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">授权登录</button>
+  <!--仓库位置市区联动-->
+  <view class="selectCity" catchtouchmove="myCatchTouch" wx:if='{{selectCityType}}'>
+    <view class="selectTop">
+      <scroll-view class="cityList" scroll-y='true'>
+        <view class="cityList_list" wx:for='{{cityArray}}' wx:key='id' catchtap="selectCity" data-index='{{index}}' data-cityCode='{{item.cityCode}}'>
+          <span class="{{ item.cityCode == cityCode ? 'check' : '' }}">{{item.cityName}}</span>
+        </view>
+      </scroll-view>
+      <scroll-view class="area" scroll-y='true'>
+        <view class="area_list" wx:for='{{array2}}' wx:key='id' catchtap="selectArea" data-item="{{item}}" data-index="{{index}}">
+          <span class="{{ item.check ? 'check' : '' }}">{{item.countyName}}</span>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="selectBottom">
+      <view class="Reset" catchtap="reset" data-type='1'>重置</view>
+      <view class="check" catchtap="checkYes" data-type='1'>确定</view>
+    </view>
+  </view>
+  <!--配送位置市区联动-->
+  <view class="selectCity" catchtouchmove="myCatchTouch" wx:if='{{selectCityType2}}'>
+    <view class="selectTop">
+      <scroll-view class="cityList" scroll-y='true'>
+        <view class="cityList_list" wx:for='{{cityArray2}}' wx:key='id' catchtap="selectCity2" data-index='{{index}}' data-cityCode='{{item.cityCode}}'>
+          <span class="{{ item.cityCode == cityCode2 ? 'check' : '' }}">{{item.cityName}}</span>
+        </view>
+      </scroll-view>
+      <scroll-view class="area" scroll-y='true'>
+        <view class="area_list" wx:for='{{array2_1}}' wx:key='id' catchtap="selectArea2" data-item="{{item}}" data-index="{{index}}">
+          <span class="{{ item.check ? 'check' : '' }}">{{item.countyName}}</span>
+        </view>
+      </scroll-view>
+    </view>
+    <view class="selectBottom">
+      <view class="Reset" catchtap="reset" data-type='2'>重置</view>
+      <view class="check" catchtap="checkYes" data-type='2'>确定</view>
+    </view>
+  </view>
+  <!--车型选择-->
+  <view class='carType' wx:if='{{carType}}'>
+    <view class="selectList">
+      <span catchtap="selectCarType" data-item="{{item}}" wx:for='{{carArray}}'  data-index="{{index}}" wx:key='id' class="{{ item.check ? 'checkCar selectListItem' : 'selectListItem' }}">{{item.code}}</span>
+    </view>
+    <view class="selectBottom">
+      <view class="Reset" catchtap="reset2" data-type='car'>重置</view>
+      <view class="check" catchtap="checkYes" data-type='3'>确定</view>
+    </view>
+  </view>
+  <!--更多选择-->
+  <view class='otherType' wx:if='{{otherType}}'>
+    <view class="selectList">
+      <view class="title">货物类型</view>
+      <view class="selectList_min">
+        <span catchtap="selectCargo" data-item="{{item}}" data-index="{{index}}" wx:for='{{goodArray}}' wx:key='id' class="{{ item.check ? 'checkCar selectListItem' : 'selectListItem' }}">{{item.code}}</span>
+      </view>
+      <view class="title">装卸难度</view>
+      <view class="selectList_min">
+        <span catchtap="selectDifficulty" data-item="{{item}}" data-index="{{index}}"  wx:for='{{arrayDifficulty}}' wx:key='id' class="{{ item.check ? 'checkCar selectListItem' : 'selectListItem' }}">{{item.code}}</span>
+      </view>
+    </view>
+    <view class="selectBottom">
+      <view class="Reset" catchtap="reset2" data-type='other'>重置</view>
+      <view class="check" catchtap="checkYes" data-type='3'>确定</view>
+    </view>
+  </view>
+  <van-toast id="van-toast" />
 </view>

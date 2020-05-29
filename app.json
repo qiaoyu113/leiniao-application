@@ -1,11 +1,12 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/lineListOld/lineListOld",
+    "pages/lineList/lineList",
     "pages/sceneAnalyze/sceneAnalyze",
     "pages/serialOrder/serialOrder",
     "pages/freightDetail/freightDetail",
     "pages/freightCheck/freightCheck",
-    "pages/lineList/lineList",
     "pages/test/test",
     "pages/incomeUpDataNew/incomeUpDataNew",
     "pages/satisfaction/satisfaction",

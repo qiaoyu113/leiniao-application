@@ -2,7 +2,6 @@
 var network = require("../../utils/network.js");
 var common = require("../../utils/util.js");
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
-import Toast from '../../miniprogram_npm/vant-weapp/toast/toast';
 var qqmapsdk;
 
 Page({
@@ -11,20 +10,12 @@ Page({
    * 页面的初始数据
    */
   data: {
-    selectCityType: false,
-    selectCityType2: false,
     cityArray: [],
-    cityArray2: [],
     cityCode: '110100',
-    cityCode2: '110100',
     array2Code: '',
-    array2_1Code: '',
     array3Code: '',
     array4Code: '',
     array: [],
-    carCheckList: [],
-    cargoCheckList: [],
-    difficultyCheckList: [],
     index: 0,
     index2: '',
     index3: 0,
@@ -33,20 +24,16 @@ Page({
     list: [],
     flag: false,
     array2: [],
-    array2_1: [],
     areaArr: [],
     array3: [],
     goodArray: [],
     array4: [],
     carArray: [],
-    areaVal: '配送区域',
-    goodVal: '更多',
+    areaVal: '区域',
+    goodVal: '货物类型',
     carVal: '车型',
     puserId: '',
-    checkAreaCode: [],
-    checkAreaCode2: [],
-    carType: false,
-    otherType: false
+    image_filepath: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/539e47df1c024da4aa9216b36b6c9ff8'
   },
 
   /**
@@ -205,7 +192,7 @@ Page({
           that.setData({
             array: res.data
           });
-          const arrays = JSON.parse(JSON.stringify(that.data.array))
+          const arrays = that.data.array
           let cityCode = wx.getStorageSync('cityCode')
           let arr = [];
           let i = 0;
@@ -221,16 +208,11 @@ Page({
           that.setData({
             index: i
           })
-          const cityArray = JSON.parse(JSON.stringify(arrays))
-          const cityArray2 = JSON.parse(JSON.stringify(arrays))
+          that.getCityCode(i)
           that.setData({
-            cityArray: cityArray,
-            cityArray2: cityArray2,
-            cityCode: arrays[i].cityCode,
-            cityCode2: arrays[i].cityCode
+            cityArray: arr,
+            cityCode: arrays[i].cityCode
           });
-          that.getCityCode(i, 1)
-          that.getCityCode(i, 2)
           that.getList()
         }
       },
@@ -249,9 +231,17 @@ Page({
       function(res) {
         if (res.success) {
           //过滤picker
-          const arrays = res.data
           that.setData({
-            goodArray: arrays
+            array3: res.data
+          });
+          const arrays = that.data.array3
+          arrays.unshift({
+            code: "货物类型",
+            codeVal: ""
+          })
+          let goodArray = common.picker(arrays)
+          that.setData({
+            goodArray: goodArray
           });
         }
       },
@@ -270,32 +260,17 @@ Page({
       function(res) {
         if (res.success) {
           //过滤picker
-          const arrays = res.data
-          arrays.forEach((item) => {
-            item.check = false;
-          })
           that.setData({
-            carArray: arrays
+            array4: res.data
           });
-        }
-      },
-      function(res) {
-        wx.showToast({
-          title: '加载数据失败',
-        });
-      });
-      //装卸难度
-      network.requestLoading('api/base/base/dict/qryDictByType', {
-        dictType: 'handling_difficulty_degree'
-      },
-      'GET',
-      '',
-      '',
-      function(res) {
-        if (res.success) {
-          //过滤picker
+          const arrays = that.data.array4
+          arrays.unshift({
+            code: "车型",
+            codeVal: ""
+          })
+          let carArray = common.picker(arrays)
           that.setData({
-            arrayDifficulty: res.data
+            carArray: carArray
           });
         }
       },
@@ -306,345 +281,53 @@ Page({
       });
   },
 
-  getCityCode(i, type) {
-    let that = this;
-    if (type == 1) {
-      const countyDTOS = that.data.cityArray[i].countyDTOS
-      countyDTOS.forEach(function(item) {
-        item.check = false;
-      })
-      that.setData({
-        array2: countyDTOS
-      });
-    } else {
-      const countyDTOS = that.data.cityArray2[i].countyDTOS
-      countyDTOS.forEach(function(item) {
-        item.check = false;
-      })
-      that.setData({
-        array2_1: countyDTOS
-      });
-    }
-  },
-
-  selectArea(e) {
-    let that = this;
-    let index = e.currentTarget.dataset.index
-    let item = e.currentTarget.dataset.item
-    let arrayNew = that.data.array2
-    let checkAreaCode = that.data.checkAreaCode
-    if (item.countyCode == '-99') {
-      if (item.check) {
-        checkAreaCode = []
-        arrayNew.forEach((item) => {
-          item.check = false;
-        })
-      } else {
-        checkAreaCode = []
-        arrayNew.forEach((item) => {
-          item.check = true;
-          checkAreaCode.push(item.countyCode)
-        })
-      }
-    } else {
-      if (!arrayNew[index].check) {
-        checkAreaCode.push(arrayNew[index].countyCode)
-      } else {
-        checkAreaCode.forEach((item, i, arr) => {
-          if(item == arrayNew[index].countyCode) {
-            arr.splice(i, 1);
-          }
-          if(item == '-99'){
-            arr.splice(i, 1);
-            arrayNew[0].check = !arrayNew[0].check
-          }
-        })
-      }
-      arrayNew[index].check = !arrayNew[index].check
-    }
-    that.setData({
-      array2: arrayNew,
-      checkAreaCode: checkAreaCode
-    })
-  },
-
-  selectArea2(e) {
-    let that = this;
-    let index = e.currentTarget.dataset.index
-    let item = e.currentTarget.dataset.item
-    let arrayNew = that.data.array2_1
-    let checkAreaCode = that.data.checkAreaCode2
-    if (item.countyCode == '-99') {
-      if (item.check) {
-        checkAreaCode = []
-        arrayNew.forEach((item) => {
-          item.check = false;
-        })
-      } else {
-        checkAreaCode = []
-        arrayNew.forEach((item) => {
-          item.check = true;
-          checkAreaCode.push(item.countyCode)
-        })
-      }
-    } else {
-      if (!arrayNew[index].check) {
-        checkAreaCode.push(arrayNew[index].countyCode)
-      } else {
-        checkAreaCode.forEach((item, i, arr) => {
-          if(item == arrayNew[index].countyCode) {
-            arr.splice(i, 1);
-          }
-          if(item == '-99'){
-            arr.splice(i, 1);
-            arrayNew[0].check = !arrayNew[0].check
-          }
-        })
-      }
-      arrayNew[index].check = !arrayNew[index].check
-      console.log(arrayNew)
-    }
-    that.setData({
-      array2_1: arrayNew,
-      checkAreaCode2: checkAreaCode
-    })
-  },
-
-  selectCity(e){
-    let that = this;
-    let i = e.currentTarget.dataset.index
-    let cityCode = e.currentTarget.dataset.citycode
-    that.setData({
-      checkAreaCode: [],
-      cityCode: cityCode
-    })
-    that.getCityCode(i, 1)
-  },
-
-  selectCity2(e){
-    let that = this;
-    let i = e.currentTarget.dataset.index
-    let cityCode = e.currentTarget.dataset.citycode
-    that.setData({
-      checkAreaCode2: [],
-      cityCode2: cityCode
-    })
-    that.getCityCode(i, 2)
-  },
-
-  checkYes(e) {
-    let that = this;
-    let type = e.currentTarget.dataset.type
-    if (type == 3) {
-      that.setData({
-        page: 1
-      })
-      that.getList()
-    } else {
-      if(type == 1){
-        let checkAreaCode = that.data.checkAreaCode
-        if (checkAreaCode.length) {
-          that.setData({
-            page: 1
-          })
-          that.getList()
-        } else {
-          Toast('请选择区域');
-          return false
-        }
-      } else {
-        let checkAreaCode2 = that.data.checkAreaCode2
-        if (checkAreaCode2.length) {
-          that.setData({
-            page: 1
-          })
-            that.getList()
-          } else {
-            Toast('请选择区域');
-            return false
-          }
-        }
-    }
-  },
-
-  reset(e) {
-    let that = this;
-    const arrays = that.data.array
-    let type = e.currentTarget.dataset.type
-    let cityCode = wx.getStorageSync('cityCode')
-    let i = 0;
-    arrays.forEach(function (item, index) {
-      if (cityCode) {
-        if (item.cityCode == cityCode) {
-          i = index;
-        }
-      }
-    })
-    //获取区域
-    if (type == 1) {
-      that.setData({
-        cityCode: cityCode,
-        checkAreaCode: []
-      })
-    } else {
-      that.setData({
-        cityCode2: cityCode,
-        checkAreaCode2: []
-      })
-    }
-    that.getCityCode(i, type)
-  },
-
-  reset2(e) {
-    let that = this;
-    let type = e.currentTarget.dataset.type
-    if(type == 'car'){
-      const carArray = that.data.carArray
-      carArray.forEach((item,i,arr) => {
-        item.check = false;
-      })
-      that.setData({
-        carCheckList: [],
-        carArray: carArray
-      })
-    } else {
-      const goodArray = that.data.goodArray
-      const arrayDifficulty = that.data.arrayDifficulty
-      goodArray.forEach((item,i,arr) => {
-        item.check = false;
-      })
-      arrayDifficulty.forEach((item,i,arr) => {
-        item.check = false;
-      })
-      that.setData({
-        cargoCheckList: [],
-        difficultyCheckList: [],
-        goodArray: goodArray,
-        arrayDifficulty: arrayDifficulty
-      })
-    }
-  },
-
-  selectAddress(e) {
-    let that = this;
-    let type = e.currentTarget.dataset.type
-    if(type == 1){
-      that.setData({
-        selectCityType: !that.data.selectCityType,
-        selectCityType2: false,
-        otherType: false,
-        carType: false
-      })
-    } else {
-      that.setData({
-        selectCityType: false,
-        selectCityType2: !that.data.selectCityType2,
-        otherType: false,
-        carType: false
-      })
-    }
-  },
-
-  selectCar() {
+  getCityCode(i) {
     let that = this;
     that.setData({
-      selectCityType: false,
-      selectCityType2: false,
-      otherType: false,
-      carType: !that.data.carType
+      array2: that.data.array[i].countyDTOS
+    });
+    const arrays = that.data.array2
+    let arr = [];
+    arrays.forEach(function(item) {
+      arr.push(item.countyName);
     })
-  },
-
-  selectGood() {
-    let that = this;
     that.setData({
-      selectCityType: false,
-      selectCityType2: false,
-      carType: false,
-      otherType: !that.data.otherType
-    })
-  },
-
-  selectCarType(e) {
-    let that = this;
-    let checkList = that.data.carCheckList
-    let i = e.currentTarget.dataset.index
-    let item = e.currentTarget.dataset.item
-    let carArray = that.data.carArray
-    if (!item.check) {
-      carArray[i].check = !item.check
-      checkList.push(item.codeVal)
-    } else {
-      carArray[i].check = !item.check;
-      checkList.forEach((item, index, arr) => {
-        if(item == carArray[i].codeVal) {
-          arr.splice(index, 1)
-        }
-      })
-    }
-    that.setData({
-      carCheckList: checkList,
-      carArray: carArray
-    })
-  },
-
-  selectCargo(e){
-    let that = this;
-    let checkList = that.data.cargoCheckList
-    let i = e.currentTarget.dataset.index
-    let item = e.currentTarget.dataset.item
-    let goodArray = that.data.goodArray
-    if (!item.check) {
-      goodArray[i].check = !item.check
-      checkList.push(item.codeVal)
-    } else {
-      goodArray[i].check = !item.check;
-      checkList.forEach((item, index, arr) => {
-        if(item == goodArray[i].codeVal) {
-          arr.splice(index, 1)
-        }
-      })
-    }
-    that.setData({
-      cargoCheckList: checkList,
-      goodArray: goodArray
-    })
-  },
-
-  selectDifficulty(e) {
-    let that = this;
-    let checkList = that.data.difficultyCheckList
-    let i = e.currentTarget.dataset.index
-    let item = e.currentTarget.dataset.item
-    let arrayDifficulty = that.data.arrayDifficulty
-    if (!item.check) {
-      arrayDifficulty[i].check = !item.check
-      checkList.push(item.codeVal)
-    } else {
-      arrayDifficulty[i].check = !item.check;
-      checkList.forEach((item, index, arr) => {
-        if(item == arrayDifficulty[i].codeVal) {
-          arr.splice(index, 1)
-        }
-      })
-    }
-    that.setData({
-      difficultyCheckList: checkList,
-      arrayDifficulty: arrayDifficulty
-    })
+      areaArr: arr
+    });
+    // network.requestLoading('api/base/user/area/getReginByCityCode', {
+    //     city: that.data.cityCode
+    //   },
+    //   'GET',
+    //   '',
+    //   '',
+    //   function(res) {
+    //     if (res.success) {
+    //       //过滤picker
+    //       that.setData({
+    //         array2: res.data
+    //       });
+    //       const arrays = that.data.array2
+    //       let areaArr = common.picker2(arrays)
+    //       that.setData({
+    //         areaArr: areaArr
+    //       });
+    //     }
+    //   },
+    //   function(res) {
+    //     wx.showToast({
+    //       title: '加载数据失败',
+    //     });
+    //   });
   },
 
   getList() {
     let that = this;
     //获取线路列表
     network.requestLoading('api/bss/v1/bss/line/task/xcxLineTasks', {
-        "carTypeName": that.data.carCheckList,
-        "handlingDifficultyDegree": that.data.difficultyCheckList,
-        "cargoType": that.data.cargoCheckList,
-        "deliveryCity": that.data.cityCode2,
-        "deliveryCounty": that.data.checkAreaCode2,
-        "warehouseCity": that.data.cityCode,
-        "warehouseCounty": that.data.checkAreaCode,
+        "carTypeName": that.data.array4Code,
+        "cargoType": that.data.array3Code,
+        "region": that.data.array2Code,
+        "city": that.data.cityCode,
         "key": '',
         "limit": 20,
         "page": that.data.page
@@ -658,11 +341,7 @@ Page({
           let arr = res.data;
           let lists = that.data.list.concat(arr)
           that.setData({
-            list: lists,
-            selectCityType: false,
-            selectCityType2: false,
-            otherType: false,
-            carType: false
+            list: lists
           })
         } else {
           wx.stopPullDownRefresh()
@@ -677,9 +356,9 @@ Page({
   },
 
   //拨打电话
-  talphone(e) {
+  talphone() {
     wx.makePhoneCall({
-      phoneNumber: e.currentTarget.dataset.phone,
+      phoneNumber: '400-688-9179',
     })
   },
 
@@ -688,6 +367,53 @@ Page({
     wx.navigateTo({
       url: '../lineDetail/lineDetail?id=' + id
     });
+  },
+
+  bindPickerChange(e) {
+    this.setData({
+      index: e.detail.value,
+      cityCode: this.data.array[e.detail.value].cityCode,
+      page: 1,
+      list: [],
+      array2Code: '',
+      areaVal: '区域'
+    })
+    //获取区域
+    this.getCityCode(e.detail.value)
+    this.getList()
+  },
+
+  bindPickerChange2(e) {
+    this.setData({
+      index2: e.detail.value,
+      areaVal: this.data.array2[e.detail.value].countyName,
+      array2Code: this.data.array2[e.detail.value].countyCode,
+      page: 1,
+      list: []
+    })
+    this.getList()
+  },
+
+  bindPickerChange3(e) {
+    this.setData({
+      index3: e.detail.value,
+      goodVal: this.data.array3[e.detail.value].code,
+      array3Code: this.data.array3[e.detail.value].codeVal,
+      page: 1,
+      list: []
+    })
+    this.getList()
+  },
+
+  bindPickerChange4(e) {
+    this.setData({
+      index4: e.detail.value,
+      carVal: this.data.array4[e.detail.value].code,
+      array4Code: this.data.array4[e.detail.value].codeVal,
+      page: 1,
+      list: []
+    })
+    this.getList()
   },
 
   /**

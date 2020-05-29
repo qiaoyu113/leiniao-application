@@ -17,7 +17,7 @@ Page({
     wx.setNavigationBarTitle({
       title: '电子合同' //页面标题为路由参数
     });
-    let newUrl = 'https://firmiana-bss.yunniao.cn'
+    let newUrl = 'https://firmiana-bss.yunniao.cn/'
     if (urls == 'https://firmiana-bss-api-m1.yunniao.cn/') {
       newUrl = 'https://firmiana-bss-m1.yunniao.cn/'
     }

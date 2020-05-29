@@ -12,7 +12,6 @@ Page({
    */
   data: {
     recommendState: false,
-    noEnter: true,
     markers: [],
     poi: '',
     mapShow: true,
@@ -85,8 +84,7 @@ Page({
         if (res.success) {
           let flag = res.data.flag;
           that.setData({
-            entranceType: flag,
-            noEnter: flag
+            entranceType: flag
           })
         }
       },
@@ -95,12 +93,6 @@ Page({
           title: '加载数据失败',
         });
       });
-  },
-
-  closeEnter() {
-    this.setData({
-      noEnter: true
-    })
   },
 
   hasCollect() {
@@ -124,13 +116,6 @@ Page({
           title: '加载数据失败',
         });
       });
-  },
-
-  //拨打电话
-  talphone(e) {
-    wx.makePhoneCall({
-      phoneNumber: e.currentTarget.dataset.phone,
-    })
   },
 
   enTranceNow() {

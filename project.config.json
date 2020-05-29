@@ -18,7 +18,8 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
-		"bundle": false
+		"bundle": false,
+		"useCompilerModule": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.8.3",
@@ -52,15 +53,15 @@
 				{
 					"id": 0,
 					"name": "join",
-					"pathName": "pages/index/index",
-					"query": "source=2&puerId=7234897234",
+					"pathName": "pages/lineDetail/lineDetail",
+					"query": "id= 202004271002",
 					"scene": 1011
 				},
 				{
 					"id": 1,
-					"name": "analyze",
-					"pathName": "pages/sceneAnalyze/sceneAnalyze",
-					"query": "scene=123123123",
+					"name": "elecContract",
+					"pathName": "pages/elecContract/elecContract",
+					"query": "id=123123123&contact=123123",
 					"scene": 1007
 				}
 			]
