@@ -128,9 +128,29 @@ Page({
 
   //拨打电话
   talphone(e) {
-    wx.makePhoneCall({
-      phoneNumber: e.currentTarget.dataset.phone,
-    })
+    let lineId = this.data.id
+    network.requestLoading('api/driver/driver/magpie/getCustomerServicePhone', {
+      lineId: lineId
+    },
+    'GET',
+    '',
+    '',
+    function(res) {
+      if (res.success) {
+        wx.makePhoneCall({
+          phoneNumber: res.data.data,
+        })
+      } else {
+        wx.showToast({
+          title: '获取手机号失败',
+        });
+      }
+    },
+    function(res) {
+      wx.showToast({
+        title: '加载数据失败',
+      });
+    });
   },
 
   enTranceNow() {

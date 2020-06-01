@@ -16,7 +16,7 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({
-      title: '我的收藏' //页面标题为路由参数
+      title: '我的报名' //页面标题为路由参数
     });
     this.getList()
   },
@@ -35,6 +35,9 @@ Page({
       function (res) {
         if (res.success) {
           let arr = res.data;
+          for (let i = 0; i < arr.length; i++) {
+            arr[i].workingTimeRegin = arr[i].workingTimeRegin.split(",")
+          }
           let lists = that.data.list.concat(arr)
           that.setData({
             list: lists
@@ -46,6 +49,33 @@ Page({
           title: '加载数据失败',
         });
       });
+  },
+
+  //拨打电话
+  talphone(e) {
+    let lineId = e.currentTarget.dataset.lineid
+    network.requestLoading('api/driver/driver/magpie/getCustomerServicePhone', {
+      lineId: lineId
+    },
+    'GET',
+    '',
+    '',
+    function(res) {
+      if (res.success) {
+        wx.makePhoneCall({
+          phoneNumber: res.data.data,
+        })
+      } else {
+        wx.showToast({
+          title: '获取手机号失败',
+        });
+      }
+    },
+    function(res) {
+      wx.showToast({
+        title: '加载数据失败',
+      });
+    });
   },
 
   /**

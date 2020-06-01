@@ -19,7 +19,8 @@
 			"outputPath": ""
 		},
 		"bundle": false,
-		"useCompilerModule": false
+		"useCompilerModule": false,
+		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
 	"libVersion": "2.8.3",

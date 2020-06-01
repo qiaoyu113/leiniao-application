@@ -21,6 +21,8 @@ Page({
     array2_1Code: '',
     array3Code: '',
     array4Code: '',
+    cityCheckName: [],
+    cityCheckName2: [],
     array: [],
     carCheckList: [],
     cargoCheckList: [],
@@ -62,7 +64,6 @@ Page({
     wx.setNavigationBarTitle({
       title: '货源大厅' //页面标题为路由参数
     });
-    console.log(options)
     if (options && options.puserId) {
       let puserId = options.puserId;
       if (puserId) {
@@ -340,38 +341,51 @@ Page({
     let index = e.currentTarget.dataset.index
     let item = e.currentTarget.dataset.item
     let arrayNew = that.data.array2
+    let cityCheckName = that.data.cityCheckName
     let checkAreaCode = that.data.checkAreaCode
     if (item.countyCode == '-99') {
       if (item.check) {
         checkAreaCode = []
+        cityCheckName = []
         arrayNew.forEach((item) => {
           item.check = false;
         })
       } else {
         checkAreaCode = []
+        cityCheckName = []
         arrayNew.forEach((item) => {
           item.check = true;
-          checkAreaCode.push(item.countyCode)
+          checkAreaCode.push(item.countyCode);
+          cityCheckName.push(item.countyName);
         })
       }
     } else {
       if (!arrayNew[index].check) {
-        checkAreaCode.push(arrayNew[index].countyCode)
+        checkAreaCode.push(arrayNew[index].countyCode);
+        cityCheckName.push(arrayNew[index].countyName);
       } else {
         checkAreaCode.forEach((item, i, arr) => {
           if(item == arrayNew[index].countyCode) {
             arr.splice(i, 1);
           }
-          if(item == '-99'){
+        })
+        cityCheckName.forEach((item, i, arr) => {
+          if(item == arrayNew[index].countyName) {
             arr.splice(i, 1);
-            arrayNew[0].check = !arrayNew[0].check
           }
         })
+      }
+      let index_all = checkAreaCode.indexOf('-99');
+      if(index_all > -1) {
+        checkAreaCode.splice(index_all, 1);
+        cityCheckName.splice(index_all, 1);
+        arrayNew[index_all].check = !arrayNew[index_all].check
       }
       arrayNew[index].check = !arrayNew[index].check
     }
     that.setData({
       array2: arrayNew,
+      cityCheckName: cityCheckName,
       checkAreaCode: checkAreaCode
     })
   },
@@ -381,39 +395,51 @@ Page({
     let index = e.currentTarget.dataset.index
     let item = e.currentTarget.dataset.item
     let arrayNew = that.data.array2_1
+    let cityCheckName2 = that.data.cityCheckName2
     let checkAreaCode = that.data.checkAreaCode2
     if (item.countyCode == '-99') {
       if (item.check) {
         checkAreaCode = []
+        cityCheckName2 = []
         arrayNew.forEach((item) => {
           item.check = false;
         })
       } else {
         checkAreaCode = []
+        cityCheckName2 = []
         arrayNew.forEach((item) => {
           item.check = true;
           checkAreaCode.push(item.countyCode)
+          cityCheckName2.push(item.countyName);
         })
       }
     } else {
       if (!arrayNew[index].check) {
-        checkAreaCode.push(arrayNew[index].countyCode)
+        checkAreaCode.push(arrayNew[index].countyCode);
+        cityCheckName2.push(arrayNew[index].countyName);
       } else {
         checkAreaCode.forEach((item, i, arr) => {
           if(item == arrayNew[index].countyCode) {
             arr.splice(i, 1);
           }
-          if(item == '-99'){
+        })
+        cityCheckName2.forEach((item, i, arr) => {
+          if(item == arrayNew[index].countyName) {
             arr.splice(i, 1);
-            arrayNew[0].check = !arrayNew[0].check
           }
         })
       }
+      let index_all = checkAreaCode.indexOf('-99');
+      if(index_all > -1) {
+        checkAreaCode.splice(index_all, 1);
+        cityCheckName2.splice(index_all, 1);
+        arrayNew[index_all].check = !arrayNew[index_all].check
+      }
       arrayNew[index].check = !arrayNew[index].check
-      console.log(arrayNew)
     }
     that.setData({
       array2_1: arrayNew,
+      cityCheckName2: cityCheckName2,
       checkAreaCode2: checkAreaCode
     })
   },
@@ -425,6 +451,7 @@ Page({
     let cityName = e.currentTarget.dataset.cityname
     that.setData({
       checkAreaCode: [],
+      cityCheckName: [],
       cityCode: cityCode,
       wareName: cityName
     })
@@ -438,6 +465,7 @@ Page({
     let cityName = e.currentTarget.dataset.cityname
     that.setData({
       checkAreaCode2: [],
+      cityCheckName2: [],
       cityCode2: cityCode,
       cityName: cityName
     })
@@ -452,7 +480,6 @@ Page({
     if (type == 3) {
       if (that.data.carCheckListName.length > 0) {
         let name = ''
-        console.log(that.data.carCheckListName.length)
         if ( that.data.carCheckListName.length != 1) {
           name = that.data.carCheckListName[0] + that.data.carCheckListName[1];
         } else {
@@ -494,11 +521,20 @@ Page({
     } else {
       if(type == 1){
         let checkAreaCode = that.data.checkAreaCode
+        let cityCheckName = that.data.cityCheckName.toString()
+        if(cityCheckName.length > 3){
+          cityCheckName = cityCheckName.slice(0, 3) + '...'
+        } else {
+          cityCheckName = cityCheckName.slice(0, 3)
+        }
+        if (cityCheckName.substr(0, 3) == "全区域") {
+          cityCheckName = that.data.wareName
+        }
         if (checkAreaCode.length) {
           that.setData({
             page: 1,
             list: [],
-            wareHouseVal: that.data.wareName
+            wareHouseVal: cityCheckName
           })
           that.getList()
         } else {
@@ -507,11 +543,20 @@ Page({
         }
       } else {
         let checkAreaCode2 = that.data.checkAreaCode2
+        let cityCheckName = that.data.cityCheckName2.toString()
+        if(cityCheckName.length > 3){
+          cityCheckName = cityCheckName.slice(0, 3) + '...'
+        } else {
+          cityCheckName = cityCheckName.slice(0, 3)
+        }
+        if (cityCheckName.substr(0, 3) == "全区域") {
+          cityCheckName = that.data.cityName
+        }
         if (checkAreaCode2.length) {
           that.setData({
             page: 1,
             list: [],
-            areaVal: that.data.cityName
+            areaVal: cityCheckName
           })
             that.getList()
           } else {
@@ -540,12 +585,14 @@ Page({
       that.setData({
         cityCode: cityCode,
         checkAreaCode: [],
+        cityCheckName: [],
         wareHouseVal: '仓库位置'
       })
     } else {
       that.setData({
         cityCode2: cityCode,
         checkAreaCode2: [],
+        cityCheckName2: [],
         areaVal: '配送区域'
       })
     }
@@ -728,6 +775,9 @@ Page({
         if (res.success) {
           wx.stopPullDownRefresh()
           let arr = res.data;
+          for (let i = 0; i < arr.length; i++) {
+            arr[i].workingTimeRegin = arr[i].workingTimeRegin.split(",")
+          }
           let lists = that.data.list.concat(arr)
           that.setData({
             list: lists,
@@ -750,9 +800,29 @@ Page({
 
   //拨打电话
   talphone(e) {
-    wx.makePhoneCall({
-      phoneNumber: e.currentTarget.dataset.phone,
-    })
+    let lineId = e.currentTarget.dataset.lineid
+    network.requestLoading('api/driver/driver/magpie/getCustomerServicePhone', {
+      lineId: lineId
+    },
+    'GET',
+    '',
+    '',
+    function(res) {
+      if (res.success) {
+        wx.makePhoneCall({
+          phoneNumber: res.data.data,
+        })
+      } else {
+        wx.showToast({
+          title: '获取手机号失败',
+        });
+      }
+    },
+    function(res) {
+      wx.showToast({
+        title: '加载数据失败',
+      });
+    });
   },
 
   goDetail(e) {

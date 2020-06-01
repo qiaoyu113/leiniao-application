@@ -54,7 +54,7 @@
           <view class="lineListBottom_top_list">配送区域: {{filter.hasVal(item.provinceAreaName,item.cityName)}}</view>
           <view class="lineListBottom_top_list"><span>里程时间: {{item.distance}}km ( 预计耗时: {{item.timeDiff}} )</span></view>
           <!--咨询-->
-          <view class='consulting' data-hi='WeChat' catchtap='talphone' data-phone='{{item.managerPhone}}'>
+          <view class='consulting' data-hi='WeChat' catchtap='talphone' data-phone='{{item.managerPhone}}' data-lineid='{{item.lineId}}'>
             <van-icon class='text-white' name="phone" />
             <!-- <text class='icon-dianhua text-white'></text> -->
           </view>
@@ -62,8 +62,10 @@
         <view class="lineListBottom_bottom">
           <span wx:if='{{item.carTypeName}}'>{{ item.carTypeName }}</span>
           <span wx:if='{{item.cargoType}}'>{{ item.cargoType }}</span>
-          <span wx:if='{{item.handlingDifficultyDegreeName}}'> 装卸{{ item.handlingDifficultyDegreeName }}</span>
-          <span wx:if='{{item.workingTimeRegin}}'> {{ item.workingTimeRegin }}</span>
+          <span wx:if='{{item.handlingDifficultyDegreeName}}'> {{ item.handlingDifficultyDegreeName }}</span>
+          <view class="lineListBottom_bottom_span" wx:if='{{item.workingTimeRegin.length}}'>
+            <span wx:for='{{item.workingTimeRegin}}' wx:key='id'> {{ item }}</span>
+          </view>
         </view>
       </view>
     </view>

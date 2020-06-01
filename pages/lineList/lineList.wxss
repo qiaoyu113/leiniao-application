@@ -212,6 +212,10 @@ page {
   display:inline-block
 }
 
+.lineListBottom_bottom_span{
+  display: inline-block;
+}
+
 .center_right_box {
 }
 

@@ -309,6 +309,10 @@ page{
   overflow: hidden;
 }
 
+.lineListBottom_bottom_span{
+  display: inline-block;
+}
+
 .iconSale{
   width:150rpx;
   height:150rpx;

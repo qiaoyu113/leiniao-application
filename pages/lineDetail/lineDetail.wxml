@@ -21,7 +21,7 @@
       <view class='detail_box_bottom'>
         <view class="detail_box_bottom_top">
           <view class="title">车辆货物信息</view>
-          <view class="val">{{detail.carTypeName}}、{{detail.cargoType}}、{{detail.volume}}m³</view>
+          <view class="val">{{detail.carTypeName}}、{{detail.cargoType}}<span wx:if='{{detail.volume != 0}}'>、{{detail.volume}}m³</span></view>
         </view>
         <view class='detail_box_bottom_bottom'>
           <view class="title">配送信息</view>
