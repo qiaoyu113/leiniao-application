@@ -1,0 +1,13 @@
+<!--pages/questionMenu/questionMenu.wxml-->
+<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
+  <!--问题反馈-->
+  <view class="cu-item arrow" bindtap='goRouter' data-type='6'>
+    <text class='icon-question text-orange margin_right_20'></text>
+    <text class='text-grey content'>问题反馈</text>
+  </view>
+  <!--司机满意度反馈-->
+  <view class="cu-item arrow" bindtap='goRouter' data-type='11' wx:if='{{entranceType}}'>
+    <text class='icon-we text-orange margin_right_20'></text>
+    <text class='text-grey content'>司机满意度反馈</text>
+  </view>
+</view>

@@ -1,0 +1,5 @@
+/* pages/questionMenu/questionMenu.wxss */
+.margin_right_20 {
+  margin-right: 20rpx;
+}
+  

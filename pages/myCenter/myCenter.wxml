@@ -54,19 +54,19 @@
   </view>
   <!--我的账薄-->
   <view class="cu-item arrow" bindtap='goRouter' data-type='10' wx:if='{{entranceType}}'>
-    <text class='icon-form text-orange margin_right_20'></text>
+    <text class='icon-redpacket text-orange margin_right_20'></text>
     <text class='text-grey content'>我的账薄</text>
   </view>
   <!--我的运费-->
   <view class="cu-item arrow" bindtap='goRouter' data-type='12' wx:if='{{entranceType}}'>
-    <text class='icon-form text-orange margin_right_20'></text>
+    <text class='icon-pay text-orange margin_right_20'></text>
     <text class='text-grey content'>我的运费</text>
   </view>
   <!--司机满意度反馈-->
-  <view class="cu-item arrow" bindtap='goRouter' data-type='11' wx:if='{{entranceType}}'>
+  <!-- <view class="cu-item arrow" bindtap='goRouter' data-type='11' wx:if='{{entranceType}}'>
     <text class='icon-we text-orange margin_right_20'></text>
     <text class='text-grey content'>司机满意度反馈</text>
-  </view>
+  </view> -->
   <!--我的推荐与奖励-->
   <!-- <button wx:if='{{!flag}}' class='cu-item arrow getPhoneBox2' open-type="getPhoneNumber" bindgetphonenumber= open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber3">
     <text class='icon-profile text-orange margin_right_20'></text>
@@ -77,6 +77,11 @@
     <text class='text-grey content'>我的推荐与奖励</text>
   </view> -->
   <!--客服-->
+  <!--服务规范-->
+  <view class="cu-item arrow" bindtap='goRouter' data-type='13'>
+    <text class='icon-copy text-orange margin_right_20'></text>
+    <text class='text-grey content'>服务规范</text>
+  </view>
 </view>
 
 <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">

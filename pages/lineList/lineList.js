@@ -800,9 +800,9 @@ Page({
 
   //拨打电话
   talphone(e) {
-    let lineId = e.currentTarget.dataset.lineid
-    network.requestLoading('api/driver/driver/magpie/getCustomerServicePhone', {
-      lineId: lineId
+    let cityName = e.currentTarget.dataset.cityname
+    network.requestLoading('api/driver/driver/magpie/getXcxCustomerServicePhone', {
+      cityName: cityName
     },
     'GET',
     '',
@@ -810,7 +810,7 @@ Page({
     function(res) {
       if (res.success) {
         wx.makePhoneCall({
-          phoneNumber: res.data.data,
+          phoneNumber: res.data[0],
         })
       } else {
         wx.showToast({

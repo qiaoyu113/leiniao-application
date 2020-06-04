@@ -187,7 +187,7 @@ Page({
     } else if (type == '5') {
       routerName = '../account/account'
     } else if (type == '6') {
-      routerName = '../question/question'
+      routerName = '../questionMenu/questionMenu'
     } else if (type == '7') {
       routerName = '../myOrder/myOrder'
     } else if (type == '8') {
@@ -200,6 +200,8 @@ Page({
       routerName = '../satisfaction/satisfaction'
     } else if (type == '12') {
       routerName = '../serialOrder/serialOrder'
+    } else if (type == '13') {
+      routerName = '../serviceStandard/serviceStandard'
     }
     wx.navigateTo({
       url: routerName

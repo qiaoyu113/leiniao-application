@@ -53,7 +53,9 @@
     "pages/bankCard/bankCard",
     "pages/myOrderRefundDetail/myOrderRefundDetail",
     "pages/incomeMenu/incomeMenu",
-    "pages/elecContract/elecContract"
+    "pages/elecContract/elecContract",
+    "pages/questionMenu/questionMenu",
+    "pages/serviceStandard/serviceStandard"
   ],
   "usingComponents": {
     "component-log": "components/logs/logs",
