@@ -41,6 +41,7 @@
   <!--列表-->
   <view class='lineBox'>
     <view class='lineList' wx:for='{{list}}' wx:key='lineId' data-id='{{item.lineId}}' bindtap='goDetail'>
+      <image class="iconSale"  wx:if='{{item.isSoldOut == 1}}'  src="https://oss-qzn.yunniao.cn/img/1b819fc72e5a4153b749ff46dbe9ac19"></image>
       <view class="lineListTop">
          <view class='name'>
           <!-- <view>{{item.customerName}}</view> -->

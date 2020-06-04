@@ -26,6 +26,7 @@ Page({
     cityCode: '',
     souceCity: '',
     puserId: '',
+    cityName: '北京市',
     source: '1',
     hindBgType: false,
     entranceType: false, // 是否已经入驻
@@ -718,9 +719,29 @@ Page({
 
   //拨打电话
   talphone() {
-    wx.makePhoneCall({
-      phoneNumber: '400-688-9179',
-    })
+    let cityName = this.data.cityName
+    network.requestLoading('api/driver/driver/magpie/getXcxCustomerServicePhone', {
+      cityName: cityName
+    },
+    'GEt',
+    '',
+    '',
+    function(res) {
+      if (res.success) {
+        wx.makePhoneCall({
+          phoneNumber: res.data[0],
+        })
+      } else {
+        wx.showToast({
+          title: '获取手机号失败',
+        });
+      }
+    },
+    function(res) {
+      wx.showToast({
+        title: '加载数据失败',
+      });
+    });
   },
 
   //跳转列表页面
@@ -826,7 +847,8 @@ Page({
         if (res.success) {
           let flag = res.data.flag;
           that.setData({
-            entranceType: flag
+            entranceType: flag,
+            cityName: res.data.cityName
           })
         }
       },

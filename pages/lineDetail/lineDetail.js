@@ -86,7 +86,7 @@ Page({
           let flag = res.data.flag;
           that.setData({
             entranceType: flag,
-            noEnter: flag
+            noEnter: true
           })
         }
       },
@@ -99,7 +99,7 @@ Page({
 
   closeEnter() {
     this.setData({
-      noEnter: true
+      noEnter: !this.data.noEnter
     })
   },
 
