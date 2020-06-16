@@ -2,6 +2,7 @@
 var app = getApp();
 var network = require("../../utils/network.js");
 import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
+import Toast from '../../miniprogram_npm/vant-weapp/toast/toast';
 
 Page({
 
@@ -113,30 +114,70 @@ Page({
     });
   },
 
+  checkOrderIsTrue(type, id, phone, contractStatus, orderid) {
+    let that = this;
+    let idArr = [];
+    network.requestLoading('api/bss/v1/magpie/order/selectDealByPhone',
+      {
+        "limit": 100,
+        "page": 1
+      },
+      'post',
+      '',
+      'json',
+      function (res) {
+        if (res.success) {
+          let arrs = res.data
+          for (var i = 0; i < arrs.length; i++) {
+            idArr.push(arrs[i].orderId)
+          }
+          if (idArr.indexOf(orderid) == -1) {
+            Toast('订单已删除')
+            that.setData({
+              checkPaymentList: [],
+              checkPaymentList2: []
+            })
+            that.getLoad();
+            return false;
+          } else {
+            if(type) {
+              if (contractStatus !== '无') {
+                if (contractStatus === '未签约') {
+                  Dialog.confirm({
+                    title: '提示',
+                    message: '确定开始签约合同,第一步：需要完善认证信息。第二步：仔细阅读合同后，并在底部签字签订合同后，立即生效，具有法律依据。',
+                  })
+                    .then(() => {
+                      wx.navigateTo({
+                        url: '../elecContract/elecContract?id=' + id + '&phone=' + phone
+                      });
+                    })
+                    .catch(() => {
+                      // on cancel
+                    });
+                } else {
+                  wx.navigateTo({
+                    url: '../elecContract/elecContract?id=' + id + '&phone=' + phone
+                  });
+                }
+              }
+            }
+          }
+        }
+      },
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        });
+      });
+  },
+
   goSign(e) {
     let id = e.currentTarget.dataset.id
+    let orderid = e.currentTarget.dataset.orderid
     let phone = e.currentTarget.dataset.phone
     let contractStatus = e.currentTarget.dataset.contractstatus
-    if (contractStatus !== '无') {
-      if (contractStatus === '未签约') {
-        Dialog.confirm({
-          title: '提示',
-          message: '确定开始签约合同,第一步：需要完善认证信息。第二步：仔细阅读合同后，并在底部签字签订合同后，立即生效，具有法律依据。',
-        })
-          .then(() => {
-            wx.navigateTo({
-              url: '../elecContract/elecContract?id=' + id + '&phone=' + phone
-            });
-          })
-          .catch(() => {
-            // on cancel
-          });
-      } else {
-        wx.navigateTo({
-          url: '../elecContract/elecContract?id=' + id + '&phone=' + phone
-        });
-      }
-    }
+    this.checkOrderIsTrue(1, id, phone, contractStatus, orderid )    
   },
 
   goRefund(e) {

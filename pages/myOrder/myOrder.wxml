@@ -33,7 +33,8 @@
               <view class='right2' bindtap='goRefund' data-id="{{ item.orderId }}" wx:if='{{ item.payStatus != 1 && item.refundStatus != 5 && item.payStatus != 2 && item.payStatus != 6 }}'>申请退款</view>
             </view>
           </view>
-          <view class="bottomVal arrow" wx:if="{{ item.contractStatus && item.contractStatus != '无' }}" bindtap="goSign" data-id="{{ item.contractId }}" data-phone='{{ item.certifiationPhone }}' data-contractstatus='{{ item.contractStatus }}'>
+          <view class="bottomVal arrow" wx:if="{{ item.contractStatus && item.contractStatus != '无' }}" bindtap="goSign" data-id="{{ item.contractId }}"
+          data-orderid="{{ item.orderId }}" data-phone='{{ item.certifiationPhone }}' data-contractstatus='{{ item.contractStatus }}'>
             {{ item.subject }}
             <text class="icon-right marginLeft" style="float:right;margin-top:6rpx;"></text>
             <text style="color: #ffa000; float:right;" wx:if="{{ item.contractStatus == '未签约' }}" >未签约</text>
@@ -82,4 +83,5 @@
     </van-tab>
   </van-tabs>
   <van-dialog id="van-dialog" />
+  <van-toast id="van-toast" />
 </view>
