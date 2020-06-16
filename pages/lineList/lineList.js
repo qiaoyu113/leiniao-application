@@ -219,6 +219,7 @@ Page({
           arrays.forEach(function (item, index) {
             if (cityCode) {
               if (item.cityCode == cityCode) {
+                console.log(item.cityName)
                 i = index;
               }
             }
@@ -236,10 +237,12 @@ Page({
             cityCode: arrays[i].cityCode,
             cityName: arrays[i].cityName,
             wareName: arrays[i].cityName,
-            cityCode2: arrays[i].cityCode
+            cityCode2: arrays[i].cityCode,
+            wareHouseVal: arrays[i].cityName,
+            areaVal: arrays[i].cityName,
           });
-          that.getCityCode(i, 1)
-          that.getCityCode(i, 2)
+          that.getCityCode(i, 1, true)
+          that.getCityCode(i, 2, true)
           that.getList()
         }
       },
@@ -315,7 +318,7 @@ Page({
       });
   },
 
-  getCityCode(i, type) {
+  getCityCode(i, type, Boolean) {
     let that = this;
     if (type == 1) {
       const countyDTOS = that.data.cityArray[i].countyDTOS
@@ -327,12 +330,28 @@ Page({
       });
     } else {
       const countyDTOS = that.data.cityArray2[i].countyDTOS
-      countyDTOS.forEach(function(item) {
+      countyDTOS.forEach(function(item, i) {
         item.check = false;
       })
       that.setData({
         array2_1: countyDTOS
       });
+      if(Boolean){
+        let e = {
+          currentTarget: {
+            dataset: {
+              index: 0,
+              item: {
+                check: false,
+                countyCode: '-99'
+              },
+              check: false
+            }
+          }
+        }
+        that.selectArea(e)
+        that.selectArea2(e)
+      }
     }
   },
 
@@ -343,6 +362,7 @@ Page({
     let arrayNew = that.data.array2
     let cityCheckName = that.data.cityCheckName
     let checkAreaCode = that.data.checkAreaCode
+    console.log(111, item)
     if (item.countyCode == '-99') {
       if (item.check) {
         checkAreaCode = []
