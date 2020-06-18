@@ -35,10 +35,12 @@
           </view>
           <view class="bottomVal arrow" wx:if="{{ item.contractStatus && item.contractStatus != '无' }}" bindtap="goSign" data-id="{{ item.contractId }}"
           data-orderid="{{ item.orderId }}" data-phone='{{ item.certifiationPhone }}' data-contractstatus='{{ item.contractStatus }}'>
-            {{ item.subject }}
+            <!-- <text wx:if="{{item.contractStatus !== '已失效'}}">{{ item.subject }}</text> -->
+            <text>电子合同</text>
             <text class="icon-right marginLeft" style="float:right;margin-top:6rpx;"></text>
             <text style="color: #ffa000; float:right;" wx:if="{{ item.contractStatus == '未签约' }}" >未签约</text>
-            <text style="color: #5BB260; float:right;" wx:else >已签约</text>
+            <text style="color: #5BB260; float:right;" wx:elif="{{ item.contractStatus == '已签约' }}" >已签约</text>
+            <text style="color: red; float:right;" wx:elif="{{ item.contractStatus == '已失效' }}" >已失效</text>
           </view>
         </view>
       </view>

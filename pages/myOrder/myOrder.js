@@ -155,6 +155,8 @@ Page({
                     .catch(() => {
                       // on cancel
                     });
+                } else if(contractStatus === '已失效'){
+                  Toast('合同已失效，联系工作人员激活合同!')
                 } else {
                   wx.navigateTo({
                     url: '../elecContract/elecContract?id=' + id + '&phone=' + phone
