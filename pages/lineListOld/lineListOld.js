@@ -156,7 +156,7 @@ Page({
                         key: 'token',
                         data: token,
                         success: function (res) {
-                          that.loginFunction()
+                          // that.loginFunction()
                         },
                       })
                     }
