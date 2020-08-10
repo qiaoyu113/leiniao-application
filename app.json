@@ -58,6 +58,8 @@
     "pages/questionMenu/questionMenu",
     "pages/serviceStandard/serviceStandard",
     "pages/vipExplain/vipExplain",
+    "pages/myOrderList/myOrderList",
+    "pages/payDeposit/payDeposit",
     "pages/orderDetail/orderDetail"
   ],
   "usingComponents": {
