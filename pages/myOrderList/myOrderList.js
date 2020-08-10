@@ -155,7 +155,6 @@ Page ({
       '',
       function (result) {
         if (result.success) {
-          if(!result.data.mobile) return
           wx.showModal({
             title: '',
             content: '订单已完成，联系工作人员完善合同信息吧！',
@@ -165,6 +164,7 @@ Page ({
             cancelColor: '#aaa',
             success(res) {
               if (res.confirm) {
+                if(!result.data.mobile) return
                 wx.makePhoneCall({
                   phoneNumber: result.data.mobile,
                 })
