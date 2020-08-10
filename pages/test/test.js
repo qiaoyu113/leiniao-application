@@ -117,7 +117,7 @@ Page({
             'json',
             function (res) {
               if (res.success) { } else {
-
+                console.log('test')
               }
             },
             function (res) {
