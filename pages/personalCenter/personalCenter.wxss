@@ -15,7 +15,8 @@ page{
 
 .personalHeader{
   width: 100%;
-  height: 476rpx;
+  /* height: 476rpx; */
+  height: 350rpx;
   box-sizing: border-box;
   background-image: linear-gradient(180deg, #EFAB49 0%, #FFE172 100%);
   padding: 30rpx 50rpx;

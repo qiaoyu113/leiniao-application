@@ -39,7 +39,7 @@
         <view class="text">合同</view>
       </view>
     </view>
-    <view class="card">
+    <!-- <view class="card">
       <view class="cardLeft">
         <view class="cardName">
           <text class="icon-vipcard"></text>
@@ -51,7 +51,7 @@
         <view class="buyCard" bindtap="goRouter" data-type='16' wx:if='{{entranceType}}'>{{isVip ? '立即续费' : '立即开通' }}<text class="icon-right lg"></text></view>
         <view class="buyCard" bindtap='goRouter' data-type='3' wx:if='{{!entranceType}}'>{{isVip ? '立即续费' : '立即开通' }}<text class="icon-right lg"></text></view>
       </view>
-    </view>
+    </view> -->
   </view>
   <view class="mainService">
     <view class="title">常用服务</view>
