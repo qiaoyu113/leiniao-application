@@ -52,6 +52,15 @@ const picker2 = val => {
   return arr;
 }
 
+//普通选择器picker3
+const picker3 = val => {
+  let arr = [];
+  val.forEach(function (item) {
+    arr.push(item.dictLabel);
+  })
+  return arr;
+}
+
 
 //监听版本
 function checkUpdateVersion() {
@@ -103,6 +112,7 @@ module.exports = {
   formatTime: formatTime,
   picker: picker,
   picker2: picker2,
+  picker3: picker3,
   toDecimal2: toDecimal2,
   checkUpdateVersion: checkUpdateVersion
 }
