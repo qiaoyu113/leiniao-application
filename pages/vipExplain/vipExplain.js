@@ -36,7 +36,7 @@ Page({
     '',
     '',
     function(res) {
-      if (res.success) {
+      if (res.success && res.data && res.data.mobile) {
         wx.makePhoneCall({
           phoneNumber: res.data.mobile,
         })
