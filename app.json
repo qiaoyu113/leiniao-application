@@ -102,7 +102,7 @@
       {
         "selectedIconPath": "lib/image/icon3_1.png",
         "iconPath": "lib/image/icon3.png",
-        "pagePath": "pages/myCenter/myCenter",
+        "pagePath": "pages/personalCenter/personalCenter",
         "text": "个人中心"
       }
     ]
