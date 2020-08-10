@@ -48,7 +48,8 @@
         <view class="info">长期稳定线路</view>
       </view>
       <view class="cardRight">
-        <view class="buyCard" bindtap="goRouter" data-type='16'>{{isVip ? '立即续费' : '立即开通' }}<text class="icon-right lg"></text></view>
+        <view class="buyCard" bindtap="goRouter" data-type='16' wx:if='{{entranceType}}'>{{isVip ? '立即续费' : '立即开通' }}<text class="icon-right lg"></text></view>
+        <view class="buyCard" bindtap='goRouter' data-type='3' wx:if='{{!entranceType}}'>{{isVip ? '立即续费' : '立即开通' }}<text class="icon-right lg"></text></view>
       </view>
     </view>
   </view>
