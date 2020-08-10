@@ -56,7 +56,9 @@
     "pages/incomeMenu/incomeMenu",
     "pages/elecContract/elecContract",
     "pages/questionMenu/questionMenu",
-    "pages/serviceStandard/serviceStandard"
+    "pages/serviceStandard/serviceStandard",
+    "pages/vipExplain/vipExplain",
+    "pages/orderDetail/orderDetail"
   ],
   "usingComponents": {
     "component-log": "components/logs/logs",
