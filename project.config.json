@@ -3,7 +3,8 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
-		"postcss": true,
+		"enhance": false,
+		"postcss": false,
 		"minified": true,
 		"newFeature": true,
 		"coverView": true,
@@ -11,6 +12,7 @@
 		"autoAudits": false,
 		"showShadowRootInWxmlPanel": true,
 		"scopeDataCheck": false,
+		"uglifyFileName": true,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -20,14 +22,15 @@
 			"disablePlugins": [],
 			"outputPath": ""
 		},
+		"bundle": false,
 		"useIsolateContext": true,
 		"useCompilerModule": false,
 		"userConfirmedUseCompilerModuleSwitch": false
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.9.3",
-	"appid": "wxc2d149dbf33dbd10",
-	"projectname": "%E4%BA%91%E9%B8%9F%E5%90%88%E4%BC%99%E6%89%BF%E8%BF%90%E5%B0%8F%E7%A8%8B%E5%BA%8F",
+	"libVersion": "2.8.3",
+	"appid": "wxe9e35289dc334782",
+	"projectname": "%E6%A2%A7%E6%A1%90%E5%8F%B8%E6%9C%BA%E7%AB%AF%E5%B0%8F%E7%A8%8B%E5%BA%8F",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
 	"condition": {
@@ -56,37 +59,16 @@
 				{
 					"id": 0,
 					"name": "join",
-					"pathName": "pages/index/index",
-					"query": "source=10",
+					"pathName": "pages/lineDetail/lineDetail",
+					"query": "id= 202004271002",
 					"scene": 1011
 				},
 				{
 					"id": 1,
-					"name": "我的",
-					"pathName": "pages/myCenter/myCenter",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 2,
-					"name": "serviceFee",
-					"pathName": "pages/serviceFee/serviceFee",
-					"query": "depositStatus=5&money=4000",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "支付",
-					"pathName": "pages/payDeposit/payDeposit",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/contractText/contractText",
-					"pathName": "pages/contractText/contractText",
-					"query": "",
-					"scene": null
+					"name": "elecContract",
+					"pathName": "pages/elecContract/elecContract",
+					"query": "id=123123123&contact=123123",
+					"scene": 1007
 				}
 			]
 		}
