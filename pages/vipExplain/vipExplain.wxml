@@ -1,0 +1,40 @@
+<view>
+	<view class="question">
+		<view class="title">1、什么是梧桐会员？</view>
+		<view class="desc tIndent">购买会员后，本公司将向您提供具体的物流运输项目资源，保障，您自实际开跑之日起享有三个自然月的稳定承运期。</view>
+	</view>
+	<view class="question">
+		<view class="title">2、梧桐会员有什么权益？</view>
+		<view class="content">
+			<view class="list">
+				<image src="/lib/image/vipExplain1.png"></image>
+				<view class="text">长期稳定</view>
+			</view>
+			<view class="list">
+				<image src="/lib/image/vipExplain2.png"></image>
+				<view class="text">海量货源</view>
+			</view>
+			<view class="list">
+				<image src="/lib/image/vipExplain3.png"></image>
+				<view class="text">多种车型</view>
+			</view>
+			<view class="list">
+				<image src="/lib/image/vipExplain4.png"></image>
+				<view class="text">会员可退</view>
+			</view>
+      <view class="clear"></view>
+		</view>
+	</view>
+	<view class="question">
+		<view class="title">3、问题</view>
+		<view class="desc">
+			<view class="Q"> Q：能不能多次购买梧桐会员？</view>
+			<view> A：可以的，一个会员是一个资格，如果您是车队长您可以帮助会员购买梧桐会员。</view>
+		</view>
+	</view>
+
+  <view class="question btn">
+    <van-button color="#F6C25B" bindtap="handlePhoneClick">电话咨询</van-button>
+    <van-button color="#F6C25B" bindtap="handleBackClick">返回</van-button>
+  </view>
+</view>
