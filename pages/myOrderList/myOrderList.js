@@ -164,10 +164,11 @@ Page ({
             cancelColor: '#aaa',
             success(res) {
               if (res.confirm) {
-                if(!result.data.mobile) return
-                wx.makePhoneCall({
-                  phoneNumber: result.data.mobile,
-                })
+                if(result.data && result.data.mobile){
+                  wx.makePhoneCall({
+                    phoneNumber: result.data.mobile,
+                  })
+                }
               } else if (res.cancel) {
               }
             }
