@@ -19,13 +19,13 @@ Page({
       title: '个人信息' //页面标题为路由参数
     });
     let that = this;
-    network.requestLoading('api/driver/driver/clue/getSettledInInfo', {},
+    network.requestLoading('api/driver/v1/driver/clue/clue/xcxjoin/detail', {},
       'GET',
       '',
       '',
       function (res) {
         if (res.success) {
-          res.data.buyCarFollow = res.data.buyCarFollow.replace(',', '')
+          // res.data.buyCarFollow = res.data.buyCarFollow.replace(',', '')
           let detail = res.data;
           for (let key in detail) {
             if (detail[key] === null) {
@@ -92,7 +92,7 @@ Page({
   onShareAppMessage: function () {
     let userId = wx.getStorageSync('userId')
     return {
-      title: '自主创业，随时上岗；货源稳定、线路优质；购车保收入10万+/年',
+      title: '货源稳定，线路优质，随时上岗，保收入10万+/年',
       path: '/pages/index/index?puserId=' + userId + '&source=2',
       imageUrl: '../../lib/image/shareImg.jpg',
       success: function (res) {

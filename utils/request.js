@@ -10,7 +10,8 @@ function request(options) {
   // 判断是否获取token
   if(token){
     opt.header = {
-      'Authorization': 'bearer '+ token
+      'Authorization': 'bearer '+ token,
+      'appType': '0'
     }
   }
   

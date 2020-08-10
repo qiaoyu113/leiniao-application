@@ -1,0 +1,114 @@
+<view class="personalCenter">
+ <button wx:if="{{canIUse}}" class="getUserInfoOver" open-type="getUserInfo" bindgetuserinfo="getUserInfoFun">请登录</button>
+  <view class="personalHeader">
+    <button wx:if="{{canIUse}}" class="getUserInfo" open-type="getUserInfo" bindgetuserinfo="getUserInfoFun">请登录</button>
+    <view wx:else class="header">
+      <view class="headerLeft">
+        <view class='topCenterLeft'>
+          <open-data type="userAvatarUrl"></open-data>
+        </view>
+      </view>
+      <view class="headerRight">
+        <view class="UserName">{{nikeName}}<text class="icon-vip" wx:if="{{isVip}}"></text>
+</view>
+        <view class="menue">
+          <view class="isVip" wx:if="{{isVip}}">梧桐会员<text class="icon-right lg"></text></view>
+          <view class="isNoVip" bindtap='goRouter' data-type='3' wx:if='{{!entranceType}}'>未入驻<text class="icon-right lg"></text></view>
+          <view class="isNoVip" wx:if='{{entranceType}}' bindtap='goRouter' data-type='4'>已入驻<text class="icon-right lg"></text></view>
+        </view>
+      </view>
+    </view>
+    <button class="getPhone" wx:if='{{!flag}}' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">
+    </button>
+    <!---余额、运费、订单、合同-->
+    <view class="menuBox">
+      <view class="menuList">
+        <view class="num">0</view>
+        <view class="text">余额</view>
+      </view>
+      <view class="menuList">
+        <view class="num">0</view>
+        <view class="text">运费</view>
+      </view>
+      <view class="menuList" bindtap='goRouter' data-type='14'>
+        <view class="num">{{orderNum}}</view>
+        <view class="text">订单</view>
+      </view>
+      <view class="menuList" bindtap='goRouter' data-type='15'>
+        <view class="num">{{contractNum}}</view>
+        <view class="text">合同</view>
+      </view>
+    </view>
+    <view class="card">
+      <view class="cardLeft">
+        <view class="cardName">
+          <text class="icon-vipcard"></text>
+          梧桐会员特权
+        </view>
+        <view class="info">长期稳定线路</view>
+      </view>
+      <view class="cardRight">
+        <view class="buyCard" bindtap="goRouter" data-type='16'>{{isVip ? '立即续费' : '立即开通' }}<text class="icon-right lg"></text></view>
+      </view>
+    </view>
+  </view>
+  <view class="mainService">
+    <view class="title">常用服务</view>
+    <view class="mainSelect">
+     <view class="mainSelectList" wx:if='{{!entranceType}}' bindtap='goRouter' data-type='3'>
+        <view class="mainSelectIcon">
+          <text class="icon-text-xinxi"></text>
+        </view>
+        <view class="mainTitle">个人信息</view>
+      </view>
+      <view class="mainSelectList" wx:if='{{entranceType}}' bindtap='goRouter' data-type='4'>
+        <view class="mainSelectIcon">
+          <text class="icon-text-xinxi"></text>
+        </view>
+        <view class="mainTitle">个人信息</view>
+      </view>
+      <view class="mainSelectList" bindtap='goRouter' data-type='2'>
+        <view class="mainSelectIcon">
+          <text class="icon-text-baoming"></text>
+        </view>
+        <view class="mainTitle">我的报名</view>
+      </view>
+      <view class="mainSelectList" bindtap='goRouter' data-type='5'>
+        <view class="mainSelectIcon">
+          <text class="icon-text-qianbao"></text>
+        </view>
+        <view class="mainTitle">我的钱包</view>
+      </view>
+      <view class="mainSelectList" bindtap='goRouter' data-type='14'>
+        <view class="mainSelectIcon">
+          <text class="icon-text-dingdan"></text>
+        </view>
+        <view class="mainTitle">我的订单</view>
+      </view>
+      <view class="mainSelectList" bindtap='goRouter' data-type='13'>
+        <view class="mainSelectIcon">
+          <text class="icon-text-fuwu"></text>
+        </view>
+        <view class="mainTitle">服务规范</view>
+      </view>
+      <!-- <view class="mainSelectList" bindtap='goRouter' data-type='1'>
+        <view class="mainSelectIcon">
+          <text class="icon-text-tuijian"></text>
+        </view>
+        <view class="mainTitle">我的推荐</view>
+      </view> -->
+      <view class="mainSelectList" data-hi='WeChat' bindtap='talphone' >
+        <view class="mainSelectIcon">
+          <text class="icon-text-kefu"></text>
+        </view>
+        <view class="mainTitle">客服</view>
+      </view>
+      <view class="mainSelectList" bindtap='goRouter' data-type='6'>
+        <view class="mainSelectIcon">
+          <text class="icon-text-fankui"></text>
+        </view>
+        <view class="mainTitle">反馈</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -281,10 +281,10 @@ Page({
     } else {
       let code = wx.getStorageSync('code')
       let openId = wx.getStorageSync('openId')
-      network.requestLoading('api/core/v1/wx/decodeEncryptData', {
+      network.requestLoading('api/core/v1/wx/encryptedData2PhoneNo', {
           code: code,
           iv: e.detail.iv,
-          entryData: e.detail.encryptedData,
+          encryptedData: e.detail.encryptedData,
           openId: openId
         },
         'POST',
@@ -316,12 +316,20 @@ Page({
                 });
               });
             let source = wx.getStorageSync('sourceType')
-            network.requestLoading('api/driver/driver/clue/create', {
-                "phone": phone,
-                "sourceType": source,
-                "workCity": that.data.cityCode,
-                "puserId": that.data.puserId,
-                "authorizePosition": that.data.souceCity
+            // network.requestLoading('api/driver/driver/clue/create', {
+            //     "phone": phone,
+            //     "sourceType": source,
+            //     "workCity": that.data.cityCode,
+            //     "puserId": that.data.puserId,
+            //     "authorizePosition": that.data.souceCity
+            network.requestLoading('api/driver/v1/driver/clue/create/activity', {
+              "phone": phone,
+              "sourceChannel": source,
+              "workCity": that.data.cityCode,
+              "recoUserId": that.data.puserId,
+              "authorizePosition": that.data.souceCity,
+              "name": '',
+              "busiType": ''
               },
               'POST',
               '',
@@ -365,10 +373,10 @@ Page({
     } else {
       let code = wx.getStorageSync('code')
       let openId = wx.getStorageSync('openId')
-      network.requestLoading('api/core/v1/wx/decodeEncryptData', {
+      network.requestLoading('api/core/v1/wx/encryptedData2PhoneNo', {
           code: code,
           iv: e.detail.iv,
-          entryData: e.detail.encryptedData,
+          encryptedData: e.detail.encryptedData,
           openId: openId
         },
         'POST',
@@ -400,12 +408,20 @@ Page({
                 });
               });
             let source = wx.getStorageSync('sourceType')
-            network.requestLoading('api/driver/driver/clue/create', {
-                "phone": phone,
-                "sourceType": source,
-                "workCity": that.data.cityCode,
-                "puserId": that.data.puserId,
-                "authorizePosition": that.data.souceCity
+            // network.requestLoading('api/driver/driver/clue/create', {
+            //     "phone": phone,
+            //     "sourceType": source,
+            //     "workCity": that.data.cityCode,
+            //     "puserId": that.data.puserId,
+            //     "authorizePosition": that.data.souceCity
+            network.requestLoading('api/driver/v1/driver/clue/create/activity', {
+              "phone": phone,
+              "sourceChannel": source,
+              "workCity": that.data.cityCode,
+              "recoUserId": that.data.puserId,
+              "authorizePosition": that.data.souceCity,
+              "name": '',
+              "busiType": ''
               },
               'POST',
               '',

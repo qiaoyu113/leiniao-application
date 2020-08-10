@@ -135,7 +135,7 @@ Page({
         city: options.city,
       });
     }
-    if (options && options.source) {
+    if (options && options.source && options.source !== '') {
       this.setData({
         source: options.source
       })
@@ -543,18 +543,133 @@ Page({
       //   success: function (res) { }
       // })
     } else {
-      network.requestLoading('api/core/v1/wx/decodeEncryptData', {
-          code: that.data.code,
-          iv: e.detail.iv,
-          entryData: e.detail.encryptedData,
-          openId: that.data.openId
-        },
-        'POST',
-        '',
-        '',
-        function(res) {
-          if (res.success) {
-            if (res.data.flag) {
+      wx.login({
+        success: res => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          // 登录成功后存token
+          let code = res.code;
+          network.requestLoading('api/core/v1/wx/encryptedData2PhoneNo', {
+            code: code,
+            iv: e.detail.iv,
+            encryptedData: e.detail.encryptedData,
+            openId: that.data.openId
+          },
+          'POST',
+          '',
+          '',
+          function(res) {
+            if (res.success) {
+              if (res.data.flag) {
+                let phone = res.data.phone;
+                let openId = wx.getStorageSync('openId')
+                network.requestLoading('api/auth/v1/jwt/getToken', {
+                    openId: openId,
+                    phone: phone
+                  },
+                  'post',
+                  '',
+                  'json',
+                  function(res) {
+                    if (res.success) {
+                      wx.setStorage({
+                        key: 'token',
+                        data: res.data.token,
+                        success: function(res) {},
+                      })
+                    }
+                  },
+                  function(res) {
+                    wx.showToast({
+                      title: '加载数据失败',
+                    });
+                  });
+                // network.requestLoading('api/driver/driver/clue/create', {
+                //     "phone": phone,
+                //     "sourceType": that.data.source,
+                //     "workCity": that.data.cityCode,
+                //     "authorizePosition": that.data.souceCity
+                network.requestLoading('api/driver/v1/driver/clue/create/activity', {
+                  "phone": phone,
+                  "sourceChannel": source,
+                  "workCity": that.data.cityCode,
+                  "recoUserId": that.data.puserId,
+                  "authorizePosition": that.data.souceCity,
+                  "name": '',
+                  "busiType": ''
+                  },
+                  'POST',
+                  '',
+                  'json',
+                  function(res) {
+                    if (res.success) {
+                      wx.setStorage({
+                        key: 'phone',
+                        data: phone,
+                        success: function(res) {
+                          // wx.navigateTo({
+                          //   url: '/pages/immediatelyEnter/immediatelyEnter?type=home'
+                          // });
+                          if (that.data.puserId && that.data.puserId != '') {
+                            wx.navigateTo({
+                              url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home&puserId=' + that.data.puserId
+                            });
+                          } else {
+                            wx.navigateTo({
+                              url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home'
+                            });
+                          }
+                        },
+                      })
+                    }
+                  },
+                  function(res) {
+                    wx.showToast({
+                      title: '加载数据失败',
+                    });
+                  });
+              } else {
+                wx.showToast({
+                  title: res.data.memo,
+                });
+              }
+            }
+          },
+          function(res) {
+            wx.showToast({
+              title: '加载数据失败',
+            });
+          });
+        }
+      })
+    }
+  },
+
+  getPhoneNumber: function(e) {
+    let that = this;
+    if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
+      // wx.showModal({
+      //   title: '提示',
+      //   showCancel: false,
+      //   content: '未授权',
+      //   success: function (res) { }
+      // })
+    } else {
+      wx.login({
+        success: res => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          // 登录成功后存token
+          let code = res.code;
+          network.requestLoading('api/core/v1/wx/encryptedData2PhoneNo', {
+            code: code,
+            iv: e.detail.iv,
+            encryptedData: e.detail.encryptedData,
+            openId: that.data.openId
+          },
+          'POST',
+          '',
+          '',
+          function(res) {
+            if (res.success) {
               let phone = res.data.phone;
               let openId = wx.getStorageSync('openId')
               network.requestLoading('api/auth/v1/jwt/getToken', {
@@ -578,11 +693,19 @@ Page({
                     title: '加载数据失败',
                   });
                 });
-              network.requestLoading('api/driver/driver/clue/create', {
-                  "phone": phone,
-                  "sourceType": that.data.source,
-                  "workCity": that.data.cityCode,
-                  "authorizePosition": that.data.souceCity
+              // network.requestLoading('api/driver/driver/clue/create', {
+              //     "phone": phone,
+              //     "sourceType": that.data.source,
+              //     "workCity": that.data.cityCode,
+              //     "authorizePosition": that.data.souceCity
+              network.requestLoading('api/driver/v1/driver/clue/create/activity', {
+                "phone": phone,
+                "sourceChannel": source,
+                "workCity": that.data.cityCode,
+                "recoUserId": that.data.puserId,
+                "authorizePosition": that.data.souceCity,
+                "name": '',
+                "busiType": ''
                 },
                 'POST',
                 '',
@@ -593,18 +716,9 @@ Page({
                       key: 'phone',
                       data: phone,
                       success: function(res) {
-                        // wx.navigateTo({
-                        //   url: '/pages/immediatelyEnter/immediatelyEnter?type=home'
-                        // });
-                        if (that.data.puserId && that.data.puserId != '') {
-                          wx.navigateTo({
-                            url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home&puserId=' + that.data.puserId
-                          });
-                        } else {
-                          wx.navigateTo({
-                            url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home'
-                          });
-                        }
+                        wx.switchTab({
+                          url: '/pages/lineList/lineList'
+                        });
                       },
                     })
                   }
@@ -614,106 +728,23 @@ Page({
                     title: '加载数据失败',
                   });
                 });
-            } else {
-              wx.showToast({
-                title: res.data.memo,
-              });
             }
-          }
-        },
-        function(res) {
-          wx.showToast({
-            title: '加载数据失败',
+          },
+          function(res) {
+            wx.showToast({
+              title: '加载数据失败',
+            });
           });
-        });
-    }
-  },
-
-  getPhoneNumber: function(e) {
-    let that = this;
-    if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
-      // wx.showModal({
-      //   title: '提示',
-      //   showCancel: false,
-      //   content: '未授权',
-      //   success: function (res) { }
-      // })
-    } else {
-      network.requestLoading('api/core/v1/wx/decodeEncryptData', {
-          code: that.data.code,
-          iv: e.detail.iv,
-          entryData: e.detail.encryptedData,
-          openId: that.data.openId
-        },
-        'POST',
-        '',
-        '',
-        function(res) {
-          if (res.success) {
-            let phone = res.data.phone;
-            let openId = wx.getStorageSync('openId')
-            network.requestLoading('api/auth/v1/jwt/getToken', {
-                openId: openId,
-                phone: phone
-              },
-              'post',
-              '',
-              'json',
-              function(res) {
-                if (res.success) {
-                  wx.setStorage({
-                    key: 'token',
-                    data: res.data.token,
-                    success: function(res) {},
-                  })
-                }
-              },
-              function(res) {
-                wx.showToast({
-                  title: '加载数据失败',
-                });
-              });
-            network.requestLoading('api/driver/driver/clue/create', {
-                "phone": phone,
-                "sourceType": that.data.source,
-                "workCity": that.data.cityCode,
-                "authorizePosition": that.data.souceCity
-              },
-              'POST',
-              '',
-              'json',
-              function(res) {
-                if (res.success) {
-                  wx.setStorage({
-                    key: 'phone',
-                    data: phone,
-                    success: function(res) {
-                      wx.switchTab({
-                        url: '/pages/lineList/lineList'
-                      });
-                    },
-                  })
-                }
-              },
-              function(res) {
-                wx.showToast({
-                  title: '加载数据失败',
-                });
-              });
-          }
-        },
-        function(res) {
-          wx.showToast({
-            title: '加载数据失败',
-          });
-        });
-      // }
-      // },
-      // function (res) {
-      //   wx.showToast({
-      //     title: '加载数据失败',
-      //   });
-      // });
+        // }
+        // },
+        // function (res) {
+        //   wx.showToast({
+        //     title: '加载数据失败',
+        //   });
+        // });
+        }
+      })
+      
     }
   },
 

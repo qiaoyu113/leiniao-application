@@ -136,10 +136,10 @@ Page({
   getPhoneNumber: function(e) {
     let that = this;
     let code = wx.get
-    network.requestLoading('api/core/v1/wx/decodeEncryptData', {
+    network.requestLoading('api/core/v1/wx/encryptedData2PhoneNo', {
         code: code,
         iv: e.detail.iv,
-        entryData: e.detail.encryptedData,
+        encryptedData: e.detail.encryptedData,
         openId: that.data.openId
       },
       'POST',

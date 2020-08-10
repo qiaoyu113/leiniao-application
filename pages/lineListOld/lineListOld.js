@@ -472,10 +472,10 @@ Page({
       //       that.setData({
       //         openId: res.data
       //       });
-      network.requestLoading('api/core/v1/wx/decodeEncryptData', {
+      network.requestLoading('api/core/v1/wx/encryptedData2PhoneNo', {
           code: that.data.code,
           iv: e.detail.iv,
-          entryData: e.detail.encryptedData,
+          encryptedData: e.detail.encryptedData,
           openId: that.data.openId
         },
         'POST',
@@ -509,12 +509,20 @@ Page({
             let souceCity = wx.getStorageSync('locationAddress')
             let source = wx.getStorageSync('sourceType')
             let cityCode = wx.getStorageSync('cityCode')
-            network.requestLoading('api/driver/driver/clue/create', {
-                "phone": phone,
-                "sourceType": source,
-                "workCity": cityCode,
-                "puserId": that.data.puserId,
-                "authorizePosition": souceCity
+            // network.requestLoading('api/driver/driver/clue/create', {
+            //     "phone": phone,
+            //     "sourceType": source,
+            //     "workCity": cityCode,
+            //     "puserId": that.data.puserId,
+            //     "authorizePosition": souceCity
+            network.requestLoading('api/driver/v1/driver/clue/create/activity', {
+              "phone": phone,
+              "sourceChannel": source,
+              "workCity": that.data.cityCode,
+              "recoUserId": that.data.puserId,
+              "authorizePosition": that.data.souceCity,
+              "name": '',
+              "busiType": ''
               },
               'POST',
               '',

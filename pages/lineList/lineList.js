@@ -54,7 +54,8 @@ Page({
     checkAreaCode: [],
     checkAreaCode2: [],
     carType: false,
-    otherType: false
+    otherType: false,
+    source: 1
   },
 
   /**
@@ -64,6 +65,20 @@ Page({
     wx.setNavigationBarTitle({
       title: '货源大厅' //页面标题为路由参数
     });
+    if (options && options.source && options.source !== '') {
+      this.setData({
+        source: options.source
+      })
+      wx.reportAnalytics('source', {
+        source: options.source,
+      });
+      wx.setStorageSync('sourceType', this.data.source)
+    } else {
+      let source = wx.getStorageSync('sourceType')
+      if(!source){
+        wx.setStorageSync('sourceType', this.data.source)
+      }
+    }
     if (options && options.puserId) {
       let puserId = options.puserId;
       if (puserId) {
@@ -914,85 +929,101 @@ Page({
       //       that.setData({
       //         openId: res.data
       //       });
-      network.requestLoading('api/core/v1/wx/decodeEncryptData', {
-          code: that.data.code,
-          iv: e.detail.iv,
-          entryData: e.detail.encryptedData,
-          openId: that.data.openId
-        },
-        'POST',
-        '',
-        '',
-        function(res) {
-          if (res.success) {
-            let phone = res.data.phone;
-            let openId = wx.getStorageSync('openId')
-            network.requestLoading('api/auth/v1/jwt/getToken', {
-                openId: openId,
-                phone: phone
-              },
-              'post',
-              '',
-              'json',
-              function(res) {
-                if (res.success) {
-                  wx.setStorage({
-                    key: 'token',
-                    data: res.data.token,
-                    success: function(res) {},
-                  })
-                }
-              },
-              function(res) {
-                wx.showToast({
-                  title: '加载数据失败',
+      wx.login({
+        success: res => {
+          // 发送 res.code 到后台换取 openId, sessionKey, unionId
+          // 登录成功后存token
+          let code = res.code;
+          network.requestLoading('api/core/v1/wx/encryptedData2PhoneNo', {
+            code: code,
+            iv: e.detail.iv,
+            encryptedData: e.detail.encryptedData,
+            openId: that.data.openId
+          },
+          'POST',
+          '',
+          '',
+          function(res) {
+            if (res.success) {
+              let phone = res.data.phone;
+              let openId = wx.getStorageSync('openId')
+              network.requestLoading('api/auth/v1/jwt/getToken', {
+                  openId: openId,
+                  phone: phone
+                },
+                'post',
+                '',
+                'json',
+                function(res) {
+                  if (res.success) {
+                    wx.setStorage({
+                      key: 'token',
+                      data: res.data.token,
+                      success: function(res) {},
+                    })
+                  }
+                },
+                function(res) {
+                  wx.showToast({
+                    title: '加载数据失败',
+                  });
                 });
-              });
-            let souceCity = wx.getStorageSync('locationAddress')
-            let source = wx.getStorageSync('sourceType')
-            let cityCode = wx.getStorageSync('cityCode')
-            network.requestLoading('api/driver/driver/clue/create', {
+              let souceCity = wx.getStorageSync('locationAddress')
+              let source = wx.getStorageSync('sourceType')
+              let cityCode = wx.getStorageSync('cityCode')
+              // network.requestLoading('api/driver/driver/clue/create', {
+              //     "phone": phone,
+              //     "sourceType": source,
+              //     "workCity": cityCode,
+              //     "puserId": that.data.puserId,
+              //     "authorizePosition": souceCity
+              network.requestLoading('api/driver/v1/driver/clue/create/activity', {
                 "phone": phone,
-                "sourceType": source,
-                "workCity": cityCode,
-                "puserId": that.data.puserId,
-                "authorizePosition": souceCity
-              },
-              'POST',
-              '',
-              'json',
-              function(res) {
-                if (res.success) {
-                  wx.setStorage({
-                    key: 'phone',
-                    data: phone,
-                    success: function(res) {
-                      that.setData({
-                        flag: true
-                      })
-                    },
-                  })
-                }
-              },
-              function(res) {
-                wx.showToast({
-                  title: '加载数据失败',
+                "sourceChannel": source,
+                "workCity": that.data.cityCode,
+                "recoUserId": that.data.puserId,
+                "authorizePosition": that.data.souceCity,
+                "name": '',
+                "busiType": ''
+                },
+                'POST',
+                '',
+                'json',
+                function(res) {
+                  if (res.success) {
+                    wx.setStorage({
+                      key: 'phone',
+                      data: phone,
+                      success: function(res) {
+                        that.setData({
+                          flag: true
+                        })
+                      },
+                    })
+                  }
+                },
+                function(res) {
+                  wx.showToast({
+                    title: '加载数据失败',
+                  });
                 });
-              });
-          }
-        },
-        function(res) {
-          wx.showToast({
-            title: '加载数据失败',
+            }
+          },
+          function(res) {
+            wx.showToast({
+              title: '加载数据失败',
+            });
           });
-        });
-      // }
-      // },
-      // function (res) {
-      //   wx.showToast({
-      //     title: '加载数据失败',
-      //   });
-      // });
+        // }
+        // },
+        // function (res) {
+        //   wx.showToast({
+        //     title: '加载数据失败',
+        //   });
+        // });
+        }
+      })
+      
     }
   },
 

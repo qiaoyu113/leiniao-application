@@ -1,6 +1,7 @@
 {
   "pages": [
     "pages/index/index",
+    "pages/personalCenter/personalCenter",
     "pages/lineListOld/lineListOld",
     "pages/lineList/lineList",
     "pages/sceneAnalyze/sceneAnalyze",

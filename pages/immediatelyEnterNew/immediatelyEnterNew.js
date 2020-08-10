@@ -157,7 +157,7 @@ Page({
    */
   onLoad: function (options) {
     wx.setNavigationBarTitle({
-      title: '立即入驻' //页面标题为路由参数
+      title: '立即报名' //页面标题为路由参数
     });
     let phone = wx.getStorageSync('phone')
     if (phone){
@@ -182,12 +182,10 @@ Page({
   getData() {
     let that = this;
     //获取城市列表
-    network.requestLoading('api/base/base/dict/qryDictByType', {
-      dictType: 'online_city'
-    },
-      'GET',
+    network.requestLoading('api/base/v1/base/area/getOpenCityData', {},
+      'get',
       '',
-      '',
+      'json',
       function (res) {
         if (res.success) {
           //过滤picker
@@ -196,7 +194,7 @@ Page({
           });
           const arrays = that.data.addressArr
           that.setData({
-            addressArr_new: common.picker(arrays)
+            addressArr_new: common.picker2(arrays)
           });
         }
       },
@@ -206,17 +204,16 @@ Page({
         });
       });
     //获取物流从业经验
-    network.requestLoading('api/base/base/dict/qryDictByType', {
-      dictType: 'logistics_experience'
-    },
-      'GET',
+    network.requestLoading('/api/base/v1/base/dict/dict/list/types', 
+    ['logistics_experience'],
+      'post',
       '',
-      '',
+      'json',
       function (res) {
         if (res.success) {
           //过滤picker
           that.setData({
-            logisticsArr: res.data
+            logisticsArr: res.data.logistics_experience
           });
           const arrays = that.data.logisticsArr
           that.setData({
@@ -230,17 +227,16 @@ Page({
         });
       });
     //获取货物经验
-    network.requestLoading('api/base/base/dict/qryDictByType', {
-      dictType: 'type_of_goods'
-    },
-      'GET',
+    network.requestLoading('/api/base/v1/base/dict/dict/list/types',
+      ['type_of_goods'],
+      'post',
       '',
-      '',
+      'json',
       function (res) {
         if (res.success) {
           //过滤picker
           that.setData({
-            goodsArr: res.data
+            goodsArr: res.data.type_of_goods
           });
           const arrays = that.data.goodsArr
           that.setData({
@@ -254,17 +250,16 @@ Page({
         });
       });
     //获取期望月收入
-    network.requestLoading('api/base/base/dict/qryDictByType', {
-      dictType: 'expected_monthly_income'
-    },
-      'GET',
+    network.requestLoading('/api/base/v1/base/dict/dict/list/types',
+      ['expected_monthly_income'],
+      'post',
       '',
-      '',
+      'json',
       function (res) {
         if (res.success) {
           //过滤picker
           that.setData({
-            incomeArr: res.data
+            incomeArr: res.data.expected_monthly_income
           });
           const arrays = that.data.incomeArr
           that.setData({
@@ -278,17 +273,16 @@ Page({
         });
       });
     //获取可接受一天工作时长
-    network.requestLoading('api/base/base/dict/qryDictByType', {
-      dictType: 'accept_one_day_of_work'
-    },
-      'GET',
+    network.requestLoading('/api/base/v1/base/dict/dict/list/types',
+    ['accept_one_day_of_work'],
+      'post',
       '',
-      '',
+      'json',
       function (res) {
         if (res.success) {
           //过滤picker
           that.setData({
-            acceptArr: res.data
+            acceptArr: res.data.accept_one_day_of_work
           });
           const arrays = that.data.acceptArr
           that.setData({
@@ -302,21 +296,20 @@ Page({
         });
       });
     //获取意向车型
-    network.requestLoading('api/base/base/dict/qryDictByType', {
-      dictType: 'Intentional_compartment'
-    },
-      'GET',
+    network.requestLoading('api/base/v1/base/dict/dict/list/types',
+      ['Intentional_compartment'],
+      'post',
       '',
-      '',
+      'json',
       function (res) {
         if (res.success) {
           //过滤picker
           that.setData({
-            intentionalArr: res.data
+            intentionalArr: res.data.Intentional_compartment
           });
           const arrays = that.data.intentionalArr
           that.setData({
-            intentionalArr_new: common.picker(arrays)
+            intentionalArr_new: common.picker3(arrays)
           });
         }
       },
@@ -357,7 +350,7 @@ Page({
   bindPickerChangeCity: function (e) {
     this.setData({
       address: this.data.addressArr_new[e.detail.value],
-      addressVal: this.data.addressArr[e.detail.value].codeVal,
+      addressVal: this.data.addressArr[e.detail.value].code,
       addressType: true
     })
   },
@@ -402,7 +395,7 @@ Page({
   bindPickerChangeintentional: function (e) {
     this.setData({
       intentional: this.data.intentionalArr_new[e.detail.value],
-      intentionalVal: this.data.intentionalArr[e.detail.value].codeVal,
+      intentionalVal: this.data.intentionalArr[e.detail.value].dictValue,
       intentionaType: true
     })
   },
@@ -456,18 +449,18 @@ Page({
   submitBtn: function (e) {
     let that = this;
     let myreg = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
-    if (!myreg.test(that.data.phone)) {
-      Notify({
-        text: '请输入正确的手机号',
-        duration: 1000,
-        selector: '#van-notify',
-        backgroundColor: '#FAC844'
-      });
-      return false;
-    }
+    // if (!myreg.test(that.data.phone)) {
+    //   Notify({
+    //     text: '请输入正确的手机号',
+    //     duration: 1000,
+    //     selector: '#van-notify',
+    //     backgroundColor: '#FAC844'
+    //   });
+    //   return false;
+    // }
     let souceCity = wx.getStorageSync('locationAddress')
     let source = wx.getStorageSync('sourceType')
-    network.requestLoading('api/driver/driver/clue/settledInForLessInfo', {
+    network.requestLoading('api/driver/v1/driver/clue/create/xcxjoin', {
       "carType": that.data.intentionalVal,
       "name": that.data.name,
       "phone": that.data.phone,
@@ -480,7 +473,7 @@ Page({
       'json',
       function (res) {
         if (res.success) {
-          if(res.data.code == 200){
+          if(res.data){
             that.setData({
               loadModal: true
             })
@@ -582,7 +575,7 @@ Page({
   onShareAppMessage: function () {
     let userId = wx.getStorageSync('userId')
     return {
-      title: '自主创业，随时上岗；货源稳定、线路优质；购车保收入10万+/年',
+      title: '货源稳定，线路优质，随时上岗，保收入10万+/年',
       path: '/pages/index/index?puserId=' + userId + '&source=2',
       imageUrl: '../../lib/image/shareImg.jpg',
       success: function (res) {

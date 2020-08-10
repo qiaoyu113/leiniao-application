@@ -37,6 +37,7 @@ function requestLoading(url, params, met, message, types, success, fail) {
         header: {
           'content-type': contentType,
           'Authorization': token,
+          'appType': '0'
         },
         method: met,
         success: function (res) {
@@ -96,6 +97,7 @@ function requestLoading(url, params, met, message, types, success, fail) {
         header: {
           'content-type': contentType,
           'Authorization': '',
+          'appType': '0'
         },
         method: met,
         success: function (res) {
