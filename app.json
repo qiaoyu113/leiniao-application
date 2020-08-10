@@ -60,7 +60,8 @@
     "pages/vipExplain/vipExplain",
     "pages/myOrderList/myOrderList",
     "pages/payDeposit/payDeposit",
-    "pages/orderDetail/orderDetail"
+    "pages/orderDetail/orderDetail",
+    "pages/contractList/contractList"
   ],
   "usingComponents": {
     "component-log": "components/logs/logs",

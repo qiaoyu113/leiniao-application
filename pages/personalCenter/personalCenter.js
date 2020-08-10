@@ -43,7 +43,7 @@ Page({
     if (!cityCode) {
       this.getMap()
     }
-    // this.hasAbilityCreatOrder()
+    this.hasAbilityCreatOrder()
     // this.getVip()
     let that = this;
     wx.getSetting({

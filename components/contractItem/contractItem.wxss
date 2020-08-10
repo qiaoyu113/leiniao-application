@@ -1,0 +1,45 @@
+/* components/contractItem/contractItem.wxss */
+.contractItem{
+  background: #FFFFFF;
+  border-radius: 10px;
+  padding: 30rpx 30rpx 20rpx 30rpx;
+  box-sizing: border-box;
+  position: relative;
+  margin-bottom: 10rpx;
+}
+.contractTitle{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+.contractId{
+  font-size: 28rpx;
+  color: #4A4A4A;
+  letter-spacing: 0;
+}
+.contractStatus{
+  font-size: 30rpx;
+  color: #C3C2C3;
+  letter-spacing: 0;
+}
+.contractInfo{
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  padding-bottom: 10rpx;
+  border-bottom: 1px solid #F2F2F2;
+}
+.contractInfoItem{
+  display: inline-block;
+  font-size: 26rpx;
+  color: #656565;
+  letter-spacing: 0;
+  margin: 10rpx 0;
+}
+.gourpBtn{
+  margin-top: 20rpx;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}

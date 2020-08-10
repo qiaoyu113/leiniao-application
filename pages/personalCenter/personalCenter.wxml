@@ -86,6 +86,24 @@
         </view>
         <view class="mainTitle">我的订单</view>
       </view>
+      <view class="mainSelectList" bindtap='goRouter' data-type='9' wx:if='{{abilityCreatOrder}}'>
+        <view class="mainSelectIcon">
+          <text class="icon-text-dingdan"></text>
+        </view>
+        <view class="mainTitle">创建订单</view>
+      </view>
+      <view class="mainSelectList" bindtap='goRouter' data-type='10' wx:if='{{entranceType}}'>
+        <view class="mainSelectIcon">
+          <text class="icon-text-dingdan"></text>
+        </view>
+        <view class="mainTitle">我的账薄</view>
+      </view>
+       <view class="mainSelectList" bindtap='goRouter' data-type='12' wx:if='{{entranceType}}'>
+        <view class="mainSelectIcon">
+          <text class="icon-text-dingdan"></text>
+        </view>
+        <view class="mainTitle">我的运费</view>
+      </view>
       <view class="mainSelectList" bindtap='goRouter' data-type='13'>
         <view class="mainSelectIcon">
           <text class="icon-text-fuwu"></text>
