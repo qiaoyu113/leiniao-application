@@ -172,7 +172,7 @@ Page({
 
   getDetail() {
     let that = this
-    network.requestLoading('api/bss/v1/bss/line/task/xcxLineDetail', {
+    network.requestLoading('api/v1/line/lineInfo/getXcxLineTaskDetail', {
         "key": that.data.id,
         "limit": 0,
         "page": 0
