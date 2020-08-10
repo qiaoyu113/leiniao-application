@@ -39,7 +39,7 @@
         <view class="text">合同</view>
       </view>
     </view>
-    <view class="card">
+    <!-- <view class="card">
       <view class="cardLeft">
         <view class="cardName">
           <text class="icon-vipcard"></text>
@@ -48,9 +48,10 @@
         <view class="info">长期稳定线路</view>
       </view>
       <view class="cardRight">
-        <view class="buyCard" bindtap="goRouter" data-type='16'>{{isVip ? '立即续费' : '立即开通' }}<text class="icon-right lg"></text></view>
+        <view class="buyCard" bindtap="goRouter" data-type='16' wx:if='{{entranceType}}'>{{isVip ? '立即续费' : '立即开通' }}<text class="icon-right lg"></text></view>
+        <view class="buyCard" bindtap='goRouter' data-type='3' wx:if='{{!entranceType}}'>{{isVip ? '立即续费' : '立即开通' }}<text class="icon-right lg"></text></view>
       </view>
-    </view>
+    </view> -->
   </view>
   <view class="mainService">
     <view class="title">常用服务</view>
@@ -84,6 +85,24 @@
           <text class="icon-text-dingdan"></text>
         </view>
         <view class="mainTitle">我的订单</view>
+      </view>
+      <view class="mainSelectList" bindtap='goRouter' data-type='9' wx:if='{{abilityCreatOrder}}'>
+        <view class="mainSelectIcon">
+          <text class="icon-text-dingdan"></text>
+        </view>
+        <view class="mainTitle">创建订单</view>
+      </view>
+      <view class="mainSelectList" bindtap='goRouter' data-type='10' wx:if='{{entranceType}}'>
+        <view class="mainSelectIcon">
+          <text class="icon-text-dingdan"></text>
+        </view>
+        <view class="mainTitle">我的账薄</view>
+      </view>
+       <view class="mainSelectList" bindtap='goRouter' data-type='12' wx:if='{{entranceType}}'>
+        <view class="mainSelectIcon">
+          <text class="icon-text-dingdan"></text>
+        </view>
+        <view class="mainTitle">我的运费</view>
       </view>
       <view class="mainSelectList" bindtap='goRouter' data-type='13'>
         <view class="mainSelectIcon">
