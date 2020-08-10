@@ -1,0 +1,37 @@
+<view>
+	<view class="top">
+		<van-icon name="checked" wx:if="[10,30].includes(orderObj.status)" />
+		<van-icon name="warning" wx:else />
+		{{orderObj.statusName}}
+	</view>
+	<view class="content">
+		<view class="header">订单编号:DD202005060001</view>
+		<view class="order">
+			<view>商品分类:{{orderObj.busiTypeName || ""}}</view>
+			<view>合作模式:{{orderObj.cooperationModelName || ""}}</view>
+			<view>合作车型:{{orderObj.cooperationCarName || ""}}</view>
+			<view>合作期限:{{orderObj.cooperationTime}}个月</view>
+			<view>订单金额:<text class="price">￥{{orderObj.goodsAmount || ""}}</text></view>
+		</view>
+		<view class="payRecord">
+			<view class="title">支付记录</view>
+			<view wx:for="{{orderPayRecordInfoVOList}}" wx:key="index" class="list">
+				<text>￥{{item.money || ""}}</text> {{item.createDate}}
+			</view>
+		</view>
+		<view class="time">
+			<view>
+				<text>订单生成时间:</text> {{createDate}}
+			</view>
+			<view wx:if="{{[30,35,40].includes(orderObj.status)}}">
+				<text>订单成交时间:</text> {{passTime}}
+			</view>
+			<view wx:if="{{[35,40].includes(orderObj.status)}}">
+				<text>申请退款时间:</text> {{orderRefundApplyTime}}
+			</view>
+			<view wx:if="{{[40].includes(orderObj.status)}}">
+				<text>退款成功时间:</text> {{orderRefundCompleteTime}}
+			</view>
+		</view>
+	</view>
+</view>
