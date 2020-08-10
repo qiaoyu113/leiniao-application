@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "van-tab": "../../miniprogram_npm/vant-weapp/tab/index",
+    "van-tabs": "../../miniprogram_npm/vant-weapp/tabs/index",
+    "contractItem": "../../components/contractItem/contractItem",
+    "van-empty": "../../miniprogram_npm/vant-weapp/empty/index"
+  }
+}

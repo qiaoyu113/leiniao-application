@@ -58,7 +58,8 @@
     "pages/questionMenu/questionMenu",
     "pages/serviceStandard/serviceStandard",
     "pages/vipExplain/vipExplain",
-    "pages/orderDetail/orderDetail"
+    "pages/orderDetail/orderDetail",
+    "pages/contractList/contractList"
   ],
   "usingComponents": {
     "component-log": "components/logs/logs",
