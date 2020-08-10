@@ -16,22 +16,25 @@
 		<view class="payRecord">
 			<view class="title">支付记录</view>
 			<view wx:for="{{orderPayRecordInfoVOList}}" wx:key="index" class="list">
-				<text>￥{{item.money || ""}}</text> {{item.createDate}}
+				<text>￥{{item.money || ""}}</text>({{item.createDate}})
 			</view>
 		</view>
 		<view class="time">
 			<view>
-				<text>订单生成时间:</text> {{createDate}}
-			</view>
-			<view wx:if="{{[30,35,40].includes(orderObj.status)}}">
-				<text>订单成交时间:</text> {{passTime}}
-			</view>
-			<view wx:if="{{[35,40].includes(orderObj.status)}}">
-				<text>申请退款时间:</text> {{orderRefundApplyTime}}
-			</view>
-			<view wx:if="{{[40].includes(orderObj.status)}}">
-				<text>退款成功时间:</text> {{orderRefundCompleteTime}}
-			</view>
+            	<text>订单生成时间:</text> {{createDate}}
+            </view>
+            <view wx:if="{{[30].includes(orderObj.status)}}">
+                <text>订单成交时间:</text> {{passTime}}
+            </view>
+            <view wx:if="{{[35,40].includes(orderObj.status)}}">
+                <text>申请退款时间:</text> {{orderRefundApplyTime}}
+            </view>
+            <view wx:if="{{[40].includes(orderObj.status)}}">
+                <text>退款成功时间:</text> {{orderRefundCompleteTime}}
+            </view>
+            <view wx:if="{{[10].includes(orderObj.status)}}">
+               <text>取消时间:</text> {{updateDate}}
+            </view>
 		</view>
 	</view>
 </view>
