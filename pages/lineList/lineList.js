@@ -258,7 +258,7 @@ Page({
           });
           that.getCityCode(i, 1, true)
           that.getCityCode(i, 2, true)
-          that.getList()
+          // that.getList()
         }
       },
       function(res) {
@@ -331,6 +331,7 @@ Page({
           title: '加载数据失败',
         });
       });
+      that.getList()
   },
 
   getCityCode(i, type, Boolean) {
@@ -791,7 +792,7 @@ Page({
   getList() {
     let that = this;
     //获取线路列表
-    network.requestLoading('api/bss/v1/bss/line/task/xcxLineTasks', {
+    network.requestLoading('api/line_center/v1/line/lineInfo/xcxLineTasks', {
         "carTypeName": that.data.carCheckList,
         "handlingDifficultyDegree": that.data.difficultyCheckList,
         "cargoType": that.data.cargoCheckList,

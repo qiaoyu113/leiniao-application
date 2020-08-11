@@ -146,10 +146,8 @@ Page ({
    * 获取客服电话
    */
   getPhone(){
-    network.requestLoading('api/carrier_center/v1/driver/getGmInfoByDriverId', 
-      {
-        driverId: this.data.driverId
-      },
+    network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', 
+      {},
       'GET',
       '',
       '',
@@ -284,7 +282,7 @@ Page ({
   goContract(event){
     const { id, status } = event.currentTarget.dataset;
     wx.navigateTo({
-      url: `../contractList/contractList?id=${id}&status=${status === 30 ? 2 : 1}`
+      url: `../contractList/contractList?id=${id}&status=${status}`
     });
   },
   /**

@@ -207,7 +207,7 @@ Page({
 
   getDetail() {
     let that = this
-    network.requestLoading('api/v1/line/lineInfo/getXcxLineTaskDetail', {
+    network.requestLoading('api/line_center/v1/line/lineInfo/getXcxLineTaskDetail', {
         "key": that.data.id,
         "limit": 0,
         "page": 0
