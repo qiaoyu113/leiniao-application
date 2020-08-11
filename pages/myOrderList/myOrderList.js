@@ -282,7 +282,7 @@ Page ({
   goContract(event){
     const { id, status } = event.currentTarget.dataset;
     wx.navigateTo({
-      url: `../contractList/contractList?id=${id}&status=${status === 30 ? 2 : 1}`
+      url: `../contractList/contractList?id=${id}&status=${status}`
     });
   },
   /**
