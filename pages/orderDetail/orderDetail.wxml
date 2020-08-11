@@ -23,7 +23,7 @@
 			<view>
 				<text>订单生成时间:</text> {{createDate}}
 			</view>
-			<view wx:if="{{[30].includes(orderObj.status)}}">
+			<view wx:if="{{orderObj.status === 30}}">
 				<text>订单成交时间:</text> {{passTime}}
 			</view>
 			<view wx:if="{{[35,40].includes(orderObj.status)}}">
@@ -32,9 +32,9 @@
 			<view wx:if="{{[40].includes(orderObj.status)}}">
 				<text>退款成功时间:</text> {{orderRefundCompleteTime}}
 			</view>
-			<view wx:if="{{[10].includes(orderObj.status)}}">
-            	<text>取消时间:</text> {{updateDate}}
-            </view>
+			<view wx:if="{{orderObj.status === 10}}">
+        <text>取消时间:</text> {{updateDate}}
+      </view>
 		</view>
 	</view>
 </view>
