@@ -21,9 +21,11 @@ Component({
   methods: {
     callManager() {
       let that = this;
-      wx.makePhoneCall({
-        phoneNumber: that.data.phone
-      })
+      if (this.data.phone) {
+        wx.makePhoneCall({
+          phoneNumber: that.data.phone
+        })
+      }
     },
     aliveContract() {
       wx.showToast({
