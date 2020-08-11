@@ -25,6 +25,11 @@ Component({
         wx.makePhoneCall({
           phoneNumber: that.data.phone
         })
+      } else {
+        wx.showToast({
+          title: '客服电话获取失败',
+          icon: 'none'
+        });
       }
     },
     aliveContract() {
