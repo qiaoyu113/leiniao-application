@@ -43,12 +43,14 @@ Page({
       } else {
         wx.showToast({
           title: '获取手机号失败',
+          icon:'none'
         });
       }
     },
     function(res) {
       wx.showToast({
         title: '加载数据失败',
+        icon:'none'
       });
     });
   },
