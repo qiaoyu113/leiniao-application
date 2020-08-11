@@ -17,6 +17,7 @@ Page({
     passTime:'',//成交时间
     orderRefundApplyTime:'', //退款申请时间
     orderRefundCompleteTime:'',//退款成功时间
+    updateDate:''//取消时间
 
   },
   onLoad:function(option) {
@@ -57,11 +58,12 @@ Page({
           createDate:res.createDate || '',
           passTime: res.passTime || '',
           orderRefundApplyTime:res.orderRefundApplyTime || '',
-          orderRefundCompleteTime:res.orderRefundCompleteTime || ''
+          orderRefundCompleteTime:res.orderRefundCompleteTime || '',
+          updateDate:res.updateDate || ''
         } );
     }, function () {
         wx.showToast ( {
-            image: '../../lib/image/jg.png',
+            icon:'none',
             title: '加载数据失败',
         } );
     } );

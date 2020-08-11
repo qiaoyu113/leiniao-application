@@ -5,7 +5,7 @@
 		{{orderObj.statusName}}
 	</view>
 	<view class="content">
-		<view class="header">订单编号:DD202005060001</view>
+		<view class="header">订单编号:{{orderObj.orderId}}</view>
 		<view class="order">
 			<view>商品分类:{{orderObj.busiTypeName || ""}}</view>
 			<view>合作模式:{{orderObj.cooperationModelName || ""}}</view>
@@ -16,14 +16,14 @@
 		<view class="payRecord">
 			<view class="title">支付记录</view>
 			<view wx:for="{{orderPayRecordInfoVOList}}" wx:key="index" class="list">
-				<text>￥{{item.money || ""}}</text> {{item.createDate}}
+				<text>￥{{item.money || ""}}</text> <text wx:if="{{item.payDate}}">({{item.payDate || ''}})</text>
 			</view>
 		</view>
 		<view class="time">
 			<view>
 				<text>订单生成时间:</text> {{createDate}}
 			</view>
-			<view wx:if="{{[30,35,40].includes(orderObj.status)}}">
+			<view wx:if="{{[30].includes(orderObj.status)}}">
 				<text>订单成交时间:</text> {{passTime}}
 			</view>
 			<view wx:if="{{[35,40].includes(orderObj.status)}}">
@@ -32,6 +32,9 @@
 			<view wx:if="{{[40].includes(orderObj.status)}}">
 				<text>退款成功时间:</text> {{orderRefundCompleteTime}}
 			</view>
+			<view wx:if="{{[10].includes(orderObj.status)}}">
+            	<text>取消时间:</text> {{updateDate}}
+            </view>
 		</view>
 	</view>
 </view>

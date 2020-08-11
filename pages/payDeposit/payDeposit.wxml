@@ -1,0 +1,46 @@
+<view class="deposit">
+  <view class="stepsBox">
+    <view class="stepTit">签约流程</view>
+    <view class="flex">
+      <view class="flexCenter flexDirection">
+        <view class="flexCenter widthFix">
+          <image class="setpTop icon1" src="../../lib/image/pay_icon_1.png" mode="widthFix"></image>
+        </view>
+        <view class="setpBm">开通会员</view>
+      </view>
+      <view class="arrow"></view>
+      <view class="flexCenter flexDirection">
+        <view class="flexCenter widthFix">
+          <image class="setpTop icon2" src="../../lib/image/pay_icon_2.png" mode="widthFix"></image>
+        </view>
+        <view class="setpBm">签约合同</view>
+      </view>
+      <view class="arrow"></view>
+      <view class="flexCenter flexDirection">
+        <view class="flexCenter widthFix">
+          <image class="setpTop icon3" src="../../lib/image/pay_icon_3.png" mode="widthFix"></image>
+        </view>
+        <view class="setpBm">开始上岗挣钱</view>
+      </view>
+    </view>
+  </view>
+  <view class="depositContent">
+    <view class="contentTop">选择商品<text class="icon-questionfill question" bindtap="goVip"></text></view>
+    <view class="contentList flex">
+      <view class="contentItem {{trigger ? 'checked' : ''}}" bindtap="triggerClass">
+        <image class="contentItemImg" src="../../lib/image/pay_icon_4.png" mode="widthFix"></image>
+        <view class="contentText1">梧桐会员</view>
+        <view class="contentText2"><text>¥ </text>{{money}}</view>
+        <view class="contentText3">¥4800</view>
+      </view>
+    </view>
+  </view>
+  <view class="agreement">
+    <view wx:if="{{icon === 'icon-round'}}" class="icon-round text-orange" bindtap='triggerIcon'></view>
+    <view wx:if="{{icon === 'icon-roundcheck'}}" class="icon-roundcheck text-orange" bindtap='triggerIcon'></view>
+    我已阅读<text class="agreement-text" bindtap="goAgreement">《合同模板》</text>，并承诺接受并履行条款内容
+  </view>
+  <view class="payBtn" bindtap="payOrder">立即开通</view>
+    <!--警告弹窗-->
+  <van-notify id="van-notify" />
+</view>
