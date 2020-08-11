@@ -18,7 +18,7 @@ Page({
       title: options.contractName  //页面标题为路由参数
     });
     let newUrl = 'https://firmiana-bss.yunniao.cn/'
-    if (urls == 'http://szjw-domain-gateway.m1.yunniao.cn/') {
+    if (urls == 'https://szjw-bss-web-m1.yunniao.cn/') {
       newUrl = 'https://firmiana-bss-m1.yunniao.cn/'
     }
     let contractId = options.id;
