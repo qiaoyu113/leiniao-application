@@ -1,7 +1,7 @@
 <!--components/contractItem/contractItem.wxml-->
 <view class="contractItem">
 	<view class="contractTitle">
-		<text class="contractId">合同编号：{{params.contractId}}</text>
+		<text class="contractId">合同编号：{{params.fileNo}}</text>
 		<text class="contractStatus" wx-if="{{params.status === 1}}" style="color:#F5A623">未签约</text>
 		<text class="contractStatus" wx-if="{{params.status === 2}}" style="color:#3ACB8D">已签约</text>
 		<text class="contractStatus" wx-if="{{params.status === 3}}">已过期</text>
