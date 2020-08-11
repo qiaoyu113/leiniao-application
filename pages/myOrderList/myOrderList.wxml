@@ -41,7 +41,7 @@
           <button class="yellowBorBtn btn"catchtap="goPay">再次购买</button>
         </view>
         <view wx:if="{{ item.status === 30 }}">
-          <button class="garyBorBtn btn" data-id="{{item.orderId}}" data-status="{{item.status}}" catchtap="goContract">电子合同</button>
+          <button class="garyBorBtn btn" data-id="{{item.orderId}}" data-status="{{item.contractStatus}}" catchtap="goContract">电子合同</button>
         </view>
       </view>
       <view class="cardBtn" wx:else>
@@ -75,18 +75,6 @@
             >立即支付</button>
           </view>
         </view>
-        <!-- <view class="payItem flex">
-          <view class="payItemLt">¥ 4000.00</view>
-          <view class="payItemRt">
-            <button class="yellowBtn btn">立即支付</button>
-          </view>
-        </view>
-        <view class="payItem flex">
-          <view class="payItemLt">¥ 4000.00</view>
-          <view class="payItemRt">
-            <button class="yellowBtn btn">立即支付</button>
-          </view>
-        </view> -->
       </view>
     </view>
     <view class="noData" wx:if="{{list.length === 0}}">
