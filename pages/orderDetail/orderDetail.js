@@ -63,7 +63,7 @@ Page({
         } );
     }, function () {
         wx.showToast ( {
-            image: '../../lib/image/jg.png',
+            icon:'none',
             title: '加载数据失败',
         } );
     } );

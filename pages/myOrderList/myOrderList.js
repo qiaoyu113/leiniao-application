@@ -146,10 +146,8 @@ Page ({
    * 获取客服电话
    */
   getPhone(){
-    network.requestLoading('api/carrier_center/v1/driver/getGmInfoByDriverId', 
-      {
-        driverId: this.data.driverId
-      },
+    network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', 
+      {},
       'GET',
       '',
       '',
