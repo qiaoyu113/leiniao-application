@@ -836,25 +836,48 @@ Page({
 
   //拨打电话
   talphone(e) {
-    let cityName = e.currentTarget.dataset.cityname
-    network.requestLoading('api/driver/driver/magpie/getXcxCustomerServicePhone', {
-      cityName: cityName
-    },
+    // let cityName = e.currentTarget.dataset.cityname
+    // network.requestLoading('api/driver/driver/magpie/getXcxCustomerServicePhone', {
+    //   cityName: cityName
+    // },
+    // 'GET',
+    // '',
+    // '',
+    // function(res) {
+    //   if (res.success) {
+    //     wx.makePhoneCall({
+    //       phoneNumber: res.data[0],
+    //     })
+    //   } else {
+    //     wx.showToast({
+    //       title: '获取手机号失败',
+    //     });
+    //   }
+    // },
+    // function(res) {
+    //   wx.showToast({
+    //     title: '加载数据失败',
+    //   });
+    // });
+    network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {},
     'GET',
+    '数据加载中...',
     '',
-    '',
-    function(res) {
+    function (res) {
       if (res.success) {
-        wx.makePhoneCall({
-          phoneNumber: res.data[0],
-        })
-      } else {
-        wx.showToast({
-          title: '获取手机号失败',
-        });
+        if(res.data && res.data.mobile){
+          wx.makePhoneCall({
+            phoneNumber: res.data.mobile,
+          })
+        } else {
+          wx.showToast({
+            title: '获取手机号失败',
+            icon:'none'
+          });
+        }
       }
     },
-    function(res) {
+    function (res) {
       wx.showToast({
         title: '加载数据失败',
       });

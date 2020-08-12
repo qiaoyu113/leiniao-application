@@ -128,25 +128,48 @@ Page({
 
   //拨打电话
   talphone(e) {
-    let cityName = this.data.detail.cityName
-    network.requestLoading('api/driver/driver/magpie/getXcxCustomerServicePhone', {
-      cityName: cityName
-    },
+    // let cityName = this.data.detail.cityName
+    // network.requestLoading('api/driver/driver/magpie/getXcxCustomerServicePhone', {
+    //   cityName: cityName
+    // },
+    // 'GET',
+    // '',
+    // '',
+    // function(res) {
+    //   if (res.success) {
+    //     wx.makePhoneCall({
+    //       phoneNumber: res.data[0],
+    //     })
+    //   } else {
+    //     wx.showToast({
+    //       title: '获取手机号失败',
+    //     });
+    //   }
+    // },
+    // function(res) {
+    //   wx.showToast({
+    //     title: '加载数据失败',
+    //   });
+    // });
+    network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {},
     'GET',
+    '数据加载中...',
     '',
-    '',
-    function(res) {
+    function (res) {
       if (res.success) {
-        wx.makePhoneCall({
-          phoneNumber: res.data[0],
-        })
-      } else {
-        wx.showToast({
-          title: '获取手机号失败',
-        });
+        if(res.data && res.data.mobile){
+          wx.makePhoneCall({
+            phoneNumber: res.data.mobile,
+          })
+        } else {
+          wx.showToast({
+            title: '获取手机号失败',
+            icon:'none'
+          });
+        }
       }
     },
-    function(res) {
+    function (res) {
       wx.showToast({
         title: '加载数据失败',
       });
@@ -208,23 +231,23 @@ Page({
   getDetail() {
     let that = this
     network.requestLoading('api/line_center/v1/line/lineInfo/getXcxLineTaskDetail', {
-        "key": that.data.id,
+        "lineId": that.data.id,
         "limit": 0,
         "page": 0
       },
-      'post',
+      'get',
       '',
       'json',
       function(res) {
         if (res.success) {
-          if (res.data[0].workingTimeRegin) {
-            res.data[0].workingTimeRegin = res.data[0].workingTimeRegin.split(",")
+          if (res.data.workingTimeRegin) {
+            res.data.workingTimeRegin = res.data.workingTimeRegin.split(",")
           } else {
-            res.data[0].workingTimeRegin = '—'
+            res.data.workingTimeRegin = '—'
           }
-          res.data[0].receiverType = res.data[0].receiverType ? res.data[0].receiverType : ''
+          res.data.receiverType = res.data.receiverType ? res.data.receiverType : ''
           that.setData({
-            detail: res.data[0]
+            detail: res.data
           })
           wx.setNavigationBarTitle({
             title: that.data.detail.cargoType //页面标题为路由参数
