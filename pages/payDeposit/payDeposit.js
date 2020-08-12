@@ -123,7 +123,7 @@ Page({
   getDriverId:function() {
     let that = this;
     //获取driverId
-    network.requestLoading('api/business_center/v1/order/getDriverId', {
+    network.requestLoading('api/driver/v1/driver/getDriverIDByUserId', {
     },
     'GET',
     '',
