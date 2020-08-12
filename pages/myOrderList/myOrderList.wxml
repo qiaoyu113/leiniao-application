@@ -36,8 +36,8 @@
           <view class="orderItemBm">¥ {{item.goodsAmount}}</view>
         </view>
       </view>
-      <view class="cardBottm" wx:if="{{ active !== '2' && item.status === 30 && item.cooperationModel === 3 }}">
-        <view>
+      <view class="cardBottm" wx:if="{{ active !== '2' }}">
+        <view wx:if="{{ item.status === 30 && item.cooperationModel === 3 }}">
           <button class="garyBorBtn btn" data-id="{{item.orderId}}" data-status="{{item.contractStatus}}" catchtap="goContract">电子合同</button>
         </view>
       </view>
