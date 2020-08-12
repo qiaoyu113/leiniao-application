@@ -204,6 +204,7 @@ Page ({
         busiType: item.busiType,
         openId,
         outTradeNo: pay.outTradeNo,
+        orderId: item.orderId,
         // payMoney: 0.01
         payMoney: pay.money
       },
