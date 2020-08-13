@@ -94,7 +94,6 @@ page {
   /* background: #edecec; */
   padding: 16rpx;
   box-sizing: border-box;
-  z-index: 100;
   margin-top: 80rpx;
 }
 
@@ -464,6 +463,7 @@ page {
   bottom: 0;
   background: #fff;
   border-bottom: 1rpx solid #EDECEC;
+  z-index: 1000;
 }
 
 .carType .selectList{
@@ -565,6 +565,7 @@ page {
   bottom: 0;
   background: #fff;
   border-bottom: 1rpx solid #EDECEC;
+  z-index: 1000;
 }
 
 .otherType .selectList{
