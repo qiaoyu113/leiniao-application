@@ -54,7 +54,7 @@ Page({
   //拨打电话
   talphone(e) {
     let cityName = e.currentTarget.dataset.cityname
-    network.requestLoading('api/driver/driver/magpie/getXcxCustomerServicePhone', {
+    network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {
       cityName: cityName
     },
     'GET',
@@ -63,7 +63,7 @@ Page({
     function(res) {
       if (res.success) {
         wx.makePhoneCall({
-          phoneNumber: res.data[0],
+          phoneNumber: res.data.mobile,
         })
       } else {
         wx.showToast({

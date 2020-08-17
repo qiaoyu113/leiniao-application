@@ -834,7 +834,7 @@ Page({
   //拨打电话
   talphone(e) {
     // let cityName = e.currentTarget.dataset.cityname
-    // network.requestLoading('api/driver/driver/magpie/getXcxCustomerServicePhone', {
+    // network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {
     //   cityName: cityName
     // },
     // 'GET',
