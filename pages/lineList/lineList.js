@@ -215,7 +215,7 @@ Page({
   getCity() {
     let that = this;
     //获取城市列表
-    network.requestLoading('api/line/line/task/getXcxLineCity', {
+    network.requestLoading('api/line_center/v1/line/lineInfo/getXcxLineCity', {
         // dictType: 'online_city'
       },
       'GET',
@@ -267,16 +267,15 @@ Page({
         });
       });
     //获取货物类型
-    network.requestLoading('api/base/base/dict/qryDictByType', {
-        dictType: 'type_of_goods'
-      },
-      'GET',
+    network.requestLoading('api/base/v1/base/dict/dict/list/types', 
+      ['type_of_goods'],
+      'post',
       '',
-      '',
+      'json',
       function(res) {
         if (res.success) {
           //过滤picker
-          const arrays = res.data
+          const arrays = res.data.type_of_goods
           that.setData({
             goodArray: arrays
           });
@@ -288,16 +287,15 @@ Page({
         });
       });
     //获取车型
-    network.requestLoading('api/base/base/dict/qryDictByType', {
-        dictType: 'Intentional_compartment'
-      },
-      'GET',
+    network.requestLoading('api/base/v1/base/dict/dict/list/types',
+      ['Intentional_compartment'],
+      'post',
       '',
-      '',
+      'json',
       function(res) {
         if (res.success) {
           //过滤picker
-          const arrays = res.data
+          const arrays = res.data.Intentional_compartment
           arrays.forEach((item) => {
             item.check = false;
           })
@@ -312,17 +310,16 @@ Page({
         });
       });
       //装卸难度
-      network.requestLoading('api/base/base/dict/qryDictByType', {
-        dictType: 'handling_difficulty_degree'
-      },
-      'GET',
+      network.requestLoading('api/base/v1/base/dict/dict/list/types', 
+      ['handling_difficulty_degree'],
+      'post',
       '',
-      '',
+      'json',
       function(res) {
         if (res.success) {
           //过滤picker
           that.setData({
-            arrayDifficulty: res.data
+            arrayDifficulty: res.data.handling_difficulty_degree
           });
         }
       },
@@ -717,12 +714,12 @@ Page({
     let carArray = that.data.carArray
     if (!item.check) {
       carArray[i].check = !item.check
-      checkList.push(item.codeVal)
-      carCheckListName.push(item.code)
+      checkList.push(item.dictValue)
+      carCheckListName.push(item.dictLabel)
     } else {
       carArray[i].check = !item.check;
       checkList.forEach((item, index, arr) => {
-        if(item == carArray[i].codeVal) {
+        if(item == carArray[i].dictValue) {
           arr.splice(index, 1)
           carCheckListName.splice(index, 1)
         }
@@ -744,12 +741,12 @@ Page({
     let goodArray = that.data.goodArray
     if (!item.check) {
       goodArray[i].check = !item.check
-      checkList.push(item.codeVal)
-      checkListName.push(item.code)
+      checkList.push(item.dictValue)
+      checkListName.push(item.dictLabel)
     } else {
       goodArray[i].check = !item.check;
       checkList.forEach((item, index, arr) => {
-        if(item == goodArray[i].codeVal) {
+        if(item == goodArray[i].dictValue) {
           arr.splice(index, 1)
           checkListName.splice(index, 1)
         }
@@ -771,12 +768,12 @@ Page({
     let arrayDifficulty = that.data.arrayDifficulty
     if (!item.check) {
       arrayDifficulty[i].check = !item.check
-      checkList.push(item.codeVal)
-      diffCheckListName.push(item.code)
+      checkList.push(item.dictValue)
+      diffCheckListName.push(item.dictLabel)
     } else {
       arrayDifficulty[i].check = !item.check;
       checkList.forEach((item, index, arr) => {
-        if(item == arrayDifficulty[i].codeVal) {
+        if(item == arrayDifficulty[i].dictValue) {
           arr.splice(index, 1)
           diffCheckListName.splice(index, 1)
         }
@@ -836,25 +833,48 @@ Page({
 
   //拨打电话
   talphone(e) {
-    let cityName = e.currentTarget.dataset.cityname
-    network.requestLoading('api/driver/driver/magpie/getXcxCustomerServicePhone', {
-      cityName: cityName
-    },
+    // let cityName = e.currentTarget.dataset.cityname
+    // network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {
+    //   cityName: cityName
+    // },
+    // 'GET',
+    // '',
+    // '',
+    // function(res) {
+    //   if (res.success) {
+    //     wx.makePhoneCall({
+    //       phoneNumber: res.data[0],
+    //     })
+    //   } else {
+    //     wx.showToast({
+    //       title: '获取手机号失败',
+    //     });
+    //   }
+    // },
+    // function(res) {
+    //   wx.showToast({
+    //     title: '加载数据失败',
+    //   });
+    // });
+    network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {},
     'GET',
+    '数据加载中...',
     '',
-    '',
-    function(res) {
+    function (res) {
       if (res.success) {
-        wx.makePhoneCall({
-          phoneNumber: res.data[0],
-        })
-      } else {
-        wx.showToast({
-          title: '获取手机号失败',
-        });
+        if(res.data && res.data.mobile){
+          wx.makePhoneCall({
+            phoneNumber: res.data.mobile,
+          })
+        } else {
+          wx.showToast({
+            title: '获取手机号失败',
+            icon:'none'
+          });
+        }
       }
     },
-    function(res) {
+    function (res) {
       wx.showToast({
         title: '加载数据失败',
       });

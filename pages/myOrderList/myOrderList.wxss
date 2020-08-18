@@ -100,10 +100,10 @@ page {
   display: flex;
   justify-content: flex-end;
   align-items: center;
-  height: 98rpx;
   border: none;
 }
 .orderCard .btn{
+  margin: 22rpx 0;
   width: 150rpx;
   height: 54rpx;
   line-height: 54rpx;

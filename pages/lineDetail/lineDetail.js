@@ -16,6 +16,7 @@ Page({
     markers: [],
     poi: '',
     mapShow: true,
+    popup: false,
     id: '',
     detail: '',
     numDetail: '',
@@ -29,7 +30,13 @@ Page({
     city: '',
     souceCity: '',
     source: '1',
-    puserId: ''
+    puserId: '',
+    code: '',
+    token: "",
+    phone: "",
+    openId: "",
+    userId: ""
+
   },
 
   /**
@@ -60,9 +67,12 @@ Page({
     }
     wx.setStorageSync('sourceType', this.data.source)
     // 获取分享人 
-    this.setData({
-      puserId: wx.getStorageSync('puserId')
-    })
+    if (options && options.puserId) { 
+      this.setData({ 
+        puserId: options.puserId 
+      }); 
+      wx.setStorageSync('puserId', options.puserId) 
+    } 
     // 线路Id
     if (options && options.id) {
       this.setData({
@@ -71,30 +81,75 @@ Page({
     }
     this.getDetail()
     this.hasEnter()
-    this.hasCollect()
+    // this.hasCollect()
   },
 
   hasEnter() {
     //是否已经入驻
     let that = this;
-    network.requestLoading('api/driver/driver/magpie/appletsMagpieClientJudge', {},
-      'GET',
-      '',
-      '',
-      function(res) {
-        if (res.success) {
-          let flag = res.data.flag;
-          that.setData({
-            entranceType: flag,
-            noEnter: true
-          })
-        }
+    // network.requestLoading('api/driver/driver/magpie/appletsMagpieClientJudge', {},
+    //   'GET',
+    //   '',
+    //   '',
+    //   function(res) {
+    //     if (res.success) {
+    //       let flag = res.data.flag;
+    //       that.setData({
+    //         entranceType: flag,
+    //         noEnter: true
+    //       })
+    //     }
+    //   },
+    //   function(res) {
+    //     wx.showToast({
+    //       title: '加载数据失败',
+    //     });
+    //   });
+    let phone = wx.getStorageSync('phone')
+    if(!phone){
+      that.setData({
+        entranceType: false
+      })
+    } else {
+      network.requestLoading('api/driver/v1/driver/clue/clue/has-stationed', {
+        phone: phone
       },
-      function(res) {
-        wx.showToast({
-          title: '加载数据失败',
+        'GET',
+        '',
+        '',
+        function(res) {
+          if (res.success) {
+            // let flag = res.data.flag;
+            let flag = res.data.stationed;
+            // if (res.data.driverId && flag) {
+            if (flag) {
+              that.setData({
+                entranceType: true,
+                noEnter: true
+              })
+              if(res.data.cityName){
+                that.setData({
+                  cityName: res.data.cityName
+                })
+              }
+              if(res.data.type === 3){
+                wx.setStorageSync('driverId', res.data.id)
+                that.fetchData(res.data.id)
+              }
+            } else {
+              that.setData({
+                entranceType: false,
+                noEnter: true
+              })
+            }
+          }
+        },
+        function(res) {
+          wx.showToast({
+            title: '加载数据失败',
+          });
         });
-      });
+    }
   },
 
   closeEnter() {
@@ -128,25 +183,48 @@ Page({
 
   //拨打电话
   talphone(e) {
-    let cityName = this.data.detail.cityName
-    network.requestLoading('api/driver/driver/magpie/getXcxCustomerServicePhone', {
-      cityName: cityName
-    },
+    // let cityName = this.data.detail.cityName
+    // network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {
+    //   cityName: cityName
+    // },
+    // 'GEt',
+    // '',
+    // '',
+    // function(res) {
+    //   if (res.success) {
+    //     wx.makePhoneCall({
+    //       phoneNumber: res.data[0],
+    //     })
+    //   } else {
+    //     wx.showToast({
+    //       title: '获取手机号失败',
+    //     });
+    //   }
+    // },
+    // function(res) {
+    //   wx.showToast({
+    //     title: '加载数据失败',
+    //   });
+    // });
+    network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {},
     'GET',
+    '数据加载中...',
     '',
-    '',
-    function(res) {
+    function (res) {
       if (res.success) {
-        wx.makePhoneCall({
-          phoneNumber: res.data[0],
-        })
-      } else {
-        wx.showToast({
-          title: '获取手机号失败',
-        });
+        if(res.data && res.data.mobile){
+          wx.makePhoneCall({
+            phoneNumber: res.data.mobile,
+          })
+        } else {
+          wx.showToast({
+            title: '获取手机号失败',
+            icon:'none'
+          });
+        }
       }
     },
-    function(res) {
+    function (res) {
       wx.showToast({
         title: '加载数据失败',
       });
@@ -155,17 +233,237 @@ Page({
 
   enTranceNow() {
     let that = this;
-    let puserId = that.data.puserId
+    let puserId = that.data.puserId;
+    let lineId = that.data.id;
     if (puserId == '') {
       wx.navigateTo({
-        url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=detail'
+        url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=detail&lineId=' + lineId
       });
     } else {
       wx.navigateTo({
-        url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=detail&puserId=' + that.data.puserId
+        url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=detail&lineId=' + lineId + '&puserId=' + that.data.puserId
       });
     }
 
+  },
+  // 授权登录
+  getPhoneNumber: function(e) {
+    let that = this;
+    if (e.detail.errMsg && e.detail.errMsg.indexOf('getPhoneNumber:fail') > -1) {
+      // wx.showModal({
+      //   title: '提示',
+      //   showCancel: false,
+      //   content: '未授权',
+      //   success: function (res) { }
+      // })
+    } else {
+      network.requestLoading('api/core/v1/wx/encryptedData2PhoneNo', {
+          code: that.data.code,
+          iv: e.detail.iv,
+          encryptedData: e.detail.encryptedData,
+          openId: that.data.openId
+        },
+        'POST',
+        '',
+        '',
+        function(res) {
+          if (res.success) {
+            let phone = res.data.phone;
+            let openId = wx.getStorageSync('openId')
+            network.requestLoading('api/auth/v1/jwt/getToken', {
+                openId: openId,
+                phone: phone
+              },
+              'post',
+              '',
+              'json',
+              function(res) {
+                if (res.success) {
+                  if (res.success) {
+                    wx.setStorage({
+                      key: 'token',
+                      data: res.data.token,
+                      success: function(res) {},
+                    })
+                    wx.setStorage({
+                      key: 'phone',
+                      data: res.data.phone,
+                    })
+                    that.setData({
+                      flag: true
+                    })
+                  }
+                }
+              },
+              function(res) {
+                wx.showToast({
+                  title: '加载数据失败',
+                });
+              });
+            // network.requestLoading('api/driver/driver/clue/create', {
+            //     "phone": phone,
+            //     "sourceType": that.data.source,
+            //     "puserId": that.data.puserId,
+            //     "workCity": that.data.cityCode,
+            //     "authorizePosition": that.data.souceCity
+            network.requestLoading('api/driver/v1/driver/clue/create/activity', {
+              "phone": phone,
+              "sourceChannel": source,
+              "workCity": that.data.cityCode,
+              "recoUserId": that.data.puserId,
+              "authorizePosition": that.data.souceCity,
+              "name": '',
+              "busiType": ''
+              },
+              'POST',
+              '',
+              'json',
+              function(res) {
+                if (res.success) {
+                  wx.setStorage({
+                    key: 'phone',
+                    data: phone,
+                    success: function(res) {},
+                  })
+                }
+              },
+              function(res) {
+                wx.showToast({
+                  title: '加载数据失败',
+                });
+              });
+          }
+        },
+        function(res) {
+          wx.showToast({
+            title: '加载数据失败',
+          });
+        });
+    }
+  },
+
+  login() {
+    let that = this;
+    // wx.removeStorage({
+    //   key: 'token',
+    //   success: function(res) {}
+    // })
+    wx.login({
+      success: function(res) {
+        that.setData({
+          code: res.code
+        })
+        network.requestLoading('api/auth/v1/jwt/getToken', {
+            wxCode: that.data.code,
+            puserId: that.data.puserId
+          },
+          'post',
+          '',
+          'json',
+          function(res) {
+            if (res.success) {
+              that.setData({
+                openId: res.data.openId
+              })
+              let token = res.data.token;
+              let phone = res.data.phone;
+              let openId = res.data.openId;
+              let userId = res.data.userId;
+              wx.setStorage({
+                key: 'openId',
+                data: openId,
+                success: function(res) {
+                  wx.setStorage({
+                    key: 'userId',
+                    data: userId,
+                    success: function(res) {
+                      if (phone) {
+                        wx.setStorage({
+                          key: 'phone',
+                          data: phone,
+                          success: function(res) {},
+                        })
+                        that.setData({
+                          flag: true
+                        })
+                      }
+                      wx.setStorage({
+                        key: 'token',
+                        data: token,
+                        success: function(res) {
+                          that.loginFunction()
+                        },
+                      })
+                    }
+                  })
+                }
+              })
+            }
+          },
+          function(res) {
+            wx.showToast({
+              title: '加载数据失败',
+            });
+          });
+      },
+      fail: function(error) {
+        console.log('[app-login] :: 微信用户登录失败 > ' + (JSON.stringify(error) || ''));
+
+      }
+    })
+    // 查看是否授权
+    wx.getSetting({
+      success: function(res) {
+        if (res.authSetting['scope.userInfo']) {
+          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
+          wx.getUserInfo({
+            success: function(res) {
+              // console.log(res.userInfo)
+            }
+          })
+        }
+      }
+    })
+  },
+  loginFunction() {
+    let that = this;
+    wx.getStorage({
+      key: 'openId',
+      success(res) {
+        that.setData({
+          openId: res.data
+        })
+      }
+    })
+    wx.getStorage({
+      key: 'phone',
+      success(res) {
+        if (res.data) {
+          that.setData({
+            phone: res.data
+          })
+          that.setData({
+            flag: true
+          })
+        }
+      }
+    })
+    wx.getStorage({
+      key: 'token',
+      success(res) {
+        that.setData({
+          token: res.data
+        })
+      }
+    })
+    wx.getStorage({
+      key: 'userId',
+      success(res) {
+        that.setData({
+          userId: res.data
+        })
+      }
+    })
   },
 
   //收藏操作
@@ -208,23 +506,23 @@ Page({
   getDetail() {
     let that = this
     network.requestLoading('api/line_center/v1/line/lineInfo/getXcxLineTaskDetail', {
-        "key": that.data.id,
+        "lineId": that.data.id,
         "limit": 0,
         "page": 0
       },
-      'post',
+      'get',
       '',
       'json',
       function(res) {
         if (res.success) {
-          if (res.data[0].workingTimeRegin) {
-            res.data[0].workingTimeRegin = res.data[0].workingTimeRegin.split(",")
+          if (res.data.workingTimeRegin) {
+            res.data.workingTimeRegin = res.data.workingTimeRegin.split(",")
           } else {
-            res.data[0].workingTimeRegin = '—'
+            res.data.workingTimeRegin = '—'
           }
-          res.data[0].receiverType = res.data[0].receiverType ? res.data[0].receiverType : ''
+          res.data.receiverType = res.data.receiverType ? res.data.receiverType : ''
           that.setData({
-            detail: res.data[0]
+            detail: res.data
           })
           wx.setNavigationBarTitle({
             title: that.data.detail.cargoType //页面标题为路由参数
@@ -270,26 +568,26 @@ Page({
               // console.log(res)
             }
           });
-          // 查看浏览数
-          network.requestLoading('api/driver/driver/magpie/linePageVies', {
-              "lineId": that.data.detail.lineId,
-            },
-            'get',
-            '',
-            '',
-            function(res) {
-              if (res.success) {
-                that.setData({
-                  numDetail: res.data.pageView
-                })
-              }
-            },
-            function(res) {
-              wx.showToast({
-                title: '加载数据失败',
-              });
-            });
-          that.getCollectNum()
+          // // 查看浏览数
+          // network.requestLoading('api/driver/driver/magpie/linePageVies', {
+          //     "lineId": that.data.detail.lineId,
+          //   },
+          //   'get',
+          //   '',
+          //   '',
+          //   function(res) {
+          //     if (res.success) {
+          //       that.setData({
+          //         numDetail: res.data.pageView
+          //       })
+          //     }
+          //   },
+          //   function(res) {
+          //     wx.showToast({
+          //       title: '加载数据失败',
+          //     });
+          //   });
+          // that.getCollectNum()
         }
       },
       function(res) {
@@ -341,7 +639,7 @@ Page({
             var address = addressRes.result.address_component.city + addressRes.result.address_component.province + addressRes.result.address_component.district
             wx.setStorageSync('locationAddress', address)
             //获取城市code
-            network.requestLoading('api/base/base/dict/getCityCode', {
+            network.requestLoading('api/base/v1/base/area/getCityCodeByCityName', {
                 cityName: city
               },
               'GET',
@@ -434,6 +732,13 @@ Page({
     })
   },
 
+  popupBtn(){
+    let that = this;
+    that.setData({
+      popup: !that.data.popup
+    })
+  },
+
   getPhoneNumber2: function(e) {
     let that = this;
     if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
@@ -444,13 +749,6 @@ Page({
       //   success: function (res) { }
       // })
     } else {
-      wx.login({
-        success: res => {
-          // 发送 res.code 到后台换取 openId, sessionKey, unionId
-          // 登录成功后存token
-          let code = res.code;
-        }
-      })
       let code = wx.getStorageSync('code')
       let openId = wx.getStorageSync('openId')
       network.requestLoading('api/core/v1/wx/encryptedData2PhoneNo', {
@@ -516,7 +814,7 @@ Page({
                     data: phone,
                     success: function(res) {
                       wx.navigateTo({
-                        url: '/pages/immediatelyEnter/immediatelyEnter?type=home'
+                        url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home'
                       });
                     },
                   })

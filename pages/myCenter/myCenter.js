@@ -170,7 +170,7 @@ Page({
   //拨打电话
   talphone() {
     let cityName = this.data.cityName
-    network.requestLoading('api/driver/driver/magpie/getXcxCustomerServicePhone', {
+    network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {
       cityName: cityName
     },
     'GEt',
@@ -179,7 +179,7 @@ Page({
     function(res) {
       if (res.success) {
         wx.makePhoneCall({
-          phoneNumber: res.data[0],
+          phoneNumber: res.data.mobile,
         })
       } else {
         wx.showToast({

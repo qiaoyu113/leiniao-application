@@ -21,14 +21,15 @@
       <view class='detail_box_bottom'>
         <view class="detail_box_bottom_top">
           <view class="title">车辆货物信息</view>
-          <view class="val">{{detail.carTypeName}}、{{detail.cargoType}}<span wx:if='{{detail.volume != 0}}'>、{{detail.volume}}m³</span></view>
+          <!-- <span wx:if='{{detail.volume != 0}}'>、{{detail.volume}}m³</span> -->
+          <view class="val">{{detail.carTypeName}}、{{detail.cargoTypeName}}</view>
         </view>
         <view class='detail_box_bottom_bottom'>
           <view class="title">配送信息</view>
-          <view class="val">收货人类型：{{detail.receiverType}}</view>
-          <view class="val">每日趟数：{{detail.dayNum}}趟</view>
-          <view class="val">预计每日平均配送点位数：{{detail.deliveryNum}}个</view>
-          <view class="val">预计月频次：{{detail.month}}</view>
+          <!-- <view class="val">收货人类型：{{detail.receiverType}}</view> -->
+          <view class="val">每日趟数：{{detail.dayNo}}趟</view>
+          <view class="val">预计每日平均配送点位数：{{detail.deliveryNo}}个</view>
+          <view class="val">预计月频次：{{detail.monthNo}}</view>
           <view class="val">工作时长：{{detail.timeDiff}}</view>
           <view class="val" wx:for='{{detail.workingTimeRegin}}' wx:key='i'>预计日工作时间：{{item}}</view>
         </view>
@@ -41,7 +42,7 @@
     </view> -->
   </view>
   <view class='btnMent'>
-    <view class='btnTop'>预计月收入: <span>{{ detail.monthlyTransaction }}元</span></view>
+    <view class='btnTop'>预计月收入: <span>{{ detail.shipperOffer }}元</span></view>
     <view class='btnLeft' wx:if='{{!entranceType}}' bindtap='closeEnter'>立即入驻</view>
     <button wx:if='{{!flag && !entranceType}}' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber2"></button>
     <!-- <view class='btnLeft' wx:if='{{entranceType && !collect}}' data-type='1' bindtap='collectBtn'>收藏</view> -->

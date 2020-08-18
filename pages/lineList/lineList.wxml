@@ -46,8 +46,8 @@
          <view class='name'>
           <!-- <view>{{item.customerName}}</view> -->
           <view>{{item.cargoType}} <span wx:if='{{item.carTypeName}}'>/ {{item.carTypeName}}</span></view>
-          <view class="subsidiary">可上车数: {{item.deployNum}}</view>
-          <view class="income_month">预计月收入: {{item.monthlyTransaction}}元</view>
+          <view class="subsidiary">可上车数: {{item.deployNo}}</view>
+          <view class="income_month">预计月收入: {{item.shipperOffer}}元</view>
         </view>
       </view>
       <view class="lineListBottom">
@@ -117,7 +117,7 @@
   <!--车型选择-->
   <view class='carType' wx:if='{{carType}}'>
     <view class="selectList">
-      <span catchtap="selectCarType" data-item="{{item}}" wx:for='{{carArray}}'  data-index="{{index}}" wx:key='id' class="{{ item.check ? 'checkCar selectListItem' : 'selectListItem' }}">{{item.code}}</span>
+      <span catchtap="selectCarType" data-item="{{item}}" wx:for='{{carArray}}'  data-index="{{index}}" wx:key='id' class="{{ item.check ? 'checkCar selectListItem' : 'selectListItem' }}">{{item.dictLabel}}</span>
     </view>
     <view class="selectBottom">
       <view class="Reset" catchtap="reset2" data-type='car'>重置</view>
@@ -129,11 +129,11 @@
     <view class="selectList">
       <view class="title">货物类型</view>
       <view class="selectList_min">
-        <span catchtap="selectCargo" data-item="{{item}}" data-index="{{index}}" wx:for='{{goodArray}}' wx:key='id' class="{{ item.check ? 'checkCar selectListItem' : 'selectListItem' }}">{{item.code}}</span>
+        <span catchtap="selectCargo" data-item="{{item}}" data-index="{{index}}" wx:for='{{goodArray}}' wx:key='id' class="{{ item.check ? 'checkCar selectListItem' : 'selectListItem' }}">{{item.dictLabel}}</span>
       </view>
       <view class="title">装卸难度</view>
       <view class="selectList_min">
-        <span catchtap="selectDifficulty" data-item="{{item}}" data-index="{{index}}"  wx:for='{{arrayDifficulty}}' wx:key='id' class="{{ item.check ? 'checkCar selectListItem' : 'selectListItem' }}">{{item.code}}</span>
+        <span catchtap="selectDifficulty" data-item="{{item}}" data-index="{{index}}"  wx:for='{{arrayDifficulty}}' wx:key='id' class="{{ item.check ? 'checkCar selectListItem' : 'selectListItem' }}">{{item.dictLabel}}</span>
       </view>
     </view>
     <view class="selectBottom">
