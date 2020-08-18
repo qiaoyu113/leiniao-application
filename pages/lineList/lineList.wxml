@@ -45,7 +45,7 @@
       <view class="lineListTop">
          <view class='name'>
           <!-- <view>{{item.customerName}}</view> -->
-          <view>{{item.cargoType}} <span wx:if='{{item.carTypeName}}'>/ {{item.carTypeName}}</span></view>
+          <view>{{item.cargoTypeName}} <span wx:if='{{item.carTypeName}}'>/ {{item.carTypeName}}</span></view>
           <view class="subsidiary">可上车数: {{item.deployNo}}</view>
           <view class="income_month">预计月收入: {{item.shipperOffer}}元</view>
         </view>
