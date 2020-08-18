@@ -64,17 +64,15 @@ Page({
 
   getDetail() {
     let that = this;
-    network.requestLoading('api/v1/line/lineInfo/getXcxLineTaskDetail', {
-        "key": that.data.id,
-        "limit": 0,
-        "page": 0
+    network.requestLoading('api/line_center/v1/line/lineInfo/getXcxLineTaskDetail', {
+        "lineId": that.data.id
       },
-      'post',
+      'get',
       '',
       'json',
       function(res) {
         if (res.success) {
-          let line = res.data[0]
+          let line = res.data
           let detail = {
             value1: line.customerName,
             value2: line.lineName,
