@@ -204,7 +204,7 @@ Page({
         });
       });
     //获取物流从业经验
-    network.requestLoading('/api/base/v1/base/dict/dict/list/types', 
+    network.requestLoading('/25/base/v1/base/dict/dict/list/types', 
     ['logistics_experience'],
       'post',
       '',
@@ -227,7 +227,7 @@ Page({
         });
       });
     //获取货物经验
-    network.requestLoading('/api/base/v1/base/dict/dict/list/types',
+    network.requestLoading('/25/base/v1/base/dict/dict/list/types',
       ['type_of_goods'],
       'post',
       '',
@@ -250,7 +250,7 @@ Page({
         });
       });
     //获取期望月收入
-    network.requestLoading('/api/base/v1/base/dict/dict/list/types',
+    network.requestLoading('/25/base/v1/base/dict/dict/list/types',
       ['expected_monthly_income'],
       'post',
       '',
@@ -273,7 +273,7 @@ Page({
         });
       });
     //获取可接受一天工作时长
-    network.requestLoading('/api/base/v1/base/dict/dict/list/types',
+    network.requestLoading('/25/base/v1/base/dict/dict/list/types',
     ['accept_one_day_of_work'],
       'post',
       '',
@@ -296,7 +296,7 @@ Page({
         });
       });
     //获取意向车型
-    network.requestLoading('api/base/v1/base/dict/dict/list/types',
+    network.requestLoading('25/base/v1/base/dict/dict/list/types',
       ['Intentional_compartment'],
       'post',
       '',

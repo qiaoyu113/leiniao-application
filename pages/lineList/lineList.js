@@ -156,7 +156,7 @@ Page({
         that.setData({
           code: res.code
         })
-        network.requestLoading('api/auth/v1/jwt/getToken', {
+        network.requestLoading('25/auth/v2/auth/jwt/getToken', {
           wxCode: that.data.code,
           puserId: that.data.puserId
         },
@@ -215,7 +215,7 @@ Page({
   getCity() {
     let that = this;
     //获取城市列表
-    network.requestLoading('api/line_center/v1/line/lineInfo/getXcxLineCity', {
+    network.requestLoading('32/line/v2/line/getXcxLineCity', {
         // dictType: 'online_city'
       },
       'GET',
@@ -234,7 +234,6 @@ Page({
           arrays.forEach(function (item, index) {
             if (cityCode) {
               if (item.cityCode == cityCode) {
-                console.log(item.cityName)
                 i = index;
               }
             }
@@ -267,7 +266,7 @@ Page({
         });
       });
     //获取货物类型
-    network.requestLoading('api/base/v1/base/dict/dict/list/types', 
+    network.requestLoading('25/base/v1/base/dict/dict/list/types', 
       ['type_of_goods'],
       'post',
       '',
@@ -287,7 +286,7 @@ Page({
         });
       });
     //获取车型
-    network.requestLoading('api/base/v1/base/dict/dict/list/types',
+    network.requestLoading('25/base/v1/base/dict/dict/list/types',
       ['Intentional_compartment'],
       'post',
       '',
@@ -310,7 +309,7 @@ Page({
         });
       });
       //装卸难度
-      network.requestLoading('api/base/v1/base/dict/dict/list/types', 
+      network.requestLoading('25/base/v1/base/dict/dict/list/types', 
       ['handling_difficulty_degree'],
       'post',
       '',
@@ -375,7 +374,6 @@ Page({
     let arrayNew = that.data.array2
     let cityCheckName = that.data.cityCheckName
     let checkAreaCode = that.data.checkAreaCode
-    console.log(111, item)
     if (item.countyCode == '-99') {
       if (item.check) {
         checkAreaCode = []
@@ -789,7 +787,7 @@ Page({
   getList() {
     let that = this;
     //获取线路列表
-    network.requestLoading('api/line_center/v1/line/lineInfo/xcxLineTasks', {
+    network.requestLoading('32/line/v2/line/lineInfo/xcxLineTasks', {
         "carTypeName": that.data.carCheckList,
         "handlingDifficultyDegree": that.data.difficultyCheckList,
         "cargoType": that.data.cargoCheckList,
@@ -834,7 +832,7 @@ Page({
   //拨打电话
   talphone(e) {
     // let cityName = e.currentTarget.dataset.cityname
-    // network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {
+    // network.requestLoading('81/v2/driver/getGmInfoByUserId', {
     //   cityName: cityName
     // },
     // 'GET',
@@ -856,7 +854,7 @@ Page({
     //     title: '加载数据失败',
     //   });
     // });
-    network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {},
+    network.requestLoading('81/v2/driver/getGmInfoByUserId', {},
     'GET',
     '数据加载中...',
     '',
@@ -955,7 +953,7 @@ Page({
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // 登录成功后存token
           let code = res.code;
-          network.requestLoading('api/core/v1/wx/encryptedData2PhoneNo', {
+          network.requestLoading('25/core/v2/core/wx/encryptedData2PhoneNo', {
             code: code,
             iv: e.detail.iv,
             encryptedData: e.detail.encryptedData,
@@ -968,7 +966,7 @@ Page({
             if (res.success) {
               let phone = res.data.phone;
               let openId = wx.getStorageSync('openId')
-              network.requestLoading('api/auth/v1/jwt/getToken', {
+              network.requestLoading('25/auth/v2/auth/jwt/getToken', {
                   openId: openId,
                   phone: phone
                 },
@@ -998,7 +996,7 @@ Page({
               //     "workCity": cityCode,
               //     "puserId": that.data.puserId,
               //     "authorizePosition": souceCity
-              network.requestLoading('api/driver/v1/driver/clue/create/activity', {
+              network.requestLoading('32/line/v2/line/createClue', {
                 "phone": phone,
                 "sourceChannel": source,
                 "workCity": that.data.cityCode,

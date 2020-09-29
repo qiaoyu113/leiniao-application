@@ -87,7 +87,7 @@ Page({
   hasEnter() {
     //是否已经入驻
     let that = this;
-    // network.requestLoading('api/driver/driver/magpie/appletsMagpieClientJudge', {},
+    // network.requestLoading('81/driver/v2/driver/appletsMagpieClientJudge', {},
     //   'GET',
     //   '',
     //   '',
@@ -111,8 +111,7 @@ Page({
         entranceType: false
       })
     } else {
-      network.requestLoading('api/driver/v1/driver/clue/clue/has-stationed', {
-        phone: phone
+      network.requestLoading('81/driver/v2/driver/appletsMagpieClientJudge', {
       },
         'GET',
         '',
@@ -184,7 +183,7 @@ Page({
   //拨打电话
   talphone(e) {
     // let cityName = this.data.detail.cityName
-    // network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {
+    // network.requestLoading('81/v2/driver/getGmInfoByUserId', {
     //   cityName: cityName
     // },
     // 'GEt',
@@ -206,7 +205,7 @@ Page({
     //     title: '加载数据失败',
     //   });
     // });
-    network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {},
+    network.requestLoading('81/v2/driver/getGmInfoByUserId', {},
     'GET',
     '数据加载中...',
     '',
@@ -257,7 +256,7 @@ Page({
       //   success: function (res) { }
       // })
     } else {
-      network.requestLoading('api/core/v1/wx/encryptedData2PhoneNo', {
+      network.requestLoading('25/core/v2/core/wx/encryptedData2PhoneNo', {
           code: that.data.code,
           iv: e.detail.iv,
           encryptedData: e.detail.encryptedData,
@@ -270,7 +269,7 @@ Page({
           if (res.success) {
             let phone = res.data.phone;
             let openId = wx.getStorageSync('openId')
-            network.requestLoading('api/auth/v1/jwt/getToken', {
+            network.requestLoading('25/auth/v2/auth/jwt/getToken', {
                 openId: openId,
                 phone: phone
               },
@@ -306,7 +305,7 @@ Page({
             //     "puserId": that.data.puserId,
             //     "workCity": that.data.cityCode,
             //     "authorizePosition": that.data.souceCity
-            network.requestLoading('api/driver/v1/driver/clue/create/activity', {
+            network.requestLoading('32/line/v2/line/createClue', {
               "phone": phone,
               "sourceChannel": source,
               "workCity": that.data.cityCode,
@@ -353,7 +352,7 @@ Page({
         that.setData({
           code: res.code
         })
-        network.requestLoading('api/auth/v1/jwt/getToken', {
+        network.requestLoading('25/auth/v2/auth/jwt/getToken', {
             wxCode: that.data.code,
             puserId: that.data.puserId
           },
@@ -751,7 +750,7 @@ Page({
     } else {
       let code = wx.getStorageSync('code')
       let openId = wx.getStorageSync('openId')
-      network.requestLoading('api/core/v1/wx/encryptedData2PhoneNo', {
+      network.requestLoading('25/core/v2/core/wx/encryptedData2PhoneNo', {
           code: code,
           iv: e.detail.iv,
           encryptedData: e.detail.encryptedData,
@@ -763,7 +762,7 @@ Page({
         function(res) {
           if (res.success) {
             let phone = res.data.phone;
-            network.requestLoading('api/auth/v1/jwt/getToken', {
+            network.requestLoading('25/auth/v2/auth/jwt/getToken', {
                 openId: openId,
                 phone: phone
               },
@@ -795,7 +794,7 @@ Page({
             //     "workCity": that.data.city,
             //     "puserId": that.data.puserId,
             //     "authorizePosition": that.data.souceCity
-            network.requestLoading('api/driver/v1/driver/clue/create/activity', {
+            network.requestLoading('32/line/v2/line/createClue', {
               "phone": phone,
               "sourceChannel": source,
               "workCity": that.data.cityCode,

@@ -146,7 +146,7 @@ Page ({
    * 获取客服电话
    */
   getPhone(){
-    network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', 
+    network.requestLoading('81/v2/driver/getGmInfoByUserId', 
       {},
       'GET',
       '',

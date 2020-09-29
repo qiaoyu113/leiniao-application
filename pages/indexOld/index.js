@@ -26,19 +26,83 @@ Page({
     cityCode: '',
     souceCity: '',
     puserId: '',
+    cityName: '北京市',
     source: '1',
     hindBgType: false,
-    cityName: '北京市',
-    entranceType: false, // 是否已经加入
+    entranceType: false, // 是否已经入驻
     image_filepath: '',
-    // image_filepath2: 'https://oss-qzn.yunniao.cn/img/6685b6f99f7b458390f38be7c48a9888',
-    // image_filepath3: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/688bbad9314c4e198c50e6c993807927',
-    image_filepath1: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/dcaca20693f0412d851f186967ba2407',
-    image_filepath7: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/a8f0c6944155457095bf544a8b1109bc',
-    image_filepath3: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/4111bd73cbbe44b38e99e36ed5040830',
-    image_filepath4: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/4af0c66ef2d44555a82fae815cf60ca1',
-    image_filepath5: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/89147cd50ccf4f2293e23cc7438dc7ce',
-    // image_filepath6: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/d10dffb1c94a445a9b191680181bd8e0',
+    image_filepath2: '',
+    image_filepath3: '',
+    image_filepath4: '',
+    image_filepath5: '',
+    image_filepath6: '',
+  },
+
+  startAuth() {
+    wx.checkIsSupportSoterAuthentication({
+      success(res) {
+        let supportMode = res.supportMode
+        const startSoterAuthentication = () => {
+          wx.startSoterAuthentication({
+            requestAuthModes: supportMode,
+            challenge: 'test',
+            authContent: '小程序示例',
+            success: (res) => {
+              wx.showToast({
+                title: '认证成功'
+              })
+            },
+            fail: (err) => {
+              console.error(err)
+              wx.showModal({
+                title: '失败',
+                content: '认证失败',
+                showCancel: false
+              })
+            }
+          })
+        }
+
+        const checkIsEnrolled = () => {
+          wx.checkIsSoterEnrolledInDevice({
+            checkAuthMode: supportMode[0],
+            success: (res) => {
+              console.log(2, res)
+              if (parseInt(res.isEnrolled) <= 0) {
+                wx.showModal({
+                  title: '错误',
+                  content: '您暂未录入指纹信息，请录入后重试',
+                  showCancel: false
+                })
+                return
+              }
+              startSoterAuthentication();
+            },
+            fail: (err) => {
+              console.error(err)
+            }
+          })
+        }
+
+        wx.checkIsSupportSoterAuthentication({
+          success: (res) => {
+            console.log(1, res)
+            checkIsEnrolled()
+          },
+          fail: (err) => {
+            console.error(err)
+            wx.showModal({
+              title: '错误',
+              content: '您的设备不支持指纹识别',
+              showCancel: false
+            })
+          }
+        })
+      },
+      errMsg(err) {
+        console.log(err)
+      }
+    })
   },
 
   /**
@@ -61,11 +125,6 @@ Page({
         })
         wx.setStorageSync('puserId', puserId)
       }
-    }else{
-      // 获取分享人
-      this.setData({
-        puserId: wx.getStorageSync('puserId')
-      })
     }
     if (options && options.city) {
       this.setData({
@@ -80,6 +139,7 @@ Page({
       this.setData({
         source: options.source
       })
+      console.log(options)
       wx.reportAnalytics('source', {
         source: options.source,
       });
@@ -99,45 +159,20 @@ Page({
     // }
     // }
     this.getLoadImg()
+
   },
 
   getLoadImg() {
     // 获取图片
     let that = this;
-    // const path = wx.getStorageSync('image_cache_index1')
-    // if (path && path != null) {
-    //   that.setData({
-    //     image_filepath: path
-    //   })
-    // } else {
-    //   wx.downloadFile({
-    //     url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/53b4a46105ee45caaad5035a27e9f485',
-    //     success: function (res) {
-    //       if (res.statusCode === 200) {
-    //         const fs = wx.getFileSystemManager()
-    //         fs.saveFile({
-    //           tempFilePath: res.tempFilePath, // 传入一个临时文件路径
-    //           success(res) {
-    //             that.setData({
-    //               image_filepath: res.savedFilePath
-    //             })
-    //             wx.setStorageSync('image_cache_index1', res.savedFilePath)
-    //           }
-    //         })
-    //       } else {
-    //         console.log('响应失败', res.statusCode)
-    //       }
-    //     }
-    //   })
-    // }
-    const path1 = wx.getStorageSync('image_cache_index1')
-    if (path1 && path1 != null) {
+    const path = wx.getStorageSync('image_cache_index1')
+    if (path && path != null) {
       that.setData({
-        image_filepath1: path1
+        image_filepath: path
       })
     } else {
       wx.downloadFile({
-        url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/dcaca20693f0412d851f186967ba2407',
+        url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/53b4a46105ee45caaad5035a27e9f485',
         success: function(res) {
           if (res.statusCode === 200) {
             const fs = wx.getFileSystemManager()
@@ -145,7 +180,7 @@ Page({
               tempFilePath: res.tempFilePath, // 传入一个临时文件路径
               success(res) {
                 that.setData({
-                  image_filepath1: res.savedFilePath
+                  image_filepath: res.savedFilePath
                 })
                 wx.setStorageSync('image_cache_index1', res.savedFilePath)
               }
@@ -156,14 +191,14 @@ Page({
         }
       })
     }
-    const path7 = wx.getStorageSync('image_cache_index2')
-    if (path7 && path7 != null) {
+    const path2 = wx.getStorageSync('image_cache_index2')
+    if (path2 && path2 != null) {
       that.setData({
-        image_filepath7: path7
+        image_filepath2: path2
       })
     } else {
       wx.downloadFile({
-        url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/a8f0c6944155457095bf544a8b1109bc',
+        url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/8947c1ad74914f6d8f72eab2efedce18',
         success: function(res) {
           if (res.statusCode === 200) {
             const fs = wx.getFileSystemManager()
@@ -171,9 +206,9 @@ Page({
               tempFilePath: res.tempFilePath, // 传入一个临时文件路径
               success(res) {
                 that.setData({
-                  image_filepath7: res.savedFilePath
+                  image_filepath2: res.savedFilePath
                 })
-                wx.setStorageSync('image_cache_index7', res.savedFilePath)
+                wx.setStorageSync('image_cache_index2', res.savedFilePath)
               }
             })
           } else {
@@ -189,7 +224,7 @@ Page({
       })
     } else {
       wx.downloadFile({
-        url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/4111bd73cbbe44b38e99e36ed5040830',
+        url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/f9e2e843897840b29ae834b52599c6ba',
         success: function(res) {
           if (res.statusCode === 200) {
             const fs = wx.getFileSystemManager()
@@ -260,32 +295,32 @@ Page({
         }
       })
     }
-    // const path6 = wx.getStorageSync('image_cache_index6')
-    // if (path6 && path6 != null) {
-    //   that.setData({
-    //     image_filepath6: path6
-    //   })
-    // } else {
-    //   wx.downloadFile({
-    //     url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/d10dffb1c94a445a9b191680181bd8e0',
-    //     success: function(res) {
-    //       if (res.statusCode === 200) {
-    //         const fs = wx.getFileSystemManager()
-    //         fs.saveFile({
-    //           tempFilePath: res.tempFilePath, // 传入一个临时文件路径
-    //           success(res) {
-    //             that.setData({
-    //               image_filepath6: res.savedFilePath
-    //             })
-    //             wx.setStorageSync('image_cache_index6', res.savedFilePath)
-    //           }
-    //         })
-    //       } else {
-    //         console.log('响应失败', res.statusCode)
-    //       }
-    //     }
-    //   })
-    // }
+    const path6 = wx.getStorageSync('image_cache_index6')
+    if (path6 && path6 != null) {
+      that.setData({
+        image_filepath6: path6
+      })
+    } else {
+      wx.downloadFile({
+        url: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/d10dffb1c94a445a9b191680181bd8e0',
+        success: function(res) {
+          if (res.statusCode === 200) {
+            const fs = wx.getFileSystemManager()
+            fs.saveFile({
+              tempFilePath: res.tempFilePath, // 传入一个临时文件路径
+              success(res) {
+                that.setData({
+                  image_filepath6: res.savedFilePath
+                })
+                wx.setStorageSync('image_cache_index6', res.savedFilePath)
+              }
+            })
+          } else {
+            console.log('响应失败', res.statusCode)
+          }
+        }
+      })
+    }
   },
 
   getBanner() {
@@ -404,9 +439,6 @@ Page({
                           data: phone,
                           success: function(res) {},
                         })
-                        that.setData({
-                          flag: true
-                        })
                       }
                       wx.setStorage({
                         key: 'token',
@@ -461,26 +493,22 @@ Page({
   enTranceNow() {
     let that = this;
     // wx.navigateTo({
-    //   url: '/pages/immediatelyEnter/immediatelyEnter?type=home'
+    //   url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home'
     // });
     if (that.data.puserId && that.data.puserId != '') {
       wx.navigateTo({
-        url: '/pages/immediatelyEnter/immediatelyEnter?type=home&puserId=' + that.data.puserId
+        url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home&puserId=' + that.data.puserId
       });
     } else {
       wx.navigateTo({
-        url: '/pages/immediatelyEnter/immediatelyEnter?type=home'
+        url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home'
       });
     }
   },
 
-  myCatchTouch: function() {
-    console.log('stop user scroll it!');
-    return;
-  },
   getDataList() {
     let that = this;
-    //获取云鸟推荐列表
+    //获取梧桐推荐列表
     network.requestLoading('81/driver/v2/driver/getHighQualityLine', {
         dictType: 'online_city'
       },
@@ -507,7 +535,7 @@ Page({
 
   getPhoneNumber2: function(e) {
     let that = this;
-    if (e.detail.errMsg && e.detail.errMsg.indexOf('getPhoneNumber:fail') > -1) {
+    if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
       // wx.showModal({
       //   title: '提示',
       //   showCancel: false,
@@ -558,7 +586,6 @@ Page({
                 // network.requestLoading('api/driver/driver/clue/create', {
                 //     "phone": phone,
                 //     "sourceType": that.data.source,
-                //     "puserId": that.data.puserId,
                 //     "workCity": that.data.cityCode,
                 //     "authorizePosition": that.data.souceCity
                 network.requestLoading('32/line/v2/line/createClue', {
@@ -584,11 +611,11 @@ Page({
                           // });
                           if (that.data.puserId && that.data.puserId != '') {
                             wx.navigateTo({
-                              url: '/pages/immediatelyEnter/immediatelyEnter?type=home&puserId=' + that.data.puserId
+                              url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home&puserId=' + that.data.puserId
                             });
                           } else {
                             wx.navigateTo({
-                              url: '/pages/immediatelyEnter/immediatelyEnter?type=home'
+                              url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home'
                             });
                           }
                         },
@@ -614,113 +641,12 @@ Page({
           });
         }
       })
-      
     }
   },
-  getPhoneNumber3: function(e) {
-    let that = this;
-    //getPhoneNumber:fail:user deny
-    if (e.detail.errMsg && e.detail.errMsg.indexOf('getPhoneNumber:fail') > -1) {
-    } else {
-      wx.login({
-        success: res => {
-          // 发送 res.code 到后台换取 openId, sessionKey, unionId
-          // 登录成功后存token
-          let code = res.code;
-          network.requestLoading('25/core/v2/core/wx/encryptedData2PhoneNo', {
-            code: code,
-            iv: e.detail.iv,
-            encryptedData: e.detail.encryptedData,
-            openId: that.data.openId
-          },
-          'POST',
-          '',
-          '',
-          function(res) {
-            if (res.success) {
-              if (res.data.flag) {
-                let phone = res.data.phone;
-                let openId = wx.getStorageSync('openId')
-                network.requestLoading('25/auth/v2/auth/jwt/getToken', {
-                    openId: openId,
-                    phone: phone
-                  },
-                  'post',
-                  '',
-                  'json',
-                  function(res) {
-                    if (res.success) {
-                      wx.setStorage({
-                        key: 'token',
-                        data: res.data.token,
-                        success: function(res) {},
-                      })
-                      wx.setStorage({
-                        key: 'phone',
-                        data: res.data.phone,
-                      })
-                      that.setData({
-                        flag: true
-                      })
-                      that.talphone();
-                    }
-                  },
-                  function(res) {
-                    wx.showToast({
-                      title: '加载数据失败',
-                    });
-                  });
-                // network.requestLoading('api/driver/driver/clue/create', {
-                //     "phone": phone,
-                //     "sourceType": that.data.source,
-                //     "puserId": that.data.puserId,
-                //     "workCity": that.data.cityCode,
-                //     "authorizePosition": that.data.souceCity
-                network.requestLoading('32/line/v2/line/createClue', {
-                  "phone": phone,
-                  "sourceChannel": source,
-                  "workCity": that.data.cityCode,
-                  "recoUserId": that.data.puserId,
-                  "authorizePosition": that.data.souceCity,
-                  "name": '',
-                  "busiType": ''
-                  },
-                  'POST',
-                  '',
-                  'json',
-                  function(res) {
-                    if (res.success) {
-                      wx.setStorage({
-                        key: 'phone',
-                        data: phone,
-                        success: function(res) {}
-                      })
-                    }
-                  },
-                  function(res) {
-                    wx.showToast({
-                      title: '加载数据失败',
-                    });
-                  });
-              } else {
-                wx.showToast({
-                  title: res.data.memo,
-                });
-              }
-            }
-          },
-          function(res) {
-            wx.showToast({
-              title: '加载数据失败',
-            });
-          });
-        }
-      })
-    }
-  },
+
   getPhoneNumber: function(e) {
     let that = this;
-    if (e.detail.errMsg && e.detail.errMsg.indexOf('getPhoneNumber:fail') > -1) {
+    if (e.detail.errMsg == 'getPhoneNumber:fail user deny') {
       // wx.showModal({
       //   title: '提示',
       //   showCancel: false,
@@ -744,39 +670,6 @@ Page({
           '',
           function(res) {
             if (res.success) {
-              if (res.data.flag) {
-                network.requestLoading('32/line/v2/line/createClue', {
-                  "phone": phone,
-                  "sourceChannel": source,
-                  "workCity": that.data.cityCode,
-                  "recoUserId": that.data.puserId,
-                  "authorizePosition": that.data.souceCity,
-                  "name": '',
-                  "busiType": ''
-                  },
-                  'POST',
-                  '',
-                  'json',
-                  function(res) {
-                    console.log(res)
-                    if (res.success) {
-                      wx.setStorage({
-                        key: 'phone',
-                        data: phone,
-                        success: function(res) {
-                          wx.switchTab({
-                            url: '/pages/lineList/lineList'
-                          });
-                        },
-                      })
-                    }
-                  },
-                  function(res) {
-                    wx.showToast({
-                      title: '加载数据失败',
-                    });
-                  });
-              }
               let phone = res.data.phone;
               let openId = wx.getStorageSync('openId')
               network.requestLoading('25/auth/v2/auth/jwt/getToken', {
@@ -792,6 +685,41 @@ Page({
                       key: 'token',
                       data: res.data.token,
                       success: function(res) {},
+                    })
+                  }
+                },
+                function(res) {
+                  wx.showToast({
+                    title: '加载数据失败',
+                  });
+                });
+              // network.requestLoading('api/driver/driver/clue/create', {
+              //     "phone": phone,
+              //     "sourceType": that.data.source,
+              //     "workCity": that.data.cityCode,
+              //     "authorizePosition": that.data.souceCity
+              network.requestLoading('32/line/v2/line/createClue', {
+                "phone": phone,
+                "sourceChannel": source,
+                "workCity": that.data.cityCode,
+                "recoUserId": that.data.puserId,
+                "authorizePosition": that.data.souceCity,
+                "name": '',
+                "busiType": ''
+                },
+                'POST',
+                '',
+                'json',
+                function(res) {
+                  if (res.success) {
+                    wx.setStorage({
+                      key: 'phone',
+                      data: phone,
+                      success: function(res) {
+                        wx.switchTab({
+                          url: '/pages/lineList/lineList'
+                        });
+                      },
                     })
                   }
                 },
@@ -816,118 +744,17 @@ Page({
         // });
         }
       })
+      
     }
   },
-  getPhoneNumber4: function(e) {
-    let that = this;
-    if (e.detail.errMsg && e.detail.errMsg.indexOf('getPhoneNumber:fail') > -1) {
-      // wx.showModal({
-      //   title: '提示',
-      //   showCancel: false,
-      //   content: '未授权',
-      //   success: function (res) { }
-      // })
-    } else {
-      wx.login({
-        success: res => {
-          // 发送 res.code 到后台换取 openId, sessionKey, unionId
-          // 登录成功后存token
-          let code = res.code;
-          network.requestLoading('25/core/v2/core/wx/encryptedData2PhoneNo', {
-            code: code,
-            iv: e.detail.iv,
-            encryptedData: e.detail.encryptedData,
-            openId: that.data.openId
-          },
-          'POST',
-          '',
-          '',
-          function(res) {
-            if (res.success) {
-              let phone = res.data.phone;
-              let openId = wx.getStorageSync('openId')
-              network.requestLoading('25/auth/v2/auth/jwt/getToken', {
-                  openId: openId,
-                  phone: phone,
-                  puserId: that.data.puserId
-                },
-                'post',
-                '',
-                'json',
-                function(res) {
-                  if (res.success) {
-                    if (res.success) {
-                      wx.setStorage({
-                        key: 'token',
-                        data: res.data.token,
-                        success: function(res) {},
-                      })
-                      wx.setStorage({
-                        key: 'phone',
-                        data: res.data.phone,
-                      })
-                      that.setData({
-                        flag: true
-                      })
-                    }
-                  }
-                },
-                function(res) {
-                  wx.showToast({
-                    title: '加载数据失败',
-                  });
-                });
-              // network.requestLoading('api/driver/driver/clue/create', {
-              //     "phone": phone,
-              //     "sourceType": that.data.source,
-              //     "puserId": that.data.puserId,
-              //     "workCity": that.data.cityCode,
-              //     "authorizePosition": that.data.souceCity
-              network.requestLoading('32/line/v2/line/createClue', {
-                "phone": phone,
-                "sourceChannel": source,
-                "workCity": that.data.cityCode,
-                "recoUserId": that.data.puserId,
-                "authorizePosition": that.data.souceCity,
-                "name": '',
-                "busiType": ''
-                },
-                'POST',
-                '',
-                'json',
-                function(res) {
-                  if (res.success) {
-                    wx.setStorage({
-                      key: 'phone',
-                      data: phone,
-                      success: function(res) {
-                      },
-                    })
-                  }
-                },
-                function(res) {
-                  wx.showToast({
-                    title: '加载数据失败',
-                  });
-                });
-            }
-          },
-          function(res) {
-            wx.showToast({
-              title: '加载数据失败',
-            });
-          });
-        }
-      })
-    }
-  },
+
   //拨打电话
   talphone() {
     let cityName = this.data.cityName
     network.requestLoading('81/v2/driver/getGmInfoByUserId', {
       cityName: cityName
     },
-    'GEt',
+    'GET',
     '',
     '',
     function(res) {
@@ -989,10 +816,10 @@ Page({
       })
       Dialog.confirm({
         title: '提示',
-        message: '请先加入为云鸟司机后方可参加活动'
+        message: '请先入驻为梧桐司机后方可参加活动'
       }).then(() => {
         wx.navigateTo({
-          url: '/pages/immediatelyEnter/immediatelyEnter?type=home'
+          url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home'
         });
         that.setData({
           hindBgType: false
@@ -1014,17 +841,6 @@ Page({
     }
   },
 
-  // 跳转到梧桐车服
-  goMiniPro() {
-    wx.navigateToMiniProgram({
-      appId: 'wxae3a4aea43b11610',
-      path: 'pages/usedCar/usedCar',
-      envVersion: 'release',
-      success(res) {
-        // 打开成功
-      }
-    });
-  },
   //跳转导航
   // goAddress(e) {
   //   let url = e.currentTarget.dataset.url
@@ -1052,7 +868,7 @@ Page({
   },
 
   hasEnter() {
-    //是否已经加入
+    //是否已经入驻
     let that = this;
     network.requestLoading('81/driver/v2/driver/appletsMagpieClientJudge', {},
       'GET',
@@ -1136,7 +952,7 @@ Page({
   onShareAppMessage: function() {
     let userId = wx.getStorageSync('userId')
     return {
-      title: '货源稳定，线路优质，随时上岗，保收入10万+/年',
+      title: '自主创业，随时上岗；货源稳定、线路优质；购车保收入10万+/年',
       path: '/pages/index/index?puserId=' + userId + '&source=2',
       imageUrl: '../../lib/image/shareImg.jpg',
       success: function(res) {
