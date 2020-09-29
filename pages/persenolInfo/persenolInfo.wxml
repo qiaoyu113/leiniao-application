@@ -12,6 +12,11 @@
       <span class="buy_needs_name">城市</span>
       <view class='buy_needs_addtext'>{{detail.workCityName}}</view>
     </view>
+     <view class='inpList'>
+      <span class="buy_needs_name">车型</span>
+      <view class='buy_needs_addtext'>{{detail.carTypeName}}</view>
+    </view>
+<!--     
     <view class='inpList' wx:if='{{detail.workExperienceName}}'>
       <span class="buy_needs_name">物流从业经验</span>
       <view class='buy_needs_addtext'>{{detail.workExperienceName}}</view>
@@ -49,6 +54,6 @@
     <view class='inpList' wx:if='{{detail.buyCarFollow}}'>
       <span class="buy_needs_name">购车最关注</span>
       <view class='buy_needs_addtext'>{{detail.buyCarFollow}}</view>
-    </view>
+    </view> -->
   </view>
 </view>

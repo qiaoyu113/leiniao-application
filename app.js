@@ -90,7 +90,9 @@ App({
     token:null, 
     userInfo:null,
     // m1环境域名
-    url: 'https://szjw-bss-web-m1.yunniao.cn/', 
+    // url: 'https://szjw-bss-web-m1.yunniao.cn/', 
+    // mock
+    url: 'http://yapi.ynimg.cn:8888/mock/',
     // 生产环境域名
     // url: 'https://firmiana-bss-api.yunniao.cn/',
     // d2环境域名
