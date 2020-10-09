@@ -16,16 +16,17 @@ Page({
   data: {
     qrcode: '',
     canvasHidden: true,
-
     avatarUrl: '', //用户头像
     nickName: '', //用户昵称
     wxappName: app.globalData.wxappName, //小程序名称
     shareImgPath: '',
-    screenWidth: '350', //设备屏幕宽度
+    screenWidth: wx.getSystemInfoSync().windowWidth, //设备屏幕宽度
     description: app.globalData.description, //奖品描述
+    canvasHeight: 0,
+    heightRate: 0,
     FilePath: '', //头像路径
     shareImgText1: '长按识别直接咨询',
-    shareImgText2: '梧桐喜鹊小程序',
+    shareImgText2: '梧桐云雀小程序',
     lineDetail: {
       value1: '',
       value2: '',
@@ -33,8 +34,8 @@ Page({
       value4: '',
       value5: '',
     },
-    price: '1.7',
-    salePrice: '11.9',
+    price: '',
+    salePrice: '',
     carImg: '',
     bkImg: '',
     id: '',
@@ -64,7 +65,7 @@ Page({
 
   getDetail() {
     let that = this;
-    network.requestLoading('api/line_center/v1/line/lineInfo/getXcxLineTaskDetail', {
+    network.requestLoading('32/line/v2/line/lineInfo/getXcxLineTaskDetail', {
         "lineId": that.data.id
       },
       'get',
@@ -77,90 +78,49 @@ Page({
             value1: line.customerName,
             value2: line.lineName,
             value3: '公里数:' + line.distance + ',总耗时:' + line.timeDiff,
-            value4: '配送区域:' + line.cityAreaName + line.provinceAreaName + line.districtArea,
+            value4: '配送区域:' + line.distributionArea,
             value5: '仓库位置:' + line.warehouse,
           }
           that.setData({
             lineDetail: detail
           })
           let userId = wx.getStorageSync('userId')
-          network.requestLoading('api/core/v1/wx/createWxAQrCode', {
-            "path": 'pages/lineDetail/lineDetail?firstCome=true&id=' + that.data.id + '&city=' + that.data.city + '&source=3&puserId=' + userId,
-            "width": 430
-          },
+          network.requestLoading('25/core/v2/core/wx/createWxAQrCode', {
+              "path": 'pages/lineDetail/lineDetail?firstCome=true&id=' + that.data.id + '&city=' + that.data.city + '&source=3&puserId=' + userId,
+              "width": 430
+            },
             'get',
             '',
             '',
-            function (res) {
+            function(res) {
               if (res.success) {
-                console.log(res)
                 // that.setData({
                 //   qrcode: res.data
                 // })
                 let qrcode = res.data
                 wx.getImageInfo({
                   src: qrcode,
-                  success: function (sres) {
+                  success: function(sres) {
                     that.setData({
                       qrcode: sres.path
                     })
                     // that.saveImageToPhotosAlbum()
                   }
                 })
-                let imgUrlsBK = 'https://oss-qzn.yunniao.cn/img/a10d1bfe16b446b2befa8a5f97f2f001';
+                let imgUrlsBK = 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/dc9d224194d94f369213c9056abda537';
                 wx.getImageInfo({
                   src: imgUrlsBK,
                   success: function(sres) {
+                    let heightRate = sres.height / sres.width
                     that.setData({
-                      bkImg: sres.path
+                      bkImg: sres.path,
+                      heightRate: heightRate
                     })
                     // that.saveImageToPhotosAlbum()
                   }
                 })
               }
             })
-          // wx.request({
-          //   // 获取token
-          //   url: 'https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential',
-          //   data: {
-          //     appid: 'wxe9e35289dc334782', // 小程序appid
-          //     secret: 'b00efe416c86f97f3cd18568a7cf43a0' // 小程序秘钥
-          //   },
-          //   success(res) {
-          //     let userId = wx.getStorageSync('userId')
-          //     // res.data.access_token 
-          //     wx.request({
-          //       url: 'https://api.weixin.qq.com/cgi-bin/wxaapp/createwxaqrcode?access_token=' + res.data.access_token,
-          //       method: 'POST',
-          //       data: {
-          //         // 'path': "/pages/lineDetail/lineDetail?puserId=" + userId,
-          //         'path': 'pages/lineDetail/lineDetail?firstCome=true&id=' + that.data.id + '&city=' + that.data.city + '&source=3&puserId=' + userId,
-          //         "width": 430
-          //       },
-          //       responseType: 'arraybuffer',
-          //       success(res) {
-          //         let data = wx.arrayBufferToBase64(res.data);
-          //         let qrcodeUrl = 'data:image/png;base64,' + data
-          //         base64src(qrcodeUrl, res => {
-          //           // 返回图片地址，直接赋值到image标签即可
-          //           that.setData({
-          //             qrcode: res
-          //           })
-          //         });
-          //         let imgUrlsBK = 'https://oss-qzn.yunniao.cn/img/a10d1bfe16b446b2befa8a5f97f2f001';
-          //         wx.getImageInfo({
-          //           src: imgUrlsBK,
-          //           success: function(sres) {
-          //             that.setData({
-          //               bkImg: sres.path
-          //             })
-          //             // that.saveImageToPhotosAlbum()
-          //           }
-          //         })
-          //       }
-          //     })
-          //   }
-          // })
         }
       },
       function(res) {
@@ -171,7 +131,7 @@ Page({
   },
 
   //保存图片
-  saveImageToPhotosAlbum: function () {
+  saveImageToPhotosAlbum: function() {
     wx.showLoading({
       title: '保存中...',
     })
@@ -181,6 +141,9 @@ Page({
       canvasHidden: false
     })
     var unit = that.data.screenWidth / 375
+    that.setData({
+      canvasHeight: 70 * that.data.heightRate
+    })
     var path1 = that.data.bkImg //背景图
     var path3 = that.data.qrcode //二维码
     var context = wx.createCanvasContext('share')
@@ -217,7 +180,7 @@ Page({
     context.setTextAlign('left');
     context.fillText(that.data.lineDetail.value5, unit * 35, unit * 295)
     //把画板内容绘制成图片，并回调 画板图片路径
-    context.draw(true, function (e) {
+    context.draw(true, function(e) {
       setTimeout(() => {
         wx.canvasToTempFilePath({
           x: 0,
@@ -287,11 +250,11 @@ Page({
             }
           }
         })
-      }, 300)
+      },300)
     });
   },
 
-  handleSetting: function (e) {
+  handleSetting: function(e) {
     let that = this;
     // 对用户的设置进行判断，如果没有授权，即使用户返回到保存页面，显示的也是“去授权”按钮；同意授权之后才显示保存按钮
     if (!e.detail.authSetting['scope.writePhotosAlbum']) {
@@ -360,10 +323,10 @@ Page({
   onShareAppMessage: function() {
     let userId = wx.getStorageSync('userId')
     return {
-      title: '自主创业，随时上岗；货源稳定、线路优质；购车保收入10万+/年',
+      title: '货源稳定，线路优质，随时上岗，保收入10万+/年',
       path: '/pages/index/index?puserId=' + userId + '&source=2',
       imageUrl: '../../lib/image/shareImg.jpg',
-      success: function (res) {
+      success: function(res) {
         // 转发成功
       },
     }

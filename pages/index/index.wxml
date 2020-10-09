@@ -11,9 +11,9 @@
     </block>
   </swiper>
   <!--推荐司机-->
-  <view class='recommend'>
+  <!-- <view class='recommend'>
     <image class='imageTop' mode='widthFix' bindtap='goRecommend' src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/93012e89dfcb44a1af9da1421f223aab'></image>
-  </view>
+  </view> -->
   <!-- <view class='activityEntrance'>
     <image class='img' src='{{image_filepath}}' bindtap='goActivity' mode='widthFix'></image>
     <button wx:if='{{!flag && !entranceType}}' class='getPhone' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber2"></button>

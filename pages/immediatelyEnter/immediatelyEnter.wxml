@@ -6,7 +6,7 @@
     </view>
     <view class='inpList'>
       <span class="buy_needs_name">联系方式</span>
-      <input type='text' bindinput="inputPhone" class="buy_needs_addtext input" value='{{phone}}' maxlength='11' placeholder='请输入联系人电话' placeholder-class='placeholdColor2' disabled='{{phone}}'></input>
+      <input type='phone' bindinput="inputPhone" class="buy_needs_addtext input" value='{{phone}}' maxlength='11' placeholder='请输入联系人电话' placeholder-class='placeholdColor2' ></input>
     </view>
     <view class='inpList'>
       <picker bindchange="bindPickerChangeCity" value="{{index}}" range="{{addressArr_new}}">
@@ -22,6 +22,7 @@
         </span>
       </picker>
     </view>
+    <!--
     <view class='inpList'>
       <picker bindchange="bindPickerChangeLogistics" value="{{index}}" range="{{logisticsArr_new}}">
         <span class="buy_needs_name">物流从业经验</span>
@@ -36,6 +37,8 @@
         </span>
       </picker>
     </view>
+    -->
+    <!--
     <view class='inpList'>
       <picker bindchange="bindPickerChangegoods" value="{{index}}" range="{{goodsArr_new}}">
         <span class="buy_needs_name">货物经验</span>
@@ -78,9 +81,10 @@
         </span>
       </picker>
     </view>
+    -->
     <view class='inpList'>
       <picker bindchange="bindPickerChangeintentional" value="{{index}}" range="{{intentionalArr_new}}">
-        <span class="buy_needs_name">意向车型</span>
+        <span class="buy_needs_name">车型</span>
         <span class="icon_right">
           <i class="iconfont icon-right"></i>
         </span>
@@ -92,6 +96,7 @@
         </span>
       </picker>
     </view>
+    <!-- 
     <view class='inpList'>
       <picker bindchange="bindPickerChangeaccount" value="{{index}}" range="{{accountArr_new}}">
         <span class="buy_needs_name">户口类型</span>
@@ -147,17 +152,20 @@
           请选择
         </span>
       </picker>
-    </view>
+    </view> -->
   </view>
   <view class='submit'>
-    <view bindtap='submitBtn' wx:if='{{nametype && phonetype && addressType && logisticsType && goodsType && incomeType && acceptType && intentionaType && accountType && isHaveLoanType && childrenNumType && buyCarFollowType}}' class="SubmitBtn">提交</view>
+    <!--全校验-->
+    <!-- <view bindtap='submitBtn' wx:if='{{nametype && phonetype && addressType && intentionaType }}' class="SubmitBtn">提交</view> -->
+    <!--非全校验-->
+    <view bindtap='submitBtn' wx:if='{{ phonetype && addressType }}' class="SubmitBtn">提交</view>
     <view wx:else class="noSubmitBtn" bindtap='submitNoBtn'>提交</view>
   </view>
-  <view class='cu-load load-modal' wx:if="{{loadModal}}">
+  <view class='cu-load load-modal' wx:if="{{loadModal}}"> 
     <!-- <view class='icon-emojifill text-orange'></view> -->
     <image src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/ed840995ff80456fa11763fe1bbf2d7a' class='png' mode='aspectFit'></image>
     <view class='gray-text font-load'>提交成功</view>
-  </view>
+</view>
 </view>
 <!--警告弹窗-->
 <van-notify id="van-notify" />

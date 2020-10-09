@@ -136,7 +136,7 @@ Page({
   getPhoneNumber: function(e) {
     let that = this;
     let code = wx.get
-    network.requestLoading('25/core/v2/core/wx/encryptedData2PhoneNo', {
+    network.requestLoading('25/core/v1/core/wx/encryptedData2PhoneNo', {
         code: code,
         iv: e.detail.iv,
         encryptedData: e.detail.encryptedData,

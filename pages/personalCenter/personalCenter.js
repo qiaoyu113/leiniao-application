@@ -423,7 +423,7 @@ Page({
           let code = res.code;
           // let code = wx.getStorageSync('code')
       let openId = wx.getStorageSync('openId')
-      network.requestLoading('25/core/v2/core/wx/encryptedData2PhoneNo', {
+      network.requestLoading('25/core/v1/core/wx/encryptedData2PhoneNo', {
           code: code,
           iv: e.detail.iv,
           encryptedData: e.detail.encryptedData,

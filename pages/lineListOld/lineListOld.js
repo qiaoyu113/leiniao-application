@@ -472,7 +472,7 @@ Page({
       //       that.setData({
       //         openId: res.data
       //       });
-      network.requestLoading('25/core/v2/core/wx/encryptedData2PhoneNo', {
+      network.requestLoading('25/core/v1/core/wx/encryptedData2PhoneNo', {
           code: that.data.code,
           iv: e.detail.iv,
           encryptedData: e.detail.encryptedData,

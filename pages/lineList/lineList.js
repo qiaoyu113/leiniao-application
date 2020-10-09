@@ -803,12 +803,13 @@ Page({
       '',
       'json',
       function(res) {
+        console.log(res.data)
         if (res.success) {
           wx.stopPullDownRefresh()
           let arr = res.data;
-          for (let i = 0; i < arr.length; i++) {
-            arr[i].workingTimeRegin = arr[i].workingTimeRegin.split(",")
-          }
+          // for (let i = 0; i < arr.length; i++) {
+          //   arr[i].workingTimeRegin = arr[i].workingTimeRegin.split(",")
+          // }
           let lists = that.data.list.concat(arr)
           that.setData({
             list: lists,
@@ -831,30 +832,8 @@ Page({
 
   //拨打电话
   talphone(e) {
-    // let cityName = e.currentTarget.dataset.cityname
-    // network.requestLoading('81/v2/driver/getGmInfoByUserId', {
-    //   cityName: cityName
-    // },
-    // 'GET',
-    // '',
-    // '',
-    // function(res) {
-    //   if (res.success) {
-    //     wx.makePhoneCall({
-    //       phoneNumber: res.data[0],
-    //     })
-    //   } else {
-    //     wx.showToast({
-    //       title: '获取手机号失败',
-    //     });
-    //   }
-    // },
-    // function(res) {
-    //   wx.showToast({
-    //     title: '加载数据失败',
-    //   });
-    // });
-    network.requestLoading('81/v2/driver/getGmInfoByUserId', {},
+    let cityName = e.currentTarget.dataset.cityname
+    network.requestLoading('81/driver/v2/driver/getGmInfoByUserId', {cityName: cityName},
     'GET',
     '数据加载中...',
     '',
@@ -953,7 +932,7 @@ Page({
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // 登录成功后存token
           let code = res.code;
-          network.requestLoading('25/core/v2/core/wx/encryptedData2PhoneNo', {
+          network.requestLoading('25/core/v1/core/wx/encryptedData2PhoneNo', {
             code: code,
             iv: e.detail.iv,
             encryptedData: e.detail.encryptedData,
