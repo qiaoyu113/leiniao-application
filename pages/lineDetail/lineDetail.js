@@ -544,7 +544,7 @@ Page({
             }
           });
           // 查看浏览数
-          network.requestLoading('32/line/v2/line/lineInfo/linePageVies', {
+          network.requestLoading('81/driver/v2/driver/lineInfo/linePageVies', {
               "lineId": that.data.detail.lineId,
             },
             'get',
@@ -575,7 +575,7 @@ Page({
   getCollectNum() {
     let that = this;
     // 查看收藏量
-    network.requestLoading('32/line/v2/line/lineInfo/getCollect', {
+    network.requestLoading('81/driver/v2/driver/lineInfo/getCollect', {
         "lineId": that.data.detail.lineId,
       },
       'get',
