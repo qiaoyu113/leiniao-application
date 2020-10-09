@@ -16,6 +16,6 @@
 		<van-button color="#838383" plain size="small" style="margin-right:10rpx" bindtap="callManager">客服电话</van-button>
 		<van-button wx-if="{{params.status === 1}}" color="#FFA000" plain size="small" style="margin-right:10rpx" bindtap="goStart">开始签约</van-button>
 		<van-button wx-if="{{params.status === 2}}" color="#838383" plain size="small" style="margin-right:10rpx" bindtap="goDetail">查看详情</van-button>
-		<van-button wx-if="{{params.status === 3}}" color="#FFA000" plain size="small" bindtap="aliveContract">申请激活</van-button>
+		<!-- <van-button wx-if="{{params.status === 3}}" color="#FFA000" plain size="small" bindtap="aliveContract">申请激活</van-button> -->
 	</view>
 </view>

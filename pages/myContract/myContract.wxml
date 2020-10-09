@@ -1,4 +1,4 @@
-<view>
+<view class="contractList">
   <view class="listBox" wx-if="{{listArr.length !== 0}}">
     <block wx:for="{{listArr}}" wx:for-index="idx" wx:for-item="item" wx:key="idx">
       <contractItem id="contractItem" params="{{item}}" phone="{{mobile}}" bind:myevent="onMyEvent"></contractItem>
