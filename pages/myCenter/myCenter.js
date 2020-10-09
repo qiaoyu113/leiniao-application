@@ -66,7 +66,7 @@ Page({
   //是否有权限创建订单
   hasAbilityCreatOrder() {
     let that = this;
-    network.requestLoading('api/order/v1/magpie/order/judgeCreateOrderPermission', {},
+    network.requestLoading('88/order/v2/order/judgeCreateOrderPermission', {},
       'GET',
       '',
       '',
@@ -223,6 +223,8 @@ Page({
       routerName = '../serialOrder/serialOrder'
     } else if (type == '13') {
       routerName = '../serviceStandard/serviceStandard'
+    } else if (type == '14') {
+      routerName = '../myContract/myContract'
     }
     wx.navigateTo({
       url: routerName

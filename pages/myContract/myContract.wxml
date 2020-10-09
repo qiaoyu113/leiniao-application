@@ -1,0 +1,25 @@
+<view>
+  <view class="listBox" wx-if="{{listArr.length !== 0}}">
+    <block wx:for="{{listArr}}" wx:for-index="idx" wx:for-item="item" wx:key="idx">
+      <contractItem id="contractItem" params="{{item}}" phone="{{mobile}}" bind:myevent="onMyEvent"></contractItem>
+    </block>
+  </view>
+  <view class="noData" hidden="{{!(listArr.length === 0)}}">
+    <van-empty class="custom-image" image="/lib/image/nodata.svg" description="您还没有相关合同" />
+  </view>
+  <!--弹窗-->
+	<view class="modal-mask" bindtap="hideModal" catchtouchmove="preventTouchMove" wx:if="{{showModal}}"></view>
+	<view class="modal-dialog" wx:if="{{showModal}}">
+		<view class="modal-title">提示</view>
+		<view class="modal-box">
+			<text>确定开始签约合同</text>
+			<text>第一步：需要完善认证信息。</text>
+			<text>第二部：仔细阅读合同之后，并在底部签字。</text>
+			<text>签订合同后，立即生效，具有法律依据。</text>
+		</view>
+		<view class="modal-footer">
+			<view class="btn-cancel" bindtap="onCancel" data-status="cancel">取消</view>
+			<view class="btn-confirm" bindtap="onConfirm" data-status="confirm">确定</view>
+		</view>
+	</view>
+</view>

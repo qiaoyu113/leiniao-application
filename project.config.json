@@ -65,8 +65,8 @@
 				},
 				{
 					"id": 1,
-					"name": "elecContract",
-					"pathName": "pages/elecContract/elecContract",
+					"name": "pages/myCenter/myCenter",
+					"pathName": "pages/myCenter/myCenter",
 					"query": "id=123123123&contact=123123",
 					"scene": 1007
 				}
