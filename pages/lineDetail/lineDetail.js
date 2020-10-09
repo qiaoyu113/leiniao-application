@@ -81,13 +81,13 @@ Page({
     }
     this.getDetail()
     this.hasEnter()
-    // this.hasCollect()
+    this.hasCollect()
   },
 
   hasEnter() {
     //是否已经入驻
     let that = this;
-    // network.requestLoading('api/driver/driver/magpie/appletsMagpieClientJudge', {},
+    // network.requestLoading('81/driver/v2/driver/appletsMagpieClientJudge', {},
     //   'GET',
     //   '',
     //   '',
@@ -111,8 +111,7 @@ Page({
         entranceType: false
       })
     } else {
-      network.requestLoading('api/driver/v1/driver/clue/clue/has-stationed', {
-        phone: phone
+      network.requestLoading('81/driver/v2/driver/appletsMagpieClientJudge', {
       },
         'GET',
         '',
@@ -120,26 +119,24 @@ Page({
         function(res) {
           if (res.success) {
             // let flag = res.data.flag;
-            let flag = res.data.stationed;
+            let flag = res.data.flag;
             // if (res.data.driverId && flag) {
             if (flag) {
               that.setData({
-                entranceType: true,
-                noEnter: true
+                entranceType: true
               })
               if(res.data.cityName){
                 that.setData({
                   cityName: res.data.cityName
                 })
               }
-              if(res.data.type === 3){
-                wx.setStorageSync('driverId', res.data.id)
-                that.fetchData(res.data.id)
-              }
+              // if(res.data.type === 3){
+              //   wx.setStorageSync('driverId', res.data.id)
+              //   that.fetchData(res.data.id)
+              // }
             } else {
               that.setData({
-                entranceType: false,
-                noEnter: true
+                entranceType: false
               })
             }
           }
@@ -160,7 +157,7 @@ Page({
 
   hasCollect() {
     let that = this;
-    network.requestLoading('api/driver/driver/magpie/whetherToCollectTheCurrentLine', {
+    network.requestLoading('81/driver/v2/driver/whetherToCollectTheCurrentLine', {
         lineId: that.data.id
       },
       'GET',
@@ -183,30 +180,10 @@ Page({
 
   //拨打电话
   talphone(e) {
-    // let cityName = this.data.detail.cityName
-    // network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {
-    //   cityName: cityName
-    // },
-    // 'GEt',
-    // '',
-    // '',
-    // function(res) {
-    //   if (res.success) {
-    //     wx.makePhoneCall({
-    //       phoneNumber: res.data[0],
-    //     })
-    //   } else {
-    //     wx.showToast({
-    //       title: '获取手机号失败',
-    //     });
-    //   }
-    // },
-    // function(res) {
-    //   wx.showToast({
-    //     title: '加载数据失败',
-    //   });
-    // });
-    network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {},
+    let cityName = this.data.detail.cityName
+    network.requestLoading('81/driver/v2/driver/getGmInfoByUserId', {
+      cityName: cityName
+    },
     'GET',
     '数据加载中...',
     '',
@@ -235,13 +212,16 @@ Page({
     let that = this;
     let puserId = that.data.puserId;
     let lineId = that.data.id;
+    that.setData({
+      noEnter: true
+    })
     if (puserId == '') {
       wx.navigateTo({
-        url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=detail&lineId=' + lineId
+        url: '/pages/immediatelyEnter/immediatelyEnter?type=detail&lineId=' + lineId
       });
     } else {
       wx.navigateTo({
-        url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=detail&lineId=' + lineId + '&puserId=' + that.data.puserId
+        url: '/pages/immediatelyEnter/immediatelyEnter?type=detail&lineId=' + lineId + '&puserId=' + that.data.puserId
       });
     }
 
@@ -257,7 +237,7 @@ Page({
       //   success: function (res) { }
       // })
     } else {
-      network.requestLoading('api/core/v1/wx/encryptedData2PhoneNo', {
+      network.requestLoading('25/core/v1/core/wx/encryptedData2PhoneNo', {
           code: that.data.code,
           iv: e.detail.iv,
           encryptedData: e.detail.encryptedData,
@@ -270,7 +250,7 @@ Page({
           if (res.success) {
             let phone = res.data.phone;
             let openId = wx.getStorageSync('openId')
-            network.requestLoading('api/auth/v1/jwt/getToken', {
+            network.requestLoading('25/auth/v2/auth/jwt/getToken', {
                 openId: openId,
                 phone: phone
               },
@@ -306,7 +286,7 @@ Page({
             //     "puserId": that.data.puserId,
             //     "workCity": that.data.cityCode,
             //     "authorizePosition": that.data.souceCity
-            network.requestLoading('api/driver/v1/driver/clue/create/activity', {
+            network.requestLoading('32/line/v2/line/createClue', {
               "phone": phone,
               "sourceChannel": source,
               "workCity": that.data.cityCode,
@@ -353,7 +333,7 @@ Page({
         that.setData({
           code: res.code
         })
-        network.requestLoading('api/auth/v1/jwt/getToken', {
+        network.requestLoading('25/auth/v2/auth/jwt/getToken', {
             wxCode: that.data.code,
             puserId: that.data.puserId
           },
@@ -470,7 +450,7 @@ Page({
   collectBtn(e) {
     let that = this;
     let status = e.target.dataset.type
-    network.requestLoading('api/driver/driver/magpie/collectTheCurrentLine', {
+    network.requestLoading('81/driver/v2/driver/collectTheCurrentLine', {
         "lineId": that.data.id,
         "state": status
       },
@@ -505,10 +485,8 @@ Page({
 
   getDetail() {
     let that = this
-    network.requestLoading('api/line_center/v1/line/lineInfo/getXcxLineTaskDetail', {
-        "lineId": that.data.id,
-        "limit": 0,
-        "page": 0
+    network.requestLoading('32/line/v2/line/lineInfo/getXcxLineTaskDetail', {
+        "lineId": that.data.id
       },
       'get',
       '',
@@ -525,7 +503,7 @@ Page({
             detail: res.data
           })
           wx.setNavigationBarTitle({
-            title: that.data.detail.cargoType //页面标题为路由参数
+            title: that.data.detail.cargoTypeName //页面标题为路由参数
           });
           // 实例化腾讯地图API核心类
           qqmapsdk = new QQMapWX({
@@ -533,11 +511,8 @@ Page({
           });
           //1、获取当前位置坐标
           let address = that.data.detail.warehouse;
-          if (address == '') {
-
-          }
           qqmapsdk.geocoder({
-            address: that.data.detail.warehouse, //搜索关键词
+            address: address, //搜索关键词
             success: function(res) { //搜索成功后的回调
               var res = res.result;
               var latitude = Number(res.location.lat);
@@ -568,26 +543,26 @@ Page({
               // console.log(res)
             }
           });
-          // // 查看浏览数
-          // network.requestLoading('api/driver/driver/magpie/linePageVies', {
-          //     "lineId": that.data.detail.lineId,
-          //   },
-          //   'get',
-          //   '',
-          //   '',
-          //   function(res) {
-          //     if (res.success) {
-          //       that.setData({
-          //         numDetail: res.data.pageView
-          //       })
-          //     }
-          //   },
-          //   function(res) {
-          //     wx.showToast({
-          //       title: '加载数据失败',
-          //     });
-          //   });
-          // that.getCollectNum()
+          // 查看浏览数
+          network.requestLoading('32/line/v2/line/lineInfo/linePageVies', {
+              "lineId": that.data.detail.lineId,
+            },
+            'get',
+            '',
+            '',
+            function(res) {
+              if (res.success) {
+                that.setData({
+                  numDetail: res.data.views
+                })
+              }
+            },
+            function(res) {
+              wx.showToast({
+                title: '加载数据失败',
+              });
+            });
+          that.getCollectNum()
         }
       },
       function(res) {
@@ -600,7 +575,7 @@ Page({
   getCollectNum() {
     let that = this;
     // 查看收藏量
-    network.requestLoading('api/driver/driver/magpie/lineCollection', {
+    network.requestLoading('32/line/v2/line/lineInfo/getCollect', {
         "lineId": that.data.detail.lineId,
       },
       'get',
@@ -609,7 +584,7 @@ Page({
       function(res) {
         if (res.success) {
           that.setData({
-            numDetail2: res.data.collection
+            numDetail2: res.data.collects
           })
         }
       },
@@ -751,7 +726,7 @@ Page({
     } else {
       let code = wx.getStorageSync('code')
       let openId = wx.getStorageSync('openId')
-      network.requestLoading('api/core/v1/wx/encryptedData2PhoneNo', {
+      network.requestLoading('25/core/v1/core/wx/encryptedData2PhoneNo', {
           code: code,
           iv: e.detail.iv,
           encryptedData: e.detail.encryptedData,
@@ -763,7 +738,7 @@ Page({
         function(res) {
           if (res.success) {
             let phone = res.data.phone;
-            network.requestLoading('api/auth/v1/jwt/getToken', {
+            network.requestLoading('25/auth/v2/auth/jwt/getToken', {
                 openId: openId,
                 phone: phone
               },
@@ -795,7 +770,7 @@ Page({
             //     "workCity": that.data.city,
             //     "puserId": that.data.puserId,
             //     "authorizePosition": that.data.souceCity
-            network.requestLoading('api/driver/v1/driver/clue/create/activity', {
+            network.requestLoading('32/line/v2/line/createClue', {
               "phone": phone,
               "sourceChannel": source,
               "workCity": that.data.cityCode,
@@ -814,7 +789,7 @@ Page({
                     data: phone,
                     success: function(res) {
                       wx.navigateTo({
-                        url: '/pages/immediatelyEnterNew/immediatelyEnterNew?type=home'
+                        url: '/pages/immediatelyEnter/immediatelyEnter?type=home'
                       });
                     },
                   })
@@ -875,8 +850,12 @@ Page({
    */
   onShareAppMessage: function() {
     let puserId = wx.getStorageSync('userId')
+    console.log(this.data.cityCode)
+    console.log(this.data.id)
+    console.log(this.data.detail.carTypeName)
+    console.log(puserId)
     return {
-      title: '优选线路:' + this.data.detail.lineName,
+      title: '优选线路:' + this.data.detail.carTypeName,
       path: '/pages/lineDetail/lineDetail?firstCome=true&id=' + this.data.id + '&city=' + this.data.cityCode + '&source=2&puserId=' + puserId,
       success: function(res) {
         // 转发成功

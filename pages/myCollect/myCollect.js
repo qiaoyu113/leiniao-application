@@ -54,7 +54,7 @@ Page({
   //拨打电话
   talphone(e) {
     let cityName = e.currentTarget.dataset.cityname
-    network.requestLoading('api/driver/v1/driver/getGmInfoByUserId', {
+    network.requestLoading('81/v2/driver/getGmInfoByUserId', {
       cityName: cityName
     },
     'GET',

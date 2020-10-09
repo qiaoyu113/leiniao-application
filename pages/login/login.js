@@ -41,7 +41,7 @@ Page({
             that.setData({
               code: res.code
             })
-            network.requestLoading('api/auth/v1/jwt/getToken', {
+            network.requestLoading('25/auth/v2/auth/jwt/getToken', {
               wxCode: that.data.code,
               puserId: that.data.userId,
               source: 1,

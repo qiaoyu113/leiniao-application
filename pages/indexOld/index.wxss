@@ -529,17 +529,17 @@
   border-radius: 8px;
 }
 
-.recommendedList:nth-child(2) {
+.recommendedList:nth-child(1) {
   background: url('https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/c4d48ad73ad44beea5088c5e1b7a11f0')no-repeat;
   background-size: 100% 100%;
 }
 
-.recommendedList:nth-child(1) {
+.recommendedList:nth-child(2) {
   background: url('https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/d3246f5aa43f43ec99b96542ffdc27b8')no-repeat;
   background-size: 100% 100%;
 }
 
-.recommendedList:nth-child(2) .name {
+.recommendedList:nth-child(1) .name {
   position: absolute;
   left: 0;
   top: 0;
@@ -552,7 +552,7 @@
   color: #fff;
 }
 
-.recommendedList:nth-child(1) .name {
+.recommendedList:nth-child(2) .name {
   position: absolute;
   left: 0;
   top: 0;
@@ -619,7 +619,7 @@
   overflow: hidden;
 }
 
-.recommendedList:nth-child(2) .recomendedList_center .advertising {
+.recommendedList:nth-child(1) .recomendedList_center .advertising {
   text-align: center;
   padding: 20rpx;
   box-sizing: border-box;
@@ -630,7 +630,7 @@
   color: #ffa000;
 }
 
-.recommendedList:nth-child(1) .recomendedList_center .advertising {
+.recommendedList:nth-child(2) .recomendedList_center .advertising {
   text-align: center;
   padding: 20rpx;
   box-sizing: border-box;
@@ -660,7 +660,7 @@
   top: 0;
 }
 
-.recommendedList:nth-child(1) .state {
+.recommendedList:nth-child(2) .state {
   position: absolute;
   right: 27rpx;
   top: 60rpx;
@@ -675,7 +675,7 @@
   border-radius: 6px;
 }
 
-.recommendedList:nth-child(2) .state {
+.recommendedList:nth-child(1) .state {
   position: absolute;
   right: 27rpx;
   top: 60rpx;
@@ -722,7 +722,7 @@
 }
 
 .driverImage {
-  padding: 20rpx 25rpx;
+  padding: 10rpx 25rpx;
   box-sizing: border-box;
   border: 2rp solid #eee;
   overflow: hidden;
@@ -753,9 +753,6 @@
   font-size: 28rpx;
   color: #9b9b9b;
   padding-bottom: 60rpx;
-}
-.getPhoneNumber:after{
-  border: none;
 }
 
 .consulting {
@@ -846,87 +843,4 @@
   bottom: 0;
   margin: auto;
   background: rgba(0, 0, 0, 0.50);
-}
-.bgShow {
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  margin: auto;
-  background: rgba(0, 0, 0, 0);
-  overflow: hidden;
-  z-index: 300;
-}
-
-.loginBtn {
-  /* width: 70%;
-  height: 100rpx;
-  line-height: 100rpx;
-  text-align: center;
-  color: #ffa000;
-  background: #fff; */
-  opacity: 0;
-  background: rgba(0, 0, 0, 0);
-  border-radius: 100rpx;
-  position: fixed;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  margin: auto;
-  font-size: 32rpx;
-  z-index: 300;
-}
-/* 精选活动 */
-.activity-ct{
-  display: flex;
-  justify-content: space-between;
-  padding: 0 25rpx;
-}
-.activity-ct image{
-  margin: 0 auto;
-  display: block;
-  width: 165rpx;
-  height: 124rpx;
-}
-.activity-lt,.activity-rt{
-  padding-top: 22rpx;
-  width: 324rpx;
-  height: 324rpx;
-  background-image: linear-gradient(0deg, #F8F6EF 0%, #FBF8F2 100%);
-  border-radius: 11rpx;
-  text-align: center;
-}
-.activity-rt{
-  background-image: linear-gradient(0deg, #F2F4F8 0%, #EFF3FA 100%);
-  border-radius: 11px;
-}
-.activity-tit{
-  margin-bottom: 3rpx;
-  font-size: 28rpx;
-  color: #333333;
-}
-.activity-text{
-  margin-bottom: 30rpx;
-  font-size: 22rpx;
-  color: #F76B1C;
-}
-.activity-rt .activity-btn{
-  font-size: 20rpx;
-  color: #AB541E;
-}
-.activity-btn{
-  margin-top: 18rpx;
-  display: inline-block;
-  height: 34rpx;
-  line-height:34rpx;
-  font-size: 22rpx;
-  color: #743901;
-  background: #EDD6A7;
-  border-radius: 17rpx;
-}
-.activity-btn::after{
-  border-color: #EDD6A7;
 }
