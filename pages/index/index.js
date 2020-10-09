@@ -924,7 +924,7 @@ Page({
   //拨打电话
   talphone() {
     let cityName = this.data.cityName
-    network.requestLoading('81/v2/driver/getGmInfoByUserId', {
+    network.requestLoading('81/driver/v2/driver/getGmInfoByUserId', {
       cityName: cityName
     },
     'GEt',

@@ -548,7 +548,7 @@ Page({
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // 登录成功后存token
           let code = res.code;
-          network.requestLoading('25/core/v1/core/wx/encryptedData2PhoneNo', {
+          network.requestLoading('25/core/v2/core/wx/encryptedData2PhoneNo', {
             code: code,
             iv: e.detail.iv,
             encryptedData: e.detail.encryptedData,
@@ -659,7 +659,7 @@ Page({
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // 登录成功后存token
           let code = res.code;
-          network.requestLoading('25/core/v1/core/wx/encryptedData2PhoneNo', {
+          network.requestLoading('25/core/v2/core/wx/encryptedData2PhoneNo', {
             code: code,
             iv: e.detail.iv,
             encryptedData: e.detail.encryptedData,
