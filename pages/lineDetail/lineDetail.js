@@ -288,7 +288,7 @@ Page({
             //     "authorizePosition": that.data.souceCity
             network.requestLoading('32/driver/v2/driver/applet/clue/generateClue', {
               "phone": phone,
-              "sourceChannel": source,
+              "sourceChannel": that.data.source,
               "workCity": that.data.cityCode,
               "recoUserId": that.data.puserId,
               "authorizePosition": that.data.souceCity,
@@ -772,7 +772,7 @@ Page({
             //     "authorizePosition": that.data.souceCity
             network.requestLoading('32/driver/v2/driver/applet/clue/generateClue', {
               "phone": phone,
-              "sourceChannel": source,
+              "sourceChannel": that.data.source,
               "workCity": that.data.cityCode,
               "recoUserId": that.data.puserId,
               "authorizePosition": that.data.souceCity,
