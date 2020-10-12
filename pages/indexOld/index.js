@@ -409,7 +409,7 @@ Page({
         that.setData({
           code: res.code
         })
-        network.requestLoading('25/auth/v2/auth/jwt/getToken', {
+        network.requestLoading('25/auth/v2/jwt/getToken', {
             wxCode: that.data.code,
             puserId: that.data.puserId
           },
@@ -562,7 +562,7 @@ Page({
               if (res.data.flag) {
                 let phone = res.data.phone;
                 let openId = wx.getStorageSync('openId')
-                network.requestLoading('25/auth/v2/auth/jwt/getToken', {
+                network.requestLoading('25/auth/v2/jwt/getToken', {
                     openId: openId,
                     phone: phone
                   },
@@ -588,7 +588,7 @@ Page({
                 //     "sourceType": that.data.source,
                 //     "workCity": that.data.cityCode,
                 //     "authorizePosition": that.data.souceCity
-                network.requestLoading('32/line/v2/line/createClue', {
+                network.requestLoading('32/driver/v2/driver/applet/clue/generateClue', {
                   "phone": phone,
                   "sourceChannel": source,
                   "workCity": that.data.cityCode,
@@ -672,7 +672,7 @@ Page({
             if (res.success) {
               let phone = res.data.phone;
               let openId = wx.getStorageSync('openId')
-              network.requestLoading('25/auth/v2/auth/jwt/getToken', {
+              network.requestLoading('25/auth/v2/jwt/getToken', {
                   openId: openId,
                   phone: phone
                 },
@@ -698,7 +698,7 @@ Page({
               //     "sourceType": that.data.source,
               //     "workCity": that.data.cityCode,
               //     "authorizePosition": that.data.souceCity
-              network.requestLoading('32/line/v2/line/createClue', {
+              network.requestLoading('32/driver/v2/driver/applet/clue/generateClue', {
                 "phone": phone,
                 "sourceChannel": source,
                 "workCity": that.data.cityCode,
@@ -870,7 +870,7 @@ Page({
   hasEnter() {
     //是否已经入驻
     let that = this;
-    network.requestLoading('81/driver/v2/driver/appletsMagpieClientJudge', {},
+    network.requestLoading('81/driver/v2/driver/applet/appletsMagpieClientJudge', {},
       'GET',
       '',
       '',

@@ -121,7 +121,7 @@ Page({
         that.setData({
           code: res.code
         })
-        network.requestLoading('25/auth/v2/auth/jwt/getToken', {
+        network.requestLoading('25/auth/v2/jwt/getToken', {
           wxCode: that.data.code,
           puserId: that.data.puserId
         },
@@ -472,7 +472,7 @@ Page({
       //       that.setData({
       //         openId: res.data
       //       });
-      network.requestLoading('25/core/v1/core/wx/encryptedData2PhoneNo', {
+      network.requestLoading('25/core/v1/wx/encryptedData2PhoneNo', {
           code: that.data.code,
           iv: e.detail.iv,
           encryptedData: e.detail.encryptedData,
@@ -480,12 +480,12 @@ Page({
         },
         'POST',
         '',
-        '',
+        'json',
         function(res) {
           if (res.success) {
             let phone = res.data.phone;
             let openId = wx.getStorageSync('openId')
-            network.requestLoading('25/auth/v2/auth/jwt/getToken', {
+            network.requestLoading('25/auth/v2/jwt/getToken', {
                 openId: openId,
                 phone: phone
               },
@@ -515,7 +515,7 @@ Page({
             //     "workCity": cityCode,
             //     "puserId": that.data.puserId,
             //     "authorizePosition": souceCity
-            network.requestLoading('32/line/v2/line/createClue', {
+            network.requestLoading('32/driver/v2/driver/applet/clue/generateClue', {
               "phone": phone,
               "sourceChannel": source,
               "workCity": that.data.cityCode,

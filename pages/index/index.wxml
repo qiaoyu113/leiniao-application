@@ -30,7 +30,7 @@
   </view>
   <view class="activity-ct">
     <view class="activity-lt" wx:if="{{!entranceType}}" bindtap='enTranceNow'>
-      <view class="activity-tit">梧桐云雀</view>
+      <view class="activity-tit">梧桐喜鹊</view>
       <view class="activity-text">邀请城配司机入驻</view>
       <image src="{{image_filepath3}}" mode="widthFix"></image>
       <button class="activity-btn">立即入驻</button>
@@ -48,11 +48,11 @@
       <button class="activity-btn">立即去看车</button>
     </view>
   </view>
-  <!--热门文章-->
+  <!--梧桐推荐-->
   <view class="LivingList">
     <view class="LivingTop">
       <view class="Line"></view>
-      货源推荐
+      梧桐推荐
       <!-- <span bindtap='moreAr'>更多</span> -->
       <button wx:if='{{!flag}}' class='moreBtn' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">更多
         <text class="icon-right marginLeft"></text>
@@ -97,7 +97,7 @@
     </view>
   </view>
   <!--合作司机-->
-  <!-- <view class="LivingTop">
+  <view class="LivingTop">
     <view class="Line"></view>
     合作货主
   </view>
@@ -105,7 +105,7 @@
     <view class='box'>
       <image class='cooperationImg' mode="widthFix" src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/d76ae9db3f064c09941955c5bef92b4c'></image>
     </view>
-  </view> -->
+  </view>
   <!--优秀司机榜-->
   <view class='driverList'>
     <view class="LivingTop">

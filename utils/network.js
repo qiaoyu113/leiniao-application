@@ -208,6 +208,7 @@ function getWxOpenId() {
         data: code
       })
       requestLoading('api/auth/v1/jwt/getToken', {
+      // requestLoading('25/auth/v2/jwt/getToken', {
         wxCode: code
       },
         'post',

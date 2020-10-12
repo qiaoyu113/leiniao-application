@@ -30,6 +30,12 @@ Page({
     carCheckListName: [],
     diffCheckListName: [],
     difficultyCheckList: [],
+    cargoStatusCheckList: [],
+    cargoStatus: [{
+      dictLabel: "只看在售",
+      dictValue: "0",
+      check: false
+    }],
     index: 0,
     index2: '',
     index3: 0,
@@ -156,7 +162,7 @@ Page({
         that.setData({
           code: res.code
         })
-        network.requestLoading('25/auth/v2/auth/jwt/getToken', {
+        network.requestLoading('25/auth/v2/jwt/getToken', {
           wxCode: that.data.code,
           puserId: that.data.puserId
         },
@@ -308,7 +314,7 @@ Page({
           title: '加载数据失败',
         });
       });
-      //装卸难度
+      //
       network.requestLoading('25/base/v1/base/dict/dict/list/types', 
       ['handling_difficulty_degree'],
       'post',
@@ -646,18 +652,24 @@ Page({
     } else {
       const goodArray = that.data.goodArray
       const arrayDifficulty = that.data.arrayDifficulty
+      const cargoStatus = that.data.cargoStatus
       goodArray.forEach((item,i,arr) => {
         item.check = false;
       })
       arrayDifficulty.forEach((item,i,arr) => {
         item.check = false;
       })
+      cargoStatus.forEach((item,i,arr) => {
+        item.check = false;
+      })
       that.setData({
         cargoCheckList: [],
         checkListName: [],
         difficultyCheckList: [],
+        cargoStatusCheckList: [],
         diffCheckListName: [],
         goodArray: goodArray,
+        cargoStatus: cargoStatus,
         arrayDifficulty: arrayDifficulty
       })
     }
@@ -784,12 +796,40 @@ Page({
     })
   },
 
+  selectCargoStutes(e) {
+    let that = this;
+    let checkList = that.data.cargoStatusCheckList
+    let diffCheckListName = that.data.diffCheckListName
+    let i = e.currentTarget.dataset.index
+    let item = e.currentTarget.dataset.item
+    let cargoStatus = that.data.cargoStatus
+    if (!item.check) {
+      cargoStatus[i].check = !item.check
+      checkList.push(item.dictValue)
+      diffCheckListName.push(item.dictLabel)
+    } else {
+      cargoStatus[i].check = !item.check;
+      checkList.forEach((item, index, arr) => {
+        if(item == cargoStatus[i].dictValue) {
+          arr.splice(index, 1)
+          diffCheckListName.splice(index, 1)
+        }
+      })
+    }
+    that.setData({
+      cargoStatusCheckList: checkList,
+      diffCheckListName: diffCheckListName,
+      cargoStatus: cargoStatus
+    })
+  },
+
   getList() {
     let that = this;
     //获取线路列表
     network.requestLoading('32/line/v2/line/lineInfo/xcxLineTasks', {
         "carTypeName": that.data.carCheckList,
-        "handlingDifficultyDegree": that.data.difficultyCheckList,
+        // "handlingDifficultyDegree": that.data.difficultyCheckList,
+        "soldOut": that.data.cargoStatusCheckList,
         "cargoType": that.data.cargoCheckList,
         "deliveryCity": that.data.cityCode2,
         "deliveryCounty": that.data.checkAreaCode2,
@@ -932,7 +972,7 @@ Page({
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // 登录成功后存token
           let code = res.code;
-          network.requestLoading('25/core/v1/core/wx/encryptedData2PhoneNo', {
+          network.requestLoading('25/core/v1/wx/encryptedData2PhoneNo', {
             code: code,
             iv: e.detail.iv,
             encryptedData: e.detail.encryptedData,
@@ -940,12 +980,12 @@ Page({
           },
           'POST',
           '',
-          '',
+          'json',
           function(res) {
             if (res.success) {
               let phone = res.data.phone;
               let openId = wx.getStorageSync('openId')
-              network.requestLoading('25/auth/v2/auth/jwt/getToken', {
+              network.requestLoading('25/auth/v2/jwt/getToken', {
                   openId: openId,
                   phone: phone
                 },
@@ -975,7 +1015,7 @@ Page({
               //     "workCity": cityCode,
               //     "puserId": that.data.puserId,
               //     "authorizePosition": souceCity
-              network.requestLoading('32/line/v2/line/createClue', {
+              network.requestLoading('32/driver/v2/driver/applet/clue/generateClue', {
                 "phone": phone,
                 "sourceChannel": source,
                 "workCity": that.data.cityCode,

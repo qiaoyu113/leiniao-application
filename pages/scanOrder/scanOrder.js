@@ -136,7 +136,7 @@ Page({
   getPhoneNumber: function(e) {
     let that = this;
     let code = wx.get
-    network.requestLoading('25/core/v1/core/wx/encryptedData2PhoneNo', {
+    network.requestLoading('25/core/v1/wx/encryptedData2PhoneNo', {
         code: code,
         iv: e.detail.iv,
         encryptedData: e.detail.encryptedData,
@@ -144,7 +144,7 @@ Page({
       },
       'POST',
       '',
-      '',
+      'json',
       function(res) {
         if (res.success) {
           let phone = res.data.phone;
@@ -152,7 +152,7 @@ Page({
             phone: phone
           })
           let openId = wx.getStorageSync('openId')
-          network.requestLoading('25/auth/v2/auth/jwt/getToken', {
+          network.requestLoading('25/auth/v2/jwt/getToken', {
               openId: openId,
               phone: phone
             },

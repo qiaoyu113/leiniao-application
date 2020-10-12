@@ -374,7 +374,7 @@ Page({
         that.setData({
           code: res.code
         })
-        network.requestLoading('25/auth/v2/auth/jwt/getToken', {
+        network.requestLoading('25/auth/v2/jwt/getToken', {
             wxCode: that.data.code,
             puserId: that.data.puserId
           },
@@ -520,7 +520,7 @@ Page({
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // 登录成功后存token
           let code = res.code;
-          network.requestLoading('25/core/v1/core/wx/encryptedData2PhoneNo', {
+          network.requestLoading('25/core/v1/wx/encryptedData2PhoneNo', {
             code: code,
             iv: e.detail.iv,
             encryptedData: e.detail.encryptedData,
@@ -528,13 +528,13 @@ Page({
           },
           'POST',
           '',
-          '',
+          'json',
           function(res) {
             if (res.success) {
               if (res.data.flag) {
                 let phone = res.data.phone;
                 let openId = wx.getStorageSync('openId')
-                network.requestLoading('25/auth/v2/auth/jwt/getToken', {
+                network.requestLoading('25/auth/v2/jwt/getToken', {
                     openId: openId,
                     phone: phone
                   },
@@ -561,7 +561,7 @@ Page({
                 //     "puserId": that.data.puserId,
                 //     "workCity": that.data.cityCode,
                 //     "authorizePosition": that.data.souceCity
-                network.requestLoading('32/line/v2/line/createClue', {
+                network.requestLoading('32/driver/v2/driver/applet/clue/generateClue', {
                   "phone": phone,
                   "sourceChannel": source,
                   "workCity": that.data.cityCode,
@@ -627,7 +627,7 @@ Page({
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // 登录成功后存token
           let code = res.code;
-          network.requestLoading('25/core/v1/core/wx/encryptedData2PhoneNo', {
+          network.requestLoading('25/core/v1/wx/encryptedData2PhoneNo', {
             code: code,
             iv: e.detail.iv,
             encryptedData: e.detail.encryptedData,
@@ -635,13 +635,13 @@ Page({
           },
           'POST',
           '',
-          '',
+          'json',
           function(res) {
             if (res.success) {
               if (res.data.flag) {
                 let phone = res.data.phone;
                 let openId = wx.getStorageSync('openId')
-                network.requestLoading('25/auth/v2/auth/jwt/getToken', {
+                network.requestLoading('25/auth/v2/jwt/getToken', {
                     openId: openId,
                     phone: phone
                   },
@@ -676,9 +676,9 @@ Page({
                 //     "puserId": that.data.puserId,
                 //     "workCity": that.data.cityCode,
                 //     "authorizePosition": that.data.souceCity
-                network.requestLoading('32/line/v2/line/createClue', {
+                network.requestLoading('32/driver/v2/driver/applet/clue/generateClue', {
                   "phone": phone,
-                  "sourceChannel": source,
+                  "sourceChannel": that.data.source,
                   "workCity": that.data.cityCode,
                   "recoUserId": that.data.puserId,
                   "authorizePosition": that.data.souceCity,
@@ -733,7 +733,7 @@ Page({
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // 登录成功后存token
           let code = res.code;
-          network.requestLoading('25/core/v1/core/wx/encryptedData2PhoneNo', {
+          network.requestLoading('25/core/v1/wx/encryptedData2PhoneNo', {
             code: code,
             iv: e.detail.iv,
             encryptedData: e.detail.encryptedData,
@@ -741,11 +741,34 @@ Page({
           },
           'POST',
           '',
-          '',
+          'json',
           function(res) {
             if (res.success) {
               if (res.data.flag) {
-                network.requestLoading('32/line/v2/line/createClue', {
+                let phone = res.data.phone;
+                let openId = wx.getStorageSync('openId')
+                network.requestLoading('25/auth/v2/jwt/getToken', {
+                    openId: openId,
+                    phone: phone
+                  },
+                  'post',
+                  '',
+                  'json',
+                  function(res) {
+                    if (res.success) {
+                      wx.setStorage({
+                        key: 'token',
+                        data: res.data.token,
+                        success: function(res) {},
+                      })
+                    }
+                  },
+                  function(res) {
+                    wx.showToast({
+                      title: '加载数据失败',
+                    });
+                  });
+                network.requestLoading('32/driver/v2/driver/applet/clue/generateClue', {
                   "phone": phone,
                   "sourceChannel": source,
                   "workCity": that.data.cityCode,
@@ -777,29 +800,7 @@ Page({
                     });
                   });
               }
-              let phone = res.data.phone;
-              let openId = wx.getStorageSync('openId')
-              network.requestLoading('25/auth/v2/auth/jwt/getToken', {
-                  openId: openId,
-                  phone: phone
-                },
-                'post',
-                '',
-                'json',
-                function(res) {
-                  if (res.success) {
-                    wx.setStorage({
-                      key: 'token',
-                      data: res.data.token,
-                      success: function(res) {},
-                    })
-                  }
-                },
-                function(res) {
-                  wx.showToast({
-                    title: '加载数据失败',
-                  });
-                });
+              
             }
           },
           function(res) {
@@ -833,7 +834,7 @@ Page({
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // 登录成功后存token
           let code = res.code;
-          network.requestLoading('25/core/v1/core/wx/encryptedData2PhoneNo', {
+          network.requestLoading('25/core/v1/wx/encryptedData2PhoneNo', {
             code: code,
             iv: e.detail.iv,
             encryptedData: e.detail.encryptedData,
@@ -841,12 +842,12 @@ Page({
           },
           'POST',
           '',
-          '',
+          'json',
           function(res) {
             if (res.success) {
               let phone = res.data.phone;
               let openId = wx.getStorageSync('openId')
-              network.requestLoading('25/auth/v2/auth/jwt/getToken', {
+              network.requestLoading('25/auth/v2/jwt/getToken', {
                   openId: openId,
                   phone: phone,
                   puserId: that.data.puserId
@@ -883,9 +884,9 @@ Page({
               //     "puserId": that.data.puserId,
               //     "workCity": that.data.cityCode,
               //     "authorizePosition": that.data.souceCity
-              network.requestLoading('32/line/v2/line/createClue', {
+              network.requestLoading('32/driver/v2/driver/applet/clue/generateClue', {
                 "phone": phone,
-                "sourceChannel": source,
+                "sourceChannel": that.data.source,
                 "workCity": that.data.cityCode,
                 "recoUserId": that.data.puserId,
                 "authorizePosition": that.data.souceCity,
@@ -1054,7 +1055,7 @@ Page({
   hasEnter() {
     //是否已经加入
     let that = this;
-    network.requestLoading('81/driver/v2/driver/appletsMagpieClientJudge', {},
+    network.requestLoading('81/driver/v2/driver/applet/appletsMagpieClientJudge', {},
       'GET',
       '',
       '',

@@ -23,7 +23,7 @@ Page({
   hasEnter() {
     //是否已经入驻
     let that = this;
-    network.requestLoading('81/driver/v2/driver/appletsMagpieClientJudge', {},
+    network.requestLoading('81/driver/v2/driver/applet/appletsMagpieClientJudge', {},
       'GET',
       '',
       '',
