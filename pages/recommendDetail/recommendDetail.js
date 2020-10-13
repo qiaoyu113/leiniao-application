@@ -56,7 +56,7 @@ Page({
     })
     // 获取城市
     if (options && options.city) {
-      this.setData({
+      that.setData({
         city: options.city
       })
     }
@@ -65,8 +65,8 @@ Page({
 
   getDetail() {
     let that = this;
-    network.requestLoading('32/line/v2/line/lineInfo/getXcxLineTaskDetail', {
-        "lineId": that.data.id
+    network.requestLoading('32/line_center/v2/line/lineInfo/getXcxLineTaskDetail', {
+        "foldLineId": that.data.id
       },
       'get',
       '',
@@ -75,8 +75,8 @@ Page({
         if (res.success) {
           let line = res.data
           let detail = {
-            value1: line.customerName,
-            value2: line.lineName,
+            value1: line.cargoTypeName + '/' + line.carTypeName,
+            value2: line.receivingPointName,
             value3: '公里数:' + line.distance + ',总耗时:' + line.timeDiff,
             value4: '配送区域:' + line.distributionArea,
             value5: '仓库位置:' + line.warehouse,

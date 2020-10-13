@@ -66,7 +66,7 @@ Page ({
   getManagerPhone () {
     var that = this;
     network.requestLoading (
-      '81/driver/v2/driver/getGmInfoByUserId',
+      '81/driver/v2/driver/applet/getGmInfoByUserId',
       {},
       'GET',
       '数据加载中...',

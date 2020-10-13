@@ -53,7 +53,7 @@ Page({
     // 获取城市
     if (options && options.city) {
       this.setData({
-        city: options.city
+        cityCode: options.city
       })
     } else {
       //获取当前位置
@@ -157,7 +157,7 @@ Page({
 
   hasCollect() {
     let that = this;
-    network.requestLoading('81/driver/v2/driver/whetherToCollectTheCurrentLine', {
+    network.requestLoading('81/driver/v2/driver/applet/whetherToCollectTheCurrentLine', {
         lineId: that.data.id
       },
       'GET',
@@ -181,7 +181,7 @@ Page({
   //拨打电话
   talphone(e) {
     let cityName = this.data.detail.cityName
-    network.requestLoading('81/driver/v2/driver/getGmInfoByUserId', {
+    network.requestLoading('81/driver/v2/driver/applet/getGmInfoByUserId', {
       cityName: cityName
     },
     'GET',
@@ -303,7 +303,11 @@ Page({
                   wx.setStorage({
                     key: 'phone',
                     data: phone,
-                    success: function(res) {},
+                    success: function(res) {
+                      that.setData({
+                        flag: true
+                      })
+                    },
                   })
                 }
               },
@@ -450,7 +454,7 @@ Page({
   collectBtn(e) {
     let that = this;
     let status = e.target.dataset.type
-    network.requestLoading('81/driver/v2/driver/collectTheCurrentLine', {
+    network.requestLoading('81/driver/v2/driver/applet/collectTheCurrentLine', {
         "lineId": that.data.id,
         "state": status
       },
@@ -485,8 +489,8 @@ Page({
 
   getDetail() {
     let that = this
-    network.requestLoading('32/line/v2/line/lineInfo/getXcxLineTaskDetail', {
-        "lineId": that.data.id
+    network.requestLoading('32/line_center/v2/line/lineInfo/getXcxLineTaskDetail', {
+        "foldLineId": that.data.id
       },
       'get',
       '',
@@ -544,8 +548,8 @@ Page({
             }
           });
           // 查看浏览数
-          network.requestLoading('81/driver/v2/driver/lineInfo/linePageVies', {
-              "lineId": that.data.detail.lineId,
+          network.requestLoading('81/driver/v2/driver/applet/linePageVies', {
+              "lineId": that.data.id,
             },
             'get',
             '',
@@ -553,7 +557,7 @@ Page({
             function(res) {
               if (res.success) {
                 that.setData({
-                  numDetail: res.data.views
+                  numDetail: res.data.pageView
                 })
               }
             },
@@ -575,8 +579,8 @@ Page({
   getCollectNum() {
     let that = this;
     // 查看收藏量
-    network.requestLoading('81/driver/v2/driver/lineInfo/getCollect', {
-        "lineId": that.data.detail.lineId,
+    network.requestLoading('81/driver/v2/driver/applet/lineCollection', {
+        "lineId": that.data.id,
       },
       'get',
       '',
@@ -584,7 +588,7 @@ Page({
       function(res) {
         if (res.success) {
           that.setData({
-            numDetail2: res.data.collects
+            numDetail2: res.data.collection
           })
         }
       },
@@ -623,9 +627,9 @@ Page({
               function(res) {
                 if (res.success) {
                   if (that.data.cityCode == '') {
-                    wx.setStorageSync('cityCode', res.data)
+                    wx.setStorageSync('cityCode', res.data.code)
                     that.setData({
-                      cityCode: res.data,
+                      cityCode: res.data.code,
                       souceCity: address
                     })
                   } else {
@@ -668,7 +672,7 @@ Page({
 
   goRecommendDetail() {
     wx.navigateTo({
-      url: '../recommendDetail/recommendDetail?id=' + this.data.detail.lineId + '&city=' + this.data.cityCode
+      url: '../recommendDetail/recommendDetail?id=' + this.data.id + '&city=' + this.data.cityCode
     });
   },
 
@@ -788,6 +792,9 @@ Page({
                     key: 'phone',
                     data: phone,
                     success: function(res) {
+                      that.setData({
+                        flag: true
+                      })
                       wx.navigateTo({
                         url: '/pages/immediatelyEnter/immediatelyEnter?type=home'
                       });

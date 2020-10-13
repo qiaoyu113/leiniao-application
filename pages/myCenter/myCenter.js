@@ -130,7 +130,7 @@ Page({
             var address = addressRes.result.address_component.city + addressRes.result.address_component.province + addressRes.result.address_component.district
             wx.setStorageSync('locationAddress', address)
             //获取城市code
-            network.requestLoading('25/base/v2/base/dict/getCityCode', {
+            network.requestLoading('25/base/v1/base/area/getCityCodeByCityName', {
                 cityName: city
               },
               'GET',
@@ -170,7 +170,7 @@ Page({
   //拨打电话
   talphone() {
     let cityName = this.data.cityName
-    network.requestLoading('81/v2/driver/getGmInfoByUserId', {
+    network.requestLoading('81/driver/v2/driver/applet/getGmInfoByUserId', {
       cityName: cityName
     },
     'GEt',
@@ -342,6 +342,9 @@ Page({
                     key: 'phone',
                     data: phone,
                     success: function(res) {
+                      that.setData({
+                        flag: true
+                      })
                       wx.navigateTo({
                         url: '/pages/immediatelyEnter/immediatelyEnter?type=myCenter'
                       });
@@ -434,6 +437,9 @@ Page({
                     key: 'phone',
                     data: phone,
                     success: function(res) {
+                      that.setData({
+                        flag: true
+                      })
                       wx.navigateTo({
                         url: '/pages/myRecommend/myRecommend'
                       });

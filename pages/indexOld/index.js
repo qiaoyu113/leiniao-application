@@ -365,7 +365,7 @@ Page({
             var address = addressRes.result.address_component.city + addressRes.result.address_component.province + addressRes.result.address_component.district
             wx.setStorageSync('locationAddress', address)
             //获取城市code
-            network.requestLoading('25/base/v2/base/dict/getCityCode', {
+            network.requestLoading('25/base/v1/base/area/getCityCodeByCityName', {
                 cityName: city
               },
               'GET',
@@ -374,7 +374,7 @@ Page({
               function(res) {
                 if (res.success) {
                   if (that.data.cityCode == '') {
-                    wx.setStorageSync('cityCode', res.data)
+                    wx.setStorageSync('cityCode', res.data.code)
                     that.setData({
                       cityCode: res.data,
                       souceCity: address
@@ -509,7 +509,7 @@ Page({
   getDataList() {
     let that = this;
     //获取梧桐推荐列表
-    network.requestLoading('81/driver/v2/driver/getHighQualityLine', {
+    network.requestLoading('81/driver/v2/driver/applet/getHighQualityLine', {
         dictType: 'online_city'
       },
       'GET',
@@ -518,7 +518,7 @@ Page({
       function(res) {
         if (res.success) {
           that.setData({
-            recommendArray: res.data
+            recommendArray: JSON.parse(res.data)
           });
         }
       },
@@ -751,7 +751,7 @@ Page({
   //拨打电话
   talphone() {
     let cityName = this.data.cityName
-    network.requestLoading('81/v2/driver/getGmInfoByUserId', {
+    network.requestLoading('81/driver/v2/driver/applet/getGmInfoByUserId', {
       cityName: cityName
     },
     'GET',

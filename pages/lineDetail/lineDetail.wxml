@@ -2,10 +2,10 @@
 <view class='lineDetail'>
   <view class='detailBox'>
     <view class='boxCss'>
-      <view class="boxCss_top_top">{{detail.carTypeName}}</view>
+      <view class="boxCss_top_top">{{detail.cargoTypeName}}/{{detail.carTypeName}}</view>
       <view class='boxCss_top'>
         <view class='boxCss_top_left'>
-          线路编号：NO.{{detail.lineId}}
+          线路编号：NO.{{detail.foldLineId}}
         </view>
         <view class='boxCss_top_right'>
           <text class="icon-favor marginLeft"></text> {{numDetail}}
@@ -43,7 +43,7 @@
     </view> -->
   </view>
   <view class='btnMent'>
-    <view class='btnTop'>预计月收入: <span>{{ detail.shipperOffer }}元</span></view>
+    <view class='btnTop'>预计月收入: <span>{{ detail.shipperoffer }}元</span></view>
     <view class='shareBtn' bindtap='popupBtn'>
       <van-icon class='text-share' name="https://oss-qzn.yunniao.cn/img/a310975aef674a8d8f40c068c12b69e3" />
       <view class="text">分享</view>

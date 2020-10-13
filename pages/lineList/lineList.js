@@ -380,6 +380,10 @@ Page({
     let arrayNew = that.data.array2
     let cityCheckName = that.data.cityCheckName
     let checkAreaCode = that.data.checkAreaCode
+    if(typeof that.data.cityCode === 'object'){
+      Toast('请选择城市');
+      return false
+    }
     if (item.countyCode == '-99') {
       if (item.check) {
         checkAreaCode = []
@@ -434,6 +438,10 @@ Page({
     let arrayNew = that.data.array2_1
     let cityCheckName2 = that.data.cityCheckName2
     let checkAreaCode = that.data.checkAreaCode2
+    if(typeof that.data.cityCode2 === 'object'){
+      Toast('请选择城市');
+      return false
+    }
     if (item.countyCode == '-99') {
       if (item.check) {
         checkAreaCode = []
@@ -567,7 +575,7 @@ Page({
         if (cityCheckName.substr(0, 3) == "全区域") {
           cityCheckName = that.data.wareName
         }
-        if (checkAreaCode.length) {
+        if (checkAreaCode.length && that.data.cityCode) {
           that.setData({
             page: 1,
             list: [],
@@ -589,7 +597,7 @@ Page({
         if (cityCheckName.substr(0, 3) == "全区域") {
           cityCheckName = that.data.cityName
         }
-        if (checkAreaCode2.length) {
+        if (checkAreaCode2.length && that.data.cityCode2) {
           that.setData({
             page: 1,
             list: [],
@@ -826,7 +834,7 @@ Page({
   getList() {
     let that = this;
     //获取线路列表
-    network.requestLoading('32/line/v2/line/lineInfo/xcxLineTasks', {
+    network.requestLoading('32/line_center/v2/line/lineInfo/xcxLineTasks', {
         "carTypeName": that.data.carCheckList,
         // "handlingDifficultyDegree": that.data.difficultyCheckList,
         "soldOut": that.data.cargoStatusCheckList,
@@ -843,13 +851,12 @@ Page({
       '',
       'json',
       function(res) {
-        console.log(res.data)
         if (res.success) {
           wx.stopPullDownRefresh()
           let arr = res.data;
-          // for (let i = 0; i < arr.length; i++) {
-          //   arr[i].workingTimeRegin = arr[i].workingTimeRegin.split(",")
-          // }
+          for (let i = 0; i < arr.length; i++) {
+            arr[i].workingTimeRegin = arr[i].workingTimeRegin.split(",")
+          }
           let lists = that.data.list.concat(arr)
           that.setData({
             list: lists,
@@ -873,7 +880,7 @@ Page({
   //拨打电话
   talphone(e) {
     let cityName = e.currentTarget.dataset.cityname
-    network.requestLoading('81/driver/v2/driver/getGmInfoByUserId', {cityName: cityName},
+    network.requestLoading('81/driver/v2/driver/applet/getGmInfoByUserId', {cityName: cityName},
     'GET',
     '数据加载中...',
     '',

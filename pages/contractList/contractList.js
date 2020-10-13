@@ -107,7 +107,7 @@ Page({
   // 获取客服手机号
   getManagerPhone() {
     var that = this;
-    network.requestLoading('81/v2/driver/getGmInfoByUserId', {},
+    network.requestLoading('81/driver/v2/driver/applet/getGmInfoByUserId', {},
       'GET',
       '数据加载中...',
       '',

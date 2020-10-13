@@ -29,7 +29,7 @@ Page({
    * 打电话
    */
   handlePhoneClick () {
-    network.requestLoading('81/v2/driver/getGmInfoByUserId', {
+    network.requestLoading('81/driver/v2/driver/applet/getGmInfoByUserId', {
       
     },
     'GEt',

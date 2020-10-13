@@ -40,21 +40,21 @@
   </view>
   <!--列表-->
   <view class='lineBox'>
-    <view class='lineList' wx:for='{{list}}' wx:key='lineId' data-id='{{item.lineId}}' bindtap='goDetail'>
+    <view class='lineList' wx:for='{{list}}' wx:key='lineId' data-id='{{item.foldLineId}}' bindtap='goDetail'>
       <image class="iconSale"  wx:if='{{item.soldOut == 1}}'  src="https://oss-qzn.yunniao.cn/img/1b819fc72e5a4153b749ff46dbe9ac19"></image>
       <view class="lineListTop">
          <view class='name'>
           <!-- <view>{{item.customerName}}</view> -->
-          <!-- <view>{{item.cargoTypeName}} <span wx:if='{{item.carTypeName}}'>/ {{item.carTypeName}}</span></view> -->
-          <view>{{item.title}}</view>
-          <view class="subsidiary">已售: {{item.canSaleNum}}</view>
-          <view class="income_month">预计月收入: {{item.shipperOffer}}元</view>
+          <view>{{item.cargoTypeName}} <span wx:if='{{item.carTypeName}}'>/ {{item.carTypeName}}</span></view>
+          <!-- <view>{{item.title}}</view> -->
+          <view class="subsidiary">已售: {{item.availableNum}}/{{item.deployNum}}</view>
+          <view class="income_month">预计月收入: {{item.shipperoffer}}元</view>
         </view>
       </view>
       <view class="lineListBottom">
         <view class="lineListBottom_top">
-          <view class="lineListBottom_top_list">仓库位置: {{item.warehouse}}</view>
-          <view class="lineListBottom_top_list">配送区域: {{item.distributionArea}}</view>
+          <view class="lineListBottom_top_list">仓库位置: {{item.warehouseCityName}}{{item.warehouseCountyName}}{{item.warehouseProvinceName}}</view>
+          <view class="lineListBottom_top_list">配送区域: {{item.cityAreaName}}{{item.countyAreaName}}{{item.provinceAreaName}}</view>
           <view class="lineListBottom_top_list"><span>里程时间: {{item.distance}}km ( 预计耗时: {{item.timeDiff}} )</span></view>
           <!--咨询-->
          <view class='consulting' data-hi='WeChat' catchtap='talphone' data-phone='{{item.managerPhone}}' data-cityname='{{item.cityName}}'>
@@ -64,7 +64,7 @@
         </view>
         <view class="lineListBottom_bottom">
           <span wx:if='{{item.carTypeName}}'>{{ item.carTypeName }}</span>
-          <span wx:if='{{item.cargoType}}'>{{ item.cargoType }}</span>
+          <span wx:if='{{item.cargoTypeName}}'>{{ item.cargoTypeName }}</span>
           <span wx:if='{{item.handlingDifficultyDegreeName}}'> {{ item.handlingDifficultyDegreeName }}</span>
           <view class="lineListBottom_bottom_span" wx:if='{{item.workingTimeRegin.length}}'>
             <span wx:for='{{item.workingTimeRegin}}' wx:key='id'> {{ item }}</span>

@@ -196,9 +196,11 @@ Page({
       '',
       function (res) {
         if (res.success) {
+          let arr = res.data
+          arr.shift()
           //过滤picker
           that.setData({
-            addressArr: JSON.parse(JSON.stringify(res.data))
+            addressArr: arr
           });
           const arrays = that.data.addressArr
           that.setData({
@@ -476,7 +478,7 @@ Page({
     }
     let souceCity = wx.getStorageSync('locationAddress')
     let source = wx.getStorageSync('sourceType')
-    network.requestLoading('81/driver/v2/driver/clue/create/xcxjoin', {
+    network.requestLoading('81/driver/v2/driver/applet/clue/create/xcxjoin', {
       // "accountType": that.data.accountVal,
       // "buyCarFollow": that.data.buyCarFollowVal,
       // "cargoType": that.data.goodsVal,
