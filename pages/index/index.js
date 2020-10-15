@@ -23,7 +23,7 @@ Page({
     code: '',
     openId: '',
     currentCity: '',
-    cityCode: '',
+    cityCode: '110100',
     souceCity: '',
     puserId: '',
     source: '1',
