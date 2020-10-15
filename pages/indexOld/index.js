@@ -27,7 +27,7 @@ Page({
     souceCity: '',
     puserId: '',
     cityName: '北京市',
-    source: '1',
+    source: '0',
     hindBgType: false,
     entranceType: false, // 是否已经入驻
     image_filepath: '',

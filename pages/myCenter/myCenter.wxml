@@ -50,7 +50,7 @@
   <!--收入提报-->
   <view class="cu-item arrow" bindtap='goRouter' data-type='9' wx:if='{{abilityCreatOrder}}'>
     <text class='icon-pullup text-orange margin_right_20'></text>
-    <text class='text-grey content'>创建订单</text>
+    <text class='text-grey content'>创建缴费码</text>
   </view>
     <!-- 我的合同 -->
   <view class="cu-item arrow" bindtap='goRouter' data-type='14' wx:if='{{entranceType}}'>
@@ -88,7 +88,10 @@
     <text class='text-grey content'>服务规范</text>
   </view> -->
 </view>
-
+ <!--绑定手机号-->
+<view class='bgShow' wx:if='{{!flag}}'>
+  <button class='loginBtn' wx:if='{{!flag}}' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"></button>
+</view>
 <!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
   <view class="cu-item arrow" bindtap='goRouter' data-type='6'>
     <text class='icon-question text-orange margin_right_20'></text>

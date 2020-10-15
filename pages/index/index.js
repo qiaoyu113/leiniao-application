@@ -26,7 +26,7 @@ Page({
     cityCode: '110100',
     souceCity: '',
     puserId: '',
-    source: '1',
+    source: '0',
     hindBgType: false,
     cityName: '北京市',
     entranceType: false, // 是否已经加入

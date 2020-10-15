@@ -35,10 +35,10 @@ Page ({
   getContractList() {
     var driverId = wx.getStorageSync('driverId')
     if (!driverId) {
-      return wx.showToast({
-        title: "司机id不存在",
-        icon: 'none'
-      })
+      // return wx.showToast({
+      //   title: "司机id不存在",
+      //   icon: 'none'
+      // })
     }
     var that = this;
     let params = {
@@ -65,9 +65,12 @@ Page ({
   // 获取客服手机号
   getManagerPhone () {
     var that = this;
+    var cityName = wx.getStorageSync('cityCode')
     network.requestLoading (
       '81/driver/v2/driver/applet/getGmInfoByUserId',
-      {},
+      {
+        cityName
+      },
       'GET',
       '数据加载中...',
       '',

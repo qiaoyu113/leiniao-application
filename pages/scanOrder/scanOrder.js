@@ -16,7 +16,7 @@ Page({
     COpenId: '',
     modalName: null,
     loadText: '正在确认订单',
-    loadModal: true,
+    loadModal: false,
     orderId: ''
   },
 
@@ -54,9 +54,9 @@ Page({
       that.setData({
         phone: phone
       })
-      that.creatOrder()
+      // that.creatOrder()
     } else {
-      network.requestLoading('api/order/v1/magpie/order/createOrderFromMagpieApp', {
+      network.requestLoading('81/driver/v2/driver/applet/pay', {
           "driverName": '',
           "driverPhone": '',
           "openId": '',
@@ -251,7 +251,75 @@ Page({
         });
       });
   },
-
+  payOrder(){
+    let that = this;
+    network.requestLoading('81/driver/v2/driver/applet/pay', {
+      payMoney: that.data.price
+    },
+      'POST',
+      '',
+      'json',
+      function (res) {
+        if (res.success) {
+          let respond = res.data.WxPayMpOrderResult;
+          wx.requestPayment(
+            {
+              'timeStamp': respond.timeStamp,
+              'nonceStr': respond.nonceStr,
+              'package': respond.packageValue,
+              'signType': respond.signType,
+              'paySign': respond.paySign,
+              'success': function () {
+                wx.showToast({
+                  title: '支付成功',
+                });
+                that.payResult(res.data.outTradeNo)
+              },
+              'fail': function (res) {
+                wx.showToast({
+                  title: '支付失败',
+                });
+              },
+              'complete': function (res) { }
+            })
+        }else if(res.errorMsg){
+          wx.showToast({
+            title: res.errorMsg,
+          });
+        }
+      },
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        });
+      });
+  },
+  payResult(outTradeNo) {
+    network.requestLoading('81/driver/v2/driver/applet/payResult', {
+      outTradeNo
+    },
+      'GET',
+      '',
+      'json',
+      function (res) {
+        if (res.success) {
+          setTimeout(function () {
+            wx.redirectTo({
+              url: '../scanOrderSuccess/scanOrderSuccess'
+            });
+          }, 2000);
+        }else if(res.errorMsg){
+          wx.showToast({
+            title: res.errorMsg,
+          });
+        }
+      },
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        });
+      });
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
