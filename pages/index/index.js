@@ -45,6 +45,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function(options) {
+    let pageParam = app.globalData.pageParam
+    if (pageParam) {
+      let paramObj = pageParam.split("&"); 
+      for (var i = 0, l = paramObj.length; i < l; i++) {
+        var a = paramObj[i].split("=");
+        options[a[0]] = a[1];
+      }
+    }
     let phone = wx.getStorageSync('phone')
     let hasToken = wx.getStorageSync('token')
     let puserId = ''
@@ -86,7 +94,7 @@ Page({
     }
     wx.setStorageSync('sourceType', this.data.source)
     // if (!hasToken) {
-    this.login();
+    // this.login();
     // } else {
     // if (puserId && puserId != '') {
     //     wx.redirectTo({

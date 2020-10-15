@@ -1,4 +1,5 @@
 // pages/lineList/lineList.js
+var app = getApp();
 var network = require("../../utils/network.js");
 var common = require("../../utils/util.js");
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
@@ -71,6 +72,14 @@ Page({
     wx.setNavigationBarTitle({
       title: '货源大厅' //页面标题为路由参数
     });
+    let pageParam = app.globalData.pageParam
+    if (pageParam) {
+      let paramObj = pageParam.split("&"); 
+      for (var i = 0, l = paramObj.length; i < l; i++) {
+        var a = paramObj[i].split("=");
+        options[a[0]] = a[1];
+      }
+    }
     if (options && options.source && options.source !== '') {
       this.setData({
         source: options.source
