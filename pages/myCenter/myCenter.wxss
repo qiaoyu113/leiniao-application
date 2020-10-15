@@ -100,3 +100,29 @@ page {
   left: 0;
   top: 0;
 }
+.bgShow {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  background: rgba(0, 0, 0, 0);
+  overflow: hidden;
+  z-index: 300;
+}
+
+.loginBtn {
+  opacity: 0;
+  background: rgba(0, 0, 0, 0);
+  border-radius: 100rpx;
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  font-size: 32rpx;
+  z-index: 300;
+}

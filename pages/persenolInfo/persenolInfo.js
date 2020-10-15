@@ -19,7 +19,7 @@ Page({
       title: '个人信息' //页面标题为路由参数
     });
     let that = this;
-    network.requestLoading('81/driver/v2/driver/clue/getSettledInInfo', {},
+    network.requestLoading('81/driver/v2/driver/applet/clue/getSettledInInfo', {},
       'GET',
       '',
       '',

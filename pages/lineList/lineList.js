@@ -61,7 +61,7 @@ Page({
     checkAreaCode2: [],
     carType: false,
     otherType: false,
-    source: 1
+    source: 0
   },
 
   /**

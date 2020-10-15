@@ -25,7 +25,7 @@ Page({
   onLoad: function(options) {
     let that = this;
     wx.setNavigationBarTitle({
-      title: '创建订单' //页面标题为路由参数
+      title: '创建缴费码' //页面标题为路由参数
     });
     _material.where({}).get({
       success: function(res) {

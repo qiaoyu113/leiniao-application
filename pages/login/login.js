@@ -44,7 +44,7 @@ Page({
             network.requestLoading('25/auth/v2/jwt/getToken', {
               wxCode: that.data.code,
               puserId: that.data.userId,
-              source: 1,
+              source: 0,
               weChatUserInfo: {
                 city: userInfo.city,
                 headImage: userInfo.avatarUrl,

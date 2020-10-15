@@ -27,7 +27,7 @@ Page({
     cityName: '',
     city: '',
     souceCity: '',
-    source: '1',
+    source: '0',
     puserId: ''
   },
 
