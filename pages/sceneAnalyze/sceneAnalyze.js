@@ -1,4 +1,5 @@
 // pages/sceneAnalyze/sceneAnalyze.js
+var app = getApp();
 var network = require ('../../utils/network.js');
 var common = require ('../../utils/util.js');
 // import Notify from '../../miniprogram_npm/vant-weapp/notify/notify';
@@ -28,6 +29,7 @@ Page ({
         function (res) {
           if (res.success) {
             let data = JSON.parse (res.data);
+            console.log(data)
             if (data.redirectUrl) {
               that.redirectFn (data.redirectUrl, data);
             } else {
@@ -37,6 +39,7 @@ Page ({
                 '../myCenter/myCenter'
               ];
               if (urlList.indexOf (data.page) > -1) {
+                app.globalData.pageParam = data.pageParam
                 wx.switchTab ({
                   url: data.page,
                 });
@@ -98,8 +101,8 @@ Page ({
             '../lineList/lineList',
             '../myCenter/myCenter',
           ];
-          console.log(urlList.indexOf (data.page) > -1)
           if (urlList.indexOf (data.page) > -1) {
+            app.globalData.pageParam = data.pageParam
             wx.switchTab ({
               url: data.page,
             });
