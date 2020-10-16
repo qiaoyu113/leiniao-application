@@ -262,6 +262,8 @@ Page({
       function (res) {
         if (res.success) {
           let respond = res.data.WxPayMpOrderResult;
+          let outTradeNo = res.data.outTradeNo;
+          that.payResult(outTradeNo, 2)
           wx.requestPayment(
             {
               'timeStamp': respond.timeStamp,
@@ -273,7 +275,12 @@ Page({
                 wx.showToast({
                   title: '支付成功',
                 });
-                that.payResult(res.data.outTradeNo)
+                setTimeout(function () {
+                  wx.navigateTo({
+                    url: '../paySuccess/paySuccess'
+                  });
+                }, 2000);
+                // that.payResult(res.data.outTradeNo)
               },
               'fail': function (res) {
                 wx.showToast({
@@ -294,26 +301,15 @@ Page({
         });
       });
   },
-  payResult(outTradeNo) {
+  payResult(outTradeNo, status) {
     network.requestLoading('81/driver/v2/driver/applet/payResult', {
-      outTradeNo
+      outTradeNo,
+      status
     },
       'GET',
       '',
       'json',
-      function (res) {
-        if (res.success) {
-          setTimeout(function () {
-            wx.redirectTo({
-              url: '../scanOrderSuccess/scanOrderSuccess'
-            });
-          }, 2000);
-        }else if(res.errorMsg){
-          wx.showToast({
-            title: res.errorMsg,
-          });
-        }
-      },
+      function (res) {},
       function (res) {
         wx.showToast({
           title: '加载数据失败',
