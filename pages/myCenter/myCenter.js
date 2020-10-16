@@ -209,9 +209,9 @@ Page({
     } else if (type == '3') {
       // routerName = '../immediatelyEnter/immediatelyEnter'
       if (this.data.puserId && this.data.puserId != '') {
-        routerName = '../immediatelyEnter/immediatelyEnter?type='+ type +'&puserId=' + that.data.puserId
+        routerName = '../immediatelyEnter/immediatelyEnter?type=myCenter&puserId=' + this.data.puserId
       } else {
-        routerName = '../immediatelyEnter/immediatelyEnter?type='+ type
+        routerName = '../immediatelyEnter/immediatelyEnter?type=myCenter'
       }
     } else if (type == '4') {
       routerName = '../persenolInfo/persenolInfo'
