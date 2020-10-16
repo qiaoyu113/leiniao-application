@@ -346,18 +346,18 @@ Page({
               '',
               function(res) {
                 if (res.success) {
-                  if (that.data.cityCode == '') {
+                  // if (that.data.cityCode == '') {
                     wx.setStorageSync('cityCode', res.data.code)
                     that.setData({
                       cityCode: res.data.code,
                       souceCity: address
                     })
-                  } else {
-                    wx.setStorageSync('cityCode', that.data.cityCode)
-                    that.setData({
-                      souceCity: address
-                    })
-                  }
+                  // } else {
+                  //   wx.setStorageSync('cityCode', that.data.cityCode)
+                  //   that.setData({
+                  //     souceCity: address
+                  //   })
+                  // }
                 }
               },
               function(res) {

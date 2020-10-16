@@ -8,7 +8,6 @@
     "pages/serialOrder/serialOrder",
     "pages/freightDetail/freightDetail",
     "pages/freightCheck/freightCheck",
-    "pages/test/test",
     "pages/incomeUpDataNew/incomeUpDataNew",
     "pages/satisfaction/satisfaction",
     "pages/transactionLog/transactionLog",
