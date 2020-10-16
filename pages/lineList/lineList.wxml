@@ -53,8 +53,8 @@
       </view>
       <view class="lineListBottom">
         <view class="lineListBottom_top">
-          <view class="lineListBottom_top_list">仓库位置: {{item.warehouseCityName}}{{item.warehouseCountyName}}{{item.warehouseProvinceName}}</view>
-          <view class="lineListBottom_top_list">配送区域: {{item.cityAreaName}}{{item.countyAreaName}}{{item.provinceAreaName}}</view>
+          <view class="lineListBottom_top_list">仓库位置: {{item.warehouseProvinceName}}{{item.warehouseCityName}}{{item.warehouseCountyName}}</view>
+          <view class="lineListBottom_top_list">配送区域: {{item.provinceAreaName}}{{item.cityAreaName}}{{item.countyAreaName}}</view>
           <view class="lineListBottom_top_list"><span>里程时间: {{item.distance}}km ( 预计耗时: {{item.timeDiff}} )</span></view>
           <!--咨询-->
          <view class='consulting' data-hi='WeChat' catchtap='talphone' data-phone='{{item.managerPhone}}' data-cityname='{{item.cityName}}'>
@@ -66,6 +66,7 @@
           <span wx:if='{{item.carTypeName}}'>{{ item.carTypeName }}</span>
           <span wx:if='{{item.cargoTypeName}}'>{{ item.cargoTypeName }}</span>
           <span wx:if='{{item.handlingDifficultyDegreeName}}'> {{ item.handlingDifficultyDegreeName }}</span>
+          <span> {{ item.carry === 1 ? '需要搬运' : '无搬运' }}</span>
           <view class="lineListBottom_bottom_span" wx:if='{{item.workingTimeRegin.length}}'>
             <span wx:for='{{item.workingTimeRegin}}' wx:key='id'> {{ item }}</span>
           </view>

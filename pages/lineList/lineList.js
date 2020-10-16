@@ -256,7 +256,9 @@ Page({
           })
           //获取区域
           that.setData({
-            index: i
+            index: i,
+            cityCode: arrays[i].cityCode, 
+            cityCode2: arrays[i].cityCode 
           })
           const cityArray = JSON.parse(JSON.stringify(arrays))
           const cityArray2 = JSON.parse(JSON.stringify(arrays))
@@ -272,7 +274,7 @@ Page({
           });
           that.getCityCode(i, 1, true)
           that.getCityCode(i, 2, true)
-          // that.getList()
+          that.getList()
         }
       },
       function(res) {
@@ -342,7 +344,7 @@ Page({
           title: '加载数据失败',
         });
       });
-      that.getList()
+      // that.getList()
   },
 
   getCityCode(i, type, Boolean) {

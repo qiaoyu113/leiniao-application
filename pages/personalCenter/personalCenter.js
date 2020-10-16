@@ -310,8 +310,8 @@ Page({
     } else if (type == '2') {
       routerName = '../myCollect/myCollect'
     } else if (type == '3') {
-      // routerName = '../immediatelyEnter/immediatelyEnter'
-      routerName = '../immediatelyEnterNew/immediatelyEnterNew'
+      routerName = '../immediatelyEnter/immediatelyEnter'
+      // routerName = '../immediatelyEnterNew/immediatelyEnterNew'
     } else if (type == '4') {
       routerName = '../persenolInfo/persenolInfo'
     } else if (type == '5') {

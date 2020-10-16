@@ -206,6 +206,18 @@ Page({
           that.setData({
             addressArr_new: common.picker(arrays)
           });
+          let cityCode = wx.getStorageSync('cityCode')
+          if(cityCode){
+            arrays.forEach((i) => {
+              if (i.cityCode === cityCode){
+                that.setData({
+                  address: i.cityName,
+                  addressVal: i.cityCode,
+                  addressType: true
+                })
+              }
+            })
+          }
         }
       },
       function (res) {

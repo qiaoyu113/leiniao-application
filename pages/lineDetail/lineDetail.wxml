@@ -22,7 +22,7 @@
         <view class="detail_box_bottom_top">
           <view class="title">车辆货物信息</view>
           <!-- <span wx:if='{{detail.volume != 0}}'>、{{detail.volume}}m³</span> -->
-          <view class="val">{{detail.carTypeName}}、{{detail.cargoTypeName}}</view>
+          <view class="val">{{detail.carTypeName}}、{{detail.cargoTypeName}}、{{detail.volume}}m²</view>
         </view>
         <view class='detail_box_bottom_bottom'>
           <view class="title">配送信息</view>
@@ -31,7 +31,7 @@
           <view class="val">预计每日平均配送点位数量：{{detail.deliveryNum}}个</view>
           <view class="val">预计月出车天数：{{detail.monthNum}}天</view>
           <view class="val">工作时长：{{detail.timeDiff}}</view>
-          <view class="val" wx:for='{{detail.workingTimeRegin}}' wx:key='i'>预计日工作时间：{{item}}</view>
+          <view class="val" wx:for='{{detail.workingTimeRegin}}' wx:key='i'>预计工作时间：{{item}}</view>
           <view class="val">配送总里程数：{{detail.distance}}km</view>
         </view>
       </view>

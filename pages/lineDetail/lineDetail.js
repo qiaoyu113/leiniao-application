@@ -72,7 +72,12 @@ Page({
         puserId: options.puserId 
       }); 
       wx.setStorageSync('puserId', options.puserId) 
-    } 
+    } else {
+      // 获取分享人 
+      this.setData({
+        puserId: wx.getStorageSync('puserId')
+      })
+    }
     // 线路Id
     if (options && options.id) {
       this.setData({
