@@ -33,7 +33,7 @@
     <view wx:if="{{bkImg != '' && !openSettingBtnHidden}}" class='saveImg' bindtap='saveImageToPhotosAlbum'>保存图片</view>
     <button type='primary' class='saveImg' open-type="openSetting"
 bindopensetting='handleSetting' hidden='{{!openSettingBtnHidden}}'>去授权</button>
-    <canvas canvas-id='share' style='width:92vw;height:120vh;' hidden='{{canvasHidden}}'></canvas>
+    <canvas canvas-id='share' style='width:100vw;height:{{canvasHeight}}vh;' hidden='{{canvasHidden}}' class="canvas"></canvas>
   </view>
 </view>
 <!--警告弹窗-->
