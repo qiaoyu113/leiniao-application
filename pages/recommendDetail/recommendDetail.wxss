@@ -103,3 +103,10 @@ page {
 canvas{
   background:rgba(255,255,255,0);/*关键点*/
 }
+.canvas{
+  position:absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  opacity: 0;
+}
