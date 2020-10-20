@@ -48,7 +48,7 @@ Page({
     let userId = wx.getStorageSync('userId')
     if (that.data.name && that.data.price && that.data.checkType && COpenId) {
       network.requestLoading('25/core/v2/core/wx/createWxAQrCode', {
-        "path": 'pages/scanOrder/scanOrder?name=' + that.data.name + '&price=' + that.data.price + '&checkType=' + that.data.checkType + '&COpenId=' + COpenId + '&puserId=' + userId,
+        "path": 'pages/scanOrder/scanOrder?name=' + that.data.name + '&price=' + that.data.price + '&checkType=' + that.data.checkType + '&COpenId=' + COpenId,
           "width": 430
         },
         'get',
