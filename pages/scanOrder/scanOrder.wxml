@@ -24,7 +24,8 @@
       <!-- <text class="icon-right"></text> -->
     </view>
     <view class='orderVal'>感谢您对我们梧桐的信任，如订单有疑问请联系客服！</view>
-    <view class='payNow' bindtap="payOrder">立即支付</view>
+    <button wx:if='{{!flag}}' class='payNow' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">立即支付</button>
+    <view class='payNow' wx:if='{{flag}}' bindtap="payOrder">立即支付</view>
   </view>
   <view class='cu-load load-modal' wx:if="{{loadModal}}">
     <text class='icon-cartfill text-orange'></text>
