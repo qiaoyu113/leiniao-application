@@ -17,6 +17,7 @@ Page({
     materialList: [],
     checkIndex: 1,
     loadModal: false,
+    source: '0',
   },
 
   /**
@@ -71,6 +72,24 @@ Page({
 
   submitBtn() {
     let that = this;
+    if(Number(that.data.price) === 0){
+      Notify({
+        text: '支付金额应大于0',
+        duration: 2000,
+        selector: '#van-notify',
+        backgroundColor: '#FAC844'
+      });
+      return
+    }
+    if(isNaN(that.data.price)){
+      Notify({
+        text: '支付金额格式不正确',
+        duration: 2000,
+        selector: '#van-notify',
+        backgroundColor: '#FAC844'
+      });
+      return
+    }
     that.setData({
       loadModal: true
     })
