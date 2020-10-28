@@ -11,6 +11,7 @@ Page ({
     showModal: false,
     itemData: null,
     id: null,
+    cityName: ''
   },
 
   /**
@@ -20,7 +21,13 @@ Page ({
     wx.setNavigationBarTitle ({
       title: '我的合同', //页面标题为路由参数
     });
-    this.getManagerPhone ();
+    var cityName = wx.getStorageSync('cityCode')
+    if(cityName){
+      this.setData({
+        cityName: cityName
+      })
+    }
+    this.hasEnter()
   },
   onMyEvent: function (e) {
     // 自定义组件触发事件时提供的detail对象
@@ -62,14 +69,35 @@ Page ({
         });
       });
   },
+  hasEnter() {
+    //是否已经加入
+    let that = this;
+    network.requestLoading('81/driver/v2/driver/applet/appletsMagpieClientJudge', {},
+      'GET',
+      '',
+      '',
+      function(res) {
+        if (res.success) {
+          that.setData({
+            cityName: res.data.cityName
+          })
+          that.getManagerPhone()
+        }
+      },
+      function(res) {
+        wx.showToast({
+          title: '加载数据失败',
+        });
+      });
+  },
   // 获取客服手机号
   getManagerPhone () {
     var that = this;
-    var cityName = wx.getStorageSync('cityCode')
+    var cityName = this.data.cityName
     network.requestLoading (
       '81/driver/v2/driver/applet/getGmInfoByUserId',
       {
-        cityName
+        cityName: cityName
       },
       'GET',
       '数据加载中...',
