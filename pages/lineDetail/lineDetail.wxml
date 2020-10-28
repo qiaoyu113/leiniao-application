@@ -2,20 +2,20 @@
 <view class='lineDetail'>
   <view class='detailBox'>
     <view class='boxCss'>
-      <view class="boxCss_top_top">{{detail.cargoTypeName}}/{{detail.carTypeName}}</view>
+      <view class="boxCss_top_top">{{detail.carTypeName}}</view>
       <view class='boxCss_top'>
         <view class='boxCss_top_left'>
-          线路编号：NO.{{detail.foldLineId}}
+          线路编号：{{detail.foldLineId}}
         </view>
         <view class='boxCss_top_right'>
-          <text class="icon-favor marginLeft"></text> {{numDetail}}
-          <text class="icon-friendfavor marginLeft"></text> {{numDetail2}}
+          <text class="icon-favor marginLeft"></text> {{numDetail2}}
+          <text class="icon-friendfavor marginLeft"></text> {{numDetail}}
         </view>
       </view>
     </view>
     <view class='detail_box'>
       <view class="addressBox">
-        <view class="addressBox_list"><van-icon class="icon" name="https://oss-qzn.yunniao.cn/img/61194fff87a0437cb8ba5d29e80894d2" />仓库位置：{{detail.warehouse}}</view>
+        <view class="addressBox_list"><van-icon class="icon" name="https://oss-qzn.yunniao.cn/img/61194fff87a0437cb8ba5d29e80894d2" />仓库位置：<span wx:if='{{detail.warehouse}}'>{{detail.warehouse}}</span><span wx:else>暂无数据</span></view>
         <view class="addressBox_list"><van-icon class="icon" name="https://oss-qzn.yunniao.cn/img/df190626a5e44a6aa861eb9684b128c1" />配送区域：<span wx:if='{{detail.distributionArea}}'>{{detail.distributionArea}}</span><span wx:else>暂无数据</span></view>
       </view>
       <view class='detail_box_bottom'>
@@ -30,7 +30,7 @@
           <view class="val">每日配送趟数：{{detail.dayNum}}趟</view>
           <view class="val">预计每日平均配送点位数量：{{detail.deliveryNum}}个</view>
           <view class="val">预计月出车天数：{{detail.monthNum}}天</view>
-          <view class="val">工作时长：{{detail.timeDiff}}</view>
+          <view class="val">预计工作时长：{{detail.timeDiff}}</view>
           <view class="val" wx:for='{{detail.workingTimeRegin}}' wx:key='i'>预计工作时间：{{item}}</view>
           <view class="val">配送总里程数：{{detail.distance}}km</view>
         </view>
@@ -53,7 +53,7 @@
     <!-- <view class='btnLeft' wx:if='{{entranceType && !collect}}' data-type='1' bindtap='collectBtn'>收藏</view> -->
     <view class='btnLeft' wx:if='{{entranceType && !collect}}' data-type='1' bindtap='collectBtn'>收藏</view>
     <!-- <view class='btnLeft' wx:if='{{entranceType && collect}}' data-type='2' bindtap='collectBtn'>已收藏</view> -->
-    <view class='btnLeft' wx:if='{{entranceType && collect}}' data-type='2'>已报名</view>
+    <view class='btnLeft' wx:if='{{entranceType && collect}}' data-type='2'>已收藏</view>
     <!-- <view class='btnRight' bindtap='openRecommend'>推荐有礼</view> -->
     <view class='btnRight' data-hi='WeChat' catchtap='talphone' data-phone='{{detail.managerPhone}}'><van-icon class='text-white' name="phone" />咨询</view>
   </view>

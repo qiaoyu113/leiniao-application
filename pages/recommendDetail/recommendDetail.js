@@ -26,7 +26,7 @@ Page({
     heightRate: 0,
     FilePath: '', //头像路径
     shareImgText1: '长按识别直接咨询',
-    shareImgText2: '梧桐云雀小程序',
+    shareImgText2: '梧桐喜鹊小程序',
     lineDetail: {
       value1: '',
       value2: '',

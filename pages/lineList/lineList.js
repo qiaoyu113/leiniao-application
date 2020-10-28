@@ -534,6 +534,12 @@ Page({
     let carVal = that.data.carVal
     let goodVal = that.data.goodVal
     if (type == 3) {
+      let checkAreaCode = that.data.checkAreaCode
+      let checkAreaCode2 = that.data.checkAreaCode2
+      if (!checkAreaCode.length || !that.data.cityCode || !checkAreaCode2.length || !that.data.cityCode2) {
+        Toast('请选择区域');
+        return false
+      }
       if (that.data.carCheckListName.length > 0) {
         let name = ''
         if ( that.data.carCheckListName.length != 1) {
@@ -639,14 +645,14 @@ Page({
     //获取区域
     if (type == 1) {
       that.setData({
-        cityCode: cityCode,
+        cityCode: '',
         checkAreaCode: [],
         cityCheckName: [],
         wareHouseVal: '仓库位置'
       })
     } else {
       that.setData({
-        cityCode2: cityCode,
+        cityCode2: '',
         checkAreaCode2: [],
         cityCheckName2: [],
         areaVal: '配送区域'

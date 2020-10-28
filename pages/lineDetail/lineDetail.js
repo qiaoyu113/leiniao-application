@@ -474,14 +474,16 @@ Page({
                 collect: true
               })
               // Toast('成功收藏');
-              Toast('您的加盟经理会尽快联系您');
+              // Toast('您的加盟经理会尽快联系您');
             } else {
               that.setData({
                 collect: false
               })
               Toast('已取消收藏');
             }
-            that.getCollectNum()
+            setTimeout(() => {
+              that.getCollectNum()
+            }, 500)
           }
         }
       },
