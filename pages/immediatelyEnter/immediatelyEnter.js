@@ -188,7 +188,7 @@ Page({
   getData() {
     let that = this;
     //获取城市列表
-    network.requestLoading('32/line/v2/line/getXcxLineCity', {
+    network.requestLoading('32/base/v1/base/area/getOpenCityData', {
       // dictType: 'online_city'
     },
       'GET',
@@ -197,22 +197,22 @@ Page({
       function (res) {
         if (res.success) {
           let arr = res.data
-          arr.shift()
+          // arr.shift()
           //过滤picker
           that.setData({
             addressArr: arr
           });
           const arrays = that.data.addressArr
           that.setData({
-            addressArr_new: common.picker(arrays)
+            addressArr_new: common.picker2(arrays)
           });
           let cityCode = wx.getStorageSync('cityCode')
           if(cityCode){
             arrays.forEach((i) => {
-              if (i.cityCode === cityCode){
+              if (i.code === cityCode){
                 that.setData({
-                  address: i.cityName,
-                  addressVal: i.cityCode,
+                  address: i.name,
+                  addressVal: i.code,
                   addressType: true
                 })
               }
@@ -378,7 +378,7 @@ Page({
   bindPickerChangeCity: function (e) {
     this.setData({
       address: this.data.addressArr_new[e.detail.value],
-      addressVal: this.data.addressArr[e.detail.value].cityCode,
+      addressVal: this.data.addressArr[e.detail.value].code,
       addressType: true
     })
   },
