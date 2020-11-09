@@ -89,13 +89,13 @@ App({
   globalData: {
     token:null, 
     userInfo:null,
+    pageParam: '',
     // m1环境域名
-    url: 'https://szjw-bss-api-m1.yunniao.cn/', 
-    // url: 'https://szjw-bss-web-m1.yunniao.cn/', 
+    // url: 'https://szjw-bss-api-m1.yunniao.cn/', 
     // mock
     // url: 'http://yapi.ynimg.cn:8888/mock/', 
     // 生产环境域名
-    // url: 'https://firmiana-bss-api.yunniao.cn/',
+    url: 'https://szjw-bss-api.yunniao.cn/',
     // d2环境域名
     // url: 'http://172.17.101.77:20150/',
     // 图片域名
