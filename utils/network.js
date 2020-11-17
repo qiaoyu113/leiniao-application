@@ -176,6 +176,7 @@ function getRouter() {
 //获取openid
 function getWxOpenId() {
   var pagelist = getCurrentPages();
+  wx.clearStorageSync()
   wx.showToast({
     title: "正在连接",
     icon: 'loading',//图标，支持"success"、"loading" 
@@ -239,9 +240,13 @@ function getWxOpenId() {
               success: function (res) {
               },
             })
+            console.log(getCurrentPages()[getCurrentPages().length - 1])
             if (getCurrentPages().length != 0) {
               //刷新当前页面的数据
               getCurrentPages()[getCurrentPages().length - 1].onLoad();
+              if (getCurrentPages()[getCurrentPages().length - 1].route) {
+                getCurrentPages()[getCurrentPages().length - 1].onShow();
+              }
             }
           }
         },

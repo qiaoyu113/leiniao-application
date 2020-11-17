@@ -17,9 +17,9 @@ Page({
     wx.setNavigationBarTitle({
       title: options.contractName  //页面标题为路由参数
     });
-    let newUrl = 'https://firmiana-bss.yunniao.cn/'
+    let newUrl = 'https://szjw-bss-api.yunniao.cn/'
     if (urls.includes('m1')) {
-      newUrl = 'https://firmiana-bss-m1.yunniao.cn/'
+      newUrl = 'https://szjw-bss-api-m1.yunniao.cn/'
     }
     let contractId = options.id;
     let contract = options.contract;
