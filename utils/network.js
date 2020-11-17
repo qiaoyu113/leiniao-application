@@ -240,13 +240,10 @@ function getWxOpenId() {
               success: function (res) {
               },
             })
-            console.log(getCurrentPages()[getCurrentPages().length - 1])
             if (getCurrentPages().length != 0) {
               //刷新当前页面的数据
               getCurrentPages()[getCurrentPages().length - 1].onLoad();
-              if (getCurrentPages()[getCurrentPages().length - 1].route) {
-                getCurrentPages()[getCurrentPages().length - 1].onShow();
-              }
+              getCurrentPages()[getCurrentPages().length - 1].onShow();
             }
           }
         },
