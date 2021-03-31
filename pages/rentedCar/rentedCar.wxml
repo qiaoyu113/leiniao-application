@@ -1,2 +1,10 @@
 <!--pages/rentedCar/rentedCar.wxml-->
-<text>pages/rentedCar/rentedCar.wxml</text>
+<navigation-bar 
+  default-data="{{defaultData}}"
+  bindselectLocationEvent="selectLocationEvent"
+  bindgoBackEvent="goBackEvent"
+  ></navigation-bar>
+<view>
+  {{cityName}}
+</view>
+  

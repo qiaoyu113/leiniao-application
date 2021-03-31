@@ -2,7 +2,8 @@
   "pages": [
     "pages/rentedCar/rentedCar",
     "pages/saleCar/saleCar",
-    "pages/myCenter/myCenter"
+    "pages/myCenter/myCenter",
+    "pages/mapList/mapList"
   ],
   "usingComponents": {
     "component-log": "components/logs/logs",
@@ -21,7 +22,6 @@
   },
   "window": {
     "backgroundTextStyle": "light",
-    "navigationStyle": "custom",
     "navigationBarBackgroundColor": "#ffffff",
     "navigationBarTitleText": "雷鸟货架",
     "navigationBarTextStyle": "black",

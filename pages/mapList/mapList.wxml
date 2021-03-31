@@ -1,0 +1,16 @@
+<!--pages/mapList/mapList.wxml-->
+<van-index-bar>
+  <view>
+    <van-index-anchor index="A" />
+    <van-cell title="文本" />
+    <van-cell title="文本" />
+    <van-cell title="文本" />
+  </view>
+
+  <view>
+    <van-index-anchor index="B" />
+    <van-cell title="123" />
+    <van-cell title="文本33333" />
+    <van-cell title="文本" />
+  </view>
+</van-index-bar>
