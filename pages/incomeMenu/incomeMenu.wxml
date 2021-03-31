@@ -1,8 +1,0 @@
-<view class='incomeMenu'>
-  <view class='list' bindtap='goRouter' data-type='1'>
-    <image class='images' src="{{image_filepath}}" mode="widthFix"></image>
-  </view>
-  <view class='list' bindtap='goRouter' data-type='2'>
-    <image class='images' src='{{image_filepath2}}' mode="widthFix"></image>
-  </view>
-</view>

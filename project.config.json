@@ -57,13 +57,6 @@
 			"current": 0,
 			"list": [
 				{
-					"id": 0,
-					"name": "join",
-					"pathName": "pages/lineDetail/lineDetail",
-					"query": "id= 202004271002",
-					"scene": 1011
-				},
-				{
 					"id": 1,
 					"name": "pages/myCenter/myCenter",
 					"pathName": "pages/myCenter/myCenter",

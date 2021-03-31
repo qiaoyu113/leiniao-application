@@ -1,8 +1,0 @@
-/* pages/advertising/advertising.wxss */
-page{
-  background:#FDB82D;
-}
-
-image{
-  width:100%;
-}

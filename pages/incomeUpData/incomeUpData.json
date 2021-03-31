@@ -1,9 +1,0 @@
-{
-  "usingComponents": {
-    "calendar": "plugin://calendar/calendar",
-    "van-collapse": "../../miniprogram_npm/vant-weapp/collapse/index",
-    "van-collapse-item": "../../miniprogram_npm/vant-weapp/collapse-item/index",
-    "van-icon": "../../miniprogram_npm/vant-weapp/icon/index",
-    "van-action-sheet": "../../miniprogram_npm/vant-weapp/action-sheet/index"
-  }
-}

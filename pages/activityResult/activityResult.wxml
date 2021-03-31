@@ -1,4 +1,0 @@
-<!--pages/activityResult/activityResult.wxml-->
-<view class="activityResult">
-  <image src="https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/dc8614f4c49d47bea4aca7897af81b86" mode="widthFix"></image>
-</view>

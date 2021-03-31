@@ -1,5 +1,0 @@
-<view class='login'>
-  <image class='logo' src='https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/84d2f425c5404929bb27feba20145434' mode='widthFix'></image>
-  <view class='name'>欢迎来到梧桐喜鹊</view>
-  <button open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 授权登录 </button>
-</view>
