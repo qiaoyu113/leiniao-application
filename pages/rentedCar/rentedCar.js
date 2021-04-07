@@ -1,4 +1,5 @@
 const app = getApp()
+const { getSwiperList } = require('../../http/index')
 var network = require('../../utils/network.js')
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js')
 var qqmapsdk
@@ -16,6 +17,8 @@ Page({
       cityName: '北京市',
       showSearchBar: true,
       title: '选择城市',
+      swiperList: [],
+      rentOrBuy: 'rent',
     },
   },
 
@@ -23,16 +26,46 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    let cityCode = wx.getStorageSync('cityCode')
-    if (!cityCode) {
-      this.getMap()
-    } else {
-      this.setData({
-        cityCode: cityCode,
-      })
-    }
+    // let cityCode = wx.getStorageSync('cityCode')
+    // if (!cityCode) {
+    //   this.getMap()
+    // } else {
+    //   this.setData({
+    //     cityCode: cityCode,
+    //   })
+    // }
+    let that = this
+    // wx.getStorage({
+    //   key: 'swiperList',
+    //   success: function (res) {
+    //     that.setData({
+    //       swiperList: res.data,
+    //     })
+    //   },
+    //   fail: function () {
+    //     //调用轮播图数据
+    //     that.getSwiperListHandle()
+    //   },
+    // })
+    //调用轮播图数据
+    //that.getSwiperListHandle()
   },
-
+  //获取轮播图数据
+  getSwiperListHandle() {
+    let that = this
+    getSwiperList().then((res) => {
+      console.log(res)
+      if (res.code === 0) {
+        that.setData({
+          'defaultData.swiperList': res.data.swiperList,
+        })
+        wx.setStorage({
+          key: 'swiperList',
+          data: res.data.swiperList,
+        })
+      }
+    })
+  },
   //点击城市事件
   selectLocationEvent() {
     console.log('点击了城市')
@@ -40,11 +73,14 @@ Page({
       url: '/pages/mapList/mapList',
     })
   },
-  //选择城市页面返回上一级
-  goBackEvent() {
-    console.log('返回上一页')
-    wx.redirectTo({
-      url: '/pages/rentedCar/rentedCar',
+
+  //跳转爆款上新列表
+  gotoadList(e) {
+    console.log(e)
+    let query = e.detail.params
+    console.log(query)
+    wx.navigateTo({
+      url: `/pages/hotList/hotList?listid=${query}&type=rent`,
     })
   },
   //获取位置信息

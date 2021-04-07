@@ -9,6 +9,7 @@ Component({
         placeholderTitle: '搜索想租的车辆',
         cityName: '北京市',
         showSearchBar: true,
+        rentOrBuy: 'rent',
       },
       observer: function (newVal, oldVal) {},
     },
@@ -25,10 +26,14 @@ Component({
   attached: function () {},
   methods: {
     selectLocationEvent() {
-      this.triggerEvent('selectLocationEvent')
+      wx.navigateTo({
+        url: '/pages/mapList/mapList',
+      })
     },
-    goBackEvent() {
-      this.triggerEvent('goBackEvent')
+    gotoSearchEvent() {
+      wx.navigateTo({
+        url: '/pages/searchPage/searchPage',
+      })
     },
   },
 })

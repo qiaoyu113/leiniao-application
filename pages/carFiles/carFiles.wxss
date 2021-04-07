@@ -1,0 +1,57 @@
+/* pages/carFiles/carFiles.wxss */
+
+.baseinfo_box {
+  min-height: 1059rpx;
+  width: 690rpx;
+  margin: 0 auto;
+}
+.main_title {
+  display: block;
+  position: relative;
+  height: 90rpx;
+  line-height: 90rpx;
+  margin: 0 30rpx;
+  padding-left: 19rpx;
+  border-bottom: 1rpx solid #ddd;
+}
+.line {
+  position: absolute;
+  top: 30rpx;
+  width: 4rpx;
+  height: 30rpx;
+  left: 0;
+  background: #1c8efa;
+}
+.list_info {
+  height: 82rpx;
+  line-height: 82rpx;
+  margin-left: 49rpx;
+}
+.info_title {
+  font-size: 26rpx;
+  color: #999;
+  margin-right: 25rpx;
+}
+.info_data {
+  font-size: 26rpx;
+  color: #333;
+  font-weight: bold;
+}
+.splite_box {
+  height: 20rpx;
+  width: 750rpx;
+  margin-left: -30rpx;
+  background-color: #f9f9f9;
+}
+.info_copy {
+  display: inline-block;
+  width: 85rpx;
+  height: 40rpx;
+  text-align: center;
+  line-height: 40rpx;
+  border: 1rpx solid #1c8efa;
+  border-radius: 20rpx;
+  margin-left: 26rpx;
+  font-size: 22rpx;
+  color: #1c8efa;
+}

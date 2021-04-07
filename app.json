@@ -3,7 +3,11 @@
     "pages/rentedCar/rentedCar",
     "pages/saleCar/saleCar",
     "pages/myCenter/myCenter",
-    "pages/mapList/mapList"
+    "pages/mapList/mapList",
+    "pages/hotList/hotList",
+    "pages/carDetail/carDetail",
+    "pages/carFiles/carFiles",
+    "pages/searchPage/searchPage"
   ],
   "usingComponents": {
     "component-log": "components/logs/logs",
@@ -22,9 +26,9 @@
   },
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#ffffff",
-    "navigationBarTitleText": "雷鸟货架",
-    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#2F83FA",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "white",
     "backgroundColor": "#ffffff",
     "enablePullDownRefresh": false
   },

@@ -1,0 +1,84 @@
+<!--pages/carFiles/carFiles.wxml-->
+<!-- 车辆档案 -->
+<view class="baseinfo_box">
+  <view class="main_title"><text class="line"></text>基础信息 </view>
+  <view class="list_info">
+    <text class="info_title">车辆编号：</text>
+    <text class="info_data">{{ carData.baseData.carNumber }}</text>
+    <text
+      class="info_copy"
+      bindtap="copyText"
+      data-text="{{ carData.baseData.carNumber }}"
+      >复制</text
+    >
+  </view>
+  <view class="list_info">
+    <text class="info_title">品牌：</text>
+    <text class="info_data">{{ carData.baseData.carBrand }}</text>
+  </view>
+  <view class="list_info">
+    <text class="info_title">车型：</text>
+    <text class="info_data">{{ carData.baseData.carType }}</text>
+  </view>
+  <view class="list_info">
+    <text class="info_title">车辆类型：</text>
+    <text class="info_data">{{ carData.baseData.carModel }}</text>
+  </view>
+  <view class="list_info">
+    <text class="info_title">车辆性质：</text>
+    <text class="info_data">{{ carData.baseData.carProperty }}</text>
+  </view>
+  <view class="list_info">
+    <text class="info_title">车龄：</text>
+    <text class="info_data">{{ carData.baseData.carAge }}</text>
+  </view>
+  <view class="list_info">
+    <text class="info_title">里程：</text>
+    <text class="info_data">{{ carData.baseData.carKm }}</text>
+  </view>
+  <view class="list_info">
+    <text class="info_title">箱体宽度：</text>
+    <text class="info_data">{{ carData.baseData.carWidth }}</text>
+  </view>
+  <view class="list_info">
+    <text class="info_title">通行证：</text>
+    <text class="info_data">{{ carData.baseData.carPassCard }}</text>
+  </view>
+  <view class="list_info">
+    <text class="info_title">尾板：</text>
+    <text class="info_data">{{ carData.baseData.carBoard }}</text>
+  </view>
+  <view class="list_info">
+    <text class="info_title">看车底：</text>
+    <text class="info_data">{{ carData.baseData.carWatchPlace }}</text>
+  </view>
+  <view class="splite_box"></view>
+  <!-- 牌照信息 -->
+  <view class="main_title"><text class="line"></text>牌照信息 </view>
+  <view class="list_info">
+    <text class="info_title">首次登记日期：</text>
+    <text class="info_data">{{ carData.plateData.carFirstDate }}</text>
+  </view>
+  <view class="list_info">
+    <text class="info_title">牌照地：</text>
+    <text class="info_data">{{ carData.plateData.carPlatePlace }}</text>
+  </view>
+  <view class="splite_box"></view>
+  <!-- 发动机信息 -->
+  <view class="main_title"><text class="line"></text>发动机信息 </view>
+  <view class="list_info">
+    <text class="info_title">发动机型号：</text>
+    <text class="info_data">{{ carData.engineData.engineId }}</text>
+  </view>
+  <view class="list_info">
+    <text class="info_title">马力：</text>
+    <text class="info_data">{{ carData.engineData.horsePower }}</text>
+  </view>
+  <view class="splite_box"></view>
+  <!-- 保险信息 -->
+  <view class="main_title"><text class="line"></text>保险信息 </view>
+  <view class="list_info">
+    <text class="info_title">商业保险额：</text>
+    <text class="info_data">{{ carData.insuranceData.number }}</text>
+  </view>
+</view>

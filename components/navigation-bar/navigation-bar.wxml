@@ -1,17 +1,29 @@
 <!-- 自定义顶部栏 -->
-<view class="nav-bar" style="height:{{navBarHeight}}px;">
-    <text wx:if="{{defaultData.showSearchBar}}" class="nav_city" bindtap="selectLocationEvent">
-        {{defaultData.cityName}}
-    </text>
-    <input wx:if="{{defaultData.showSearchBar}}" class="search" placeholder="{{defaultData.placeholderTitle}}" style="height:{{menuHeight}}px; min-height:{{menuHeight}}px; line-height:{menuHeight}}px; bottom:{{menuBotton}}px;"></input>
+<!--<view class="nav-bar" style="height:{{navBarHeight}}px;">-->
+<view class="nav-bar">
+    <text wx:if="{{defaultData.showSearchBar}}" class="nav_city" bindtap="selectLocationEvent">{{defaultData.cityName}}</text>
+    <input wx:if="{{defaultData.showSearchBar}}" class="search" bindfocus="gotoSearchEvent" placeholder="{{defaultData.placeholderTitle}}" ></input>
     <view class="title_box" wx:else>
     <text bindtap="goBackEvent">返回 </text>
     <text class="nav_title"  >{{defaultData.title}}</text>
     </view>
+    <!--轮播图 -->
+    <view class="slides">
+      <!-- <swiper autoplay indicator-dots circular>
+        <swiper-item  wx:for="{{defaultData.swiperList}}" wx:key="key">
+          <navigator>
+            <image mode="widthFix" src="{{item.imgSrc}}"></image>
+          </navigator>
+        </swiper-item>
+      </swiper> -->
+      <image class="banner_img" src="../../lib//image/rentcarimg/banner.png" alt=""/>
+    </view>
 </view>
+
+
 
 <!-- 
     内容区域：
     自定义顶部栏用的fixed定位，会遮盖到下面内容，注意设置好间距
 -->
-<view class="content" style="margin-top:{{navBarHeight}}px;"></view>
+<!-- <view class="content" style="margin-top:{{navBarHeight}}px;"></view> -->

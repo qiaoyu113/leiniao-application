@@ -1,8 +1,4 @@
-/* pages/rentedCar/rentedCar.wxss */
-page {
-  box-sizing: border-box;
-}
-
+/* components/hotNew/hotNew.wxss */
 .ad_box {
   position: absolute;
   top: 540rpx;

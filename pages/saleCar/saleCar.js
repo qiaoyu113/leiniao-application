@@ -1,66 +1,82 @@
 // pages/saleCar/saleCar.js
 Page({
-
   /**
    * 页面的初始数据
    */
   data: {
-
+    cityCode: '',
+    cityName: '北京市',
+    defaultData: {
+      placeholderTitle: '搜索想买的车',
+      cityName: '北京市',
+      showSearchBar: true,
+      title: '选择城市',
+      swiperList: [],
+    },
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {
+  onLoad: function (options) {},
 
+  //点击城市事件
+  selectLocationEvent() {
+    console.log('点击了城市')
+    wx.navigateTo({
+      url: '/pages/mapList/mapList',
+    })
+  },
+  //选择城市页面返回上一级
+  goBackEvent() {
+    console.log('返回上一页')
+    wx.navigateTo({
+      url: '/pages/saleCar/saleCar',
+    })
+  },
+
+  //跳转爆款上新列表
+  gotoadList(e) {
+    console.log(e)
+    let query = e.detail.params
+    console.log(query)
+    wx.navigateTo({
+      url: `/pages/hotList/hotList?listid=${query}&type=sale`,
+    })
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
-  onReady: function () {
-
-  },
+  onReady: function () {},
 
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
-
-  },
+  onShow: function () {},
 
   /**
    * 生命周期函数--监听页面隐藏
    */
-  onHide: function () {
-
-  },
+  onHide: function () {},
 
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {
-
-  },
+  onUnload: function () {},
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {
-
-  },
+  onPullDownRefresh: function () {},
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {
-
-  },
+  onReachBottom: function () {},
 
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
-  }
+  onShareAppMessage: function () {},
 })

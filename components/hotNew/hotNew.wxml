@@ -1,9 +1,6 @@
-<!-- 租车页面 -->
-<!-- 自定义导航 -->
-<navigation-bar default-data="{{ defaultData }}"></navigation-bar>
-<view>
-  <!-- 爆款上新 -->
-  <!-- <view class="ad_box">
+
+<!-- 爆款上新 -->
+  <view class="ad_box">
     <view class="detail_box left_box">
     <text class="sub_title">正在抢</text>
     <text class="ad_title">超值爆款</text>
@@ -16,7 +13,4 @@
       </view>
       <image class="ad_right_img" src="../../lib/image/rentcarimg/newimg.png" data-index="2" bindtap="gotoadList"></image>
     </view>
-  </view> -->
-
-  <hotNew bindgotoadList="gotoadList"></hotNew>
-</view>
+  </view>
