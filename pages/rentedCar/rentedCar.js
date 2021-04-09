@@ -140,7 +140,9 @@ Page({
     const vehicleList = this.selectComponent('#vehicleList')
     vehicleList && vehicleList.onPageKeywordChange(val)
   },
-  onPageScroll(e) {},
+  onPageScroll(e) {
+    console.log('滚动-----------')
+  },
   /**
    * 用户点击右上角分享
    */
