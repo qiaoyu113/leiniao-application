@@ -1,8 +1,16 @@
 {
   "pages": [
     "pages/rentedCar/rentedCar",
+    "pages/shareLogin/shareLogin",
+    "pages/collect/collect",
+    "pages/phoneLogin/phoneLogin",
     "pages/saleCar/saleCar",
     "pages/myCenter/myCenter",
+    "pages/hotModel/hotModel",
+    "pages/userAgreement/userAgreement",
+    "pages/login/login",
+    "pages/privacy/privacy",
+    "pages/clause/clause",
     "pages/mapList/mapList",
     "pages/hotList/hotList",
     "pages/carDetail/carDetail",
@@ -22,7 +30,10 @@
     "van-dialog": "miniprogram_npm/vant-weapp/dialog/index",
     "van-notify": "miniprogram_npm/vant-weapp/notify/index",
     "van-toast": "miniprogram_npm/vant-weapp/toast/index",
-    "van-datetime-picker": "miniprogram_npm/vant-weapp/datetime-picker/index"
+    "van-datetime-picker": "miniprogram_npm/vant-weapp/datetime-picker/index",
+    "vehicle-filter": "components/vehicleFilter/vehicleFilter",
+    "vehicle-list": "components/vehicleList/vehicleList",
+    "vehicle": "components/vehicle/vehicle"
   },
   "window": {
     "backgroundTextStyle": "light",
@@ -69,7 +80,7 @@
       "provider": "wx92c68dae5a8bb046"
     },
     "chooseLocation": {
-      "version": "1.0.2",
+      "version": "1.0.5",
       "provider": "wx76a9a06e5b4e693e"
     }
   }

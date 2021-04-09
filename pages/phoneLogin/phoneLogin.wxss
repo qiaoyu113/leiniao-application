@@ -1,0 +1,92 @@
+/* pages/login/login.wxss */
+.loginBox{
+  width: 100%;
+  padding: 180px 38px;
+  box-sizing: border-box;
+}
+
+.loginList{
+  width: 100%;
+}
+
+.loginList .hint{
+  width:100%;
+  display: block;
+  font-size: 11px;
+  color: #FF4652;
+  margin: 2px 3px 8px;
+}
+
+.loginList .input{
+  flex: 1;
+  height: 40px;
+  border-bottom: 1px solid #E8E8E8;
+  font-size: 14px;
+}
+
+.listCode{
+ display: flex;
+ padding-top: 24px;
+}
+
+.loginList .code{
+  flex: 1;
+  height: 40px;
+  border-bottom: 1px solid #E8E8E8;
+  font-size: 14px;
+}
+
+.loginList .getCode{
+  flex:0 0 100px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-bottom: 1px solid #E8E8E8;
+  font-size: 14px;
+  color: #1C8EFA;
+}
+
+.loginList .overCode{
+  flex: 1;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  border-bottom: 1px solid #E8E8E8;
+  font-size: 14px;
+  color: #333333;
+}
+
+.btn{
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  background: #C6E3FF;
+  margin-top: 90px;
+}
+
+.btn_check{
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+  background: #1C8EFA;
+  margin-top: 90px;
+}
+
+.author{
+  width: 100%;
+  text-align: center;
+  position: absolute;
+  bottom: 18px;
+  color:#666;
+  font-size: 12px;
+}
+
+.link{
+  color: #1C8EFA;
+}

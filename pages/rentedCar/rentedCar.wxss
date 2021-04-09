@@ -1,4 +1,9 @@
 /* pages/rentedCar/rentedCar.wxss */
+.img-40 {
+  width: 80rpx;
+  height: 80rpx;
+}
+/* pages/rentedCar/rentedCar.wxss */
 page {
   box-sizing: border-box;
 }

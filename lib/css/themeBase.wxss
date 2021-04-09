@@ -80,6 +80,21 @@
 .b-dotted-e {
   border: 1rpx dotted #eeeeee;
 }
+.transparent {
+  opacity: 0;
+}
+.opacity-1 {
+  opacity: 0.1;
+}
+.opacity-2 {
+  opacity: 0.2;
+}
+.opacity-5 {
+  opacity: 0.5;
+}
+.opaque {
+  opacity: 1;
+}
 /* decorations */
 .text-bold {
   font-weight: bold;

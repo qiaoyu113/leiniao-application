@@ -1,0 +1,39 @@
+<view class="collect">
+  <van-nav-bar
+  title="我的收藏"
+  left-text=""
+  fixed="true"
+  left-arrow
+  bind:click-left="onClickLeft"
+  custom-style="navStyle"
+  title-class="titleStyle"
+/>
+
+  <view class="myCollect">
+    <view class="collectList" wx:if="{{list.length}}" wx:for="{{list}}" wx:key="index" data-id='{{item.foldLineId}}'  bindtap='goDetail'>
+      <view class="shadow">
+        <image src="../../lib/image/off.png" mode="aspectFit"></image>
+      </view>
+      <image class="img" src="https://img0.baidu.com/it/u=2291332875,175289127&fm=26&fmt=auto&gp=0.jpg" mode="aspectFit"></image>
+      <view class="info">
+        <view class="title">撒打算发水淀粉阿斯顿发阿舒服点阿舒服点</view>
+        <view class="value">
+          <view class="valueList">车龄：2个月</view>
+          <view class="valueList">里程：7万公里</view>
+        </view>
+        <view class="tagBox">
+          <view class="tag">准新车</view>
+          <view class="tag">急租</view>
+          <view class="tag2">有尾板</view>
+          <view class="tag2">有通行证</view>
+        </view>
+        <view class="price">¥ 3000/月 <image class="icon" src="../../lib/image/heart.png" mode="aspectFit"></image></view>
+      </view>
+    </view>
+    <view class="block" wx:if="{{!list.length}}">
+      <image class="img" src="../../lib/image/noBG.png" mode="aspectFit"></image>
+      <view class="text">暂无收藏车辆，先去看看有没有喜欢的车吧</view>
+      <view class="btn" bindtap="goRouter">去看看</view>
+    </view>
+  </view>
+</view>

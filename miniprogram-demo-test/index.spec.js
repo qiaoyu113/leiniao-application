@@ -64,7 +64,7 @@ describe('小程序自动化测试初体验', () => {
   beforeAll(async() => {
     miniProgram = await automator.launch({
       cliPath: '/Applications/wechatwebdevtools.app/Contents/MacOS/cli',
-      projectPath: '/Users/qiaoyu/Desktop/梧桐司机端小程序',
+      projectPath: '/Users/qiaoyu/Desktop/雷鸟小程序',
     })
     page = await miniProgram.reLaunch('/pages/index/index')
     await page.waitFor(500)

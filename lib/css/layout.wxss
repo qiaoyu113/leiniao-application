@@ -13,11 +13,30 @@
   top: 50%;
   transform: translate(-50%, -50%);
 }
+.relative {
+  position: relative;
+}
+.absolute {
+  position: absolute;
+}
+.sticky {
+  position: sticky;
+  top: 0;
+}
 .absolute-center {
   position: absolute;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
+}
+.z-100 {
+  z-index: 100;
+}
+.z-500 {
+  z-index: 500;
+}
+.z-1000 {
+  z-index: 1000;
 }
 .flex {
   display: flex;
@@ -410,13 +429,13 @@
   font-size: 48rpx;
 }
 /* width by percent */
-.width-25 {
+.width-25p {
   width: 25%;
 }
-.width-50 {
+.width-50p {
   width: 50%;
 }
-.width-100 {
+.width-100p {
   width: 100%;
 }
 

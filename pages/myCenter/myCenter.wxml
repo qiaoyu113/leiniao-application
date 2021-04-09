@@ -1,20 +1,34 @@
 <view class='UCenter-bg'>
-  <!-- <image src='https://image.weilanwl.com/gif/wave.gif' mode='scaleToFill' class='gif-wave'></image> -->
   <view class='topCenter'>
+    <image class="MCBG" src="../../lib/image/MCBG.png"></image>
     <view class='topCenterRight'>
-      <view>您好，
-        <open-data type="userNickName"></open-data>
+      我的      
+      <view wx:if="{{!canIUse}}" class='headBg'>
+        <image class="image" src="{{headImg}}" mode="aspectFit"></image>
       </view>
-      <view>欢迎来到梧桐喜鹊</view>
-    </view>
-    <button wx:if="{{canIUse}}" class="topCenterLeftBtn" open-type="getUserInfo" bindgetuserinfo="getUserInfoFun">授权登录</button>
-    <view wx:else class='topCenterLeft'>
-      <open-data type="userAvatarUrl"></open-data>
+      <view wx:if="{{canIUse}}" class="headBg">
+        <image  class="image-default" src="../../lib/image/bgIcon.png" mode="aspectFit"></image>
+      </view>
+      <view class="loginBox">
+        <!-- <button wx:if="{{canIUse}}" class="topCenterLeftBtn-Btn" open-type="getUserInfo" bindgetuserinfo="getUserInfoFun">授权登录</button> -->
+        <view wx:if="{{canIUse}}" class="topCenterLeftBtn" bindtap="goLogin">登陆/注册</view>
+        <view wx:if="{{!canIUse}}" class="topCenterLeftBtn">{{userName}}</view>
+      </view>
     </view>
   </view>
 </view>
 
-<view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
+<!--菜单栏-->
+<view class="meanBox">
+  <view class="border"></view>
+  <van-cell bindtap="goRouter" data-type="1" title-class='titleClass' size="60" title="我的收藏" is-link />
+</view>
+
+<!--退出-->
+<view wx:if="{{!canIUse}}" class="quit" bindtap="quit">退出登录</view>
+<van-dialog id="van-dialog" />
+
+<!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
   <button wx:if='{{!flag && !entranceType}}' class='cu-item arrow getPhoneBox2' open-type="getPhoneNumber" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber2">
     <text class='icon-profile text-orange margin_right_20'></text>
     <text class='text-grey content'>个人信息</text>
@@ -26,7 +40,7 @@
   <view class="cu-item arrow" wx:if='{{entranceType}}' bindtap='goRouter' data-type='4'>
     <text class='icon-profile text-orange margin_right_20'></text>
     <text class='text-grey content'>个人信息</text>
-  </view>
+  </view> -->
   <!--我的收藏-->
   <!-- <view class="cu-item arrow" bindtap='goRouter' data-type='2'>
     <text class='icon-favor text-orange margin_right_20'></text>
@@ -48,15 +62,15 @@
     <text class='text-grey content'>收入提报</text>
   </view> -->
   <!--收入提报-->
-  <view class="cu-item arrow" bindtap='goRouter' data-type='9' wx:if='{{abilityCreatOrder}}'>
+  <!-- <view class="cu-item arrow" bindtap='goRouter' data-type='9' wx:if='{{abilityCreatOrder}}'>
     <text class='icon-pullup text-orange margin_right_20'></text>
     <text class='text-grey content'>创建缴费码</text>
-  </view>
+  </view> -->
     <!-- 我的合同 -->
-  <view class="cu-item arrow" bindtap='goRouter' data-type='14' wx:if='{{entranceType}}'>
+  <!-- <view class="cu-item arrow" bindtap='goRouter' data-type='14' wx:if='{{entranceType}}'>
     <text class='icon-form text-orange margin_right_20'></text>
     <text class='text-grey content'>我的合同</text>
-  </view>
+  </view> -->
   <!--我的账薄-->
   <!-- <view class="cu-item arrow" bindtap='goRouter' data-type='10' wx:if='{{entranceType}}'>
     <text class='icon-redpacket text-orange margin_right_20'></text>
@@ -87,7 +101,7 @@
     <text class='icon-copy text-orange margin_right_20'></text>
     <text class='text-grey content'>服务规范</text>
   </view> -->
-</view>
+<!-- </view> -->
  <!--绑定手机号-->
 <view class='bgShow' wx:if='{{!flag}}'>
   <button class='loginBtn' wx:if='{{!flag}}' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"></button>
