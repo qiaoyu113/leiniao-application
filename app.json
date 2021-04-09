@@ -1,10 +1,9 @@
 {
   "pages": [
+    "pages/rentedCar/rentedCar",
     "pages/shareLogin/shareLogin",
-    "pages/myCenter/myCenter",
     "pages/collect/collect",
     "pages/phoneLogin/phoneLogin",
-    "pages/rentedCar/rentedCar",
     "pages/saleCar/saleCar",
     "pages/myCenter/myCenter",
     "pages/hotModel/hotModel",
