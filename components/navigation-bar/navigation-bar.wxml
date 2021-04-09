@@ -1,6 +1,7 @@
 <!-- 自定义顶部栏 -->
 <view class="nav-bar">
   <navBar
+  background="{{defaultData.background}}"
   class="nav_fixed"
   bind:getnavHeight="handlerGetNavHeight"
 >

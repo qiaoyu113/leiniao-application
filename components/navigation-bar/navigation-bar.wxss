@@ -5,6 +5,7 @@
   text-align: center;
 }
 .nav_fixed {
+  z-index: 99999;
   position: fixed;
   top: 0;
 }
@@ -54,7 +55,6 @@
 .banner_img {
   width: 750rpx;
   height: 520rpx;
-  z-index: -1000;
 }
 .city_icon {
   width: 12rpx;

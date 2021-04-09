@@ -20,12 +20,15 @@ Page({
       name: '',
       id: '',
     },
+    scrollTop: 0,
+    hide: false,
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    this.getHotModels()
     let cityCode = wx.getStorageSync('cityCode')
     let cityName = wx.getStorageSync('locationCity')
     if (!cityCode) {
@@ -105,4 +108,57 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {},
+
+  //滚动屏幕切换topbar
+  onPageScroll: utils.throttle(function (e) {
+    let ev = e[0]
+    console.log('ev', ev)
+    //判断浏览器滚动条上下滚动
+
+    if (
+      ev.scrollTop > this.data.scrollTop ||
+      ev.scrollTop == wx.getSystemInfoSync().windowHeight
+    ) {
+      this.setData({
+        hide: true,
+        'defaultData.background':
+          'linear-gradient(90deg, #009CF8 0%, #2F83FA 100%)',
+      })
+    } else {
+      if (
+        ev.scrollTop < 200 ||
+        ev.scrollTop == wx.getSystemInfoSync().windowHeight
+      ) {
+        this.setData({
+          'defaultData.background': '',
+        })
+      }
+      this.setData({
+        hide: false,
+      })
+    }
+
+    //给scrollTop重新赋值
+    let _this = this
+    setTimeout(function () {
+      _this.setData({
+        scrollTop: ev.scrollTop,
+      })
+    }, 0)
+  }, 50),
+
+  // 获取热门车型
+  getHotModels: function () {
+    setTimeout(() => {
+      const data = [
+        { label: '4.2箱货', id: '123', pic: '/lib/image/home/hot_1.png' },
+        { label: '小面', id: '234', pic: '/lib/image/home/hot_2.png' },
+        { label: '中面', id: '345', pic: '/lib/image/home/hot_3.png' },
+        { label: '依维柯', id: '456', pic: '/lib/image/home/hot_4.png' },
+      ]
+      this.setData({
+        hotModels: data.length > 4 ? data.slice(0, 4) : data,
+      })
+    }, 300)
+  },
 })

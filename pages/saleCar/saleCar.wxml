@@ -1,12 +1,14 @@
 <!-- 买车页面 -->
 <!-- 自定义导航 -->
-<navigation-bar
-  default-data="{{defaultData}}"
-  ></navigation-bar>
 <view>
+  <view class="top_box">
+    <navigation-bar default-data="{{ defaultData }}"></navigation-bar>
+  </view>
+  <view>
+    <hotNew class="hotnew_box" bindgotoadList="gotoadList"></hotNew>
+    <!-- 热门车型 -->
 
-<hotNew
-  bindgotoadList = "gotoadList"
-></hotNew>
-
+    <!-- 带筛选功能的车辆列表 -->
+    <vehicle-list showFastFeature id="vehicleList"></vehicle-list>
+  </view>
 </view>
