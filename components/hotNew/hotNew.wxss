@@ -1,7 +1,5 @@
 /* components/hotNew/hotNew.wxss */
 .ad_box {
-  position: absolute;
-  top: 540rpx;
   display: flex;
   justify-content: space-around;
   width: 750rpx;
