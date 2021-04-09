@@ -28,11 +28,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('sale')
     this.getHotModels()
     let cityCode = wx.getStorageSync('cityCode')
     let cityName = wx.getStorageSync('locationCity')
-    console.log(cityName)
     if (!cityCode) {
       utils.getMap.call(this)
     } else {

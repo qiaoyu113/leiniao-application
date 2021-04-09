@@ -41,15 +41,6 @@ Component({
    */
   methods: {
     init () {
-      const app = getApp()
-      // const currentRoute = app.utils.getCurrentRoute()
-      const entryRoute = app.utils.getEntryRoute()
-      const tabs = this.data.tabs
-      if (/saleCar/.test(entryRoute)) {
-        tabs.find(v => v.id === 'price').label = '售价'
-      }
-      this.setData({tabs})
-
       this.initTabs()
       this.getModelList()
       this.getAges()
@@ -65,10 +56,12 @@ Component({
         {label: '筛选', id: 'filter', selected: false},
         {label: '', id: 'sort', selected: false}
       ]
-      this.setData({
-        tabs
-        // currentTab: tabs[0]
-      })
+      const app = getApp()
+      const entryRoute = app.utils.getEntryRoute()
+      if (/saleCar/.test(entryRoute)) {
+        tabs.find(v => v.id === 'price').label = '售价'
+      }
+      this.setData({tabs})
     },
     // 获取全部车型（品牌+车型）
     getModelList () {
