@@ -1,6 +1,6 @@
 <!--pages/mapList/mapList.wxml-->
 <wxs module="tools" src="./utils/function.wxs" />
-<van-index-bar>
+<van-index-bar  highlight-color="#333">
   <view wx:for="{{alphabet}}" wx:key="key" >
     <van-index-anchor index="{{item}}" />
     <block  wx:if='{{tools.arrayfind(newList,item)!==-1}}'>

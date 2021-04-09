@@ -9,6 +9,5 @@
     <!-- 热门车型 -->
 
     <!-- 带筛选功能的车辆列表 -->
-    <vehicle-list showFastFeature id="vehicleList"></vehicle-list>
   </view>
 </view>
