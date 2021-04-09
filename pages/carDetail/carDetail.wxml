@@ -1,0 +1,98 @@
+<!--pages/carDetail/carDetail.wxml-->
+<view class="top_bar">
+  <view class="goback_btn" bindtap="gobackEvent" style="top:{{navBarHeight}}rpx;">
+    <image class="goback_img" src="../../lib/image/rentcarimg/goback_button.png" />
+      
+  </view>
+    
+<!-- 轮播图 -->
+    <image class="top_bar_img" src="../../lib/image/rentcarimg/detail_car.png" />
+  </view>
+  <!-- 标题 -->
+  <view class="title">
+        <text class="tips" wx:for="{{carData.tips}}" wx:key="key">{{item}}</text>
+        <text class="main_title">{{carData.title}}</text>
+        <view class="price_info">
+          <text class="" wx:if="{{rentOrSale=='sale'}}">参考价</text>
+          <text class="price" wx:if="{{rentOrSale=='rent'}}">￥{{carData.price}}/月</text>
+          <text class="price" wx:if="{{rentOrSale=='sale'}}">￥{{carData.price}}</text>
+          <text class="price_tips" wx:if="{{rentOrSale=='rent'}}">起</text>
+          <image class="title_img"
+                bindtap="showIntroduceEvent"
+                src="../../lib/image/rentcarimg/introduce.png" />
+        </view>
+        <text class="bottom_tips" wx:for="{{carData.type}}" wx:key="key">{{item}}</text>
+  </view>
+  <!-- 爆款推荐理由 -->
+  <view class="introduce_reason" wx:if="{{showHotIntroduce}}">
+    <image class="hot_img" src="../../lib/image/rentcarimg/hot.png" />
+    <text class="hot_title">爆款推荐理由:</text>
+      <view class="hot_content">{{hotDetail}}</view>
+  </view>
+    <view class="splite_line"></view>
+    <!-- 车辆档案 -->
+    <view class="car_files_box">
+      <view class="files_title">
+        <text class="left_title">车辆档案</text>
+          <text class="right_title" bindtap="viewAllEvent">查看全部</text>
+          <view class="files_type_box">
+            <view class="type_box_detail">
+              <text class="type_value">{{carData.md.age}}/年</text>
+              <text class="type_key">车龄</text>
+            </view>
+            <view class="type_box_detail">
+              <text class="type_value">{{carData.md.km}}万公里</text>
+              <text class="type_key">里程</text>
+            </view>
+            <view class="type_box_detail">
+              <text class="type_value">{{carData.md.width}}米</text>
+              <text class="type_key">箱体宽度</text>
+            </view>
+            <view class="type_box_detail">
+              <text class="type_value">{{carData.md.photo_address}}</text>
+              <text class="type_key">拍照地</text>
+            </view>
+            <view class="type_box_detail">
+              <text class="type_value">{{carData.md.watch_address}}</text>
+              <text class="type_key">看车地</text>
+            </view>
+            <view class="type_box_detail">
+              <text class="type_value">{{carData.md.type}}</text>
+              <text class="type_key">车辆性质</text>
+            </view>
+          </view>
+      </view>
+    </view>
+    <!-- 车辆描述 -->
+    <view class="car_description">
+        <text class="car_des_title"><text class="des_title_detail">车辆描述</text></text>
+        <view class="car_des_detail">{{carData.detail}}</view>
+  </view>
+  <!-- 底部收藏 -->
+  <view class="bottom_bar">
+    <text wx:if="{{nocollect}}" class="collect_word iconfont icon-aixinD" data-index="0" bindtap="collectCarEvent">
+      <text class="collect_text" >未收藏</text>
+    </text>
+    <text wx:else class="collect_word icon_heart iconfont icon-yishoucang" data-index="1" bindtap="collectCarEvent">
+      <text class="collect_text" >已收藏</text>
+    </text>
+        <button class="btn btn_left" bindtap="askPriceEvent">询底价</button>
+        <button class="btn btn_right" open-type='share'>分享微信好友</button>
+  </view>
+  <!-- 租金说明弹框 -->
+  <van-popup show="{{ showPriceIntroduce }}"closeable position="bottom"custom-style="height: 20%" bind:close="onClose">{{}}</van-popup>
+  <!-- 询底价弹框 -->
+  <van-popup show="{{ askPrice }}"closeable position="bottom"custom-style="height: 50%" bind:close="onClose">
+    <view class="asktitle">询底价</view>
+    <view class="ask_ques_box">
+      <text class="ask_ques_title">如何称呼您</text>
+      <input class="ask_ques_content" data-index="username"  bindinput="inputEvent"  placeholder="请输入称呼(选填)" value="{{nameValue}}" bindblur="checknameEvent"></input>
+      <text class="ask_ques_reg" wx:if="{{nameReg}}">最多输入20个字</text>
+    </view>
+    <view class="ask_ques_box">
+      <text class="ask_ques_title">联系电话</text>
+      <input type="number" data-index="phone" bindinput="inputEvent" class="ask_ques_content" placeholder="请输入电话" bindblur="checkphoneEvent" value="{{phoneValue}}"></input>
+      <text class="ask_ques_reg"  wx:if="{{phoneReg}}">请填写正确的联系电话</text>
+      <view class="ask_ques_btn" bindtap="getLowPriceEvent">获取底价</view>
+    </view>
+  </van-popup>

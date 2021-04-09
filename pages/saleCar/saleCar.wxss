@@ -1,1 +1,4 @@
 /* pages/saleCar/saleCar.wxss */
+page {
+  box-sizing: border-box;
+}

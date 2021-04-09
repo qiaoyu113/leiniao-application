@@ -1,0 +1,38 @@
+<!--pages/searchPage/searchPage.wxml-->
+<!-- <view class="search_box">
+<button class="goback_btn" bindtap="goBackEvent">返回</button>
+<input type="text" class="search"></input>
+</view> -->
+<navBar
+  background="#2F83FA"
+  back="{{ true }}"
+  bindback="handlerGobackClick"
+  bindhome="handlerGohomeClick"
+>
+  <view slot="center">
+    <input type="text"  focus="{{true}}" class="search" bindinput="inputEvent" bindconfirm="enterSearch" placeholder="{{placeholder}}" value="{{inputValue}}">
+    <text class="iconfont icon-sousuo sousuo_icon" bindtap="searchIconEvent"></text>
+    <text wx:if="{{showCloseBtn}}" bindtap="clearInputWordEvent" class="iconfont icon-guanbi guanbi_icon"></text>
+  </input>
+    
+  </view>
+</navBar>
+
+<view class="search_history_box" wx:if="{{!ifSearchFinish}}">
+  <view class="history_toptitle">
+    <text class="history_maintitle">搜索历史</text>
+    <image class="delete_img" bindtap="deleteHistory" src="../../lib/image/rentcarimg/delete.png"/>
+  </view>
+    <view class="history_box">
+      <view class="history_detail_box" 
+            bindtap="historySearchEvent"
+            wx:for="{{searchHistoryList}}"
+            wx:key="key"
+            data-index="{{item}}"
+            >
+            {{item}}
+      </view>
+    </view>
+    
+</view>
+  

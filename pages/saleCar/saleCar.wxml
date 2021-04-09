@@ -1,2 +1,12 @@
-<!--pages/saleCar/saleCar.wxml-->
-<text>pages/saleCar/saleCar.wxml</text>
+<!-- 买车页面 -->
+<!-- 自定义导航 -->
+<navigation-bar
+  default-data="{{defaultData}}"
+  ></navigation-bar>
+<view>
+
+<hotNew
+  bindgotoadList = "gotoadList"
+></hotNew>
+
+</view>

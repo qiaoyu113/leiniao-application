@@ -1,0 +1,25 @@
+<!-- 自定义顶部栏 -->
+<view class="nav-bar">
+  <navBar
+  bind:getnavHeight="handlerGetNavHeight"
+>
+<view slot="left" class="left_content">
+  <text wx:if="{{defaultData.showSearchBar}}" class="nav_city" bindtap="selectLocationEvent">{{defaultData.cityName}}</text>
+  <image class="city_icon" src="../../lib/image/rentcarimg/triangle.png"/>
+</view>
+<view slot="center">
+    <input wx:if="{{defaultData.showSearchBar}}" class="search" bindfocus="gotoSearchEvent" placeholder="{{defaultData.placeholderTitle}}" ></input>
+  </view>
+</navBar>
+    <!--轮播图 -->
+    <view class="slides" style="margin-top:{{-navHeight}}px;">
+      <!-- <swiper autoplay indicator-dots circular>
+        <swiper-item  wx:for="{{defaultData.swiperList}}" wx:key="key">
+          <navigator>
+            <image mode="widthFix" src="{{item.imgSrc}}"></image>
+          </navigator>
+        </swiper-item>
+      </swiper> -->
+      <image class="banner_img" src="../../lib//image/rentcarimg/banner.png" alt=""/>
+    </view>
+</view>

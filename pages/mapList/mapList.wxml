@@ -1,0 +1,16 @@
+<!--pages/mapList/mapList.wxml-->
+<wxs module="tools" src="./utils/function.wxs" />
+<van-index-bar>
+  <view wx:for="{{alphabet}}" wx:key="key" >
+    <van-index-anchor index="{{item}}" />
+    <block  wx:if='{{tools.arrayfind(newList,item)!==-1}}'>
+      <van-cell
+          data-index="{{item}}"
+          title="{{item.name}}"
+          wx:for="{{tools.findCity(newList,item)}}"
+          bindtap="slectCityGoIndex"
+          wx:key="key"
+          />
+    </block>
+  </view>
+</van-index-bar>

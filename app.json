@@ -10,7 +10,12 @@
     "pages/userAgreement/userAgreement",
     "pages/login/login",
     "pages/privacy/privacy",
-    "pages/clause/clause"
+    "pages/clause/clause",
+    "pages/mapList/mapList",
+    "pages/hotList/hotList",
+    "pages/carDetail/carDetail",
+    "pages/carFiles/carFiles",
+    "pages/searchPage/searchPage"
   ],
   "usingComponents": {
     "component-log": "components/logs/logs",
@@ -32,9 +37,9 @@
   },
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#f5f5f5",
-    "navigationBarTitleText": "雷鸟货架",
-    "navigationBarTextStyle": "black",
+    "navigationBarBackgroundColor": "#2F83FA",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "white",
     "backgroundColor": "#ffffff",
     "enablePullDownRefresh": false
   },

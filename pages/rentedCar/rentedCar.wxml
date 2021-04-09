@@ -1,6 +1,9 @@
+<!-- 自定义导航 -->
+<navigation-bar default-data="{{ defaultData }}"></navigation-bar>
 <view>
-  <!-- 热门车型 -->
-  <view class="flex py-15" style="background-color: #f9f9f9;">
+  <hotNew bindgotoadList="gotoadList"></hotNew>
+   <!-- 热门车型 -->
+   <view class="flex py-15" style="background-color: #f9f9f9;">
     <view class="flex-y flex-1 align-center" wx:for="{{hotModels}}" wx:key="id" data-info="{{item}}" bindtap="onGoHotModel">
       <image class="img-40" src="{{item.pic}}"></image>
       <text class="text-gray-3 mt-5 text-12">{{item.label}}</text>

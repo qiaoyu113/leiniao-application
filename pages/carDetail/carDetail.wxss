@@ -1,0 +1,303 @@
+/* pages/carDetail/carDetail.wxss */
+.top_bar {
+  position: relative;
+  width: 750rpx;
+  height: 750rpx;
+}
+.top_bar_img {
+  width: 100%;
+  height: 100%;
+}
+.title {
+  width: 710rpx;
+  padding-top: 24rpx;
+  margin: 0 auto;
+}
+.top_title {
+  font-size: 30rpx;
+  line-height: 42rpx;
+}
+.goback_btn {
+  position: absolute;
+  left: 20rpx;
+  width: 54rpx;
+  height: 54rpx;
+  z-index: 9999;
+}
+.goback_btn {
+  width: 54rpx;
+  height: 54rpx;
+}
+.goback_img {
+  width: 54rpx;
+  height: 54rpx;
+}
+.tips {
+  font-size: 20rpx;
+  padding: 4rpx 5rpx;
+  line-height: 28rpx;
+  background: #1c8efa;
+  border-radius: 4rpx;
+  color: #fff;
+  margin-right: 2rpx;
+  margin-left: 8rpx;
+  position: relative;
+  top: -5rpx;
+}
+.main_title {
+  margin-left: 19rpx;
+  font-size: 30rpx;
+  height: 42rpx;
+  line-height: 42rpx;
+  font-weight: bold;
+  color: #333;
+}
+.price {
+  font-size: 40rpx;
+  color: #ff4652;
+  font-weight: bold;
+  margin-right: 11rpx;
+}
+.price_tips {
+  font-size: 26rpx;
+  color: #999;
+  vertical-align: bottom;
+  margin-right: 9rpx;
+}
+.title_img {
+  width: 26rpx;
+  height: 26rpx;
+  position: relative;
+  bottom: -3rpx;
+}
+.price_info {
+  width: 300rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  margin-top: 24rpx;
+  margin-bottom: 11rpx;
+}
+.bottom_tips {
+  padding: 2rpx 10rpx;
+  font-size: 20rpx;
+  line-height: 28rpx;
+  border-radius: 4rpx;
+  border: 1rpx solid #338bff;
+  color: #338bff;
+  margin-right: 10rpx;
+}
+.introduce_reason {
+  width: 690rpx;
+  height: 190rpx;
+  padding-left: 30rpx;
+  padding-top: 20rpx;
+  margin: 40rpx auto;
+  border-radius: 20rpx;
+  background: #f9f9f9;
+}
+.hot_img {
+  margin-top: 5rpx;
+  margin-right: 19rpx;
+  width: 28rpx;
+  height: 30rpx;
+}
+.hot_title {
+  font-size: 28rpx;
+  line-height: 40rpx;
+}
+.hot_content {
+  margin-top: 9rpx;
+  width: 624rpx;
+  font-size: 24rpx;
+  color: #999;
+  line-height: 33rpx;
+  margin-bottom: 40rpx;
+}
+.splite_line {
+  width: 100%;
+  height: 20rpx;
+  background: #f9f9f9;
+}
+.car_files_box {
+  width: 100%;
+  min-height: 400rpx;
+  padding-top: 33rpx;
+  position: relative;
+}
+.files_title {
+  width: 100%;
+  height: 42rpx;
+}
+.left_title {
+  display: block;
+  float: left;
+  margin-left: 28rpx;
+  font-size: 30rpx;
+  font-weight: bold;
+  line-height: 42rpx;
+}
+.right_title {
+  display: block;
+  float: right;
+  margin-right: 28rpx;
+  font-size: 26rpx;
+  color: #666;
+}
+.files_type_box {
+  width: 100%;
+  height: 306rpx;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
+}
+.type_box_detail {
+  width: 30%;
+  height: 80rpx;
+}
+.type_box_detail {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.type_value {
+  font-size: 30rpx;
+  color: #333;
+  font-weight: bold;
+  line-height: 42rpx;
+  text-align: center;
+}
+.type_key {
+  color: #999;
+  font-size: 22rpx;
+  line-height: 30rpx;
+  text-align: center;
+}
+.car_description {
+  min-height: 156rpx;
+  padding-top: 37rpx;
+  margin-left: 28rpx;
+  margin-right: 29rpx;
+  border-top: 1rpx solid #e8e8e8;
+}
+.car_des_title {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  height: 37rpx;
+  font-size: 26rpx;
+  color: #666;
+  font-weight: bold;
+  margin-top: -53rpx;
+  margin-bottom: 20rpx;
+}
+.des_title_detail {
+  display: block;
+  width: 130rpx;
+  height: 37rpx;
+  text-align: center;
+  background-color: #fff;
+}
+.car_des_detail {
+  width: 100%;
+  margin-bottom: 13rpx;
+  font-size: 24rpx;
+  line-height: 33rpx;
+  color: #999;
+  min-height: 120rpx;
+}
+.bottom_bar {
+  width: 100%;
+  height: 100rpx;
+  border-top: 1rpx solid #e8e8e8;
+  display: flex;
+  align-items: center;
+}
+.love_icon {
+  width: 36rpx;
+  height: 30rpx;
+  margin-left: 46rpx;
+  margin-right: 12rpx;
+}
+.btn {
+  border-radius: 10rpx;
+  line-height: 70rpx;
+  color: #fff;
+  text-align: center;
+  font-size: 30rpx;
+}
+.collect_word {
+  display: block;
+  margin-right: 26rpx;
+  padding-left: 56rpx;
+  font-size: 30rpx;
+}
+.icon_heart {
+  color: #ff4652;
+}
+.collect_text {
+  margin-left: 12rpx;
+  color: #333;
+}
+.btn_left {
+  width: 210rpx;
+  height: 70rpx;
+  background: #ff661c;
+  margin-right: 20rpx;
+}
+.btn_right {
+  width: 270rpx;
+  height: 70rpx;
+  background: #1c8efa;
+}
+.asktitle {
+  width: 100%;
+  text-align: center;
+  font-size: 30rpx;
+  color: #333;
+  line-height: 42rpx;
+  font-weight: bold;
+  margin-top: 22rpx;
+}
+.ask_ques_box {
+  height: 173rpx;
+  width: 100%;
+  padding-top: 54rpx;
+  padding-left: 75rpx;
+  padding-right: 75rpx;
+  margin-bottom: 9rpx;
+}
+.ask_ques_title {
+  color: #333;
+  font-size: 28rpx;
+  line-height: 40rpx;
+  font-weight: bold;
+}
+.ask_ques_content {
+  margin-top: 26rpx;
+  height: 53rpx;
+  border-bottom: 1rpx solid #ddd;
+  padding-bottom: 13rpx;
+  background: none;
+  outline: none;
+}
+.ask_ques_content:focus {
+  border: none;
+}
+.ask_ques_reg {
+  font-size: 22rpx;
+  color: #ff4652;
+}
+.ask_ques_btn {
+  width: 635rpx;
+  height: 80rpx;
+  background: #1c8efa;
+  border-radius: 10rpx;
+  margin-top: 77rpx;
+  margin-left: -17rpx;
+  text-align: center;
+  line-height: 80rpx;
+  color: #fff;
+  font-weight: bold;
+}
