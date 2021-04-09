@@ -44,25 +44,25 @@
     "enablePullDownRefresh": false
   },
   "tabBar": {
-    "color": "#333",
-    "selectedColor": "#FDB82D",
+    "color": "#666",
+    "selectedColor": "#1C8EFA",
     "borderStyle": "white",
     "list": [
       {
-        "selectedIconPath": "lib/image/icon1_1.png",
-        "iconPath": "lib/image/icon1.png",
+        "selectedIconPath": "lib/image/home/11.png",
+        "iconPath": "lib/image/home/10.png",
         "pagePath": "pages/rentedCar/rentedCar",
         "text": "租车"
       },
       {
-        "selectedIconPath": "lib/image/icon2_1.png",
-        "iconPath": "lib/image/icon2.png",
+        "selectedIconPath": "lib/image/home/21.png",
+        "iconPath": "lib/image/home/20.png",
         "pagePath": "pages/saleCar/saleCar",
         "text": "买车"
       },
       {
-        "selectedIconPath": "lib/image/icon3_1.png",
-        "iconPath": "lib/image/icon3.png",
+        "selectedIconPath": "lib/image/home/31.png",
+        "iconPath": "lib/image/home/30.png",
         "pagePath": "pages/myCenter/myCenter",
         "text": "个人中心"
       }
