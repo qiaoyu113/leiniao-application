@@ -1,9 +1,17 @@
 {
   "pages": [
+    "pages/shareLogin/shareLogin",
+    "pages/myCenter/myCenter",
+    "pages/collect/collect",
+    "pages/phoneLogin/phoneLogin",
     "pages/rentedCar/rentedCar",
     "pages/saleCar/saleCar",
     "pages/myCenter/myCenter",
-    "pages/hotModel/hotModel"
+    "pages/hotModel/hotModel",
+    "pages/userAgreement/userAgreement",
+    "pages/login/login",
+    "pages/privacy/privacy",
+    "pages/clause/clause"
   ],
   "usingComponents": {
     "component-log": "components/logs/logs",

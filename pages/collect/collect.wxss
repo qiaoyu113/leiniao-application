@@ -1,0 +1,141 @@
+/* pages/collect/collect.wxss */
+.myCollect{
+  margin-top: 87px;
+}
+
+.collectList{
+  display: flex;
+  padding:15px 20px;
+  box-sizing: border-box;
+  border-bottom: 1px solid #E8E8E8;
+  position: relative;
+}
+
+.img{
+  flex: 0 0 100px;
+  width: 100px;
+  height: 100px;
+  border-radius: 10px;
+}
+
+.info{
+  flex: 1;
+  padding-left: 25px;
+  box-sizing: border-box;
+  overflow: auto;
+}
+
+.info .title{
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  font-size: 14px;
+  color: #333333;
+}
+
+.info .value{
+  display: flex;
+  margin-top: 12px;
+}
+
+.info .value .valueList{
+  flex: 1;
+  font-size: 12px;
+  color: #999999;
+}
+
+.tagBox{
+  display: flex;
+  margin-top: 2px;
+}
+
+.tagBox .tag{
+  flex: auto;
+  margin-right: 5px;
+  height: 15px;
+  line-height: 15px;
+  background: #1C8EFA;
+  border: 1px solid #1C8EFA;
+  border-radius: 4px;
+  color: #fff;
+  font-size: 12px;
+  text-align: center;
+}
+.tagBox .tag2{
+  flex: auto;
+  margin-right: 5px;
+  height: 15px;
+  line-height: 15px;
+  background: #fff;
+  border: 1px solid #1C8EFA;
+  border-radius: 4px;
+  color: #1C8EFA;
+  font-size: 12px;
+  text-align: center;
+}
+
+.price{
+  margin-top: 9px;
+  color: #FF4652;
+  font-size: 17px;
+  font-weight: bold;
+}
+
+.price .icon{
+  width: 18px;
+  height: 18px;
+  float: right;
+  margin-top: 3px;
+}
+
+.shadow {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  margin: auto;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.shadow image{
+  width: 55px;
+  height: 45px;
+  position: absolute;
+  top: 15px;
+  right: 25px;
+}
+
+.block{
+  width: 100%;
+  padding: 105px 50px;
+  box-sizing: border-box;
+}
+
+.block image{
+  width: 255px;
+  height: 175px;
+}
+
+.block .text {
+  width: 100%;
+  text-align: center;
+  font-size: 14px;
+  color: #666666;
+  margin-top: 15px;
+}
+
+.block .btn{
+  width: 70px;
+  height: 25px;
+  line-height: 25px;
+  text-align: center;
+  color: #666666;
+  font-size: 14px;
+  border: 1px solid #666666;
+  border-radius: 4px;
+  margin: 15px auto;
+}

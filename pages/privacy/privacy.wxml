@@ -1,0 +1,203 @@
+<view class="privacy">
+  <van-nav-bar
+  title="隐私政策"
+  left-text=""
+  fixed="true"
+  left-arrow
+  bind:click-left="onClickLeft"
+  custom-style="navStyle"
+  title-class="titleStyle"
+/>
+  <view class="title">引言</view>
+  <view class="paragraph margin">雷鸟重视用户信息安全与隐私保护。为了给您提供更准确、更有个性化的服务，我们将通过本政策向您说明“雷鸟车池”小程序会如何收集、存储、保护、使用及对外提供您的信息，并说明您享有的权利。</view>
+  <view class="paragraph margin">雷鸟严格遵守法律法规，遵循以下隐私保护原则，为您提供更加安全、可靠的服务：</view>
+  <view class="paragraph margin">1.安全可靠：我们竭尽全力通过合理有效的信息安全技术及管理流程，防止您的信息泄露、损毁、丢失。
+</view>
+  <view class="paragraph margin">2.合理必要：为了向您和其他用户提供更好的服务，我们仅收集必要的信息。
+</view>
+  <view class="paragraph margin">3.清晰透明：我们努力使用简明易懂的表述，向您介绍隐私政策，以便您清晰地了解我们的信息处理方式。
+
+</view>
+  <view class="paragraph margin">4.将隐私保护融入产品设计：我们在产品或服务开发的各个环节，综合法律、产品、设计等多方因素，融入隐私保护的理念。
+
+</view>
+<view class="paragraph margin">本《隐私政策》主要向您说明：
+</view>
+<view class="paragraph margin">我们收集哪些信息；
+</view>
+<view class="paragraph margin">我们收集信息的用途；
+</view>
+<view class="paragraph margin">您所享有的权利。
+</view>
+<view class="paragraph margin">希望您仔细阅读《隐私政策》（以下简称“本政策”），详细了解我们对信息的收集、使用方式，以便您更好地了解我们的服务并作出适当的选择。
+</view>
+<view class="paragraph margin">若您使用雷鸟服务，即表示您认同我们在本政策中所述内容。
+</view>
+<view class="paragraph margin">一、我们收集的信息
+</view>
+<view class="paragraph margin">我们根据合法、正当、必要的原则，仅收集实现产品功能所必要的信息。
+</view>
+<view class="paragraph margin">1.1您在使用我们服务时主动提供的信息
+</view>
+<view class="paragraph margin">1.1.1 您在注册账户时填写的信息。
+例如，您在注册雷鸟车池端时所填写的姓名、手机号码。
+</view>
+<view class="paragraph margin">1.1.2 您在使用服务时上传的信息。
+例如，您在使用雷鸟车池端时，上传的头像、车辆的照片。
+
+</view>
+<view class="paragraph margin">1.1.3 您通过我们的客服或参加我们举办的活动时所提交的信息。
+例如，您参与我们线上活动时填写的可能包含您的姓名、电话、家庭地址等信息。
+我们的部分服务可能需要您提供特定的个人敏感信息来实现特定功能。若您选择不提供该类信息，则可能无法正常使用服务中的特定功能，但不影响您使用服务中的其他功能。若您主动提供您的个人敏感信息，即表示您同意我们按本政策所述目的和方式来处理您的个人敏感信息。
+</view>
+<view class="paragraph margin">1.2我们在您使用服务时获取的信息
+
+</view>
+<view class="paragraph margin">1.2.1 日志信息。当您使用我们的服务时，我们可能会自动收集相关信息并存储为服务日志信息。
+
+</view>
+<view class="paragraph margin">(1) 设备信息。例如，设备型号、操作系统版本、唯一设备标识符、电池、信号强度等信息。
+
+</view>
+<view class="paragraph margin">(2) 软件信息。例如，软件的版本号、浏览器类型。为确保操作环境的安全或提供服务所需，我们会收集有关您使用的移动应用和其他软件的信息。
+
+</view>
+<view class="paragraph margin">1.2.2 位置信息。当您使用与位置有关的服务时，我们可能会记录您设备所在的位置信息，以便为您提供相关服务。
+
+</view>
+<view class="paragraph margin">(1) 在您使用服务时，我们可能会通过IP地址、GPS、WiFi或基站等途径获取您的地理位置信息；
+
+</view>
+<view class="paragraph margin">(2) 您或其他用户在使用服务时提供的信息中可能包含您所在地理位置信息，例如您提供的账号信息中可能包含的您所在地区信息；
+</view>
+<view class="paragraph margin">1.2.3 如果您在雷鸟进行车辆信息的浏览，我们会收集您的IMEI（仅Android设备）、UUID（仅IOS设备）、IDFA（仅IOS设备）、IMSI、设备MAC地址，我们使用上述设备信息进行真实用户实体的识别，以预防钓鱼网站的欺诈以及对雷鸟内容的非法爬取、进而保证雷鸟系统的安全，如您拒绝提供上述信息，我们无法为您提供服务。
+</view>
+<view class="paragraph margin">1.2.4 其他相关信息。为了帮助您更好地使用我们的产品或服务，使您获得更轻松的访问体验，我们存储您的操作记录和浏览偏好数据，帮助判断您的登录状态并向您进行个性化推荐。
+二、我们如何使用收集的信息
+我们严格遵守法律法规的规定及与用户的约定，将收集的信息用于以下用途。若我们超出以下用途使用您的信息，我们将再次向您进行说明，并征得您的同意。
+</view>
+<view class="paragraph margin">2.1向您提供服务。
+
+</view>
+<view class="paragraph margin">2.2满足您的个性化需求。例如，位置设定、个性化的帮助服务。
+</view>
+<view class="paragraph margin">2.3产品开发和服务优化。例如，当我们的系统发生故障时，我们会记录和分析系统故障时产生的信息，优化我们的服务。
+</view>
+<view class="paragraph margin">2.4安全保障。例如，我们会将您的信息用于身份验证、安全防范、反诈骗监测、存档备份、客户的安全服务等用途。例如，您下载或安装的安全软件会对恶意程序或病毒进行检测，或为您识别诈骗信息。
+</view>
+<view class="paragraph margin">2.5评估、改善我们的广告投放和其他促销及推广活动的效果。
+</view>
+<view class="paragraph margin">2.6邀请您参与有关我们服务的调查。
+为了让您有更好地体验、改善我们的服务或经您同意的其他用途，在符合相关法律法规的前提下，我们可能将通过某些服务所收集的信息用于我们的其他服务。例如，将您在使用我们某项服务时的信息，用于另一项服务中向您展示个性化的内容或广告、用于用户研究分析与统计等服务。
+为了确保服务的安全，帮助我们更好地了解我们应用程序的运行情况，我们可能记录相关信息，例如，您使用应用程序的频率、故障信息、总体使用情况、性能数据以及应用程序的来源。我们不会将我们存储在分析软件中的信息与您在应用程序中提供的个人身份信息相结合。
+</view>
+<view class="paragraph margin">三、我们如何使用Cookie及相关技术
+
+</view>
+<view class="paragraph margin">我们或我们的第三方合作伙伴，可能通过放置安全的Cookie及相关技术收集您的信息，目的是为您提供更个性化的用户体验和服务。我们会严格要求第三方合作伙伴遵守本政策的相关规定。
+您也可以通过浏览器设置管理Cookie。但请注意，如果停用Cookie，您可能无法享受最佳的服务体验，某些服务也可能无法正常使用。
+
+</view>
+<view class="paragraph margin">四、您分享的信息
+</view>
+<view class="paragraph margin">您可以通过我们的服务与您的好友及其他用户分享您的相关信息。例如，您推荐司机好友注册雷鸟。请注意，这其中可能包含您的个人身份信息、个人财产信息等敏感信息。请您谨慎考虑披露您的相关个人敏感信息。
+您可以通过我们服务中的隐私设置来控制您分享信息的范围，也可通过服务中的设置或我们提供的指引删除您公开分享的信息。但请您注意，这些信息仍可能由其他用户或不受我们控制的非关联第三方独立地保存。
+
+</view>
+<view class="paragraph margin">五、您如何管理自己的信息
+
+</view>
+<view class="paragraph margin">5.1您可以在使用我们服务的过程中，访问、修改和删除您提供的注册信息和其他个人信息，也可按照通知指引与我们联系。您访问、修改和删除个人信息的范围和方式将取决于您使用的具体服务。例如，若您在使用地理位置相关服务时，希望停止分享您的地理位置信息，您可通过手机定位关闭功能、软硬件服务商及通讯服务提供商的关闭方式停止分享，建议您仔细阅读相关指引。
+
+</view>
+<view class="paragraph margin">5.2我们将按照本政策所述，仅为实现我们产品或服务的功能，收集、使用您的信息。如您发现我们违反法律、行政法规的规定或者双方的约定收集、使用您的个人信息，您可以要求我们删除。如您发现我们收集、存储的您的个人信息有错误的，您也可以要求我们更正。请通过本政策列明的联系方式与我们联系。
+
+</view>
+<view class="paragraph margin">5.3在您访问、修改和删除相关信息时，我们可能会要求您进行身份验证，以保障账号的安全。
+</view>
+<view class="paragraph margin">5.4请您理解，由于技术所限、法律或监管要求，我们可能无法满足您的所有要求，我们会在合理的期限内答复您的请求。
+</view>
+<view class="paragraph margin">六、我们分享的信息
+</view>
+<view class="paragraph margin">我们遵照法律法规的规定，对信息的分享进行严格的限制，例如：
+</view>
+<view class="paragraph margin">6.1经您事先同意，我们可能与第三方分享您的个人信息；
+</view>
+<view class="paragraph margin">6.2仅为实现外部处理的目的，我们可能会与第三方合作伙伴（第三方服务供应商、承包商、代理、广告合作伙伴、应用开发者等，例如，代表我们发出电子邮件或推送通知的通讯服务提供商、为我们提供位置服务的地图服务供应商）（他们可能并非位于您所在的法域）分享您的个人信息，让他们按照我们的说明、隐私政策以及其他相关的保密和安全措施来为我们处理上述信息，并用于以下用途：
+</view>
+<view class="paragraph margin">6.2.1 向您提供我们的服务；
+</view>
+<view class="paragraph margin">6.2.2 实现“我们如何使用收集的信息”部分所述目的；
+</view>
+<view class="paragraph margin">6.2.3 履行我们在《雷鸟服务协议》或本政策中的义务和行使我们的权利；
+
+</view>
+<view class="paragraph margin">6.2.4 理解、维护和改善我们的服务。
+如我们与上述第三方分享您的信息，我们将会采用加密、匿名化处理等手段保障您的信息安全。
+</view>
+<view class="paragraph margin">6.3随着我们业务的持续发展，当发生合并、收购、资产转让等交易导致向第三方分享您的个人信息时，我们将通过推送通知、公告等形式告知您相关情形，按照法律法规及不低于本政策所要求的标准继续保护或要求新的管理者继续保护您的个人信息。
+</view>
+<view class="paragraph margin">6.4我们会将所收集到的信息用于大数据分析。例如，我们将收集到的信息用于分析形成不包含任何个人信息的城市热力图或行业洞察报告。我们可能对外公开并与我们的合作伙伴分享经济统计加工后不含身份识别内容的信息，用于了解用户如何使用我们服务或让公众了解我们服务的总体使用趋势。
+</view>
+<view class="paragraph margin">6.5我们可能基于以下目的披露您的个人信息：
+
+</view>
+<view class="paragraph margin">6.5.1 遵守适用的法律法规等有关规定；
+</view>
+<view class="paragraph margin">6.5.2 遵守法院判决、裁定或其他法律程序的规定；
+</view>
+<view class="paragraph margin">6.5.3 遵守相关政府机关或其他法定授权组织的要求；
+</view>
+<view class="paragraph margin">6.5.4 我们有理由确信需要遵守法律法规等有关规定；
+</view>
+<view class="paragraph margin">6.5.5 为执行相关服务协议或本政策、维护社会公共利益，为保护我们的客户、我们或我们的关联公司、其他用户或雇员的人身财产安全或其他合法权益合理且必要的用途。
+</view>
+<view class="paragraph margin">七、我们可能向您发送的信息
+</view>
+<view class="paragraph margin">7.1信息推送
+您在使用我们的服务时，我们可能向您发送短信、资讯或推送通知。
+</view>
+<view class="paragraph margin">7.2与服务有关的公告
+我们可能在必要时（例如，因系统维护而暂停某一项服务时）向您发出与服务有关的公告。您可能无法取消这些与服务有关、性质不属于广告的公告。
+</view>
+<view class="paragraph margin">八、存储信息的地点和期限
+</view>
+<view class="paragraph margin">8.1存储信息的地点
+我们遵守法律法规的规定，将境内收集的用户个人信息存储于境内。
+</view>
+<view class="paragraph margin">8.2存储信息的期限
+一般而言，我们仅为实现目的所必需的最短时间保留您的个人信息。但在下列情况下，我们有可能因需符合法律要求，更改个人信息的存储时间：
+</view>
+<view class="paragraph margin">8.2.1 为遵守适用的法律法规等有关规定；
+</view>
+<view class="paragraph margin">8.2.2 为遵守法院判决、裁定或其他法律程序的规定；
+</view>
+<view class="paragraph margin">8.2.3 为遵守相关政府机关或法定授权组织的要求；
+</view>
+<view class="paragraph margin">8.2.4 我们有理由确信需要遵守法律法规等有关规定；
+</view>
+<view class="paragraph margin">8.2.5 为执行相关服务协议或本政策、维护社会公共利益，为保护我们的客户、我们或我们的关联公司、其他用户或雇员的人身财产安全或其他合法权益所合理必需的用途。
+当我们的产品或服务发生停止运营的情形时，我们将采取例如，推送通知、公告等形式通知您，并在合理的期限内删除或匿名化处理您的个人信息。
+</view>
+<view class="paragraph margin">九、信息安全
+</view>
+<view class="paragraph margin">我们为您的信息提供相应的安全保障，以防止信息的丢失、不当使用、未经授权访问或披露。
+</view>
+<view class="paragraph margin">9.1我们严格遵守法律法规保护用户的通信秘密。
+</view>
+<view class="paragraph margin">9.2我们将在合理的安全水平内使用各种安全保护措施以保障信息的安全。例如，我们使用加密技术（例如，TLS、SSL）、匿名化处理等手段来保护您的个人信息。
+</view>
+<view class="paragraph margin">9.3我们建立专门的管理制度、流程和组织确保信息安全。例如，我们严格限制访问信息的人员范围，要求他们遵守保密义务，并进行审查。
+</view>
+<view class="paragraph margin">9.4若发生个人信息泄露等安全事件，我们会启动应急预案，阻止安全事件扩大，并以推送通知、公告等形式告知您。
+</view>
+<view class="paragraph margin">十、广告
+</view>
+<view class="paragraph margin">我们可能使用您的相关信息，在相关网站、应用及其他渠道向您提供与您更加相关的广告。您可以在关于广告页面中了解更多。
+</view>
+<view class="paragraph margin">十一、适用范围
+</view>
+<view class="paragraph margin">我们的所有服务均适用本政策。但某些服务有其特定的隐私指引/声明，该特定隐私指引/声明更具体地说明我们在该服务中如何处理您的信息。如本政策与特定服务的隐私指引/声明有不一致之处，请以该特定隐私指引/声明为准。
+如对本《隐私政策》或相关事宜有任何问题，请通过400-008-0666与我们联系。
+</view>
+</view>

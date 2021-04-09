@@ -1,1 +1,8 @@
-{}
+{
+  "usingComponents": {
+    "van-cell": "../../miniprogram_npm/vant-weapp/cell/index",
+    "van-cell-group": "../../miniprogram_npm/vant-weapp/cell-group/index",
+    "van-dialog": "../../miniprogram_npm/vant-weapp/dialog/index"
+  },
+  "backgroundColor": "#ffffff"
+}

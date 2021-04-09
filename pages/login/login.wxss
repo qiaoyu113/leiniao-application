@@ -1,0 +1,36 @@
+/* pages/login/login.wxss */
+.titleStyle{
+  color:#fff;
+}
+
+.icons{
+  width: 80px;
+  margin: 250px auto 125px;
+}
+
+.icons image{
+  width: 80px;
+  height: 80px;
+}
+
+.loginBtn{
+  padding: 0 80px;
+}
+
+.loginBtn button{
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  background: #1C8EFA;
+  border-radius: 5px;
+  color: #fff;
+  font-size: 14px;
+}
+
+.phoneLogin{
+  width: 100%;
+  color: #666666;
+  font-size: 14px;
+  text-align: center;
+  line-height: 60px;
+}
