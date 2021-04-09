@@ -16,14 +16,9 @@ var getMap = function () {
           latitude: res.latitude,
           longitude: res.longitude,
         },
-        success: (addressRes) => {
-          console.log(addressRes)
+        success: function (addressRes) {
           var city = addressRes.result.address_component.city
-          wx.setStorage({
-            key: 'locationCity',
-            data: city
-          })
-          //wx.setStorageSync('locationCity', city)
+          wx.setStorageSync('locationCity', city)
           console.log('城市名', city)
           var address =
             addressRes.result.address_component.city +
