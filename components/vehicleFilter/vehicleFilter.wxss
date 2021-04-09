@@ -1,0 +1,66 @@
+/* components/vehicleFilter/vehicleFilter.wxss */
+.img-23x26 {
+  width: 23rpx;
+  height: 26rpx;
+}
+.img-12x9 {
+  width: 12rpx;
+  height: 9rpx;
+}
+.img-12x9-r {
+  width: 12rpx;
+  height: 9rpx;
+  transform: rotate(180deg);
+}
+.list-brand {
+  flex-basis: 200rpx;
+  background-color: #f9f9f9;
+}
+.list-model {
+  flex-basis: 550rpx;
+}
+.height-50 {
+  height: 100rpx;
+}
+.height-44 {
+  height: 88rpx;
+}
+.pl-32 {
+  padding-left: 64rpx;
+}
+.list-age {
+  flex-basis: 345rpx;
+  flex-shrink: 0;
+  flex-grow: 0;
+}
+.list-age-item {
+  width: 220rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+}
+.b-solid-blue {
+  border: 1rpx solid #1C8EFA;
+}
+.input-range {
+  width: 260rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+}
+.feature-item {
+  width: 160rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+}
+.miles-item {
+  width: 250rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+}
+.filter-mask {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.1);
+}

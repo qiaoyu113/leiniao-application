@@ -7,6 +7,7 @@ App({
     // var logs = wx.getStorageSync('logs') || []
     // logs.unshift(Date.now())
     // wx.setStorageSync('logs', logs)
+    
     // wx.qy.login({
     //   success: function (res) {
     //     console.log(333333, res)
@@ -79,11 +80,11 @@ App({
         duration: 2000
       })
     } else {
-      wx.cloud.init({
-        env: 'firmiana-m1-wdeku', // m1环境
-        // env:'firmiana-stable-8snod', // 生产环境
-        traceUser: true
-      })
+      // wx.cloud.init({
+      //   env: 'firmiana-m1-wdeku', // m1环境
+      //   // env:'firmiana-stable-8snod', // 生产环境
+      //   traceUser: true
+      // })
     }
   },
   globalData: {

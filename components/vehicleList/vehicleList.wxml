@@ -1,0 +1,16 @@
+<view>
+  <!-- 筛选组件 -->
+  <view class="sticky">
+    <vehicle-filter id="vehicleFilter" 
+      bind:change="onParamChange" bind:featurechange="onFeatureChange" bind:filterreset="onFilterReset"></vehicle-filter>
+  </view>
+  <!-- 快捷筛选项 -->
+  <view wx:if="{{showFastFeature}}" class="px-15 mb-15 space-between pb-1">
+    <view class="fast-feature center_center text-12 {{item.selected ? 'bg-blue text-white' : 'bg-lightblue text-blue'}}" 
+      wx:for="{{fastFeatures}}" wx:key="index" data-info="{{item}}" bindtap="onSelectFeature" >{{item.label}}</view>
+  </view>
+  <!-- 车辆列表 -->
+  <view class="bt-solid-e">
+    <vehicle wx:for="{{vehicleList}}" wx:key="index" item="{{item}}"></vehicle>
+  </view>
+</view>
