@@ -1,0 +1,104 @@
+/* colors */
+.text-white {
+  color: #ffffff;
+}
+.text-black {
+  color: #000000;
+}
+.text-gray-3 {
+  color: #333333;
+}
+.text-gray-6 {
+  color: #666666;
+}
+.text-gray-9 {
+  color: #999999;
+}
+
+.bg-white {
+  background-color: #ffffff;
+}
+.bg-gray {
+  background-color: #f5f5f5;
+}
+
+.b-solid-d {
+  border: 1rpx solid #dddddd;
+}
+.bl-solid-d {
+  border-left: 1rpx solid #dddddd;
+}
+.br-solid-d {
+  border-right: 1rpx solid #dddddd;
+}
+.bt-solid-d {
+  border-top: 1rpx solid #dddddd;
+}
+.bb-solid-d {
+  border-bottom: 1rpx solid #dddddd;
+}
+.bx-solid-d {
+  border-left: 1rpx solid #dddddd;
+  border-right: 1rpx solid #dddddd;
+}
+.by-solid-d {
+  border-top: 1rpx solid #dddddd;
+  border-bottom: 1rpx solid #dddddd;
+}
+.b-dashed-d {
+  border: 1rpx dashed #dddddd;
+}
+.b-dotted-d {
+  border: 1rpx dotted #dddddd;
+}
+.b-solid-e {
+  border: 1rpx solid #eeeeee;
+}
+.bl-solid-e {
+  border-left: 1rpx solid #eeeeee;
+}
+.br-solid-e {
+  border-right: 1rpx solid #eeeeee;
+}
+.bt-solid-e {
+  border-top: 1rpx solid #eeeeee;
+}
+.bb-solid-e {
+  border-bottom: 1rpx solid #eeeeee;
+}
+.bx-solid-e {
+  border-left: 1rpx solid #eeeeee;
+  border-right: 1rpx solid #eeeeee;
+}
+.by-solid-e {
+  border-top: 1rpx solid #eeeeee;
+  border-bottom: 1rpx solid #eeeeee;
+}
+.b-dashed-e {
+  border: 1rpx dashed #eeeeee;
+}
+.b-dotted-e {
+  border: 1rpx dotted #eeeeee;
+}
+.transparent {
+  opacity: 0;
+}
+.opacity-1 {
+  opacity: 0.1;
+}
+.opacity-2 {
+  opacity: 0.2;
+}
+.opacity-5 {
+  opacity: 0.5;
+}
+.opaque {
+  opacity: 1;
+}
+/* decorations */
+.text-bold {
+  font-weight: bold;
+}
+.box-shadow {
+  box-shadow: 0 10rpx 20rpx 0 rgba(221,221,221,0.50);
+}

@@ -1,0 +1,5 @@
+.fast-feature {
+  width: 130rpx;
+  height: 40rpx;
+  border-radius: 20rpx;
+}

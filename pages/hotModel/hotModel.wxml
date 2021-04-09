@@ -1,0 +1,4 @@
+<!--pages/hotModel/hotModel.wxml-->
+<view>
+  <vehicle-list id="vehicleList"></vehicle-list>
+</view>

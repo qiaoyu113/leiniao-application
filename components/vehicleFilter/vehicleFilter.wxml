@@ -1,0 +1,80 @@
+<view class="height-50 vehicle-filter" catchtouchmove="doNothing">
+  <view class="relative z-500">
+    <!-- mask -->
+    <view wx:if="{{currentTab}}" class="filter-mask z-500" bindtap="onSelectTab"></view>
+    <!-- Tabs -->
+    <view class="absolute z-1000 width-100p bg-white height-50">
+      <view class="center_space-between p-15">
+        <view class="align-center" wx:for="{{tabs}}" wx:key="index" data-info="{{item}}" bindtap="onSelectTab">
+          <image class="img-23x26" wx:if="{{item.id === 'sort'}}"
+            src="{{item.selected ? '/lib/image/home/icon_sort_blue.png' : '/lib/image/home/icon_sort.png'}}"></image>
+          <text wx:else decode class="text-13 text-bold {{item.selected ? 'text-blue' : 'text-gray-3'}}">{{item.label}}&nbsp;</text>
+          <image wx:if="{{index !== tabs.length - 1}}" class="img-12x9"
+            src="{{item.selected ? '/lib/image/home/icon_arrow_up.png' : '/lib/image/home/icon_arrow_down.png'}}"></image>
+        </view>
+      </view>
+    </view>
+    <!-- Panel -->
+    <view wx:if="{{currentTab}}" class="absolute z-1000 width-100p" style="top: 100rpx;">
+      <!-- Panels -->
+      <view class="bg-white bt-solid-e">
+        <!-- 车型 -->
+        <view wx:if="{{currentTab.id === 'model'}}" class="flex">
+          <view class="list-brand">
+            <view class="height-50 align-center pl-15 text-14 {{item.selected ? 'text-blue bg-white' : 'text-gray-3'}}"
+              wx:for="{{modelList}}" wx:key="index" data-info="{{item}}" bindtap="onSelectBrand">{{item.brandName}}</view>
+          </view>
+          <view class="list-model">
+            <view class="height-44 align-center pl-32 text-14 {{item.selected ? 'text-blue bg-white' : 'text-gray-6'}}"
+              wx:for="{{models}}" wx:key="index" data-info="{{item}}" bindtap="onSelectModel">{{item.modelName}}</view>
+          </view>
+        </view>
+        <!-- 车龄 -->
+        <view wx:if="{{currentTab.id === 'age'}}" class="p-15 flex flex-wrap">
+          <view wx:for="{{ages}}" wx:key="index" class="center_center list-age">
+            <view class="list-age-item center_center m-15 text-12 {{item.selected ? 'text-blue bg-lightblue b-solid-blue' : 'text-gray-3 bg-gray b-solid-e'}}"
+              data-info="{{item}}" bindtap="onSelectAge">{{item.label}}</view>
+          </view>
+        </view>
+        <!-- 价格 -->
+        <view wx:if="{{currentTab.id === 'price'}}" class="p-15">
+          <text class="text-15 text-gray-3">请输入价格（元）</text>
+          <view class="center_space-around text-12" style="margin: 80rpx 0;">
+            <input class="b-solid-e input-range text-center bg-gray" model:value="{{minPrice}}" placeholder="最小值" />
+            <view class="text-gray-6">—</view>
+            <input class="b-solid-e input-range text-center bg-gray" model:value="{{maxPrice}}" placeholder="最大值" />
+          </view>
+        </view>
+        <!-- 筛选 -->
+        <view wx:if="{{currentTab.id === 'filter'}}" class="p-15">
+          <view class="text-15 text-gray-3">车辆特点</view>
+          <view class="flex flex-wrap text-12">
+            <view class="feature-item mx-15 mt-15 center_center {{item.selected ? 'text-blue bg-lightblue' : 'text-gray-3 bg-gray'}}"
+              wx:for="{{features}}" wx:key="index" data-info="{{item}}" bindtap="onSelectFeature">{{item.label}}</view>
+          </view>
+          <view class="text-15 text-gray-3 mt-20">里程</view>
+          <view class="flex flex-wrap text-12">
+            <view class="miles-item mx-15 mt-15 center_center {{item.selected ? 'text-blue bg-lightblue' : 'text-gray-3 bg-gray'}}"
+              wx:for="{{miles}}" wx:key="index" data-info="{{item}}" bindtap="onSelectMiles" >{{item.label}}</view>
+          </view>
+          <view class="text-15 text-gray-9 mt-15">请输入里程（万公里）</view>
+          <view class="center_space-around mt-12 text-12">
+            <input class="b-solid-e input-range text-center bg-gray mx-15" model:value="{{minMiles}}" placeholder="最小值" />
+            <view class="text-gray-6">—</view>
+            <input class="b-solid-e input-range text-center bg-gray mx-15" model:value="{{maxMiles}}" placeholder="最大值" />
+          </view>
+        </view>
+        <!-- 排序 -->
+        <view wx:if="{{currentTab.id === 'sort'}}" class="px-15">
+          <view class="height-44 text-14 align-center {{item.selected ? 'text-blue' : 'text-gray-3'}}"
+            wx:for="{{sorts}}" wx:key="index" data-info="{{item}}" bindtap="onSelectSort">{{item.label}}</view>
+        </view>
+        <!-- 重置与查询 -->
+        <view wx:if="{{currentTab.id !== 'sort' && currentTab.id !== 'model'}}" class="flex bt-solid-e text-15">
+          <view class="height-50 center_center bg-white text-gray-3 flex-1" bindtap="onReset">重置</view>
+          <view class="height-50 center_center bg-blue text-white flex-1" bindtap="onQuery">查询</view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
