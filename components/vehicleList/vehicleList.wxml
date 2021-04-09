@@ -1,6 +1,6 @@
 <view>
   <!-- 筛选组件 -->
-  <view class="sticky" style="top: {{showFastFeature ? 64 : 0}}px">
+  <view class="sticky" style="top: {{isPageWithCustomNav ? navbarHeight : 0}}px">
     <vehicle-filter id="vehicleFilter" 
       bind:change="onParamChange" bind:featurechange="onFeatureChange" bind:filterreset="onFilterReset"></vehicle-filter>
   </view>

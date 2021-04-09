@@ -12,7 +12,6 @@ Component({
    * 组件的初始数据
    */
   data: {
-    isTabPage: null,
     tabs: [],
     currentTab: null,
     modelList: [],
@@ -42,16 +41,14 @@ Component({
    */
   methods: {
     init () {
-      // const app = getApp()
-      // console.log(app.globalData)
-      const currentPages = getCurrentPages()
-      const entryRoute = currentPages[0].route
-      const isTabPage = currentPages.length === 1
+      const app = getApp()
+      // const currentRoute = app.utils.getCurrentRoute()
+      const entryRoute = app.utils.getEntryRoute()
       const tabs = this.data.tabs
       if (/saleCar/.test(entryRoute)) {
         tabs.find(v => v.id === 'price').label = '售价'
       }
-      this.setData({tabs, isTabPage})
+      this.setData({tabs})
 
       this.initTabs()
       this.getModelList()
@@ -242,9 +239,12 @@ Component({
       const query = this.createSelectorQuery()
       query.select('.vehicle-filter').boundingClientRect()    
       query.selectViewport().scrollOffset()
+      const app = getApp()
+      const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(app.utils.getCurrentRoute()) > -1
+      const barHeight = isPageWithCustomNav ? app.globalData.CustomBar : 0
       query.exec(res => {
-        if ((res[0] || {}).top) {
-          wx.pageScrollTo({scrollTop: res[0].top - res[1].scrollTop})
+        if (res[0] && res[1] && (res[0] || {}).top !== barHeight) {
+          wx.pageScrollTo({scrollTop: res[0].top + res[1].scrollTop - barHeight})
         }
       })
     },
@@ -305,6 +305,9 @@ Component({
     // 解决滚动穿透问题
     doNothing () {
       return false
+    },
+    onTouchMove () {
+      console.log('touch')
     }
   }
 })

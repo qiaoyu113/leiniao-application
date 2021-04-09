@@ -10,14 +10,19 @@ var getMap = function () {
   wx.getLocation({
     type: 'wgs84',
     success(res) {
+      console.log(res)
       qqmapsdk.reverseGeocoder({
         location: {
           latitude: res.latitude,
           longitude: res.longitude,
         },
-        success: function (addressRes) {
+        success: (addressRes) => {
+          console.log(addressRes)
           var city = addressRes.result.address_component.city
-          wx.setStorageSync('locationCity', city)
+          wx.setStorage({
+            key: 'locationCity',
+            data: city
+          })
           //wx.setStorageSync('locationCity', city)
           console.log('城市名', city)
           var address =
@@ -66,6 +71,9 @@ var getMap = function () {
         },
       })
     },
+    fail(err) {
+      console.log(err)
+    }
   })
 }
 

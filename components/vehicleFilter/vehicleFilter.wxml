@@ -17,7 +17,7 @@
     <!-- Panel -->
     <view wx:if="{{currentTab}}" class="absolute z-1000 width-100p" style="top: 100rpx;">
       <!-- Panels -->
-      <view class="bg-white bt-solid-e">
+      <view class="bg-white bt-solid-e" bindtouchmove="onTouchMove">
         <!-- 车型 -->
         <view wx:if="{{currentTab.id === 'model'}}" class="flex">
           <view class="list-brand">

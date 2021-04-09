@@ -143,9 +143,7 @@ Page({
   },
   onPageScroll: utils.throttle(function (e) {
     let ev = e[0]
-    console.log('ev', ev)
     //判断浏览器滚动条上下滚动
-
     if (
       ev.scrollTop > this.data.scrollTop ||
       ev.scrollTop == wx.getSystemInfoSync().windowHeight

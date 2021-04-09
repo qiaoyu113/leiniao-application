@@ -14,7 +14,9 @@ Component({
    */
   data: {
     fastFeatures: [],
-    vehicleList: []
+    vehicleList: [],
+    isPageWithCustomNav: false,
+    navbarHeight: 65
   },
 
   lifetimes: {
@@ -34,6 +36,13 @@ Component({
     init () {
       this.getVehicleList()
       this.data.showFastFeature && this.getFastFeatures()
+      const app = getApp()
+      const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(app.utils.getCurrentRoute()) > -1
+      const navbarHeight = app.globalData.CustomBar
+      this.setData({
+        isPageWithCustomNav,
+        navbarHeight
+      })
     },
     // 获取快捷筛选项（车辆特点）
     getFastFeatures: function () {
@@ -60,7 +69,7 @@ Component({
             miles: '7',
             labels: ['准新车', '急租', '有尾板', '有通行证'],
             price: '3000',
-            pic: '/lib/image/home/vehicle_demo.png'
+            pic: '/lib/image/home/hot_3.png'
           },
           {
             name: '福田欧曼GTL载货车福田欧曼GTL载货车福田欧曼GTL载货车',
@@ -68,7 +77,7 @@ Component({
             miles: '7',
             labels: ['准新车', '急租', '有尾板', '有通行证'],
             price: '3000',
-            pic: '/lib/image/home/vehicle_demo.png'
+            pic: '/lib/image/home/hot_3.png'
           },
           {
             name: '福田欧曼GTL载货车福田欧曼GTL载货车福田欧曼GTL载货车',
@@ -76,7 +85,7 @@ Component({
             miles: '7',
             labels: ['准新车', '急租', '有尾板', '有通行证'],
             price: '3000',
-            pic: '/lib/image/home/vehicle_demo.png'
+            pic: '/lib/image/home/hot_3.png'
           },
           {
             name: '福田欧曼GTL载货车福田欧曼GTL载货车福田欧曼GTL载货车',
@@ -84,7 +93,7 @@ Component({
             miles: '7',
             labels: ['准新车', '急租', '有尾板', '有通行证'],
             price: '3000',
-            pic: '/lib/image/home/vehicle_demo.png'
+            pic: '/lib/image/home/hot_3.png'
           },
           {
             name: '福田欧曼GTL载货车福田欧曼GTL载货车福田欧曼GTL载货车',
@@ -92,7 +101,7 @@ Component({
             miles: '7',
             labels: ['准新车', '急租', '有尾板', '有通行证'],
             price: '3000',
-            pic: '/lib/image/home/vehicle_demo.png'
+            pic: '/lib/image/home/hot_3.png'
           },
           {
             name: '福田欧曼GTL载货车福田欧曼GTL载货车福田欧曼GTL载货车',
@@ -100,7 +109,7 @@ Component({
             miles: '7',
             labels: ['准新车', '急租', '有尾板', '有通行证'],
             price: '3000',
-            pic: '/lib/image/home/vehicle_demo.png'
+            pic: '/lib/image/home/hot_3.png'
           }
         ]
         this.setData({
