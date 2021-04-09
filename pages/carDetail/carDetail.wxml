@@ -10,7 +10,7 @@
   </view>
   <!-- 标题 -->
   <view class="title">
-        <text class="tips" wx:for="{{carData.tips}}">{{item}}</text>
+        <text class="tips" wx:for="{{carData.tips}}" wx:key="key">{{item}}</text>
         <text class="main_title">{{carData.title}}</text>
         <view class="price_info">
           <text class="" wx:if="{{rentOrSale=='sale'}}">参考价</text>
@@ -21,14 +21,13 @@
                 bindtap="showIntroduceEvent"
                 src="../../lib/image/rentcarimg/introduce.png" />
         </view>
-        <text class="bottom_tips" wx:for="{{carData.type}}">{{item}}</text>
+        <text class="bottom_tips" wx:for="{{carData.type}}" wx:key="key">{{item}}</text>
   </view>
   <!-- 爆款推荐理由 -->
   <view class="introduce_reason" wx:if="{{showHotIntroduce}}">
     <image class="hot_img" src="../../lib/image/rentcarimg/hot.png" />
     <text class="hot_title">爆款推荐理由:</text>
       <view class="hot_content">{{hotDetail}}</view>
-        
   </view>
     <view class="splite_line"></view>
     <!-- 车辆档案 -->
@@ -71,8 +70,12 @@
   </view>
   <!-- 底部收藏 -->
   <view class="bottom_bar">
-    <image class="love_icon" src="../../lib/image/rentcarimg/redlove.png"/>
-      <text class="collect_word">已收藏</text>
+    <text wx:if="{{nocollect}}" class="collect_word iconfont icon-aixinD" data-index="0" bindtap="collectCarEvent">
+      <text class="collect_text" >未收藏</text>
+    </text>
+    <text wx:else class="collect_word icon_heart iconfont icon-yishoucang" data-index="1" bindtap="collectCarEvent">
+      <text class="collect_text" >已收藏</text>
+    </text>
         <button class="btn btn_left" bindtap="askPriceEvent">询底价</button>
         <button class="btn btn_right" open-type='share'>分享微信好友</button>
   </view>
@@ -92,6 +95,4 @@
       <text class="ask_ques_reg"  wx:if="{{phoneReg}}">请填写正确的联系电话</text>
       <view class="ask_ques_btn" bindtap="getLowPriceEvent">获取底价</view>
     </view>
- 
   </van-popup>
-  

@@ -228,7 +228,17 @@
   font-size: 30rpx;
 }
 .collect_word {
+  display: block;
   margin-right: 26rpx;
+  padding-left: 56rpx;
+  font-size: 30rpx;
+}
+.icon_heart {
+  color: #ff4652;
+}
+.collect_text {
+  margin-left: 12rpx;
+  color: #333;
 }
 .btn_left {
   width: 210rpx;

@@ -11,7 +11,7 @@
 >
   <view slot="center">
     <input type="text"  focus="{{true}}" class="search" bindinput="inputEvent" bindconfirm="enterSearch" placeholder="{{placeholder}}" value="{{inputValue}}">
-    <text class="iconfont icon-sousuo sousuo_icon" bindtap="searchEvent"></text>
+    <text class="iconfont icon-sousuo sousuo_icon" bindtap="searchIconEvent"></text>
     <text wx:if="{{showCloseBtn}}" bindtap="clearInputWordEvent" class="iconfont icon-guanbi guanbi_icon"></text>
   </input>
     
@@ -27,6 +27,7 @@
       <view class="history_detail_box" 
             bindtap="historySearchEvent"
             wx:for="{{searchHistoryList}}"
+            wx:key="key"
             data-index="{{item}}"
             >
             {{item}}

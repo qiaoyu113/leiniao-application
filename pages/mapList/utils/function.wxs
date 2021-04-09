@@ -1,0 +1,21 @@
+var arrayfind = function (arr, string) {
+  var flag = -1
+  arr.map(function (item) {
+    if (item.key === string) {
+      flag = 1
+    }
+  })
+  return flag
+}
+
+var findCity = function (arr, value) {
+  var newarr = []
+  arr.map(function (item) {
+    if (item.key === value) {
+      newarr = item.list
+    }
+  })
+  return newarr
+}
+module.exports.arrayfind = arrayfind
+module.exports.findCity = findCity

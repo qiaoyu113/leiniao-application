@@ -8,14 +8,7 @@ Page({
     placeholder: '搜索想租的车辆',
     showCloseBtn: false,
     inputValue: '',
-    searchHistoryList: [
-      '欧曼GLT',
-      '福田重卡',
-      '超低售价',
-      '3万以内',
-      '货车',
-      '尾板',
-    ],
+    searchHistoryList: [],
     ifSearchFinish: false,
   },
 
@@ -23,10 +16,18 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // this.setData({
-    //   inputShowed: true,
-    // })
-    // console.log('focus', this.data.inputShowed)
+    var value = wx.getStorageSync('searchHistoryList')
+    if (value) {
+      this.setData({
+        searchHistoryList: value,
+      })
+    } else {
+      wx.setStorage({
+        key: 'searchHistoryList',
+        data: [],
+      })
+    }
+    console.log('searchHistoryList', this.data.searchHistoryList)
   },
 
   //返回上一页
@@ -51,8 +52,10 @@ Page({
   //软键盘回车搜索
   enterSearch(e) {
     console.log('搜索值', e.detail.value)
-    this.searchEvent(e.detail.value)
-    this.checkInputHistory(e.detail.value)
+    if (e.detail.value) {
+      this.searchEvent(e.detail.value)
+      this.checkInputHistory(e.detail.value)
+    }
   },
   //校验输入内容，重复时调整搜索历史数组
   checkInputHistory(value) {
@@ -78,6 +81,7 @@ Page({
     this.setData({
       searchHistoryList: arr,
     })
+    wx.setStorageSync('searchHistoryList', arr)
   },
   //清除输入框
   clearInputWordEvent() {
@@ -93,6 +97,14 @@ Page({
     this.setData({
       searchHistoryList: [],
     })
+    wx.setStorageSync('searchHistoryList', [])
+  },
+  //点击搜索icon
+  searchIconEvent() {
+    if (this.data.inputValue) {
+      this.checkInputHistory(this.data.inputValue)
+      this.searchEvent(this.data.inputValue)
+    }
   },
   //调用搜索接口搜索页面
   searchEvent(value) {

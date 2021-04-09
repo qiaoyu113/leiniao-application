@@ -105,6 +105,7 @@ Page({
     } else {
       //如果过期重新调用接口获取列表
       if (!util.get('carlist')) {
+        console.log('过期了，重新调用接口')
         this.getNewList(e)
       } else {
         let newdata = util.get('carlist')

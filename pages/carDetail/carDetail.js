@@ -34,6 +34,7 @@ Page({
       '准新车，车况良好，无任何安全隐患，不限行，火热降价处理，市场需求度高，前景好！',
     carId: '',
     rentOrSale: '',
+    nocollect: true,
   },
 
   /**
@@ -153,6 +154,34 @@ Page({
           title: '请正确填写电话',
         })
       }
+    }
+  },
+  //收藏
+  collectCarEvent(e) {
+    let collectid = e.currentTarget.dataset['index']
+    console.log(collectid)
+    if (collectid == 0) {
+      wx.showLoading({
+        title: '加载中',
+      })
+      //调用收藏接口
+      setTimeout(() => {
+        this.setData({
+          nocollect: false,
+        })
+        wx.hideLoading()
+      }, 1000)
+    } else {
+      wx.showLoading({
+        title: '加载中',
+      })
+      //调用取消收藏接口
+      setTimeout(() => {
+        this.setData({
+          nocollect: true,
+        })
+        wx.hideLoading()
+      }, 1000)
     }
   },
   //分享好友

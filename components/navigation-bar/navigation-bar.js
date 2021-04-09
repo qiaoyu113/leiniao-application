@@ -13,15 +13,9 @@ Component({
       },
       observer: function (newVal, oldVal) {},
     },
-    // placeholderTitle: {
-    //   type: String,
-    // },
   },
   data: {
-    navBarHeight: app.globalData.navBarHeight,
-    menuRight: app.globalData.menuRight,
-    menuBotton: app.globalData.menuBotton,
-    menuHeight: app.globalData.menuHeight,
+    navHeight: '',
   },
   attached: function () {},
   methods: {
@@ -33,6 +27,11 @@ Component({
     gotoSearchEvent() {
       wx.navigateTo({
         url: '/pages/searchPage/searchPage',
+      })
+    },
+    handlerGetNavHeight(e) {
+      this.setData({
+        navHeight: e.detail.navHeight,
       })
     },
   },

@@ -1,8 +1,6 @@
 const app = getApp()
 const { getSwiperList } = require('../../http/index')
-var network = require('../../utils/network.js')
-var QQMapWX = require('../../utils/qqmap-wx-jssdk.js')
-var qqmapsdk
+const utils = require('./utils')
 
 // pages/rentedCar/rentedCar.js
 Page({
@@ -20,20 +18,27 @@ Page({
       swiperList: [],
       rentOrBuy: 'rent',
     },
+    cityinfo: {
+      name: '',
+      id: '',
+    },
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // let cityCode = wx.getStorageSync('cityCode')
-    // if (!cityCode) {
-    //   this.getMap()
-    // } else {
-    //   this.setData({
-    //     cityCode: cityCode,
-    //   })
-    // }
+    let cityCode = wx.getStorageSync('cityCode')
+    let cityName = wx.getStorageSync('locationCity')
+    if (!cityCode) {
+      utils.getMap.call(this)
+    } else {
+      this.setData({
+        cityCode: cityCode,
+        'defaultData.cityName': cityName,
+        'cityinfo.name': cityName,
+      })
+    }
     let that = this
     // wx.getStorage({
     //   key: 'swiperList',
@@ -83,69 +88,6 @@ Page({
       url: `/pages/hotList/hotList?listid=${query}&type=rent`,
     })
   },
-  //获取位置信息
-  getMap() {
-    let that = this
-    // 实例化腾讯地图API核心类
-    qqmapsdk = new QQMapWX({
-      key: 'LOBBZ-Q4ZCJ-2IJFK-KHO4E-AREME-QHF3Y', // 必填
-    })
-    wx.getLocation({
-      type: 'wgs84',
-      success(res) {
-        console.log('位置信息', res)
-        qqmapsdk.reverseGeocoder({
-          location: {
-            latitude: res.latitude,
-            longitude: res.longitude,
-          },
-          success: function (addressRes) {
-            console.log('addressRes', addressRes)
-            var city = addressRes.result.address_component.city
-            var address =
-              addressRes.result.address_component.city +
-              addressRes.result.address_component.province +
-              addressRes.result.address_component.district
-            wx.setStorageSync('locationAddress', address)
-            that.setData({
-              cityName: city,
-            })
-            //获取城市code
-            network.requestLoading(
-              '25/base/v1/base/area/getCityCodeByCityName',
-              {
-                cityName: city,
-              },
-              'GET',
-              '',
-              '',
-              function (res) {
-                if (res.success) {
-                  if (that.data.cityCode == '') {
-                    wx.setStorageSync('cityCode', res.data.code)
-                    that.setData({
-                      cityCode: res.data.code,
-                      souceCity: address,
-                    })
-                  } else {
-                    wx.setStorageSync('cityCode', that.data.cityCode)
-                    that.setData({
-                      souceCity: address,
-                    })
-                  }
-                }
-              },
-              function (res) {
-                wx.showToast({
-                  title: '加载数据失败',
-                })
-              }
-            )
-          },
-        })
-      },
-    })
-  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
@@ -155,7 +97,12 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    let cityname = this.data.cityinfo.name
+    this.setData({
+      'defaultData.cityName': cityname,
+    })
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

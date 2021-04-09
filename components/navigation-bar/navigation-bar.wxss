@@ -7,21 +7,20 @@
   text-align: center;
 }
 .nav-bar .nav_city {
-  position: absolute;
-  top: 80rpx;
-  left: 30rpx;
+  float: left;
+  width: 78rpx;
+  height: 37rpx;
   font-size: 26rpx;
-  line-height: 15rpx;
-  vertical-align: middle;
+  line-height: 37rpx;
+  margin-left: 10rpx;
+  color: #fff;
+  font-weight: bold;
 }
 .nav-bar .search {
-  width: 400rpx;
+  width: 380rpx;
   height: 58rpx;
   background: rgba(255, 255, 255, 0.2);
   border-radius: 29rpx;
-  position: absolute;
-  top: 55rpx;
-  left: 136rpx;
   color: #333;
   font-size: 24rpx;
 }
@@ -38,6 +37,7 @@
 .slides {
   width: 750rpx;
   height: 520rpx;
+  z-index: 9999;
 }
 .slides swiper {
   height: 520rpx;
@@ -54,4 +54,17 @@
   width: 750rpx;
   height: 520rpx;
   z-index: -1000;
+}
+.city_icon {
+  width: 12rpx;
+  height: 9rpx;
+  margin-left: 8rpx;
+  margin-top: 12rpx;
+  float: left;
+}
+.left_content {
+  width: 120rpx;
+  height: 37rpx;
+  line-height: 37rpx;
+  margin-left: 30rpx;
 }

@@ -1,3 +1,6 @@
+const { getSwiperList } = require('../../http/index')
+const utils = require('../rentedCar/utils')
+
 // pages/saleCar/saleCar.js
 Page({
   /**
@@ -13,12 +16,28 @@ Page({
       title: '选择城市',
       swiperList: [],
     },
+    cityinfo: {
+      name: '',
+      id: '',
+    },
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
-  onLoad: function (options) {},
+  onLoad: function (options) {
+    let cityCode = wx.getStorageSync('cityCode')
+    let cityName = wx.getStorageSync('locationCity')
+    if (!cityCode) {
+      utils.getMap.call(this)
+    } else {
+      this.setData({
+        cityCode: cityCode,
+        'defaultData.cityName': cityName,
+        'cityinfo.name': cityName,
+      })
+    }
+  },
 
   //点击城市事件
   selectLocationEvent() {
@@ -53,7 +72,14 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    console.log('cityinfo', this.data.cityinfo)
+    let cityname = this.data.cityinfo.name
+    this.setData({
+      'defaultData.cityName': cityname,
+    })
+    //调用根据城市获取车池接口
+  },
 
   /**
    * 生命周期函数--监听页面隐藏
