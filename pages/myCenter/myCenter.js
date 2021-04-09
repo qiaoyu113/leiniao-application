@@ -2,6 +2,7 @@ const app = getApp();
 var network = require("../../utils/network.js");
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js');
 var qqmapsdk;
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 
 Page({
   data: {
@@ -17,6 +18,8 @@ Page({
     source: '0',
     puserId: '',
     cityCode: '',
+    headImg: 'https://img0.baidu.com/it/u=2291332875,175289127&fm=26&fmt=auto&gp=0.jpg',
+    userName: '吞吞吐吐',
     cityName: '北京市'
   },
   onLoad: function() {
@@ -199,43 +202,17 @@ Page({
       });
     });
   },
+  goLogin() {
+    wx.navigateTo({
+      url: '../login/login'
+    });
+  },
   goRouter(e) {
     let type = e.currentTarget.dataset.type;
     let routerName = '';
     if (type == '1') {
-      routerName = '../myRecommend/myRecommend'
-    } else if (type == '2') {
-      routerName = '../myCollect/myCollect'
-    } else if (type == '3') {
-      // routerName = '../immediatelyEnter/immediatelyEnter'
-      if (this.data.puserId && this.data.puserId != '') {
-        routerName = '../immediatelyEnter/immediatelyEnter?type=myCenter&puserId=' + this.data.puserId
-      } else {
-        routerName = '../immediatelyEnter/immediatelyEnter?type=myCenter'
-      }
-    } else if (type == '4') {
-      routerName = '../persenolInfo/persenolInfo'
-    } else if (type == '5') {
-      routerName = '../account/account'
-    } else if (type == '6') {
-      routerName = '../questionMenu/questionMenu'
-    } else if (type == '7') {
-      routerName = '../myOrder/myOrder'
-    } else if (type == '8') {
-      routerName = '../incomeMenu/incomeMenu'
-    } else if (type == '9') {
-      routerName = '../creatOrder/creatOrder'
-    } else if (type == '10') {
-      routerName = '../incomeUpDataNew/incomeUpDataNew'
-    } else if (type == '11') {
-      routerName = '../satisfaction/satisfaction'
-    } else if (type == '12') {
-      routerName = '../serialOrder/serialOrder'
-    } else if (type == '13') {
-      routerName = '../serviceStandard/serviceStandard'
-    } else if (type == '14') {
-      routerName = '../myContract/myContract'
-    }
+      routerName = '../collect/collect'
+    } 
     wx.navigateTo({
       url: routerName
     });
@@ -382,6 +359,20 @@ Page({
         }
       })
     }
+  },
+  // 退出
+  quit() {
+    Dialog.confirm({
+      message: '确定退出登录吗？',
+    }).then(() => {
+      this.setData({
+        canIUse: true
+      })
+      wx.clearStorage()
+    })
+    .catch(() => {
+      // on cancel
+    });
   },
   /**
    * 用户点击右上角分享
