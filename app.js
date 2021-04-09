@@ -7,7 +7,7 @@ App({
     // var logs = wx.getStorageSync('logs') || []
     // logs.unshift(Date.now())
     // wx.setStorageSync('logs', logs)
-    
+
     // wx.qy.login({
     //   success: function (res) {
     //     console.log(333333, res)
@@ -110,7 +110,7 @@ App({
     userInfo: null,
     pageParam: '',
     // m1环境域名
-    // url: 'https://leiniao-bss-web-m1.yunniao.cn/', 
+    // url: 'https://leiniao-bss-web-m1.yunniao.cn/',
     // mock
     // url: 'http://yapi.ynimg.cn:8888/mock/',
     // 生产环境域名
@@ -123,7 +123,8 @@ App({
     menuRight: 0, // 胶囊距右方间距（方保持左、右间距一致）
     menuBotton: 0, // 胶囊距底部间距（保持底部间距一致）
     menuHeight: 0, // 胶囊高度（自定义内容可与胶囊高度保证一致）
-    pagesWithCustomNav: ['rentedCar']
+    pagesWithCustomNav: ['rentedCar'],
+    locationCity: {}
   },
   utils: {
     getCurrentRoute: () => {

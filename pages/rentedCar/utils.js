@@ -1,7 +1,7 @@
 var network = require('../../utils/network.js')
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js')
 var qqmapsdk
-var getMap = function () {
+var getMap = function (app) {
   let that = this
   // 实例化腾讯地图API核心类
   qqmapsdk = new QQMapWX({
@@ -18,19 +18,19 @@ var getMap = function () {
         },
         success: function (addressRes) {
           var city = addressRes.result.address_component.city
+          var city_code = addressRes.result.ad_info.city_code
           wx.setStorageSync('locationCity', city)
-          console.log('城市名', city)
+          app.globalData.locationCity = { cityName: city, cityCode: city_code }
+          console.log('城市信息', app.globalData.locationCity)
           var address =
             addressRes.result.address_component.city +
             addressRes.result.address_component.province +
             addressRes.result.address_component.district
           wx.setStorageSync('locationAddress', address)
           //此处加判断，如果获取的城市在开通城市内显示该城市，否则切换到北京
-          console.log('that', that)
           that.setData({
             cityName: city,
             'defaultData.cityName': city,
-            'cityinfo.name': city,
           })
           //获取城市code
           network.requestLoading(
@@ -45,16 +45,28 @@ var getMap = function () {
               if (res.success) {
                 if (that.data.cityCode == '') {
                   wx.setStorageSync('cityCode', res.data.code)
+                  app.globalData.locationCity = {
+                    cityName: city,
+                    cityCode: res.data.code,
+                  }
                   that.setData({
                     cityCode: res.data.code,
                     souceCity: address,
                   })
                 } else {
                   wx.setStorageSync('cityCode', that.data.cityCode)
+                  app.globalData.locationCity = {
+                    cityName: city,
+                    cityCode: that.data.cityCode,
+                  }
                   that.setData({
                     souceCity: address,
                   })
                 }
+                console.log(
+                  'app.globalData.locationCity',
+                  app.globalData.locationCity
+                )
               }
             },
             function (res) {
