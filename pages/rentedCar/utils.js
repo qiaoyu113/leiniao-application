@@ -28,10 +28,24 @@ var getMap = function (app) {
             addressRes.result.address_component.district
           wx.setStorageSync('locationAddress', address)
           //此处加判断，如果获取的城市在开通城市内显示该城市，否则切换到北京
-          that.setData({
-            cityName: city,
-            'defaultData.cityName': city,
-          })
+          let includeCityList = ['北京市']
+          let checkCity = includeCityList.includes(city)
+          console.log('checkCity', checkCity)
+          if (checkCity) {
+            that.setData({
+              cityCode: cityCode,
+              'defaultData.cityName': cityName,
+            })
+          } else {
+            that.setData({
+              cityCode: 1,
+              'defaultData.cityName': '北京市',
+            })
+          }
+          // that.setData({
+          //   cityName: city,
+          //   'defaultData.cityName': city,
+          // })
           //获取城市code
           network.requestLoading(
             '25/base/v1/base/area/getCityCodeByCityName',
@@ -80,7 +94,7 @@ var getMap = function (app) {
     },
     fail(err) {
       console.log(err)
-    }
+    },
   })
 }
 

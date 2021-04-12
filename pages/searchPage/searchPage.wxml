@@ -24,7 +24,7 @@
     <image class="delete_img" bindtap="deleteHistory" src="../../lib/image/rentcarimg/delete.png"/>
   </view>
     <view class="history_box">
-      <view class="history_detail_box" 
+      <view class="history_detail_box"
             bindtap="historySearchEvent"
             wx:for="{{searchHistoryList}}"
             wx:key="key"

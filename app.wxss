@@ -1,9 +1,9 @@
 /**app.wxss**/
-@import "lib/css/iconfont.wxss";
-@import "lib/css/layout.wxss";
-@import "lib/css/themeBase.wxss";
-@import "miniprogram_npm/vant-weapp/common/index.wxss";
-
+@import 'lib/css/iconfont.wxss';
+@import 'lib/css/layout.wxss';
+@import 'lib/css/themeBase.wxss';
+@import 'miniprogram_npm/vant-weapp/common/index.wxss';
+@import 'lib/font/iconfont.wxss';
 .container {
   height: 100%;
   display: flex;
@@ -14,24 +14,24 @@
   box-sizing: border-box;
 }
 
-[class*="van-icon-"] {
-    font-family: "vant-icon" !important;
-    font-size: inherit;
-    font-style: normal;
+[class*='van-icon-'] {
+  font-family: 'vant-icon' !important;
+  font-size: inherit;
+  font-style: normal;
 }
 
 .bg-blue {
-  background-color: #4FA9FF;
+  background-color: #4fa9ff;
 }
 .bg-lightblue {
-  background-color:  #EFF7FF;
+  background-color: #eff7ff;
 }
 .b-solid-blue {
-  border: 1rpx solid #1C8EFA;
+  border: 1rpx solid #1c8efa;
 }
 .text-blue {
-  color: #1C8EFA;
+  color: #1c8efa;
 }
 .text-red {
-  color: #FF4652;
+  color: #ff4652;
 }

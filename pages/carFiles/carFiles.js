@@ -4,32 +4,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    carData: {
-      baseData: {
-        carNumber: 'CL202012121356',
-        carBrand: '福田',
-        carType: '4.2米箱货',
-        carModel: '油车',
-        carProperty: '营运',
-        carAge: '2年',
-        carKm: '3万公里',
-        carWidth: '2.2米',
-        carPassCard: true,
-        carBoard: true,
-        carWatchPlace: '北京',
-      },
-      plateData: {
-        carFirstDate: '2020-12-12',
-        carPlatePlace: '北京',
-      },
-      engineData: {
-        engineId: 'BJ5073XXYEV1',
-        horsePower: '300匹',
-      },
-      insuranceData: {
-        number: '50万',
-      },
-    },
+    carData: {},
   },
 
   /**
@@ -41,7 +16,36 @@ Page({
     this.getCarFilesInfo(options.carId)
   },
 
-  getCarFilesInfo(idnum) {},
+  getCarFilesInfo(idnum) {
+    this.setData({
+      carData: {
+        baseData: {
+          carNumber: 'CL202012121356',
+          carBrand: '福田',
+          carType: '4.2米箱货',
+          carModel: '油车',
+          carProperty: '营运',
+          carAge: '2年',
+          carKm: '3万公里',
+          carWidth: '2.2米',
+          carPassCard: true,
+          carBoard: true,
+          carWatchPlace: '北京',
+        },
+        plateData: {
+          carFirstDate: '2020-12-12',
+          carPlatePlace: '北京',
+        },
+        engineData: {
+          engineId: 'BJ5073XXYEV1',
+          horsePower: '300匹',
+        },
+        insuranceData: {
+          number: '50万',
+        },
+      },
+    })
+  },
 
   //复制
   copyText: function (e) {

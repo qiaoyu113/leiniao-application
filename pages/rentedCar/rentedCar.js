@@ -41,10 +41,10 @@ Page({
     if (!cityCode) {
       utils.getMap.call(this, app)
     } else {
-      this.setData({
-        cityCode: cityCode,
-        'defaultData.cityName': cityName,
-      })
+        this.setData({
+          cityCode: cityCode,
+          'defaultData.cityName': cityName,
+        })
     }
     let that = this
     // wx.getStorage({

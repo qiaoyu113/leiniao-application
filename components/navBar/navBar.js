@@ -230,7 +230,6 @@ Component({
         systemInfo.ios = ios //是否ios
 
         app.globalSystemInfo = systemInfo //将信息保存到全局变量中,后边再用就不用重新异步获取了
-
         return systemInfo
       }
     },

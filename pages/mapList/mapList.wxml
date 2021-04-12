@@ -1,5 +1,12 @@
 <!--pages/mapList/mapList.wxml-->
 <wxs module="tools" src="./utils/function.wxs" />
+<navBar
+  background="linear-gradient(90deg, #009CF8 0%, #2F83FA 100%)"
+  bindback="handlerGobackClick"
+  back="{{true}}"
+>
+<text slot="center" class="top_title">选择城市</text>
+</navBar>
 <van-index-bar  highlight-color="#333">
   <view wx:for="{{alphabet}}" wx:key="key" >
     <van-index-anchor index="{{item}}" />

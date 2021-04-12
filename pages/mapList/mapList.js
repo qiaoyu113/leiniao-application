@@ -180,6 +180,15 @@ Page({
       delta: 1, // 返回上一级页面。
     })
   },
+  //返回上一页
+  handlerGobackClick() {
+    wx.navigateBack({
+      delta: 1, // 返回上一级页面。
+      success: function () {
+        console.log('成功！')
+      },
+    })
+  },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
