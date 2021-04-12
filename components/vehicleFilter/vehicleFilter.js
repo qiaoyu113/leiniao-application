@@ -89,7 +89,7 @@ Component({
           },
         ]
         this.setData({
-          modelList: data
+          modelList: [{brandName: '不限品牌', brandId: '', selected: false}].concat(data)
         })
       }, 100);
     },
@@ -180,10 +180,10 @@ Component({
       })
       const modelList = this.data.modelList.map(v => {
         v.selected = false
-        v.models = v.models.map(vv => {
+        v.models = v.models ? v.models.map(vv => {
           vv.selected = false
           return vv
-        })
+        }) : undefined
         return v
       })
       const features = this.data.features.map(v => {
@@ -194,17 +194,10 @@ Component({
         v.selected = false
         return v
       })
-      const sorts = this.data.sorts.map(v => {
-        v.selected = false
+      const sorts = this.data.sorts.map((v, i) => {
+        v.selected = !i
         return v
       })
-
-      // currentTab: null,
-      // models: [],
-      // minPrice: '',
-      // maxPrice: '',
-      // minMiles: '',
-      // maxMiles: '',
       this.setData({
         tabs,
         ages,
@@ -224,8 +217,20 @@ Component({
     },
     // 查询
     onQuery () {
-      const formData = {} // todo
-      this.onSelectTab()
+      const formData = {
+        brandId: (this.data.modelList.find(v => v.selected) || {}).brandId || '',
+        modelId: (this.data.models.find(v => v.selected) || {}).modelId || '',
+        ages: this.data.ages.filter(v => v.selected).map(v => v.id).join(','),
+        minPrice: this.data.minPrice,
+        maxPrice: this.data.maxPrice,
+        features: this.data.features.filter(v => v.selected).map(v => v.id).join(','),
+        miles: this.data.miles.filter(v => v.selected).map(v => v.id).join(','),
+        minMiles: this.data.minMiles,
+        maxMiles: this.data.maxMiles,
+        sort: this.data.sorts.find(v => v.selected).id
+      }
+      this.triggerEvent('change', formData)
+      this.onSelectTab() // 触发收起filter
     },
     // 滚动页面至顶部
     moveFilterTop () {
@@ -243,31 +248,37 @@ Component({
     },
     // 选择品牌
     onSelectBrand (evt) {
+      const brandId = evt.currentTarget.dataset.info.brandId
       const modelList = this.data.modelList.map(v => {
-        v.selected = v.brandId === evt.currentTarget.dataset.info.brandId
+        v.selected = v.brandId === brandId
         return v
       })
+      const models = (this.data.modelList.find(v => v.brandId === evt.currentTarget.dataset.info.brandId) || {}).models
       this.setData({
         modelList,
-        models: (this.data.modelList.find(v => v.brandId === evt.currentTarget.dataset.info.brandId) || {}).models
+        models: models ? [{modelName: '不限车型', modelId: '', selected: false}].concat(models) : []
       })
+      if (!models && !brandId) {
+        this.onQuery()
+      }
     },
     // 选择型号
     onSelectModel (evt) {
+      const modelId = evt.currentTarget.dataset.info.modelId
       const models = this.data.models.map(v => {
-        v.selected = v.modelId === evt.currentTarget.dataset.info.modelId
+        v.selected = v.modelId === modelId
         return v
       })
-      this.setData({models})
+      this.setData({models}, () => {
+        this.onQuery()
+      })
     },
     // 选择车龄
     onSelectAge (evt) {
       const ages = this.data.ages
       const clickedAge = ages.find(v => v.id === evt.currentTarget.dataset.info.id)
       clickedAge.selected = !clickedAge.selected
-      this.setData({ages}, () => {
-        this.triggerEvent('ageselected', this.data.ages.filter(v => v.selected))
-      })
+      this.setData({ages})
     },
     // 选择车辆特点
     onSelectFeature (evt, isFromPage) {
@@ -275,7 +286,11 @@ Component({
       const clickedFeature = features.find(v => v.id === evt.currentTarget.dataset.info.id)
       clickedFeature.selected = !clickedFeature.selected
       this.setData({features}, () => {
-        !isFromPage && this.triggerEvent('featurechange', evt.currentTarget.dataset.info)
+        if (isFromPage) {
+          this.onQuery()
+        } else {
+          this.triggerEvent('featurechange', evt.currentTarget.dataset.info)
+        }
       })
     },
     // 选择里程
@@ -283,9 +298,17 @@ Component({
       const miles = this.data.miles
       const clickedMiles = miles.find(v => v.id === evt.currentTarget.dataset.info.id)
       clickedMiles.selected = !clickedMiles.selected
-      this.setData({miles}, () => {
-        this.triggerEvent('milesselected', this.data.miles.filter(v => v.selected))
-      })
+      this.setData({miles, minMiles: '', maxMiles: ''})
+    },
+    onMilesInput (evt) {
+      console.log(evt.detail)
+      if ((evt.detail || {}).value) {
+        const miles = this.data.miles.map(v => {
+          v.selected = false
+          return v
+        })
+        this.setData({miles})
+      }
     },
     // 选择排序基准
     onSelectSort (evt) {
@@ -293,14 +316,13 @@ Component({
         v.selected = v.id === evt.currentTarget.dataset.info.id
         return v
       })
-      this.setData({sorts})
+      this.setData({sorts}, () => {
+        this.onQuery()
+      })
     },
     // 解决滚动穿透问题
     doNothing () {
       return false
-    },
-    onTouchMove () {
-      console.log('touch')
     }
   }
 })

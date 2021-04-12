@@ -108,16 +108,23 @@ Page({
   },
   //调用搜索接口搜索页面
   searchEvent(value) {
-    wx.showLoading({
-      title: '加载中',
-    })
-    setTimeout(() => {
-      console.log('搜索成功', this.data.inputValue)
+    console.log('keyword', value)
+    if (value) {
+      const vehicleList = this.selectComponent('#vehicleList')
+      vehicleList && vehicleList.onPageKeywordChange(value)
+      wx.showLoading({title: '加载中'})
+      setTimeout(() => { // todo 要在列表组件完成并通知页面
+        console.log('搜索成功', this.data.inputValue)
+        this.setData({
+          ifSearchFinish: true
+        })
+        wx.hideLoading()
+      }, 2000)
+    } else {
       this.setData({
-        ifSearchFinish: true,
+        ifSearchFinish: false
       })
-      wx.hideLoading()
-    }, 2000)
+    }
   },
   //点击搜索历史触发事件
   historySearchEvent(e) {
@@ -158,7 +165,10 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {},
+  onReachBottom: function () {
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.onPageReachBottom()
+  },
 
   /**
    * 用户点击右上角分享
