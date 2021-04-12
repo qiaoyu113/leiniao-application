@@ -48,6 +48,10 @@
 .flex-wrap {
   flex-wrap: wrap
 }
+.justify-center {
+  display: flex;
+  justify-content: center;
+}
 .align-center {
   display: flex;
   align-items: center;

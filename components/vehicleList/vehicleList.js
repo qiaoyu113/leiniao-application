@@ -13,10 +13,12 @@ Component({
    * 组件的初始数据
    */
   data: {
+    formData: {},
     fastFeatures: [],
     vehicleList: [],
     isPageWithCustomNav: false,
-    navbarHeight: 65
+    navbarHeight: 64,
+    loadStatus: 0 // 0 初始化 1请求中 2请求完毕
   },
 
   lifetimes: {
@@ -34,9 +36,9 @@ Component({
    */
   methods: {
     init () {
-      this.getVehicleList()
-      this.data.showFastFeature && this.getFastFeatures()
       const app = getApp()
+      ;(app.utils.getCurrentRoute() !== 'searchPage') && this.getVehicleList()
+      this.data.showFastFeature && this.getFastFeatures()
       const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(app.utils.getCurrentRoute()) > -1
       const navbarHeight = app.globalData.CustomBar
       this.setData({
@@ -60,7 +62,7 @@ Component({
     },
     // 获取车辆列表
     getVehicleList () {
-      const params = {} // todo
+      console.log(this.data.formData)
       setTimeout(() => {
         const vehicleList = [
           {
@@ -113,13 +115,18 @@ Component({
           }
         ]
         this.setData({
-          vehicleList
+          vehicleList,
+          loadStatus: 2
         })
       }, 200)
     },
     // 筛选组件汇总后的参数变动
-    onParamChange: function (evt) {   
-      console.log(evt.detail)
+    onParamChange: function (evt) {
+      this.setData({
+        formData: Object.assign({}, this.data.formData, evt.detail ||evt)
+      }, () => {
+        this.getVehicleList()
+      })
     },
     // 筛选组件筛选项变动，同步到页面
     onFeatureChange (evt) {
@@ -163,6 +170,7 @@ Component({
     // vehicleList && vehicleList.onPageKeywordChange(newVal)
     onPageKeywordChange (val) {
       console.log('keyword change', val)
+      this.onParamChange(val)
     }
   }
 })
