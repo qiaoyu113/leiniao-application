@@ -105,12 +105,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let cityUpdata = this.data.cityupdata
-    let { cityName, cityCode } = app.globalData.locationCity
+    // let cityUpdata = this.data.cityupdata
+    let { cityName, cityCode, cityUpdata } = app.globalData.locationCity
     this.setData({
       'defaultData.cityName': cityName,
     })
     if (cityUpdata === 1) {
+      app.globalData.locationCity.cityUpdata = 0
       //调用切换城市接口
       console.log('城市切换了，调用城市接口')
     } else {
