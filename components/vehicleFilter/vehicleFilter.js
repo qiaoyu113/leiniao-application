@@ -229,7 +229,6 @@ Component({
         maxMiles: this.data.maxMiles,
         sort: this.data.sorts.find(v => v.selected).id
       }
-      console.log('filter', formData)
       this.triggerEvent('change', formData)
       this.onSelectTab() // 触发收起filter
     },
@@ -314,9 +313,6 @@ Component({
     // 解决滚动穿透问题
     doNothing () {
       return false
-    },
-    onTouchMove () {
-      console.log('touch')
     }
   }
 })

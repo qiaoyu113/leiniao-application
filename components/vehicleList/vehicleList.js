@@ -13,7 +13,11 @@ Component({
    * 组件的初始数据
    */
   data: {
-    formData: {},
+    formData: {
+      sort: '1'
+    },
+    pageSize: 30,
+    pageIndex: 1,
     fastFeatures: [],
     vehicleList: [],
     isPageWithCustomNav: false,
@@ -61,8 +65,14 @@ Component({
       }, 280);
     },
     // 获取车辆列表
-    getVehicleList () {
-      console.log(this.data.formData)
+    getVehicleList (append) {
+      const formData = this.data.formData
+      const pageIndex = append ? this.data.pageIndex + 1 : 1
+      Object.assign(formData, {
+        pageSize: this.data.pageSize,
+        pageIndex
+      })
+      console.log(formData)
       setTimeout(() => {
         const vehicleList = [
           {
@@ -116,14 +126,15 @@ Component({
         ]
         this.setData({
           vehicleList,
-          loadStatus: 2
+          loadStatus: 2,
+          pageIndex
         })
       }, 200)
     },
     // 筛选组件汇总后的参数变动
     onParamChange: function (evt) {
       this.setData({
-        formData: Object.assign({}, this.data.formData, evt.detail ||evt)
+        formData: Object.assign({}, this.data.formData, evt.detail || evt)
       }, () => {
         this.getVehicleList()
       })
@@ -164,13 +175,14 @@ Component({
     // vehicleList && vehicleList.onPageReachBottom()
     onPageReachBottom () {
       console.log('load more')
+      this.getVehicleList(true)
     },
     // 供页面搜索关键字变化时调用，重新搜索
     // const vehicleList = this.selectComponent('#vehicleList')
     // vehicleList && vehicleList.onPageKeywordChange(newVal)
     onPageKeywordChange (val) {
       console.log('keyword change', val)
-      this.onParamChange(val)
+      this.onParamChange({keyword: val})
     }
   }
 })

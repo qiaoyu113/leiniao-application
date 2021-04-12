@@ -33,8 +33,6 @@ Page({
    */
   onLoad: function (options) {
     this.getHotModels()
-    // this.getVehicleList()
-    // this.getFastFeatures()
     // let cityCode = wx.getStorageSync('cityCode')
     // let cityName = wx.getStorageSync('locationCity')
     let { cityName, cityCode } = app.globalData.locationCity
