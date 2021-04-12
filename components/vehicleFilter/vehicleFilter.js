@@ -298,7 +298,17 @@ Component({
       const miles = this.data.miles
       const clickedMiles = miles.find(v => v.id === evt.currentTarget.dataset.info.id)
       clickedMiles.selected = !clickedMiles.selected
-      this.setData({miles})
+      this.setData({miles, minMiles: '', maxMiles: ''})
+    },
+    onMilesInput (evt) {
+      console.log(evt.detail)
+      if ((evt.detail || {}).value) {
+        const miles = this.data.miles.map(v => {
+          v.selected = false
+          return v
+        })
+        this.setData({miles})
+      }
     },
     // 选择排序基准
     onSelectSort (evt) {
