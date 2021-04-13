@@ -15,7 +15,7 @@ Page({
     wx.setNavigationBarTitle({
       title: options.name // 页面标题为路由参数
     })
-    this.init()
+    this.init(options.name)
   },
 
   /**
@@ -68,7 +68,8 @@ Page({
 
   },
 
-  init () {
-
+  init (keyword) {
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.onPageKeywordChange(keyword)
   }
 })

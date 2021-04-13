@@ -41,9 +41,10 @@ Component({
   methods: {
     init () {
       const app = getApp()
-      ;(app.utils.getCurrentRoute() !== 'searchPage') && this.getVehicleList()
+      const currentRoute = app.utils.getCurrentRoute()
+      ;(currentRoute !== 'searchPage' && currentRoute !== 'hotModel') && this.getVehicleList()
       this.data.showFastFeature && this.getFastFeatures()
-      const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(app.utils.getCurrentRoute()) > -1
+      const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(currentRoute) > -1
       const navbarHeight = app.globalData.CustomBar
       this.setData({
         isPageWithCustomNav,
@@ -65,7 +66,7 @@ Component({
       }, 280);
     },
     // 获取车辆列表
-    getVehicleList (append) {
+    getVehicleList (append, isKeywordChanged) {
       const formData = this.data.formData
       const pageIndex = append ? this.data.pageIndex + 1 : 1
       Object.assign(formData, {
@@ -129,6 +130,7 @@ Component({
           loadStatus: 2,
           pageIndex
         })
+        isKeywordChanged && this.triggerEvent('searchfinish')
       }, 200)
     },
     // 筛选组件汇总后的参数变动
@@ -136,7 +138,7 @@ Component({
       this.setData({
         formData: Object.assign({}, this.data.formData, evt.detail || evt)
       }, () => {
-        this.getVehicleList()
+        this.getVehicleList(false, !evt.detail)
       })
     },
     // 筛选组件筛选项变动，同步到页面

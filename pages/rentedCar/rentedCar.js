@@ -139,11 +139,7 @@ Page({
     const vehicleList = this.selectComponent('#vehicleList')
     vehicleList && vehicleList.onPageReachBottom()
   },
-
-  onKeywordChange(val) {
-    const vehicleList = this.selectComponent('#vehicleList')
-    vehicleList && vehicleList.onPageKeywordChange(val)
-  },
+  
   onPageScroll: utils.throttle(function (e) {
     let ev = e[0]
     //判断浏览器滚动条上下滚动

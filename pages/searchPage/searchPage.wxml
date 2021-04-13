@@ -36,6 +36,6 @@
       </view>
   </view>
   <view hidden="{{!ifSearchFinish}}">
-    <vehicle-list id="vehicleList"></vehicle-list>
+    <vehicle-list id="vehicleList" bind:searchfinish="onSearchFinish"></vehicle-list>
   </view>
 </view>

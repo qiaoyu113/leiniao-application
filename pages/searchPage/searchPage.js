@@ -109,22 +109,11 @@ Page({
   //调用搜索接口搜索页面
   searchEvent(value) {
     console.log('keyword', value)
-    if (value) {
-      const vehicleList = this.selectComponent('#vehicleList')
-      vehicleList && vehicleList.onPageKeywordChange(value)
-      wx.showLoading({title: '加载中'})
-      setTimeout(() => { // todo 要在列表组件完成并通知页面
-        console.log('搜索成功', this.data.inputValue)
-        this.setData({
-          ifSearchFinish: true
-        })
-        wx.hideLoading()
-      }, 2000)
-    } else {
-      this.setData({
-        ifSearchFinish: false
-      })
-    }
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.onPageKeywordChange(value)
+  },
+  onSearchFinish () {
+    this.setData({ifSearchFinish: true})
   },
   //点击搜索历史触发事件
   historySearchEvent(e) {
