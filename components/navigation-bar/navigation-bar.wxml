@@ -15,13 +15,13 @@
 </navBar>
     <!--轮播图 -->
 <view class="slides absolute" style="top: {{navHeight}}px">
-      <!-- <swiper autoplay indicator-dots circular>
-        <swiper-item  wx:for="{{defaultData.swiperList}}" wx:key="key">
+      <swiper autoplay indicator-dots circular>
+        <swiper-item  wx:for="{{swiperList}}" wx:key="key">
           <navigator>
-            <image mode="widthFix" src="{{item.imgSrc}}"></image>
+            <image class="banner_img" mode="widthFix" src="{{item.url}}"></image>
           </navigator>
         </swiper-item>
-      </swiper> -->
-      <image class="banner_img" src="../../lib//image/rentcarimg/banner.png" alt=""/>
+      </swiper>
+      <!-- <image class="banner_img" src="../../lib//image/rentcarimg/banner.png" alt=""/> -->
     </view>
 </view>

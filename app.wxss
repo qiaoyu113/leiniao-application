@@ -1,9 +1,10 @@
 /**app.wxss**/
 @import 'lib/css/iconfont.wxss';
+@import 'lib/font/iconfont.wxss';
 @import 'lib/css/layout.wxss';
 @import 'lib/css/themeBase.wxss';
 @import 'miniprogram_npm/vant-weapp/common/index.wxss';
-@import 'lib/font/iconfont.wxss';
+
 .container {
   height: 100%;
   display: flex;

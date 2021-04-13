@@ -259,12 +259,62 @@ Page({
       })
     if (this.data.carList.length < 30) {
       setTimeout(() => {
-        let data = this.data.clueData.concat([
-          { createTime: '2019-11-12 16:33' },
-          { createTime: '2019-11-12 14:55' },
+        let data = this.data.carList.concat([
+          {
+            title: '福田欧曼GTL载货车福田欧曼G1111111111111111111111',
+            age: '2个月',
+            km: '7万公里',
+            feature: [
+              { name: '准新车', type: 1 },
+              { name: '急租', type: 1 },
+              { name: '有尾板', type: 0 },
+              { name: '有通行证', type: 0 },
+            ],
+            recommendReason:
+              '准新车，车况良好，无任何隐患，不限行，火热降价急租中,准新车，车况良好，无任何隐患，不限行，火热降价急租中',
+            type: 1,
+            picurl: '',
+            price: 3000,
+            id: 1,
+            rentout: 0,
+          },
+          {
+            title: '福田欧曼GTL载货车福田欧曼G',
+            age: '2个月',
+            km: '7万公里',
+            feature: [
+              { name: '有尾板', type: 0 },
+              { name: '有通行证', type: 0 },
+            ],
+            recommendReason:
+              '准新车，车况良好，无任何隐患，不限行，火热降价处理，市场需求度高，前景好！',
+            type: 1,
+            picurl: '',
+            price: 4000,
+            id: 2,
+            rentout: 1,
+          },
+          {
+            title: '福田欧曼GTL载货车福田欧曼G1111111111111111111111',
+            age: '2个月',
+            km: '7万公里',
+            feature: [
+              { name: '准新车', type: 1 },
+              { name: '急租', type: 1 },
+              { name: '有尾板', type: 0 },
+              { name: '有通行证', type: 0 },
+            ],
+            recommendReason:
+              '准新车，车况良好，无任何隐患，不限行，火热降价急租中,准新车，车况良好，无任何隐患，不限行，火热降价急租中',
+            type: 1,
+            picurl: '',
+            price: 3000,
+            id: 3,
+            rentout: 0,
+          },
         ])
         this.setData({
-          clueData: data,
+          carList: data,
           'push.isLoading': false,
           'push.pullText': '- 上拉加载更多 -',
           'push.loading': '../../lib/image/rentcarimg/finish.png',

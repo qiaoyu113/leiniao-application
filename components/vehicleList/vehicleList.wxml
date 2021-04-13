@@ -10,7 +10,11 @@
       wx:for="{{fastFeatures}}" wx:key="index" data-info="{{item}}" bindtap="onSelectFeature" >{{item.label}}</view>
   </view>
   <!-- 车辆列表 -->
-  <view class="bt-solid-e">
+  <view wx:if="{{vehicleList.length}}" class="bt-solid-e">
     <vehicle wx:for="{{vehicleList}}" wx:key="index" item="{{item}}"></vehicle>
+  </view>
+  <view wx:if="{{!vehicleList.length && loadStatus === 2}}" class="bt-solid-e flex-y align-center" style="padding-top: 100rpx;">
+    <image style="width: 560rpx; height:349rpx;" src="/lib/image/noBG.png"></image>
+    <view class="text-14 text-gray-6 my-12">暂无相关车源，换个筛选条件试试!</view>
   </view>
 </view>
