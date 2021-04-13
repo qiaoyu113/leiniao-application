@@ -103,9 +103,9 @@
   </view> -->
 <!-- </view> -->
  <!--绑定手机号-->
-<view class='bgShow' wx:if='{{!flag}}'>
+<!-- <view class='bgShow' wx:if='{{!flag}}'>
   <button class='loginBtn' wx:if='{{!flag}}' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"></button>
-</view>
+</view> -->
 <!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
   <view class="cu-item arrow" bindtap='goRouter' data-type='6'>
     <text class='icon-question text-orange margin_right_20'></text>
