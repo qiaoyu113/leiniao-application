@@ -13,7 +13,7 @@ Page({
     abilityCreatOrder: Boolean,
     flag: false,
     entranceType2: Boolean,
-    canIUse: true,
+    canIUse: false,
     souceCity: '',
     source: '0',
     puserId: '',
@@ -33,29 +33,27 @@ Page({
       source: wx.getStorageSync('sourceType')
     })
     if (!cityCode) {
-      this.getMap()
+      // this.getMap()
     }else{
       this.setData({
         cityCode:cityCode
       })
     }
-    this.hasEnter()
-    this.hasAbilityCreatOrder()
     let that = this;
     try {
       var value = wx.getStorageSync('phone')
       if (value) {
         that.setData({
-          canIUse: false
+          canIUse: true
         })
       } else {
         that.setData({
-          canIUse: true
+          canIUse: false
         })
       }
     } catch (e) {
       that.setData({
-        canIUse: true
+        canIUse: false
       })
     }
   },
@@ -64,31 +62,11 @@ Page({
     wx.getUserInfo({
       success: function(res) {
         S.setData({
-          canIUse: false
+          canIUse: true
         })
       },
       fail: S.showPrePage
     })
-  },
-  //是否有权限创建订单
-  hasAbilityCreatOrder() {
-    let that = this;
-    network.requestLoading('88/driver/v2/driver/applet/judgeCreateOrderPermission', {},
-      'GET',
-      '',
-      '',
-      function(res) {
-        if (res.success) {
-          that.setData({
-            abilityCreatOrder: res.data.flag
-          })
-        }
-      },
-      function(res) {
-        wx.showToast({
-          title: '加载数据失败',
-        });
-      });
   },
   // hesEnter() {
   //   //是否已经入驻
@@ -206,10 +184,16 @@ Page({
     });
   },
   goRouter(e) {
+    let that = this;
     let type = e.currentTarget.dataset.type;
+    let canIUse = that.data.canIUse
     let routerName = '';
     if (type == '1') {
-      routerName = '../collect/collect'
+      if (canIUse) {
+        routerName = '../collect/collect'
+      } else {
+        routerName = '../login/login'
+      }
     } 
     wx.navigateTo({
       url: routerName
@@ -240,23 +224,22 @@ Page({
   },
   onShow: function() {
     let that = this;
-    that.hasEnter()
-    this.hasAbilityCreatOrder()
-    wx.getStorage({
-      //获取数据的key
-      key: 'phone',
-      success: function(res) {
-        var flag = res.data;
-        if (flag) {
-          flag = true
-        } else {
-          flag = false
-        }
+    try {
+      var value = wx.getStorageSync('phone')
+      if (value) {
         that.setData({
-          flag: flag
+          canIUse: true
+        })
+      } else {
+        that.setData({
+          canIUse: false
         })
       }
-    })
+    } catch (e) {
+      that.setData({
+        canIUse: false
+      })
+    }
   },
   getPhoneNumber: function(e) {
     let that = this;
@@ -364,7 +347,7 @@ Page({
       message: '确定退出登录吗？',
     }).then(() => {
       this.setData({
-        canIUse: true
+        canIUse: false
       })
       wx.clearStorage()
     })
