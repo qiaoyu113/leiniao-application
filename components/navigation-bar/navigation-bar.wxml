@@ -6,7 +6,7 @@
   bind:getnavHeight="handlerGetNavHeight"
 >
 <view slot="left" class="left_content">
-  <text wx:if="{{defaultData.showSearchBar}}" class="nav_city" bindtap="selectLocationEvent">{{defaultData.cityName}}</text>
+<text wx:if="{{defaultData.showSearchBar}}" class="nav_city" style="font-size:{{defaultData.cityName.length>3?'22rpx':'26rpx'}}" bindtap="selectLocationEvent">{{defaultData.cityName}}</text>
   <image class="city_icon" src="../../lib/image/rentcarimg/triangle.png"/>
 </view>
 <view slot="center">
@@ -15,13 +15,13 @@
 </navBar>
     <!--轮播图 -->
 <view class="slides absolute" style="top: {{navHeight}}px">
-      <!-- <swiper autoplay indicator-dots circular>
-        <swiper-item  wx:for="{{defaultData.swiperList}}" wx:key="key">
+      <swiper autoplay indicator-dots circular>
+        <swiper-item  wx:for="{{swiperList}}" wx:key="key">
           <navigator>
-            <image mode="widthFix" src="{{item.imgSrc}}"></image>
+            <image class="banner_img" mode="widthFix" src="{{item.url}}"></image>
           </navigator>
         </swiper-item>
-      </swiper> -->
-      <image class="banner_img" src="../../lib//image/rentcarimg/banner.png" alt=""/>
+      </swiper>
+      <!-- <image class="banner_img" src="../../lib//image/rentcarimg/banner.png" alt=""/> -->
     </view>
 </view>

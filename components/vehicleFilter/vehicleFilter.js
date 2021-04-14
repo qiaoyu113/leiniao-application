@@ -12,7 +12,6 @@ Component({
    * 组件的初始数据
    */
   data: {
-    isTabPage: null,
     tabs: [],
     currentTab: null,
     modelList: [],
@@ -42,17 +41,6 @@ Component({
    */
   methods: {
     init () {
-      // const app = getApp()
-      // console.log(app.globalData)
-      const currentPages = getCurrentPages()
-      const entryRoute = currentPages[0].route
-      const isTabPage = currentPages.length === 1
-      const tabs = this.data.tabs
-      if (/saleCar/.test(entryRoute)) {
-        tabs.find(v => v.id === 'price').label = '售价'
-      }
-      this.setData({tabs, isTabPage})
-
       this.initTabs()
       this.getModelList()
       this.getAges()
@@ -68,10 +56,12 @@ Component({
         {label: '筛选', id: 'filter', selected: false},
         {label: '', id: 'sort', selected: false}
       ]
-      this.setData({
-        tabs
-        // currentTab: tabs[0]
-      })
+      const app = getApp()
+      const entryRoute = app.utils.getEntryRoute()
+      if (/saleCar/.test(entryRoute)) {
+        tabs.find(v => v.id === 'price').label = '售价'
+      }
+      this.setData({tabs})
     },
     // 获取全部车型（品牌+车型）
     getModelList () {
@@ -99,7 +89,7 @@ Component({
           },
         ]
         this.setData({
-          modelList: data
+          modelList: [{brandName: '不限品牌', brandId: '', selected: false}].concat(data)
         })
       }, 100);
     },
@@ -190,10 +180,10 @@ Component({
       })
       const modelList = this.data.modelList.map(v => {
         v.selected = false
-        v.models = v.models.map(vv => {
+        v.models = v.models ? v.models.map(vv => {
           vv.selected = false
           return vv
-        })
+        }) : undefined
         return v
       })
       const features = this.data.features.map(v => {
@@ -204,17 +194,10 @@ Component({
         v.selected = false
         return v
       })
-      const sorts = this.data.sorts.map(v => {
-        v.selected = false
+      const sorts = this.data.sorts.map((v, i) => {
+        v.selected = !i
         return v
       })
-
-      // currentTab: null,
-      // models: [],
-      // minPrice: '',
-      // maxPrice: '',
-      // minMiles: '',
-      // maxMiles: '',
       this.setData({
         tabs,
         ages,
@@ -234,47 +217,68 @@ Component({
     },
     // 查询
     onQuery () {
-      const formData = {} // todo
-      this.onSelectTab()
+      const formData = {
+        brandId: (this.data.modelList.find(v => v.selected) || {}).brandId || '',
+        modelId: (this.data.models.find(v => v.selected) || {}).modelId || '',
+        ages: this.data.ages.filter(v => v.selected).map(v => v.id).join(','),
+        minPrice: this.data.minPrice,
+        maxPrice: this.data.maxPrice,
+        features: this.data.features.filter(v => v.selected).map(v => v.id).join(','),
+        miles: this.data.miles.filter(v => v.selected).map(v => v.id).join(','),
+        minMiles: this.data.minMiles,
+        maxMiles: this.data.maxMiles,
+        sort: this.data.sorts.find(v => v.selected).id
+      }
+      this.triggerEvent('change', formData)
+      this.onSelectTab() // 触发收起filter
     },
     // 滚动页面至顶部
     moveFilterTop () {
       const query = this.createSelectorQuery()
       query.select('.vehicle-filter').boundingClientRect()    
       query.selectViewport().scrollOffset()
+      const app = getApp()
+      const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(app.utils.getCurrentRoute()) > -1
+      const barHeight = isPageWithCustomNav ? app.globalData.CustomBar : 0
       query.exec(res => {
-        if ((res[0] || {}).top) {
-          wx.pageScrollTo({scrollTop: res[0].top - res[1].scrollTop})
+        if (res[0] && res[1] && (res[0] || {}).top !== barHeight) {
+          wx.pageScrollTo({scrollTop: res[0].top + res[1].scrollTop - barHeight})
         }
       })
     },
     // 选择品牌
     onSelectBrand (evt) {
+      const brandId = evt.currentTarget.dataset.info.brandId
       const modelList = this.data.modelList.map(v => {
-        v.selected = v.brandId === evt.currentTarget.dataset.info.brandId
+        v.selected = v.brandId === brandId
         return v
       })
+      const models = (this.data.modelList.find(v => v.brandId === evt.currentTarget.dataset.info.brandId) || {}).models
       this.setData({
         modelList,
-        models: (this.data.modelList.find(v => v.brandId === evt.currentTarget.dataset.info.brandId) || {}).models
+        models: models ? [{modelName: '不限车型', modelId: '', selected: false}].concat(models) : []
       })
+      if (!models && !brandId) {
+        this.onQuery()
+      }
     },
     // 选择型号
     onSelectModel (evt) {
+      const modelId = evt.currentTarget.dataset.info.modelId
       const models = this.data.models.map(v => {
-        v.selected = v.modelId === evt.currentTarget.dataset.info.modelId
+        v.selected = v.modelId === modelId
         return v
       })
-      this.setData({models})
+      this.setData({models}, () => {
+        this.onQuery()
+      })
     },
     // 选择车龄
     onSelectAge (evt) {
       const ages = this.data.ages
       const clickedAge = ages.find(v => v.id === evt.currentTarget.dataset.info.id)
       clickedAge.selected = !clickedAge.selected
-      this.setData({ages}, () => {
-        this.triggerEvent('ageselected', this.data.ages.filter(v => v.selected))
-      })
+      this.setData({ages})
     },
     // 选择车辆特点
     onSelectFeature (evt, isFromPage) {
@@ -282,7 +286,11 @@ Component({
       const clickedFeature = features.find(v => v.id === evt.currentTarget.dataset.info.id)
       clickedFeature.selected = !clickedFeature.selected
       this.setData({features}, () => {
-        !isFromPage && this.triggerEvent('featurechange', evt.currentTarget.dataset.info)
+        if (isFromPage) {
+          this.onQuery()
+        } else {
+          this.triggerEvent('featurechange', evt.currentTarget.dataset.info)
+        }
       })
     },
     // 选择里程
@@ -290,9 +298,17 @@ Component({
       const miles = this.data.miles
       const clickedMiles = miles.find(v => v.id === evt.currentTarget.dataset.info.id)
       clickedMiles.selected = !clickedMiles.selected
-      this.setData({miles}, () => {
-        this.triggerEvent('milesselected', this.data.miles.filter(v => v.selected))
-      })
+      this.setData({miles, minMiles: '', maxMiles: ''})
+    },
+    onMilesInput (evt) {
+      console.log(evt.detail)
+      if ((evt.detail || {}).value) {
+        const miles = this.data.miles.map(v => {
+          v.selected = false
+          return v
+        })
+        this.setData({miles})
+      }
     },
     // 选择排序基准
     onSelectSort (evt) {
@@ -300,7 +316,9 @@ Component({
         v.selected = v.id === evt.currentTarget.dataset.info.id
         return v
       })
-      this.setData({sorts})
+      this.setData({sorts}, () => {
+        this.onQuery()
+      })
     },
     // 解决滚动穿透问题
     doNothing () {

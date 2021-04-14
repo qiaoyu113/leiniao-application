@@ -13,8 +13,16 @@ Component({
    * 组件的初始数据
    */
   data: {
+    formData: {
+      sort: '1'
+    },
+    pageSize: 30,
+    pageIndex: 1,
     fastFeatures: [],
-    vehicleList: []
+    vehicleList: [],
+    isPageWithCustomNav: false,
+    navbarHeight: 64,
+    loadStatus: 0 // 0 初始化 1请求中 2请求完毕
   },
 
   lifetimes: {
@@ -32,8 +40,15 @@ Component({
    */
   methods: {
     init () {
-      this.getVehicleList()
+      const app = getApp()
+      ;(app.utils.getCurrentRoute() !== 'searchPage') && this.getVehicleList()
       this.data.showFastFeature && this.getFastFeatures()
+      const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(app.utils.getCurrentRoute()) > -1
+      const navbarHeight = app.globalData.CustomBar
+      this.setData({
+        isPageWithCustomNav,
+        navbarHeight
+      })
     },
     // 获取快捷筛选项（车辆特点）
     getFastFeatures: function () {
@@ -50,8 +65,14 @@ Component({
       }, 280);
     },
     // 获取车辆列表
-    getVehicleList () {
-      const params = {} // todo
+    getVehicleList (append) {
+      const formData = this.data.formData
+      const pageIndex = append ? this.data.pageIndex + 1 : 1
+      Object.assign(formData, {
+        pageSize: this.data.pageSize,
+        pageIndex
+      })
+      console.log(formData)
       setTimeout(() => {
         const vehicleList = [
           {
@@ -60,7 +81,7 @@ Component({
             miles: '7',
             labels: ['准新车', '急租', '有尾板', '有通行证'],
             price: '3000',
-            pic: '/lib/image/home/vehicle_demo.png'
+            pic: '/lib/image/home/hot_3.png'
           },
           {
             name: '福田欧曼GTL载货车福田欧曼GTL载货车福田欧曼GTL载货车',
@@ -68,7 +89,7 @@ Component({
             miles: '7',
             labels: ['准新车', '急租', '有尾板', '有通行证'],
             price: '3000',
-            pic: '/lib/image/home/vehicle_demo.png'
+            pic: '/lib/image/home/hot_3.png'
           },
           {
             name: '福田欧曼GTL载货车福田欧曼GTL载货车福田欧曼GTL载货车',
@@ -76,7 +97,7 @@ Component({
             miles: '7',
             labels: ['准新车', '急租', '有尾板', '有通行证'],
             price: '3000',
-            pic: '/lib/image/home/vehicle_demo.png'
+            pic: '/lib/image/home/hot_3.png'
           },
           {
             name: '福田欧曼GTL载货车福田欧曼GTL载货车福田欧曼GTL载货车',
@@ -84,7 +105,7 @@ Component({
             miles: '7',
             labels: ['准新车', '急租', '有尾板', '有通行证'],
             price: '3000',
-            pic: '/lib/image/home/vehicle_demo.png'
+            pic: '/lib/image/home/hot_3.png'
           },
           {
             name: '福田欧曼GTL载货车福田欧曼GTL载货车福田欧曼GTL载货车',
@@ -92,7 +113,7 @@ Component({
             miles: '7',
             labels: ['准新车', '急租', '有尾板', '有通行证'],
             price: '3000',
-            pic: '/lib/image/home/vehicle_demo.png'
+            pic: '/lib/image/home/hot_3.png'
           },
           {
             name: '福田欧曼GTL载货车福田欧曼GTL载货车福田欧曼GTL载货车',
@@ -100,17 +121,23 @@ Component({
             miles: '7',
             labels: ['准新车', '急租', '有尾板', '有通行证'],
             price: '3000',
-            pic: '/lib/image/home/vehicle_demo.png'
+            pic: '/lib/image/home/hot_3.png'
           }
         ]
         this.setData({
-          vehicleList
+          vehicleList,
+          loadStatus: 2,
+          pageIndex
         })
       }, 200)
     },
     // 筛选组件汇总后的参数变动
-    onParamChange: function (evt) {   
-      console.log(evt.detail)
+    onParamChange: function (evt) {
+      this.setData({
+        formData: Object.assign({}, this.data.formData, evt.detail || evt)
+      }, () => {
+        this.getVehicleList()
+      })
     },
     // 筛选组件筛选项变动，同步到页面
     onFeatureChange (evt) {
@@ -148,12 +175,14 @@ Component({
     // vehicleList && vehicleList.onPageReachBottom()
     onPageReachBottom () {
       console.log('load more')
+      this.getVehicleList(true)
     },
     // 供页面搜索关键字变化时调用，重新搜索
     // const vehicleList = this.selectComponent('#vehicleList')
     // vehicleList && vehicleList.onPageKeywordChange(newVal)
     onPageKeywordChange (val) {
       console.log('keyword change', val)
+      this.onParamChange({keyword: val})
     }
   }
 })

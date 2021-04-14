@@ -9,9 +9,14 @@
   position: fixed;
   top: 0;
 }
+.left_content {
+  width: 138rpx;
+  height: 37rpx;
+  line-height: 37rpx;
+  margin-left: 15rpx;
+}
 .nav-bar .nav_city {
   float: left;
-  width: 78rpx;
   height: 37rpx;
   font-size: 26rpx;
   line-height: 37rpx;
@@ -63,12 +68,7 @@
   margin-top: 12rpx;
   float: left;
 }
-.left_content {
-  width: 120rpx;
-  height: 37rpx;
-  line-height: 37rpx;
-  margin-left: 30rpx;
-}
+
 .top_box {
   height: 520rpx;
   width: 100%;

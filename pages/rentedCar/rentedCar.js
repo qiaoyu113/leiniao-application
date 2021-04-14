@@ -23,10 +23,7 @@ Page({
       rentOrBuy: 'rent',
       background: '',
     },
-    cityinfo: {
-      name: '',
-      id: '',
-    },
+    cityupdata: '',
     scrollTop: 0,
     hide: false,
   },
@@ -36,18 +33,16 @@ Page({
    */
   onLoad: function (options) {
     this.getHotModels()
-    // this.getVehicleList()
-    // this.getFastFeatures()
-    let cityCode = wx.getStorageSync('cityCode')
-    let cityName = wx.getStorageSync('locationCity')
+    // let cityCode = wx.getStorageSync('cityCode')
+    // let cityName = wx.getStorageSync('locationCity')
+    let { cityName, cityCode } = app.globalData.locationCity
     if (!cityCode) {
-      utils.getMap.call(this)
+      utils.getMap.call(this, app)
     } else {
-      this.setData({
-        cityCode: cityCode,
-        'defaultData.cityName': cityName,
-        'cityinfo.name': cityName,
-      })
+        this.setData({
+          cityCode: cityCode,
+          'defaultData.cityName': cityName,
+        })
     }
     let that = this
     // wx.getStorage({
@@ -108,10 +103,18 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let cityname = this.data.cityinfo.name
+    // let cityUpdata = this.data.cityupdata
+    let { cityName, cityCode, cityUpdata } = app.globalData.locationCity
     this.setData({
-      'defaultData.cityName': cityname,
+      'defaultData.cityName': cityName,
     })
+    if (cityUpdata === 1) {
+      app.globalData.locationCity.cityUpdata = 0
+      //调用切换城市接口
+      console.log('城市切换了，调用城市接口')
+    } else {
+      console.log('城市没有切换，不调用接口')
+    }
   },
 
   /**
@@ -143,9 +146,7 @@ Page({
   },
   onPageScroll: utils.throttle(function (e) {
     let ev = e[0]
-    console.log('ev', ev)
     //判断浏览器滚动条上下滚动
-
     if (
       ev.scrollTop > this.data.scrollTop ||
       ev.scrollTop == wx.getSystemInfoSync().windowHeight

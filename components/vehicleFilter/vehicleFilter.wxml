@@ -59,9 +59,9 @@
           </view>
           <view class="text-15 text-gray-9 mt-15">请输入里程（万公里）</view>
           <view class="center_space-around mt-12 text-12">
-            <input class="b-solid-e input-range text-center bg-gray mx-15" model:value="{{minMiles}}" placeholder="最小值" />
+            <input class="b-solid-e input-range text-center bg-gray mx-15" bindblur="onMilesInput" model:value="{{minMiles}}" placeholder="最小值" />
             <view class="text-gray-6">—</view>
-            <input class="b-solid-e input-range text-center bg-gray mx-15" model:value="{{maxMiles}}" placeholder="最大值" />
+            <input class="b-solid-e input-range text-center bg-gray mx-15" bindblur="onMilesInput" model:value="{{maxMiles}}" placeholder="最大值" />
           </view>
         </view>
         <!-- 排序 -->

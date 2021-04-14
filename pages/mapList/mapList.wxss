@@ -5,3 +5,8 @@
   background-color: red;
   margin: 10rpx auto;
 }
+.top_title {
+  font-size: 34rpx;
+  color: #fff;
+  font-weight: bold;
+}

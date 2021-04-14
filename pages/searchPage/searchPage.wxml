@@ -4,7 +4,7 @@
 <input type="text" class="search"></input>
 </view> -->
 <navBar
-  background="#2F83FA"
+  background="linear-gradient(90deg, #009CF8 0%, #2F83FA 100%)"
   back="{{ true }}"
   bindback="handlerGobackClick"
   bindhome="handlerGohomeClick"
@@ -18,21 +18,24 @@
   </view>
 </navBar>
 
-<view class="search_history_box" wx:if="{{!ifSearchFinish}}">
-  <view class="history_toptitle">
-    <text class="history_maintitle">搜索历史</text>
-    <image class="delete_img" bindtap="deleteHistory" src="../../lib/image/rentcarimg/delete.png"/>
-  </view>
-    <view class="history_box">
-      <view class="history_detail_box" 
-            bindtap="historySearchEvent"
-            wx:for="{{searchHistoryList}}"
-            wx:key="key"
-            data-index="{{item}}"
-            >
-            {{item}}
-      </view>
+<view>
+  <view class="search_history_box" wx:if="{{!ifSearchFinish}}">
+    <view class="history_toptitle">
+      <text class="history_maintitle">搜索历史</text>
+      <image class="delete_img" bindtap="deleteHistory" src="../../lib/image/rentcarimg/delete.png"/>
     </view>
-    
+      <view class="history_box">
+        <view class="history_detail_box"
+              bindtap="historySearchEvent"
+              wx:for="{{searchHistoryList}}"
+              wx:key="key"
+              data-index="{{item}}"
+              >
+              {{item}}
+        </view>
+      </view>
+  </view>
+  <view hidden="{{!ifSearchFinish}}">
+    <vehicle-list id="vehicleList"></vehicle-list>
+  </view>
 </view>
-  

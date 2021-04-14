@@ -1,44 +1,64 @@
 <!--爆款上新列表页 -->
-<block wx:if="{{carList.length}}">
-<view
-wx:for="{{ carList }}" wx:key="key"
-data-index="{{item.id}}"
-bindtap="gotoCarDetail"
-class="list_box space-between flex-y"
-style="position:{{item.rentout==1?'relative':'static'}};"
->
-  <block wx:if="{{rentOrSale =='rent'}}">
-  <image wx:if="{{item.rentout==1}}" class="rentoutlogo" src="../../lib/image/rentcarimg/rentOut.png"/>
-  </block>
-
-  <block wx:if="{{rentOrSale =='sale'}}">
-  <image wx:if="{{item.rentout==1}}" class="rentoutlogo" src="../../lib/image/rentcarimg/saleOut.png"/>
-  </block>
-  <view
-  class="{{item.rentout==1?'rentout_box ':' '}} top_banner center_center"
-style="margin-bottom:{{!showCommend?'40rpx':' '}}"
+<block wx:if="{{ carList.length }}">
+  <navBar
+    background="linear-gradient(90deg, #009CF8 0%, #2F83FA 100%)"
+    bindback="handlerGobackClick"
+    back="{{ true }}"
   >
-    <image class="left_img" src="../../lib/image/rentcarimg/car.png" />
-      <view class="right_list">
-        <text class="list_title hidden_word" >{{item.title}}</text>
-        <text class="list_sub_lefttitle" >车龄：{{item.age}}</text>
-        <text class="list_sub_righttitle" >里程：{{item.km}}</text>
-        <block wx:for="{{item.feature}}" wx:key="key">
-          <text class="{{item.type?'list_top_type':'list_type'}}" >{{item.name}}</text>
-        </block>
-        <text class="list_price">￥{{item.price}}/月</text>
-      </view>
+    <text slot="center" class="top_title" wx:if="{{ showCommend }}"
+      >超值爆款</text
+    >
+    <text slot="center" class="top_title" wx:else>今日上新</text>
+  </navBar>
+
+  <scroll-y
+    class="scroll-view"
+    pull="{{ pull }}"
+    push="{{ push }}"
+    listLength="{{ carList.length }}"
+    bindrefresh="refresh"
+    bindtoload="toload"
+  >
+  <view
+  wx:for="{{ carList }}" wx:key="key"
+  data-index="{{item.id}}"
+  bindtap="gotoCarDetail"
+  class="list_box space-between flex-y"
+  style="position:{{item.rentout==1?'relative':'static'}};"
+  >
+    <block wx:if="{{rentOrSale =='rent'}}">
+    <image wx:if="{{item.rentout==1}}" class="rentoutlogo" src="../../lib/image/rentcarimg/rentOut.png"/>
+    </block>
+  
+    <block wx:if="{{rentOrSale =='sale'}}">
+    <image wx:if="{{item.rentout==1}}" class="rentoutlogo" src="../../lib/image/rentcarimg/saleOut.png"/>
+    </block>
+    <view
+    class="{{item.rentout==1?'rentout_box ':' '}} top_banner center_center"
+  style="margin-bottom:{{!showCommend?'40rpx':' '}}"
+    >
+      <image class="left_img" src="../../lib/image/rentcarimg/car.png" />
+        <view class="right_list">
+          <text class="list_title hidden_word" >{{item.title}}</text>
+          <text class="list_sub_lefttitle" >车龄：{{item.age}}</text>
+          <text class="list_sub_righttitle" >里程：{{item.km}}</text>
+          <block wx:for="{{item.feature}}" wx:key="key">
+            <text class="{{item.type?'list_top_type':'list_type'}}" >{{item.name}}</text>
+          </block>
+          <text class="list_price">￥{{item.price}}/月</text>
+        </view>
+    </view>
+    <view wx:if="{{showCommend}}" class="{{item.rentout==1?'rentout_box ':' '}} bottom_list mx-5">
+      <image class="bottom_img" src="../../lib/image/rentcarimg/hot.png"/>
+      <text class="bottom_title">推荐理由:</text>
+      <text class="hidden_muchword">{{item.recommendReason}}</text>
+    </view>
+    <text class="{{showCommend?'bottom_line':'todaynewcar_bottom_line'}}"></text>
   </view>
-  <view wx:if="{{showCommend}}" class="{{item.rentout==1?'rentout_box ':' '}} bottom_list mx-5">
-    <image class="bottom_img" src="../../lib/image/rentcarimg/hot.png"/>
-    <text class="bottom_title">推荐理由:</text>
-    <text class="hidden_muchword">{{item.recommendReason}}</text>
-  </view>
-  <text class="{{showCommend?'bottom_line':'todaynewcar_bottom_line'}}"></text>
-</view>
+  </scroll-y>
 </block>
-<view wx:else class="nocar_page">
+<!-- <view wx:else class="nocar_page">
   <image class="nocar_img" src="../../lib/image/rentcarimg/nocar.png" />
   <text class="nocar_title">暂无相关车源!</text>
-    
-</view>
+
+</view> -->
