@@ -19,7 +19,7 @@ Page({
     puserId: '',
     cityCode: '',
     headImg: 'https://img0.baidu.com/it/u=2291332875,175289127&fm=26&fmt=auto&gp=0.jpg',
-    userName: '吞吞吐吐',
+    userName: '',
     cityName: '北京市'
   },
   onLoad: function() {
@@ -217,17 +217,19 @@ Page({
         }
       },
       function(res) {
-        wx.showToast({
-          title: '加载数据失败',
-        });
+        // wx.showToast({
+        //   title: '加载数据失败',
+        // });
       });
   },
   onShow: function() {
     let that = this;
     try {
-      var value = wx.getStorageSync('phone')
+      var value = wx.getStorageSync('phoneName')
       if (value) {
+        console.log(3333, value)
         that.setData({
+          userName: value,
           canIUse: true
         })
       } else {
@@ -236,10 +238,13 @@ Page({
         })
       }
     } catch (e) {
+      console.log(1)
       that.setData({
         canIUse: false
       })
     }
+    console.log(that.data.canIUse)
+    that.hasEnter()
   },
   getPhoneNumber: function(e) {
     let that = this;
@@ -288,8 +293,12 @@ Page({
                         key: 'openId',
                         data: res.data.openId,
                       })
+                      let pre =  phone.substr(0,3);
+                      let next = phone.substr(7,4);
+                      let phones  =  pre + '****' + next;
                       that.setData({
                         flag: true,
+                        userName: phones,
                         openId: res.data.openId
                       })
                     }
@@ -349,7 +358,7 @@ Page({
       this.setData({
         canIUse: false
       })
-      wx.clearStorage()
+      wx.removeStorageSync('phoneName')()
     })
     .catch(() => {
       // on cancel

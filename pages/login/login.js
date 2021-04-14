@@ -60,6 +60,12 @@ Page({
                       key: 'phone',
                       data: res.data.phone,
                     })
+                    let ph = phone.toString()
+                    let phoneName =  ph.substring(0, 3)+"****"+ ph.substring(ph.length-4)
+                    wx.setStorage({
+                      key: 'phoneName',
+                      data: phoneName,
+                    })
                     wx.setStorage({
                       key: 'openId',
                       data: res.data.openId,
@@ -122,7 +128,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    
   },
 
   /**
