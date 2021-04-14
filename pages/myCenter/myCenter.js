@@ -42,24 +42,22 @@ Page({
     this.hasEnter()
     this.hasAbilityCreatOrder()
     let that = this;
-    wx.getSetting({
-      success: function(res) {
-        if (res.authSetting['scope.userInfo']) {
-          // 已经授权，可以直接调用 getUserInfo 获取头像昵称
-          wx.getUserInfo({
-            success: function(res) {
-              that.setData({
-                canIUse: false
-              })
-            }
-          })
-        } else {
-          that.setData({
-            canIUse: true
-          })
-        }
+    try {
+      var value = wx.getStorageSync('phone')
+      if (value) {
+        that.setData({
+          canIUse: false
+        })
+      } else {
+        that.setData({
+          canIUse: true
+        })
       }
-    })
+    } catch (e) {
+      that.setData({
+        canIUse: true
+      })
+    }
   },
   getUserInfoFun: function() {
     var S = this;
