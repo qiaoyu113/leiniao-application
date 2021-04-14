@@ -76,7 +76,7 @@ Page({
       })
       return false
     }
-    network.requestLoading('88/v1/leiniaoAuth/jwt/sendVerificationCode', {
+    network.requestLoading('88/auth/v1/leiniaoAuth/jwt/sendVerificationCode', {
       phone: that.data.phone
     },
     'GET',
