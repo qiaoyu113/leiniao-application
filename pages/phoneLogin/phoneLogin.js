@@ -1,4 +1,6 @@
 // pages/phoneLogin/phoneLogin.js
+var network = require("../../utils/network.js");
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 Page({
 
   /**
@@ -74,22 +76,45 @@ Page({
       })
       return false
     }
-    let times = 59
-    that.setData({
-      time: times
-    })
-    let overTime = setInterval((res) => {
-      times = times - 1
-      that.setData({
-        time: times
-      })
-      if(times == 0) {
-        clearInterval(overTime)
+    network.requestLoading('88/v1/leiniaoAuth/jwt/sendVerificationCode', {
+      phone: that.data.phone
+    },
+    'GET',
+    '',
+    '',
+    function(res) {
+      if (res.success) {
+        let times = 59
         that.setData({
-          time: 60
+          time: times
+        })
+        let overTime = setInterval((res) => {
+          times = times - 1
+          that.setData({
+            time: times
+          })
+          if(times == 0) {
+            clearInterval(overTime)
+            that.setData({
+              time: 60
+            })
+          }
+        }, 1000)
+      } else {
+        Dialog.alert({
+          title: '提示',
+          message: res.errorMsg
+        }).then(() => {
+          
         })
       }
-    }, 1000)
+    },
+    function(res) {
+      wx.showToast({
+        title: '加载数据失败',
+      });
+    });
+    
   },
 
   // 查看协议
@@ -117,9 +142,32 @@ Page({
     let that = this;
     let phone = that.data.phone
     let code = that.data.code
-    wx.switchTab({
-      url: '../myCenter/myCenter',
-    })
+    network.requestLoading('88/driver/v2/driver/applet/judgeCreateOrderPermission', {
+      phone: phone,
+      code: code
+    },
+    'GET',
+    '',
+    '',
+    function(res) {
+      if (res.success) {
+        wx.switchTab({
+          url: '../myCenter/myCenter',
+        })
+      } else {
+        Dialog.alert({
+          title: '提示',
+          message: res.errorMsg
+        }).then(() => {
+          
+        })
+      }
+    },
+    function(res) {
+      wx.showToast({
+        title: '加载数据失败',
+      });
+    });
   },
 
   /**
