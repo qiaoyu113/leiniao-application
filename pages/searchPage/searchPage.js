@@ -1,4 +1,5 @@
 // pages/searchPage/searchPage.js
+const { requestLoading } = require('../../utils/network')
 const app = getApp()
 Page({
   /**
@@ -10,26 +11,47 @@ Page({
     inputValue: '',
     searchHistoryList: [],
     ifSearchFinish: false,
+    type:''
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var value = wx.getStorageSync('searchHistoryList')
-    if (value) {
-      this.setData({
-        searchHistoryList: value,
-      })
-    } else {
-      wx.setStorage({
-        key: 'searchHistoryList',
-        data: [],
-      })
-    }
-    console.log('searchHistoryList', this.data.searchHistoryList)
+    console.log('options',options)
+    this.setData({
+      type:options.type
+    })
+    this.init()
   },
 
+  init(){
+    this.getSearchHistory()
+  },
+  //获取搜索历史
+  getSearchHistory(){
+    var that = this
+    requestLoading(
+      'car/v1/cargo/searchHistory/getList',
+      {usreId:'LNUI202104120001'},
+      'GET',
+      '',
+      '',
+      function (res) {
+        if (res.success) {
+          console.log('请求接口res', res.data)
+        }
+        that.setData({
+          searchHistoryList:res.data
+        })
+      },
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        })
+      }
+    )
+  },
   //返回上一页
   handlerGobackClick() {
     wx.navigateBack()
@@ -54,7 +76,7 @@ Page({
     console.log('搜索值', e.detail.value)
     if (e.detail.value) {
       this.searchEvent(e.detail.value)
-      this.checkInputHistory(e.detail.value)
+      //this.checkInputHistory(e.detail.value)
     }
   },
   //校验输入内容，重复时调整搜索历史数组
@@ -81,7 +103,7 @@ Page({
     this.setData({
       searchHistoryList: arr,
     })
-    wx.setStorageSync('searchHistoryList', arr)
+    // wx.setStorageSync('searchHistoryList', arr)
   },
   //清除输入框
   clearInputWordEvent() {
@@ -94,32 +116,76 @@ Page({
 
   //删除搜索历史
   deleteHistory() {
-    this.setData({
+    var that = this
+    requestLoading(
+      'car/v1/cargo/searchHistory/clearSearchHistory',
+      {usreId:'LNUI202104120001'},
+      'GET',
+      '',
+      '',
+      function (res) {
+        console.log('请求接口res', res)
+        if (res.success) {
+        }
+        that.setData({
+          searchHistoryList:res.data
+        })
+      },
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        })
+      }
+    )
+    that.setData({
       searchHistoryList: [],
     })
-    wx.setStorageSync('searchHistoryList', [])
+    // wx.setStorageSync('searchHistoryList', [])
   },
   //点击搜索icon
   searchIconEvent() {
     if (this.data.inputValue) {
-      this.checkInputHistory(this.data.inputValue)
+      //this.checkInputHistory(this.data.inputValue)
       this.searchEvent(this.data.inputValue)
     }
   },
   //调用搜索接口搜索页面
   searchEvent(value) {
     console.log('keyword', value)
+
     if (value) {
       const vehicleList = this.selectComponent('#vehicleList')
       vehicleList && vehicleList.onPageKeywordChange(value)
       wx.showLoading({title: '加载中'})
-      setTimeout(() => { // todo 要在列表组件完成并通知页面
-        console.log('搜索成功', this.data.inputValue)
-        this.setData({
-          ifSearchFinish: true
-        })
-        wx.hideLoading()
-      }, 2000)
+      var that = this
+      requestLoading(
+        'car_center/v1/cargo/getSearchCarList',
+        {searchType:that.data.type==='rent'?1:2,
+          searchCityId:app.globalData.locationCity.cityCode,
+          searchContent:value},
+        'POST',
+        '',
+        '',
+        function (res) {
+          console.log('请求接口res', res)
+          if (res.success) {
+          }
+          that.setData({
+            ifSearchFinish: true
+          })
+          wx.hideLoading()
+          //搜索接口成功回调中更新搜索历史
+      that.getSearchHistory()
+        },
+        function (res) {
+          wx.showToast({
+            title: '加载数据失败',
+          })
+        }
+      )
+
+      
+
     } else {
       this.setData({
         ifSearchFinish: false
@@ -133,7 +199,7 @@ Page({
       inputValue: searchValue,
       showCloseBtn: true,
     })
-    this.checkInputHistory(searchValue)
+    //this.checkInputHistory(searchValue)
     //调用搜索接口
     this.searchEvent(searchValue)
   },
@@ -155,7 +221,8 @@ Page({
   /**
    * 生命周期函数--监听页面卸载
    */
-  onUnload: function () {},
+  onUnload: function () {
+  },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作

@@ -1,4 +1,3 @@
-const { getSwiperList } = require('../../http/index')
 const utils = require('../rentedCar/utils')
 const app = getApp()
 // pages/saleCar/saleCar.js
@@ -26,8 +25,6 @@ Page({
    */
   onLoad: function (options) {
     this.getHotModels()
-    // let cityCode = wx.getStorageSync('cityCode')
-    // let cityName = wx.getStorageSync('locationCity')
     let { cityName, cityCode } = app.globalData.locationCity
     console.log('app.globalData.locationCity', app.globalData.locationCity)
     if (!cityCode) {

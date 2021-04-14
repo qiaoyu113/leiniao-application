@@ -1,10 +1,13 @@
 // pages/carFiles/carFiles.js
+const { requestLoading } = require('../../utils/network')
 Page({
   /**
    * 页面的初始数据
    */
   data: {
     carData: {},
+    carPassCard:true,
+    carBoard:true
   },
 
   /**
@@ -17,34 +20,59 @@ Page({
   },
 
   getCarFilesInfo(idnum) {
-    this.setData({
-      carData: {
-        baseData: {
-          carNumber: 'CL202012121356',
-          carBrand: '福田',
-          carType: '4.2米箱货',
-          carModel: '油车',
-          carProperty: '营运',
-          carAge: '2年',
-          carKm: '3万公里',
-          carWidth: '2.2米',
-          carPassCard: true,
-          carBoard: true,
-          carWatchPlace: '北京',
-        },
-        plateData: {
-          carFirstDate: '2020-12-12',
-          carPlatePlace: '北京',
-        },
-        engineData: {
-          engineId: 'BJ5073XXYEV1',
-          horsePower: '300匹',
-        },
-        insuranceData: {
-          number: '50万',
-        },
+    var that = this
+    requestLoading(
+      'car_center/v1/cargo/getCarInfoByCarId',
+      {carId:idnum},
+      'GET',
+      '',
+      '',
+      function (res) {
+        console.log('请求接口res', res)
+        if (res.success) {
+        }
+        let carInfo = res.data
+        //过滤整理车辆信息
+        that.carInfofilter(carInfo)
+        that.setData({
+          carData:carInfo,
+        })
       },
-    })
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        })
+      }
+    )
+
+    // this.setData({
+    //   carData: {
+    //     baseData: {
+    //       carNumber: 'CL202012121356',
+    //       carBrand: '福田',
+    //       carType: '4.2米箱货',
+    //       carModel: '油车',
+    //       carProperty: '营运',
+    //       carAge: '2年',
+    //       carKm: '3万公里',
+    //       carWidth: '2.2米',
+    //       carPassCard: true,
+    //       carBoard: true,
+    //       carWatchPlace: '北京',
+    //     },
+    //     plateData: {
+    //       carFirstDate: '2020-12-12',
+    //       carPlatePlace: '北京',
+    //     },
+    //     engineData: {
+    //       engineId: 'BJ5073XXYEV1',
+    //       horsePower: '300匹',
+    //     },
+    //     insuranceData: {
+    //       number: '50万',
+    //     },
+    //   },
+    // })
   },
 
   //复制
@@ -62,6 +90,27 @@ Page({
         })
       },
     })
+  },
+  //过滤器
+  carInfofilter(carInfo){
+    if(carInfo.carLabelSet.includes('尾板')){
+      this.setData({
+        carPassCard:true
+      })
+    }else{
+      this.setData({
+        carPassCard:false
+      })
+    }
+    if(carInfo.carLabelSet.includes('通行证')){
+      this.setData({
+        carBoard:true
+      })
+    }else{
+      this.setData({
+        carBoard:false
+      })
+      }
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

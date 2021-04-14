@@ -1,5 +1,6 @@
 // pages/carDetail/carDetail.js
 const app = getApp()
+const { requestLoading } = require('../../utils/network')
 Page({
   /**
    * 页面的初始数据
@@ -51,6 +52,39 @@ Page({
   },
   //调用接口，获取车辆详情
   getCarInfo() {
+    var that = this
+    requestLoading(
+      'car_center/v1/cargo/getCarInfoByCarId',
+      {carId:this.data.carId},
+      'GET',
+      '',
+      '',
+      function (res) {
+        console.log('请求接口res', res)
+        if (res.success) {
+        }
+        let carInfo = res.data
+        //过滤整理车辆信息
+        that.carInfofilter(carInfo)
+        if(carInfo.vogueReason){
+          that.setData({
+            carData:carInfo,
+            showHotIntroduce:true
+          })
+        }else{
+          that.setData({
+            carData:carInfo,
+            showHotIntroduce:false
+          })
+        }
+      },
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        })
+      }
+    )
+
     this.setData({
       swiperList: [
         {
@@ -67,6 +101,11 @@ Page({
         },
       ],
     })
+  },
+  //过滤器
+  carInfofilter(carInfo){
+    
+    return
   },
   //返回上一页
   gobackEvent() {
@@ -159,6 +198,14 @@ Page({
       if (phoneValue) {
         //调用获取底价接口
         console.log('校验通过，获取底价')
+        let info = {
+          carId:this.data.carId,
+          inquiryName:nameValue,
+          inquiryPhone:phoneValue,
+          searchCityId:app.globalData.locationCity.cityCode,
+          searchType:this.data.rentOrSale==='rent'?1:2
+        }
+        this.carInquiry(info)
       } else {
         wx.showModal({
           title: '请正确填写电话',
@@ -176,6 +223,36 @@ Page({
       }
     }
   },
+  //调用询底价接口
+  carInquiry(info){
+    var that = this
+    requestLoading(
+      'car/v1/car/cargo/carInquiry',
+      info,
+      'POST',
+      '',
+      '',
+      function (res) {
+        console.log('请求询价接口res', res)
+        if (res.success) {
+          
+        }
+        that.setData({
+          phoneValue:'',
+          nameValue:''
+        })
+        wx.showToast({
+          title: '询价成功',
+        })
+        that.onClose()
+      },
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        })
+      }
+    )
+  },
   //收藏
   collectCarEvent(e) {
     let collectid = e.currentTarget.dataset['index']
@@ -184,25 +261,67 @@ Page({
       wx.showLoading({
         title: '加载中',
       })
+      this.favorite()
       //调用收藏接口
-      setTimeout(() => {
-        this.setData({
-          nocollect: false,
-        })
-        wx.hideLoading()
-      }, 1000)
     } else {
       wx.showLoading({
         title: '加载中',
       })
       //调用取消收藏接口
-      setTimeout(() => {
-        this.setData({
+      this.cancelFavorite()
+    }
+  },
+  favorite(){
+    var that = this
+    requestLoading(
+      'car/v1/car/cargo/addFavorite',
+      {carId:this.data.carId,
+      rentOrSale:this.data.rentOrSale==='rent'?1:2
+      },
+      'POST',
+      '',
+      '',
+      function (res) {
+        console.log('请求接口res', res)
+        if (res.success) {
+        }
+        that.setData({
+          nocollect: false,
+        })
+        wx.hideLoading()
+      },
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        })
+      }
+    )
+  },
+  cancelFavorite(){
+    var that = this
+    requestLoading(
+      'car/v1/car/cargo/cancelFavorite',
+      {carId:this.data.carId,
+      rentOrSale:this.data.rentOrSale==='rent'?1:2
+      },
+      'POST',
+      '',
+      '',
+      function (res) {
+        console.log('请求接口res', res)
+        if (res.success) {
+        }
+        that.setData({
           nocollect: true,
         })
         wx.hideLoading()
-      }, 1000)
-    }
+      },
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        })
+      }
+    )
   },
   //分享好友
   onShareAppMessage: function (res) {
@@ -230,6 +349,17 @@ Page({
       swiperId: e.detail.current,
     })
     console.log('e', e)
+  },
+  //放大预览轮播图图片
+  handlePreviewImg(e){
+    let swiperList = []
+    swiperList = this.data.carData.videoUrlList.concat(this.data.carData.imageUrlList)
+    const urls = swiperList
+    const current = e.currentTarget.dataset.url
+    wx.previewImage({
+      urls,
+      current
+    })
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
