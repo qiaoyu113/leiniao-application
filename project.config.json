@@ -3,8 +3,8 @@
   "setting": {
     "urlCheck": false,
     "es6": true,
-    "enhance": false,
-    "postcss": false,
+    "enhance": true,
+    "postcss": true,
     "preloadBackgroundData": false,
     "minified": true,
     "newFeature": true,
@@ -26,11 +26,16 @@
       "disablePlugins": [],
       "outputPath": ""
     },
-    "bundle": false,
+    "enableEngineNative": false,
+    "bundle": true,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": false,
+<<<<<<< HEAD
     "userConfirmedBundleSwitch": false,
+=======
+    "userConfirmedBundleSwitch": true,
+>>>>>>> m1-1.0
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true

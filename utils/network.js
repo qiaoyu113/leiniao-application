@@ -43,7 +43,7 @@ function requestLoading(url, params, met, message, types, success, fail) {
         header: {
           'content-type': contentType,
           'Authorization': token,
-          'appType': '0'
+          'appType': '2'
         },
         method: met,
         success: function (res) {
@@ -103,7 +103,7 @@ function requestLoading(url, params, met, message, types, success, fail) {
         header: {
           'content-type': contentType,
           'Authorization': '',
-          'appType': '0'
+          'appType': '2'
         },
         method: met,
         success: function (res) {
@@ -209,7 +209,7 @@ function getWxOpenId() {
         data: code
       })
       // requestLoading('api/auth/v1/jwt/getToken', {
-      requestLoading('25/auth/v2/jwt/getToken', {
+      requestLoading('25/auth/v1/leiniaoAuth/jwt/getToken', {
         wxCode: code
       },
         'post',

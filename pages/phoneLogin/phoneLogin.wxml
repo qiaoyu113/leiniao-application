@@ -22,4 +22,5 @@
     <view class="btn" wx:else>登录</view>
   </view>
   <view class="author">登录代表您已同意<a class="link" bindtap="goRouter" data-type="0">《用户协议》</a>和<a class="link" bindtap="goRouter" data-type="1">《隐私协议》</a></view>
+<van-dialog id="van-dialog" />
 </view>

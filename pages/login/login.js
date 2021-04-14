@@ -28,7 +28,7 @@ Page({
           // 登录成功后存token
           let code = res.code;
           let openId = wx.getStorageSync('openId')
-          network.requestLoading('25/core/v1/wx/encryptedData2PhoneNo', {
+          network.requestLoading('25/core/v1/wx/encryptedData2PhoneNoToLeiNiao', {
             code: code,
             iv: e.detail.iv,
             encryptedData: e.detail.encryptedData,

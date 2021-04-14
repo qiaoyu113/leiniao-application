@@ -3,16 +3,16 @@
     <image class="MCBG" src="../../lib/image/MCBG.png"></image>
     <view class='topCenterRight'>
       我的      
-      <view wx:if="{{!canIUse}}" class='headBg'>
+      <view wx:if="{{canIUse}}" class='headBg'>
         <image class="image" src="{{headImg}}" mode="aspectFit"></image>
       </view>
-      <view wx:if="{{canIUse}}" class="headBg">
+      <view wx:if="{{!canIUse}}" class="headBg">
         <image  class="image-default" src="../../lib/image/bgIcon.png" mode="aspectFit"></image>
       </view>
       <view class="loginBox">
         <!-- <button wx:if="{{canIUse}}" class="topCenterLeftBtn-Btn" open-type="getUserInfo" bindgetuserinfo="getUserInfoFun">授权登录</button> -->
-        <view wx:if="{{canIUse}}" class="topCenterLeftBtn" bindtap="goLogin">登陆/注册</view>
-        <view wx:if="{{!canIUse}}" class="topCenterLeftBtn">{{userName}}</view>
+        <view wx:if="{{!canIUse}}" class="topCenterLeftBtn" bindtap="goLogin">登陆/注册</view>
+        <view wx:if="{{canIUse}}" class="topCenterLeftBtn">{{userName}}</view>
       </view>
     </view>
   </view>
@@ -25,7 +25,7 @@
 </view>
 
 <!--退出-->
-<view wx:if="{{!canIUse}}" class="quit" bindtap="quit">退出登录</view>
+<view wx:if="{{canIUse}}" class="quit" bindtap="quit">退出登录</view>
 <van-dialog id="van-dialog" />
 
 <!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
@@ -103,9 +103,9 @@
   </view> -->
 <!-- </view> -->
  <!--绑定手机号-->
-<view class='bgShow' wx:if='{{!flag}}'>
+<!-- <view class='bgShow' wx:if='{{!flag}}'>
   <button class='loginBtn' wx:if='{{!flag}}' open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber"></button>
-</view>
+</view> -->
 <!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">
   <view class="cu-item arrow" bindtap='goRouter' data-type='6'>
     <text class='icon-question text-orange margin_right_20'></text>
