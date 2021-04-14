@@ -22,7 +22,7 @@
         <view wx:if="{{currentTab.id === 'model'}}" class="flex">
           <view class="list-brand">
             <view class="height-50 align-center pl-15 text-14 {{item.selected ? 'text-blue bg-white' : 'text-gray-3'}}"
-              wx:for="{{modelList}}" wx:key="index" data-info="{{item}}" bindtap="onSelectBrand">{{item.brandName}}</view>
+              wx:for="{{brandList}}" wx:key="index" data-info="{{item}}" bindtap="onSelectBrand">{{item.brandName}}</view>
           </view>
           <view class="list-model">
             <view class="height-44 align-center pl-32 text-14 {{item.selected ? 'text-blue bg-white' : 'text-gray-6'}}"

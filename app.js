@@ -112,9 +112,9 @@ App({
     // m1环境域名
     // url: 'https://leiniao-bss-web-m1.yunniao.cn/',
     // mock
-    // url: 'http://yapi.ynimg.cn:8888/mock/',
+    url: 'http://yapi.ynimg.cn:8888/mock/',
     // 生产环境域名
-    url: 'https://leiniao-bss-web.yunniao.cn/',
+    // url: 'https://leiniao-bss-web.yunniao.cn/',
     // d2环境域名
     // url: 'http://172.17.101.77:20150/',
     // 图片域名
@@ -124,7 +124,8 @@ App({
     menuBotton: 0, // 胶囊距底部间距（保持底部间距一致）
     menuHeight: 0, // 胶囊高度（自定义内容可与胶囊高度保证一致）
     pagesWithCustomNav: ['rentedCar', 'searchPage'],
-    locationCity: {}
+    locationCity: {},
+    brandList: []
   },
   utils: {
     getCurrentRoute: () => {

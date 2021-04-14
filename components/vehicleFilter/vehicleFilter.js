@@ -1,4 +1,6 @@
-// components/vehicleFilter/vehicleFilter.js
+const net = require('../../utils/network')
+const app = getApp()
+
 Component({
   options: {
     addGlobalClass: true 
@@ -14,7 +16,7 @@ Component({
   data: {
     tabs: [],
     currentTab: null,
-    modelList: [],
+    brandList: [],
     models: [],
     ages: [],
     minPrice: '',
@@ -42,7 +44,7 @@ Component({
   methods: {
     init () {
       this.initTabs()
-      this.getModelList()
+      this.getBrandList()
       this.getAges()
       this.getFilterFeatures()
       this.getFilterMiles()
@@ -64,7 +66,27 @@ Component({
       this.setData({tabs})
     },
     // 获取全部车型（品牌+车型）
-    getModelList () {
+    getBrandList () {
+      let brandList = [{brandName: '不限品牌', brandId: '', selected: false}]
+      if (!app.globalData.brandList.length) {
+        net.request('255/car/v1/car/CarBrandInfo/getBrandListNoPage', {}, 'get', '', 'json', res => {
+          if (res.success) {
+            brandList = brandList.concat((res.data || []).map(v => {
+              v.selected = false
+              return v
+            }))
+            this.setData({brandList})
+          }
+        }, err => {
+          console.log(err)
+        })
+      } else {
+        brandList = brandList.concat(app.globalData.brandList.map(v => {
+          v.selected = false
+          return v
+        }))
+        this.setData({brandList})
+      }
       setTimeout(() => {
         const data = [
           {
@@ -88,9 +110,6 @@ Component({
             ]
           },
         ]
-        this.setData({
-          modelList: [{brandName: '不限品牌', brandId: '', selected: false}].concat(data)
-        })
       }, 100);
     },
     // 获取车龄选项
@@ -178,7 +197,7 @@ Component({
         v.selected = false
         return v
       })
-      const modelList = this.data.modelList.map(v => {
+      const brandList = this.data.brandList.map(v => {
         v.selected = false
         v.models = v.models ? v.models.map(vv => {
           vv.selected = false
@@ -201,7 +220,7 @@ Component({
       this.setData({
         tabs,
         ages,
-        modelList,
+        brandList,
         models: [],
         features,
         miles,
@@ -218,7 +237,7 @@ Component({
     // 查询
     onQuery () {
       const formData = {
-        brandId: (this.data.modelList.find(v => v.selected) || {}).brandId || '',
+        brandId: (this.data.brandList.find(v => v.selected) || {}).brandId || '',
         modelId: (this.data.models.find(v => v.selected) || {}).modelId || '',
         ages: this.data.ages.filter(v => v.selected).map(v => v.id).join(','),
         minPrice: this.data.minPrice,
@@ -249,13 +268,13 @@ Component({
     // 选择品牌
     onSelectBrand (evt) {
       const brandId = evt.currentTarget.dataset.info.brandId
-      const modelList = this.data.modelList.map(v => {
+      const brandList = this.data.brandList.map(v => {
         v.selected = v.brandId === brandId
         return v
       })
-      const models = (this.data.modelList.find(v => v.brandId === evt.currentTarget.dataset.info.brandId) || {}).models
+      const models = (this.data.brandList.find(v => v.brandId === evt.currentTarget.dataset.info.brandId) || {}).models
       this.setData({
-        modelList,
+        brandList,
         models: models ? [{modelName: '不限车型', modelId: '', selected: false}].concat(models) : []
       })
       if (!models && !brandId) {

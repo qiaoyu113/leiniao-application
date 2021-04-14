@@ -16,7 +16,7 @@ function requestLoading(url, params, met, message, types, success, fail) {
   console.log(params)
   if(urls.includes('mock')){
     // mock 移除域
-    url = url.replace(/^(\d{2,3})(\/\w+)/, '$1')
+    // url = url.replace(/^(\d{2,3})(\/\w+)/, '$1')
   }else{
     url = url.replace(/^\d{2,3}/, 'api')
   }
