@@ -114,11 +114,7 @@ App({
     // mock
     url: 'http://yapi.ynimg.cn:8888/mock/255/',
     // 生产环境域名
-<<<<<<< HEAD
-    //url: 'https://leiniao-bss-web.yunniao.cn/',
-=======
     // url: 'https://leiniao-bss-web.yunniao.cn/',
->>>>>>> m1-1.0
     // d2环境域名
     // url: 'http://172.17.101.77:20150/',
     // 图片域名
