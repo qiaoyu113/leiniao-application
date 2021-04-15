@@ -16,8 +16,27 @@ Component({
   },
   data: {
     navHeight: '',
+    swiperList: [],
   },
-  attached: function () {},
+  attached: function () {
+    console.log('页面初始化---------->')
+    this.setData({
+      swiperList: [
+        {
+          type: 'image',
+          url: '../../lib//image/rentcarimg/banner.png',
+        },
+        {
+          type: 'image',
+          url: '../../lib//image/rentcarimg/banner.png',
+        },
+        {
+          type: 'image',
+          url: '../../lib//image/rentcarimg/banner.png',
+        },
+      ],
+    })
+  },
   methods: {
     selectLocationEvent() {
       wx.navigateTo({

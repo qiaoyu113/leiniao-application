@@ -1,8 +1,9 @@
 {
-  "navigationBarTitleText": "选择城市",
+  "navigationStyle": "custom",
   "usingComponents": {
     "van-index-bar": "../../miniprogram_npm/vant-weapp/index-bar/index",
     "van-index-anchor": "../../miniprogram_npm/vant-weapp/index-anchor/index",
-    "van-cell": "../../miniprogram_npm/vant-weapp/cell/index"
+    "van-cell": "../../miniprogram_npm/vant-weapp/cell/index",
+    "navBar": "/components/navBar/navBar"
   }
 }

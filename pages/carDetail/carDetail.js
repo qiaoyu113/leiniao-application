@@ -35,6 +35,7 @@ Page({
     carId: '',
     rentOrSale: '',
     nocollect: true,
+    swiperList: [],
   },
 
   /**
@@ -46,8 +47,27 @@ Page({
       carId: options.carId,
       rentOrSale: options.type,
     })
+    this.getCarInfo()
   },
-
+  //调用接口，获取车辆详情
+  getCarInfo() {
+    this.setData({
+      swiperList: [
+        {
+          type: 'video',
+          url: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
+        },
+        {
+          type: 'image',
+          url: '../../lib/image/rentcarimg/detail_car.png',
+        },
+        {
+          type: 'image',
+          url: '../../lib/image/rentcarimg/detail_car.png',
+        },
+      ],
+    })
+  },
   //返回上一页
   gobackEvent() {
     let page = getCurrentPages()
@@ -203,6 +223,13 @@ Page({
         console.log('转发失败', res)
       },
     }
+  },
+  //切换轮播图事件
+  changeSwiperEvent(e) {
+    this.setData({
+      swiperId: e.detail.current,
+    })
+    console.log('e', e)
   },
   /**
    * 生命周期函数--监听页面初次渲染完成
