@@ -1,4 +1,5 @@
 const net = require('../../utils/network')
+const app = getApp()
 
 Component({
   options: {
@@ -26,7 +27,8 @@ Component({
     isPageWithCustomNav: false,
     navbarHeight: 64,
     loadStatus: 0, // 0 初始化 1请求中 2请求完毕
-    labels: []
+    labels: [],
+    total: 0
   },
 
   lifetimes: {
@@ -46,7 +48,7 @@ Component({
     init () {
       const app = getApp()
       const currentRoute = app.utils.getCurrentRoute()
-      ;(currentRoute !== 'searchPage' && currentRoute !== 'hotModel') && this.getVehicleList()
+      // ;(currentRoute !== 'searchPage' && currentRoute !== 'hotModel') && this.getVehicleList()
       const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(currentRoute) > -1
       const navbarHeight = app.globalData.CustomBar
       const isRent = app.utils.getEntryRoute() === 'rentedCar'
@@ -70,21 +72,22 @@ Component({
       Object.assign(formData, {
         limit: this.data.pageSize,
         page: pageIndex,
-        searchCityId: '' // todo
+        searchCityId: (app.globalData.locationCity || {}).cityCode || ''
       })
       formData.searchContent = formData.keyword || ''
       delete formData.keyword
       console.log(formData)
       net.post('255/car_center/v1/cargo/getSearchCarList', formData, res => {
         const vehicleList = (res.data || []).map(v => {
-          // v.pic = (v.imageUrlList || [])[0] || ''
+          // v.pic = (v.imageUrlList || [])[0] || '' // todo
           v.pic = '/lib/image/home/hot_3.png' // todo 移除
           return v
         })
         this.setData({
           vehicleList,
           loadStatus: 2,
-          pageIndex
+          pageIndex,
+          total: (res.page || {}).total || 0
         })
         isKeywordChanged && this.triggerEvent('searchfinish')
       })
@@ -96,10 +99,8 @@ Component({
         v.selected = false
         return v
       }
-      // 标签：car_go_label
-      // 特点跟筛选分开，车辆特点：car_go_features  车辆标签：car_go_search
       this.data.showFastFeature && this.setData({
-        fastFeatures: (evt.detail.car_go_search || evt.detail.car_go_label || []).map(transItem) // todo 确认到底是哪个
+        fastFeatures: (evt.detail.car_go_label || []).map(transItem)
       }, () => { // todo 移除
         !this.data.fastFeatures.length && this.setData({
           fastFeatures: [
@@ -154,7 +155,7 @@ Component({
     // const vehicleList = this.selectComponent('#vehicleList')
     // vehicleList && vehicleList.onPageReachBottom()
     onPageReachBottom () {
-      if (this.data.vehicleList.length === this.pageSize) {
+      if (this.data.vehicleList.length < this.data.total) { // todo
         this.getVehicleList(true)
       }
     },

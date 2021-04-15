@@ -114,8 +114,9 @@ App({
     // url: 'https://leiniao-bss-web.m1.yunniao.cn/', 
     // mock
     url: 'http://yapi.ynimg.cn:8888/mock/',
+    // url: 'http://yapi.ynimg.cn:8888/mock/255/',
     // 生产环境域名
-    // url: 'https://leiniao-bss-web.yunniao.cn/',
+    //url: 'https://leiniao-bss-web.yunniao.cn/',
     // d2环境域名
     // url: 'http://172.17.101.77:20150/',
     // 图片域名
@@ -131,12 +132,12 @@ App({
   },
   utils: {
     getCurrentRoute: () => {
-      const currentPageRoutes = getCurrentPages().map(v => v.route)
+      const currentPageRoutes = getCurrentPages().map((v) => v.route)
       return currentPageRoutes.pop().split('/').pop()
     },
     getEntryRoute: () => {
-      const currentPageRoutes = getCurrentPages().map(v => v.route)
+      const currentPageRoutes = getCurrentPages().map((v) => v.route)
       return currentPageRoutes[0].split('/').pop()
-    }
-  }
+    },
+  },
 })

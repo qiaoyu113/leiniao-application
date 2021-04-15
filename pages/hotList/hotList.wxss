@@ -21,6 +21,7 @@
   height: 180rpx;
 }
 .list_title {
+  display: block;
   width: 430rpx;
   height: 40rpx;
   font-size: 28rpx;
@@ -28,8 +29,11 @@
   color: #333333;
   line-height: 40rpx;
   margin-bottom: 27rpx;
+  overflow: hidden;
 }
 .list_sub_lefttitle {
+  display: block;
+  float: left;
   width: 135rpx;
   height: 33rpx;
   font-size: 24rpx;
@@ -38,8 +42,11 @@
   line-height: 33rpx;
   margin-right: 30rpx;
   margin-bottom: 5rpx;
+  overflow: hidden;
 }
 .list_sub_righttitle {
+  display: block;
+  float: left;
   width: 159rpx;
   height: 33rpx;
   font-size: 24rpx;
@@ -48,6 +55,7 @@
   line-height: 33rpx;
   margin-right: 100rpx;
   margin-bottom: 5rpx;
+  overflow: hidden;
 }
 .hidden_word {
   display: block;
@@ -102,7 +110,11 @@
   font-size: 34rpx;
   margin-top: 16rpx;
 }
-
+.list_carlabel{
+  width: 430rpx;
+  height: 40rpx;
+  overflow: hidden;
+}
 .list_type {
   padding: 3rpx 3rpx;
   border: 1px solid #1c8efa;
@@ -178,4 +190,8 @@
   bottom: 0;
   width: 100%;
   flex: 1;
+}
+.nocar_page {
+  width: 100%;
+  height: 100%;
 }

@@ -45,7 +45,7 @@ Component({
     },
     gotoSearchEvent() {
       wx.navigateTo({
-        url: '/pages/searchPage/searchPage',
+        url: `/pages/searchPage/searchPage?type=${this.data.defaultData.rentOrBuy}`,
       })
     },
     handlerGetNavHeight(e) {

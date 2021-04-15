@@ -1,5 +1,4 @@
 const app = getApp()
-const { getSwiperList } = require('../../http/index')
 const utils = require('./utils')
 const net = require('../../utils/network')
 
@@ -34,48 +33,16 @@ Page({
    */
   onLoad: function (options) {
     this.getHotModels()
-    // let cityCode = wx.getStorageSync('cityCode')
-    // let cityName = wx.getStorageSync('locationCity')
     let { cityName, cityCode } = app.globalData.locationCity
     if (!cityCode) {
       utils.getMap.call(this, app)
     } else {
-        this.setData({
-          cityCode: cityCode,
-          'defaultData.cityName': cityName,
-        })
+      this.setData({
+        cityCode: cityCode,
+        'defaultData.cityName': cityName,
+      })
     }
     let that = this
-    // wx.getStorage({
-    //   key: 'swiperList',
-    //   success: function (res) {
-    //     that.setData({
-    //       swiperList: res.data,
-    //     })
-    //   },
-    //   fail: function () {
-    //     //调用轮播图数据
-    //     that.getSwiperListHandle()
-    //   },
-    // })
-    //调用轮播图数据
-    //that.getSwiperListHandle()
-  },
-  //获取轮播图数据
-  getSwiperListHandle() {
-    let that = this
-    getSwiperList().then((res) => {
-      console.log(res)
-      if (res.code === 0) {
-        that.setData({
-          'defaultData.swiperList': res.data.swiperList,
-        })
-        wx.setStorage({
-          key: 'swiperList',
-          data: res.data.swiperList,
-        })
-      }
-    })
   },
   //点击城市事件
   selectLocationEvent() {

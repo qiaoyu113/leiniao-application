@@ -112,7 +112,7 @@ Component({
         const data = res.data || {}
         const ages = (data.car_go_age || []).map(transItem)
         const prices = (data.car_go_sale || []).map(transItem)
-        const features = (data.car_go_features || []).map(transItem)
+        const features = (data.car_go_label || []).map(transItem)
         const miles = (data.car_go_mileage || []).map(transItem)
         const sorts = (data.car_go_sort || []).map(transItem)
         this.setData({
@@ -177,18 +177,24 @@ Component({
     },
     // 查询
     onQuery () {
-      const formData = { // todo 依文档
+      const formData = {
         brandId: (this.data.brandList.find(v => v.selected) || {}).brandId || '',
         modelId: (this.data.models.find(v => v.selected) || {}).modelId || '',
         carAgeIdList: this.data.ages.filter(v => v.selected).map(v => v.id),
         priceIdList: this.data.prices.filter(v => v.selected).map(v => v.id),
-        minPrice: this.data.minPrice, // todo minRent/maxRent
+        minPrice: this.data.minPrice,
         maxPrice: this.data.maxPrice,
         carLabelIdList: this.data.features.filter(v => v.selected).map(v => v.id),
         mileageIdList: this.data.miles.filter(v => v.selected).map(v => v.id).join(','),
         minMileage: this.data.minMiles,
         maxMileage: this.data.maxMiles,
         searchSortId: (this.data.sorts.find(v => v.selected) || this.data.sorts[0] || {}).id || ''
+      }
+      if (app.utils.getEntryRoute === 'rentedCar') {
+        formData.minRent = formData.minPrice
+        formData.maxRent = formData.maxPrice
+        delete formData.minPrice
+        delete formData.maxPrice
       }
       this.triggerEvent('change', formData)
       this.onSelectTab() // 触发收起filter

@@ -9,39 +9,56 @@
     <!-- <image class="top_bar_img" src="../../lib/image/rentcarimg/detail_car.png" /> -->
   
    <swiper class="top_bar_swiper" bindchange="changeSwiperEvent"  indicator-dots circular> 
-    <swiper-item  wx:for="{{swiperList}}" wx:key="key">
+    <swiper-item
+      wx:for="{{carData.videoUrlList}}"
+      wx:key="key"
+      bindtap="handlePreviewImg"
+      data-url="{{item}}"
+      >
           <navigator>
-            <video class="top_bar_img" wx:if="{{item.type==='video'}}" src='{{item.url}}' bindtap="bofang" controls='true'></video>
-            <image wx:else class="top_bar_img" mode="widthFix" src="{{item.url}}"></image>
-            <text class="swiper_index">
-              {{swiperId?swiperId + 1 : 1}}/{{swiperList.length}}
-            </text>
+            <!-- <video class="top_bar_img" wx:if="{{item.type==='video'}}" src='{{item.url}}' bindtap="bofang" controls='true'></video> -->
+            <video class="top_bar_img" src='{{item}}' bindtap="bofang" controls='true'></video>
           </navigator>
+          <text class="swiper_index">
+            {{swiperId?swiperId + 1 : 1}}/{{carData.videoUrlList.length + carData.imageUrlList.length}}
+          </text>
+        </swiper-item>
+        <swiper-item
+          wx:for="{{carData.imageUrlList}}" 
+          wx:key="key"
+          bindtap="handlePreviewImg"
+          data-url="{{item}}"
+          >
+          <navigator>
+            <image  class="top_bar_img" mode="widthFix" src="{{item}}"></image>
+          </navigator>
+          <text class="swiper_index">
+            {{swiperId?swiperId + 1 : 1}}/{{carData.videoUrlList.length + carData.imageUrlList.length}}
+          </text>
         </swiper-item>
       </swiper>
-  
-  
   </view>
   <!-- 标题 -->
   <view class="title">
-        <text class="tips" wx:for="{{carData.tips}}" wx:key="key">{{item}}</text>
-        <text class="main_title">{{carData.title}}</text>
+        <!-- <text class="tips" wx:for="{{carData.attributeStr}}" wx:key="key">{{item}}</text> -->
+        <text class="tips">{{carData.attributeStr}}</text>
+        <text class="main_title">{{carData.brandName}}</text>
         <view class="price_info">
           <text class="" wx:if="{{rentOrSale=='sale'}}">参考价</text>
-          <text class="price" wx:if="{{rentOrSale=='rent'}}">￥{{carData.price}}/月</text>
+          <text class="price" wx:if="{{rentOrSale=='rent'}}">￥{{carData.rent}}/月</text>
           <text class="price" wx:if="{{rentOrSale=='sale'}}">￥{{carData.price}}</text>
           <text class="price_tips" wx:if="{{rentOrSale=='rent'}}">起</text>
           <image class="title_img"
                 bindtap="showIntroduceEvent"
                 src="../../lib/image/rentcarimg/introduce.png" />
         </view>
-        <text class="bottom_tips" wx:for="{{carData.type}}" wx:key="key">{{item}}</text>
+        <text class="bottom_tips" wx:for="{{carData.carLabelSet}}" wx:key="key">{{item}}</text>
   </view>
   <!-- 爆款推荐理由 -->
   <view class="introduce_reason" wx:if="{{showHotIntroduce}}">
     <image class="hot_img" src="../../lib/image/rentcarimg/hot.png" />
     <text class="hot_title">爆款推荐理由:</text>
-      <view class="hot_content">{{hotDetail}}</view>
+      <view class="hot_content">{{carData.vogueReason}}</view>
   </view>
     <view class="splite_line"></view>
     <!-- 车辆档案 -->
@@ -51,27 +68,27 @@
           <text class="right_title" bindtap="viewAllEvent">查看全部</text>
           <view class="files_type_box">
             <view class="type_box_detail">
-              <text class="type_value">{{carData.md.age}}/年</text>
+              <text class="type_value">{{carData.carAgeStr}}/年</text>
               <text class="type_key">车龄</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.md.km}}万公里</text>
+              <text class="type_value">{{carData.mileageStr}}万公里</text>
               <text class="type_key">里程</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.md.width}}米</text>
+              <text class="type_value">{{carData.width}}米</text>
               <text class="type_key">箱体宽度</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.md.photo_address}}</text>
-              <text class="type_key">拍照地</text>
+              <text class="type_value">{{carData.registerCityStr}}</text>
+              <text class="type_key">牌照地</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.md.watch_address}}</text>
+              <text class="type_value">{{carData.cityStr}}</text>
               <text class="type_key">看车地</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.md.type}}</text>
+              <text class="type_value">{{carData.carTypeStr}}</text>
               <text class="type_key">车辆性质</text>
             </view>
           </view>
@@ -80,7 +97,7 @@
     <!-- 车辆描述 -->
     <view class="car_description">
         <text class="car_des_title"><text class="des_title_detail">车辆描述</text></text>
-        <view class="car_des_detail">{{carData.detail}}</view>
+        <view class="car_des_detail">{{carData.carDescribe}}</view>
   </view>
   <!-- 底部收藏 -->
   <view class="bottom_bar">
@@ -97,6 +114,7 @@
   <van-popup show="{{ showPriceIntroduce }}"closeable position="bottom"custom-style="height: 20%" bind:close="onClose">{{}}</van-popup>
   <!-- 询底价弹框 -->
   <van-popup show="{{ askPrice }}"closeable position="bottom"custom-style="height: 50%" bind:close="onClose">
+    <view class="ask_box">
     <view class="asktitle">询底价</view>
     <view class="ask_ques_box">
       <text class="ask_ques_title">如何称呼您</text>
@@ -105,8 +123,9 @@
     </view>
     <view class="ask_ques_box">
       <text class="ask_ques_title">联系电话</text>
-      <input type="number" data-index="phone" bindinput="inputEvent" class="ask_ques_content" placeholder="请输入电话" bindblur="checkphoneEvent" value="{{phoneValue}}"></input>
-      <text class="ask_ques_reg"  wx:if="{{phoneReg}}">请填写正确的联系电话</text>
+      <input class="ask_ques_content" type="number" data-index="phone" bindinput="inputEvent" class="ask_ques_content" placeholder="请输入电话" bindblur="checkphoneEvent" value="{{phoneValue}}"></input>
+      <!-- <text class="ask_ques_reg"  wx:if="{{phoneReg}}">请填写正确的联系电话</text> -->
       <view class="ask_ques_btn" bindtap="getLowPriceEvent">获取底价</view>
     </view>
+  </view>
   </van-popup>
