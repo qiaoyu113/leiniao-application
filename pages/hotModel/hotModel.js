@@ -1,3 +1,4 @@
+const app = getApp()
 // pages/saleCar/saleCar.js
 Page({
 
@@ -15,7 +16,7 @@ Page({
     wx.setNavigationBarTitle({
       title: options.name // 页面标题为路由参数
     })
-    this.init(options.name)
+    this.init()
   },
 
   /**
@@ -68,8 +69,10 @@ Page({
 
   },
 
-  init (keyword) {
+  init () {
     const vehicleList = this.selectComponent('#vehicleList')
-    vehicleList && vehicleList.onPageKeywordChange(keyword)
+    vehicleList && vehicleList.onParamChange({
+      hotModelIdList: app.globalData.hotModelIdList
+    })
   }
 })

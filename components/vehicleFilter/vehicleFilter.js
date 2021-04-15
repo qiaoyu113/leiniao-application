@@ -1,5 +1,9 @@
 const net = require('../../utils/network')
 const app = getApp()
+const setItemUnselected = v => {
+  v.selected = false
+  return v
+}
 
 Component({
   options: {
@@ -14,11 +18,13 @@ Component({
    * 组件的初始数据
    */
   data: {
+    isSale: false,
     tabs: [],
     currentTab: null,
     brandList: [],
     models: [],
     ages: [],
+    prices: [],
     minPrice: '',
     maxPrice: '',
     features: [],
@@ -45,10 +51,7 @@ Component({
     init () {
       this.initTabs()
       this.getBrandList()
-      this.getAges()
-      this.getFilterFeatures()
-      this.getFilterMiles()
-      this.getSorts()
+      this.getFilterDicts()
     },
     initTabs () {
       const tabs = [
@@ -60,117 +63,74 @@ Component({
       ]
       const app = getApp()
       const entryRoute = app.utils.getEntryRoute()
+      let isSale = true
       if (/saleCar/.test(entryRoute)) {
         tabs.find(v => v.id === 'price').label = '售价'
+        isSale = true
       }
-      this.setData({tabs})
+      this.setData({tabs, isSale})
     },
     // 获取全部车型（品牌+车型）
     getBrandList () {
       let brandList = [{brandName: '不限品牌', brandId: '', selected: false}]
       if (!app.globalData.brandList.length) {
-        net.request('255/car/v1/car/CarBrandInfo/getBrandListNoPage', {}, 'get', '', 'json', res => {
-          if (res.success) {
+        net.get('255/car/v1/car/CarBrandInfo/getBrandListNoPage', res => {
+          // if (res.success) {
             brandList = brandList.concat((res.data || []).map(v => {
               v.selected = false
               return v
             }))
             this.setData({brandList})
-          }
+            app.globalData.brandList = brandList
+          // }
         }, err => {
           console.log(err)
         })
       } else {
-        brandList = brandList.concat(app.globalData.brandList.map(v => {
+        brandList = app.globalData.brandList.map(v => {
           v.selected = false
           return v
-        }))
+        })
         this.setData({brandList})
       }
-      setTimeout(() => {
-        const data = [
-          {
-            brandName: '福田',
-            brandId: 'futian',
-            selected: false,
-            models: [
-              {modelName: '4.2米箱货', modelId: '4.2xh', selected: false},
-              {modelName: '小面', modelId: 'xm', selected: false},
-              {modelName: '依维柯', modelId: 'ywk', selected: false}
-            ]
-          },
-          {
-            brandName: '金杯',
-            brandId: 'jinbei',
-            selected: false,
-            models: [
-              {modelName: '4.2米箱货', modelId: '4.2xh', selected: false},
-              {modelName: '小面', modelId: 'xm', selected: false},
-              {modelName: '依维柯', modelId: 'ywk', selected: false}
-            ]
-          },
-        ]
-      }, 100);
     },
-    // 获取车龄选项
-    getAges () {
-      setTimeout(() => {
-        const ages = [
-          {label: '1年内', id: '1', selected: false},
-          {label: '1~2年', id: '2', selected: false},
-          {label: '2~3年', id: '3', selected: false},
-          {label: '3年以上', id: '4', selected: false}
-        ]
-        this.setData({ages})
-      }, 100)
-    },
-    // 获筛选项（车辆特点）
-    getFilterFeatures: function () {
-      setTimeout(() => {
-        const data = [
-          {label: '准新车', id: '123', selected: false},
-          {label: '急租', id: '234', selected: false},
-          {label: '宽体', id: '345', selected: false},
-          {label: '有尾板', id: '456', selected: false},
-          {label: '有通行证', id: '567', selected: false}
-        ]
-        this.setData({features: data})
-      }, 280);
-    },
-    // 筛选项（里程）
-    getFilterMiles () {
-      setTimeout(() => {
-        const data = [
-          {label: '1万公里内', id: '1', selected: false},
-          {label: '1-3万公里', id: '3', selected: false},
-          {label: '3-5万公里', id: '5', selected: false},
-          {label: '5-7万公里', id: '7', selected: false}
-        ]
-        this.setData({miles: data})
-      }, 100)
-    },
-    // 排序基准
-    getSorts () {
-      setTimeout(() => {
-        const data = [
-          {label: '默认排序', id: '1', selected: true},
-          {label: '最新上架', id: '2', selected: false},
-          {label: '车龄最短', id: '3', selected: false},
-          {label: '里程最短', id: '4', selected: false},
-          {label: '租金最低', id: '5', selected: false}
-        ]
-        this.setData({sorts: data})
-      }, 100)
+    getFilterDicts () {
+      const transItem = v => {
+        v.label = v.dictLabel
+        v.id = v.dictValue
+        v.selected = false
+        return v
+      }
+      // 排序：car_go_sort
+      // 里程：car_go_mileage
+      // 车龄：car_go_age
+      // 售价：car_go_sale
+      // 标签：car_go_label
+      // 特点跟筛选分开，车辆特点：car_go_features  车辆标签：car_go_search
+      net.post('25/v1/base/dict/dict/list/types', {}, res => {
+        console.log(res)
+        const data = res.data || {}
+        const ages = (data.car_go_age || []).map(transItem)
+        const prices = (data.car_go_sale || []).map(transItem)
+        const features = (data.car_go_features || []).map(transItem)
+        const miles = (data.car_go_mileage || []).map(transItem)
+        const sorts = (data.car_go_sort || []).map(transItem)
+        this.setData({
+          ages,
+          prices,
+          features,
+          miles,
+          sorts
+        })
+        this.triggerEvent('fastfeatureready', data)
+      })
     },
     // 点击tab
     onSelectTab (evt) {
       const selectedTabId = evt ? ((evt.currentTarget.dataset.info || {}).id || '') : ''
       const currenttabId = this.data.currentTab ? this.data.currentTab.id : ''
       if (this.data.currentTab && currenttabId === selectedTabId) {
-        const tabs = this.data.tabs.map(v => {
-          v.selected = false
-          return v
-        })
+        const tabs = this.data.tabs.map(setItemUnselected)
         this.setData({tabs, currentTab: null})
       } else {
         let currentTab = null
@@ -189,30 +149,11 @@ Component({
     },
     // 重置
     onReset () {
-      const tabs = this.data.tabs.map(v => {
-        v.selected = false
-        return v
-      })
-      const ages = this.data.ages.map(v => {
-        v.selected = false
-        return v
-      })
-      const brandList = this.data.brandList.map(v => {
-        v.selected = false
-        v.models = v.models ? v.models.map(vv => {
-          vv.selected = false
-          return vv
-        }) : undefined
-        return v
-      })
-      const features = this.data.features.map(v => {
-        v.selected = false
-        return v
-      })
-      const miles = this.data.miles.map(v => {
-        v.selected = false
-        return v
-      })
+      const tabs = this.data.tabs.map(setItemUnselected)
+      const ages = this.data.ages.map(setItemUnselected)
+      const brandList = this.data.brandList.map(setItemUnselected)
+      const features = this.data.features.map(setItemUnselected)
+      const miles = this.data.miles.map(setItemUnselected)
       const sorts = this.data.sorts.map((v, i) => {
         v.selected = !i
         return v
@@ -236,17 +177,18 @@ Component({
     },
     // 查询
     onQuery () {
-      const formData = {
+      const formData = { // todo 依文档
         brandId: (this.data.brandList.find(v => v.selected) || {}).brandId || '',
         modelId: (this.data.models.find(v => v.selected) || {}).modelId || '',
-        ages: this.data.ages.filter(v => v.selected).map(v => v.id).join(','),
-        minPrice: this.data.minPrice,
+        carAgeIdList: this.data.ages.filter(v => v.selected).map(v => v.id),
+        priceIdList: this.data.prices.filter(v => v.selected).map(v => v.id),
+        minPrice: this.data.minPrice, // todo minRent/maxRent
         maxPrice: this.data.maxPrice,
-        features: this.data.features.filter(v => v.selected).map(v => v.id).join(','),
-        miles: this.data.miles.filter(v => v.selected).map(v => v.id).join(','),
-        minMiles: this.data.minMiles,
-        maxMiles: this.data.maxMiles,
-        sort: this.data.sorts.find(v => v.selected).id
+        carLabelIdList: this.data.features.filter(v => v.selected).map(v => v.id),
+        mileageIdList: this.data.miles.filter(v => v.selected).map(v => v.id).join(','),
+        minMileage: this.data.minMiles,
+        maxMileage: this.data.maxMiles,
+        searchSortId: (this.data.sorts.find(v => v.selected) || this.data.sorts[0] || {}).id || ''
       }
       this.triggerEvent('change', formData)
       this.onSelectTab() // 触发收起filter
@@ -272,12 +214,21 @@ Component({
         v.selected = v.brandId === brandId
         return v
       })
-      const models = (this.data.brandList.find(v => v.brandId === evt.currentTarget.dataset.info.brandId) || {}).models
-      this.setData({
-        brandList,
-        models: models ? [{modelName: '不限车型', modelId: '', selected: false}].concat(models) : []
-      })
-      if (!models && !brandId) {
+      if (brandId) {
+        let models = [{modelName: '不限车型', modelId: '', selected: false}]
+        net.get('255/car/v1/leiniao/CarModelInfo/getModelListNoPage', {brandId}, res => {
+          models = models.concat((res.data || []).map(v => {
+            v.selected = false
+            return v
+          }))
+          this.setData({
+            brandList,
+            models
+          })
+        }, err => {
+          console.log(err)
+        })
+      } else {
         this.onQuery()
       }
     },
@@ -291,6 +242,19 @@ Component({
       this.setData({models}, () => {
         this.onQuery()
       })
+    },
+    // 选择价格
+    onSelectPrice (evt) {
+      const prices = this.data.prices
+      const clickedPrice = prices.find(v => v.id === evt.currentTarget.dataset.info.id)
+      clickedPrice.selected = !clickedPrice.selected
+      this.setData({prices, minPrice: '', maxPrice: ''})
+    },
+    onPriceInput (evt) {
+      if ((evt.detail || {}).value) {
+        const prices = this.data.prices.map(setItemUnselected)
+        this.setData({prices})
+      }
     },
     // 选择车龄
     onSelectAge (evt) {
@@ -320,12 +284,8 @@ Component({
       this.setData({miles, minMiles: '', maxMiles: ''})
     },
     onMilesInput (evt) {
-      console.log(evt.detail)
       if ((evt.detail || {}).value) {
-        const miles = this.data.miles.map(v => {
-          v.selected = false
-          return v
-        })
+        const miles = this.data.miles.map(setItemUnselected)
         this.setData({miles})
       }
     },

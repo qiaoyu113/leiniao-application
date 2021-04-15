@@ -1,6 +1,7 @@
 const app = getApp()
 const { getSwiperList } = require('../../http/index')
 const utils = require('./utils')
+const net = require('../../utils/network')
 
 // pages/rentedCar/rentedCar.js
 Page({
@@ -182,21 +183,22 @@ Page({
   onShareAppMessage: function () {},
   // 获取热门车型
   getHotModels: function () {
-    setTimeout(() => {
-      const data = [
-        { label: '4.2箱货', id: '123', pic: '/lib/image/home/hot_1.png' },
-        { label: '小面', id: '234', pic: '/lib/image/home/hot_2.png' },
-        { label: '中面', id: '345', pic: '/lib/image/home/hot_3.png' },
-        { label: '依维柯', id: '456', pic: '/lib/image/home/hot_4.png' },
-      ]
-      this.setData({
-        hotModels: data.length > 4 ? data.slice(0, 4) : data,
+    net.get('255/v1/car/carHotInfo/getCarHotListForApplets', res => {
+      const data = (res.data || []).map((v, i) => {
+        v.label = v.name
+        // v.pic = v.url // todo
+        v.pic = `/lib/image/home/hot_${i + 1}.png`
+        return v
       })
-    }, 300)
+      this.setData({
+        hotModels: data.length > 4 ? data.slice(0, 4) : data
+      })
+    })
   },
   // 前往热门车型页面
   onGoHotModel: function (evt) {
     const { info } = evt.currentTarget.dataset
+    app.globalData.hotModelIdList = info.modelIdList
     wx.navigateTo({
       url: '../hotModel/hotModel?name=' + info.label,
     })

@@ -38,11 +38,18 @@
         </view>
         <!-- 价格 -->
         <view wx:if="{{currentTab.id === 'price'}}" class="p-15">
-          <text class="text-15 text-gray-3">请输入价格（元）</text>
+          <view wx:if="{{isSale}}" class="mb-20">
+            <view class="text-15 text-gray-3">车辆价格</view>
+            <view class="flex flex-wrap text-12">
+              <view class="feature-item mx-15 mt-15 center_center {{item.selected ? 'text-blue bg-lightblue' : 'text-gray-3 bg-gray'}}"
+                wx:for="{{prices}}" wx:key="index" data-info="{{item}}" bindtap="onSelectPrice">{{item.label}}</view>
+            </view>
+          </view>
+          <text class="text-15 {{isSale ? 'text-gray-6' : 'text-gray-3'}}">请输入价格（元）</text>
           <view class="center_space-around text-12" style="margin: 80rpx 0;">
-            <input class="b-solid-e input-range text-center bg-gray" model:value="{{minPrice}}" placeholder="最小值" />
+            <input class="b-solid-e input-range text-center bg-gray" bindblur="onPriceInput" model:value="{{minPrice}}" placeholder="最小值" />
             <view class="text-gray-6">—</view>
-            <input class="b-solid-e input-range text-center bg-gray" model:value="{{maxPrice}}" placeholder="最大值" />
+            <input class="b-solid-e input-range text-center bg-gray" bindblur="onPriceInput" model:value="{{maxPrice}}" placeholder="最大值" />
           </view>
         </view>
         <!-- 筛选 -->
