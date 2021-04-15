@@ -40,8 +40,9 @@
   </view>
   <!-- 标题 -->
   <view class="title">
-        <!-- <text class="tips" wx:for="{{carData.attributeStr}}" wx:key="key">{{item}}</text> -->
-        <text class="tips">{{carData.attributeStr}}</text>
+        <text class="tips" wx:if="{{carData.isNewCar}}">准新车</text>
+        <text class="tips" wx:if="{{carData.isUrgentRent}}">急租</text>
+        <text class="tips" wx:if="{{carData.isUrgentSale}}">急售</text>
         <text class="main_title">{{carData.brandName}}</text>
         <view class="price_info">
           <text class="" wx:if="{{rentOrSale=='sale'}}">参考价</text>
@@ -52,7 +53,9 @@
                 bindtap="showIntroduceEvent"
                 src="../../lib/image/rentcarimg/introduce.png" />
         </view>
-        <text class="bottom_tips" wx:for="{{carData.carLabelSet}}" wx:key="key">{{item}}</text>
+        <text class="bottom_tips" wx:if="{{carData.isWidth}}">宽体</text>
+        <text class="bottom_tips" wx:if="{{carData.hasTailboard}}">有尾板</text>
+        <text class="bottom_tips" wx:if="{{carData.hasPass}}">有通行证</text>
   </view>
   <!-- 爆款推荐理由 -->
   <view class="introduce_reason" wx:if="{{showHotIntroduce}}">
@@ -84,7 +87,7 @@
               <text class="type_key">牌照地</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.cityStr}}</text>
+              <text class="type_value">{{carData.workCityStr}}</text>
               <text class="type_key">看车地</text>
             </view>
             <view class="type_box_detail">

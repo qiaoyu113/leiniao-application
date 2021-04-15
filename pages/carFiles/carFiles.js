@@ -14,17 +14,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('carId', options.carId)
+    console.log('carId', options)
     //调用车辆档案接口
-    this.getCarFilesInfo(options.carId)
+    this.getCarFilesInfo(options.carId,options.rentorsale)
   },
 
-  getCarFilesInfo(idnum) {
+  getCarFilesInfo(idnum,type) {
     var that = this
     requestLoading(
       'car_center/v1/cargo/getCarInfoByCarId',
-      {carId:idnum},
-      'GET',
+      {carId:idnum,
+        searchType:type==='rent'?1:2
+      },
+      'POST',
       '',
       '',
       function (res) {
@@ -33,7 +35,7 @@ Page({
         }
         let carInfo = res.data
         //过滤整理车辆信息
-        that.carInfofilter(carInfo)
+        //that.carInfofilter(carInfo)
         that.setData({
           carData:carInfo,
         })
@@ -92,25 +94,30 @@ Page({
     })
   },
   //过滤器
-  carInfofilter(carInfo){
-    if(carInfo.carLabelSet.includes('尾板')){
-      this.setData({
-        carPassCard:true
-      })
-    }else{
-      this.setData({
-        carPassCard:false
-      })
-    }
-    if(carInfo.carLabelSet.includes('通行证')){
-      this.setData({
-        carBoard:true
-      })
-    }else{
-      this.setData({
-        carBoard:false
-      })
-      }
+  // carInfofilter(carInfo){
+  //   console.log('carInfo',carInfo)
+  //   if(carInfo.carLabelSet.includes('尾板')){
+  //     this.setData({
+  //       carPassCard:true
+  //     })
+  //   }else{
+  //     this.setData({
+  //       carPassCard:false
+  //     })
+  //   }
+  //   if(carInfo.carLabelSet.includes('通行证')){
+  //     this.setData({
+  //       carBoard:true
+  //     })
+  //   }else{
+  //     this.setData({
+  //       carBoard:false
+  //     })
+  //     }
+  // },
+   //返回上一页
+   handlerGobackClick() {
+    wx.navigateBack()
   },
   /**
    * 生命周期函数--监听页面初次渲染完成

@@ -1,9 +1,13 @@
 var network = require('../../utils/network.js')
 var QQMapWX = require('../../utils/qqmap-wx-jssdk.js')
+
 var qqmapsdk
 var getMap = function (app) {
+
   let that = this
-  // 实例化腾讯地图API核心类
+
+  return new Promise((resolve,reject)=>{
+    // 实例化腾讯地图API核心类
   qqmapsdk = new QQMapWX({
     key: 'LOBBZ-Q4ZCJ-2IJFK-KHO4E-AREME-QHF3Y', // 必填
   })
@@ -19,36 +23,20 @@ var getMap = function (app) {
         success: function (addressRes) {
           var city = addressRes.result.address_component.city
           var city_code = addressRes.result.ad_info.city_code
-          wx.setStorageSync('locationCity', city)
           app.globalData.locationCity = { cityName: city, cityCode: city_code }
           console.log('城市信息', app.globalData.locationCity)
           var address =
             addressRes.result.address_component.city +
             addressRes.result.address_component.province +
             addressRes.result.address_component.district
-          wx.setStorageSync('locationAddress', address)
-          //此处加判断，如果获取的城市在开通城市内显示该城市，否则切换到北京
-          let includeCityList = ['北京市']
-          let checkCity = includeCityList.includes(city)
-          console.log('checkCity', checkCity)
-          if (checkCity) {
-            that.setData({
-              cityCode: cityCode,
-              'defaultData.cityName': cityName,
-            })
-          } else {
-            that.setData({
-              cityCode: 1,
-              'defaultData.cityName': '北京市',
-            })
-          }
+          resolve(city)
           // that.setData({
           //   cityName: city,
           //   'defaultData.cityName': city,
           // })
           //获取城市code
           network.requestLoading(
-            '25/base/v1/base/area/getCityCodeByCityName',
+            'v1/base/area/getCityCodeByCityName',
             {
               cityName: city,
             },
@@ -56,9 +44,10 @@ var getMap = function (app) {
             '',
             '',
             function (res) {
+              console.log('getCityCodeByCityName',res)
               if (res.success) {
                 if (that.data.cityCode == '') {
-                  wx.setStorageSync('cityCode', res.data.code)
+                  // wx.setStorageSync('cityCode', res.data.code)
                   app.globalData.locationCity = {
                     cityName: city,
                     cityCode: res.data.code,
@@ -68,7 +57,7 @@ var getMap = function (app) {
                     souceCity: address,
                   })
                 } else {
-                  wx.setStorageSync('cityCode', that.data.cityCode)
+                  // wx.setStorageSync('cityCode', that.data.cityCode)
                   app.globalData.locationCity = {
                     cityName: city,
                     cityCode: that.data.cityCode,
@@ -96,6 +85,8 @@ var getMap = function (app) {
       console.log(err)
     },
   })
+  })
+  
 }
 
 /*函数节流*/

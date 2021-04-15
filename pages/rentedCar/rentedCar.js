@@ -1,6 +1,6 @@
 const app = getApp()
 const utils = require('./utils')
-
+const { requestLoading } = require('../../utils/network')
 // pages/rentedCar/rentedCar.js
 Page({
   /**
@@ -12,10 +12,10 @@ Page({
     fastFeatures: [],
     keyword: '',
     cityCode: '',
-    cityName: '北京市',
+    cityName: '',
     defaultData: {
       placeholderTitle: '搜索想租的车',
-      cityName: '北京市',
+      cityName: '',
       showSearchBar: true,
       title: '选择城市',
       swiperList: [],
@@ -31,17 +31,121 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this
     this.getHotModels()
     let { cityName, cityCode } = app.globalData.locationCity
     if (!cityCode) {
-      utils.getMap.call(this, app)
+      utils.getMap.call(this, app).then((info)=>{
+        console.log('info',info)
+        that.checkCity()
+      })
+      console.log('utils.getMap')
     } else {
       this.setData({
         cityCode: cityCode,
         'defaultData.cityName': cityName,
       })
     }
-    let that = this
+  },
+  //检查当前获取城市是否在城市列表内
+  checkCity(){
+    var that = this
+    //此处加判断，如果获取的城市在开通城市内显示该城市，否则切换到北京
+    requestLoading(
+      'v3/base/office/getHasLeiNiaoCity',
+      {},
+      'GET',
+      '',
+      '',
+      function (res) {
+        console.log('请求接口res', res)
+        if (res.success) {
+        }
+        let dataList = {
+          B:[
+            {
+              id:305,
+              seq:4,
+              name:'雷鸟租赁',
+              type:4,
+              parentId:276,
+              parentIds:'0,16,275,276',
+              areaCode:0,
+              dutyId:5,
+              parentName:'北京市',
+              parentNamePinYin:'BEIJINGSHI'
+            }
+          ],
+          C:[
+            {
+              id:1596,
+              seq:3,
+              name:'雷鸟租赁',
+              type:4,
+              parentId:1575,
+              parentIds:'0,16,275,276',
+              areaCode:0,
+              dutyId:5,
+              parentName:'常州市',
+              parentNamePinYin:'CHANGZHOUSHI'
+            },
+            {
+              id:1597,
+              seq:3,
+              name:'雷鸟租赁',
+              type:4,
+              parentId:1577,
+              parentIds:'0,16,275,276',
+              areaCode:0,
+              dutyId:5,
+              parentName:'成都市',
+              parentNamePinYin:'CHENGDUSHI'
+            }
+          ],
+          Z:[
+            {
+              id:1598,
+              seq:3,
+              name:'雷鸟租赁',
+              type:4,
+              parentId:1578,
+              parentIds:'0,16,275,276',
+              areaCode:0,
+              dutyId:5,
+              parentName:'郑州市',
+              parentNamePinYin:'ZHENGZHOUSHI'
+            }
+          ]
+        }
+        let newarr = []
+        for(let key in dataList){
+          dataList[key].forEach(item=>{
+            newarr.push(item.parentName)
+          })
+        }
+        console.log('newarr',newarr)
+        console.log('当前城市',app.globalData.locationCity.cityName)
+        let checkCity = newarr.includes(app.globalData.locationCity.cityName)
+    console.log('checkCity', checkCity)
+    if (checkCity) {
+      that.setData({
+        cityCode: app.globalData.locationCity.cityCode,
+        'defaultData.cityName': app.globalData.locationCity.cityName,
+      })
+      console.log('cityCode', app.globalData.locationCity.cityCode)
+    } else {
+      that.setData({
+        cityCode: 276,
+        'defaultData.cityName': '北京市',
+      })
+    }
+          },
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        })
+      }
+    )
   },
   //点击城市事件
   selectLocationEvent() {

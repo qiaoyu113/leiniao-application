@@ -55,8 +55,10 @@ Page({
     var that = this
     requestLoading(
       'car_center/v1/cargo/getCarInfoByCarId',
-      {carId:this.data.carId},
-      'GET',
+      {carId:this.data.carId,
+        searchType:this.data.rentOrSale==='rent'?1:2
+      },
+      'POST',
       '',
       '',
       function (res) {
@@ -133,7 +135,7 @@ Page({
   //查看全部车辆档案
   viewAllEvent() {
     wx.navigateTo({
-      url: `/pages/carFiles/carFiles?carId=${this.data.carId}`,
+      url: `/pages/carFiles/carFiles?carId=${this.data.carId}&rentorsale=${this.data.rentOrSale}`,
     })
   },
   //询底价

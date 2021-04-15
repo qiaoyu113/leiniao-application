@@ -30,12 +30,8 @@
     "bundle": true,
     "useIsolateContext": true,
     "useCompilerModule": true,
-    "userConfirmedUseCompilerModuleSwitch": false,
-<<<<<<< HEAD
-    "userConfirmedBundleSwitch": false,
-=======
+    "userConfirmedUseCompilerModuleSwitch": true,
     "userConfirmedBundleSwitch": true,
->>>>>>> m1-1.0
     "packNpmManually": false,
     "packNpmRelationList": [],
     "minifyWXSS": true

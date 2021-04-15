@@ -1,4 +1,5 @@
 const app = getApp()
+const { requestLoading } = require('../../utils/network')
 // pages/mapList/mapList.js
 Page({
   /**
@@ -137,18 +138,81 @@ Page({
 
   //整合字母表和城市池数据
   handleList() {
-    let newarr = []
-    let { alphabet, cityList } = this.data
-    alphabet.forEach((item) => {
-      for (let key in cityList) {
-        if (key === item) {
-          newarr.push({ key: item, list: cityList[key] })
+    var that = this
+    requestLoading(
+      'v3/base/office/getHasLeiNiaoCity',
+      {},
+      'GET',
+      '',
+      '',
+      function (res) {
+        console.log('请求接口res', res)
+        if (res.success) {
         }
+        let dataList = {
+          B:[
+            {
+              id:305,
+              seq:4,
+              name:'雷鸟租赁',
+              type:4,
+              parentId:276,
+              parentIds:'0,16,275,276',
+              areaCode:0,
+              dutyId:5,
+              parentName:'北京市',
+              parentNamePinYin:'BEIJINGSHI'
+            }
+          ],
+          C:[
+            {
+              id:1596,
+              seq:3,
+              name:'雷鸟租赁',
+              type:4,
+              parentId:1575,
+              parentIds:'0,16,275,276',
+              areaCode:0,
+              dutyId:5,
+              parentName:'常州市',
+              parentNamePinYin:'CHANGZHOUSHI'
+            },
+            {
+              id:1597,
+              seq:3,
+              name:'雷鸟租赁',
+              type:4,
+              parentId:1577,
+              parentIds:'0,16,275,276',
+              areaCode:0,
+              dutyId:5,
+              parentName:'成都市',
+              parentNamePinYin:'CHENGDUSHI'
+            }
+          ]
+        }
+
+        let newarr = []
+        let { alphabet, cityList } = that.data
+        alphabet.forEach((item) => {
+          for (let key in dataList) {
+            if (key === item) {
+              newarr.push({ key: item, list: dataList[key] })
+            }
+          }
+        })
+        console.log('newarr',newarr)
+        that.setData({
+          newList: newarr,
+        })
+          },
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        })
       }
-    })
-    this.setData({
-      newList: newarr,
-    })
+    )
+
   },
 
   //点击城市返回首页
@@ -158,7 +222,7 @@ Page({
     let pages = getCurrentPages() //获取当前页面pages里的所有信息。
     let prevPage = pages[pages.length - 2] //prevPage 是获取上一个页面的js里面的pages的所有信息。 -2 是上一个页面，-3是上上个页面以此类推。
     //判断所选城市是否是当前定位城市
-    if (cityName === cityData.name) {
+    if (cityName === cityData.parentName) {
       app.globalData.locationCity.cityUpdata = 0
       console.log('app.globalData.locationCity', app.globalData.locationCity)
       prevPage.setData({
@@ -166,8 +230,8 @@ Page({
       })
     } else {
       //所选城市不是当前城市时，改变全局城市数据
-      app.globalData.locationCity.cityName = cityData.name
-      app.globalData.locationCity.cityCode = cityData.id
+      app.globalData.locationCity.cityName = cityData.parentName
+      app.globalData.locationCity.cityCode = cityData.parentId
       app.globalData.locationCity.cityUpdata = 1
       console.log('app.globalData.locationCity', app.globalData.locationCity)
       //传值给上一页

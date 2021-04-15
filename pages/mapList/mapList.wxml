@@ -13,7 +13,7 @@
     <block  wx:if='{{tools.arrayfind(newList,item)!==-1}}'>
       <van-cell
           data-index="{{item}}"
-          title="{{item.name}}"
+          title="{{item.parentName}}"
           wx:for="{{tools.findCity(newList,item)}}"
           bindtap="slectCityGoIndex"
           wx:key="key"
