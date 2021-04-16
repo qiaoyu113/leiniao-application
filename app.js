@@ -109,11 +109,11 @@ App({
     token: null,
     userInfo: null,
     pageParam: '',
-    // m1环境域名
+    // m1/2环境域名
     // url: 'https://leiniao-bss-web-m1.yunniao.cn/', 
-    // url: 'https://leiniao-bss-web.m1.yunniao.cn/', 
+    url: 'https://leiniao-bss-web.m2.yunniao.cn/', 
     // mock
-    url: 'http://yapi.ynimg.cn:8888/mock/',
+    // url: 'http://yapi.ynimg.cn:8888/mock/',
     // url: 'http://yapi.ynimg.cn:8888/mock/255/',
     // 生产环境域名
     //url: 'https://leiniao-bss-web.yunniao.cn/',
