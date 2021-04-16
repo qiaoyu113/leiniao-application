@@ -6,6 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
+    page: 1,
     list:[]
   },
 
@@ -13,27 +14,53 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // this.getList();
+    this.getList();
   },
 
   getList(){
     var that = this;
-    //获取车型
-    network.requestLoading('25/base/v1/base/dict/dict/list/types',
-    ['Intentional_compartment', 'share_receive_time'],
+    //获取我的收藏
+    network.requestLoading('255/car/v1/car/cargo/favoriteList',
+    {
+      "limit": 30,
+      "page": that.data.page
+    },
+    'get',
+    '',
+    'json',
+    function(res) {
+      if (res.success) {
+        that.setData({
+          list: res.data
+        });
+      }
+    },
+    function(res) {
+      wx.showToast({
+        title: '加载数据失败',
+      });
+    });
+  },
+
+  // 取消收藏
+  cancelCollect(e) {
+    let that = this;
+    let id = e.currentTarget.dataset.id
+    let type = e.currentTarget.dataset.type
+    network.requestLoading('255/car/v1/cargo/cancelFavorite',
+    {
+      "carId": id,
+      "rentOrSale": type
+    },
     'post',
     '',
     'json',
     function(res) {
       if (res.success) {
-        //过滤picker
-        const arrays = res.data.Intentional_compartment
-        arrays.forEach((item) => {
-          item.check = false;
-        })
-        that.setData({
-          list: arrays
+        wx.showToast({
+          title: '已取消',
         });
+        that.onPullDownRefresh()
       }
     },
     function(res) {
@@ -53,14 +80,17 @@ Page({
 
   goDetail(e) {
     let id = e.currentTarget.dataset.id
-    wx.navigateTo({
-      url: '../carDetail/carDetail?id=' + id
-    });
+    let off = e.currentTarget.dataset.off
+    if (!off) {
+      wx.navigateTo({
+        url: '../carDetail/carDetail?id=' + id
+      });
+    }
   },
 
   goRouter() {
-    wx.navigateTo({
-      url: '../line/line'
+    wx.switchTab({
+      url: '../rentedCar/rentedCar'
     });
   },
 
@@ -96,14 +126,23 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    this.setData({
+      list: [],
+      page: 1
+    })
+    this.getList()
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-
+    let page = this.data.page;
+    page = page + 1;
+    this.setData({
+      page: page
+    })
+    this.getList()
   },
 
   /**

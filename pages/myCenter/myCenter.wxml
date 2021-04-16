@@ -4,7 +4,8 @@
     <view class='topCenterRight'>
       我的      
       <view wx:if="{{canIUse}}" class='headBg'>
-        <image class="image" src="{{headImg}}" mode="aspectFit"></image>
+        <!-- <image class="image" src="{{headImg}}" mode="aspectFit"></image> -->
+        <image class="image" src="../../lib/image/bgIcon.png" mode="aspectFit"></image>
       </view>
       <view wx:if="{{!canIUse}}" class="headBg">
         <image  class="image-default" src="../../lib/image/bgIcon.png" mode="aspectFit"></image>
