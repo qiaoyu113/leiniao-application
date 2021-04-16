@@ -1,4 +1,6 @@
 {
-  "navigationBarTitleText": "车辆档案",
-  "usingComponents": {}
+  "usingComponents": {
+    "navBar": "/components/navBar/navBar"
+  },
+  "navigationStyle": "custom"
 }

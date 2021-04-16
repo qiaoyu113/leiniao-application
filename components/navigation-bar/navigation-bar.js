@@ -7,7 +7,7 @@ Component({
       value: {
         title: '我是默认标题',
         placeholderTitle: '搜索想租的车辆',
-        cityName: '北京市',
+        cityName: '',
         showSearchBar: true,
         rentOrBuy: 'rent',
       },
