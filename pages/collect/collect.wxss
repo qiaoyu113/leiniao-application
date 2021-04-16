@@ -47,12 +47,13 @@
 }
 
 .tagBox{
-  display: flex;
+  display: block;
   margin-top: 2px;
+  overflow: hidden;
 }
 
 .tagBox .tag{
-  flex: auto;
+  float: left;
   margin-right: 5px;
   height: 15px;
   line-height: 15px;
@@ -62,9 +63,10 @@
   color: #fff;
   font-size: 12px;
   text-align: center;
+  padding:0 6px;
+  margin-bottom: 2px;
 }
 .tagBox .tag2{
-  flex: auto;
   margin-right: 5px;
   height: 15px;
   line-height: 15px;
@@ -74,6 +76,9 @@
   color: #1C8EFA;
   font-size: 12px;
   text-align: center;
+  padding:0 6px;
+  float: left;
+  margin-bottom: 2px;
 }
 
 .price{
