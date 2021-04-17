@@ -373,6 +373,7 @@ Page({
       success:(res)=>{
         console.log('登录成功，调取接口',res)
         this.getCarInfo()
+        this.getPhoneNumber()
       },
       fail:(res)=>{
         console.log('没有登录，需要登录',res)
@@ -382,7 +383,18 @@ Page({
       }
     })
   },
-
+  getPhoneNumber(){
+      wx.getStorage({
+        key:'phone',
+        success:(res)=>{
+          this.setData({
+            phoneValue:res.data
+          })
+        },
+        fail:(res)=>{
+        }
+    })
+  },
   /**
    * 生命周期函数--监听页面隐藏
    */

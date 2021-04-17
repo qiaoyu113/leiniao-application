@@ -23,7 +23,7 @@
               bindtap="historySearchEvent"
               wx:for="{{searchHistoryList}}"
               wx:key="key"
-              data-index="{{item.id}}"
+              data-index="{{item.content}}"
               >
               {{item.content}}
         </view>

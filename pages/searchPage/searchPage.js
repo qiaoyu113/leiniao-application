@@ -174,6 +174,7 @@ Page({
   //点击搜索历史触发事件
   historySearchEvent(e) {
     let searchValue = e.currentTarget.dataset['index']
+    console.log('searchValue',searchValue)
     this.setData({
       inputValue: searchValue,
       showCloseBtn: true,
