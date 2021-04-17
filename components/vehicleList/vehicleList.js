@@ -9,7 +9,8 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    showFastFeature: Boolean
+    showFastFeature: Boolean,
+    type:String
   },
 
   /**
@@ -72,7 +73,8 @@ Component({
       Object.assign(formData, {
         limit: this.data.pageSize,
         page: pageIndex,
-        searchCityId: (app.globalData.locationCity || {}).cityCode || ''
+        searchCityId: (app.globalData.locationCity || {}).cityCode || '',
+        searchType:this.data.type==='rent'?1:2
       })
       formData.searchContent = formData.keyword || ''
       delete formData.keyword

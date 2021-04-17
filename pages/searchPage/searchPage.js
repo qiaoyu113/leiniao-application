@@ -11,7 +11,7 @@ Page({
     inputValue: '',
     searchHistoryList: [],
     ifSearchFinish: false,
-    type:''
+    type:'',
   },
 
   /**
@@ -31,9 +31,21 @@ Page({
   //获取搜索历史
   getSearchHistory(){
     var that = this
+    wx.getStorage({
+      key: 'userId',
+      success: (res) => {
+        this.getList(res.data)
+      },
+      error:()=>{
+        this.getList()
+      }
+    })
+  },
+  getList(userId=''){
+    var that = this
     requestLoading(
-      'car/v1/cargo/searchHistory/getList',
-      {usreId:'LNUI202104120001'},
+      'api/car/v1/cargo/searchHistory/getList',
+      {userId:userId},
       'GET',
       '',
       '',
@@ -118,8 +130,8 @@ Page({
   deleteHistory() {
     var that = this
     requestLoading(
-      'car/v1/cargo/searchHistory/clearSearchHistory',
-      {usreId:'LNUI202104120001'},
+      'api/car/v1/cargo/searchHistory/clearSearchHistory',
+      {},
       'GET',
       '',
       '',

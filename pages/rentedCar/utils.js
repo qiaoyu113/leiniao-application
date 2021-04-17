@@ -36,7 +36,7 @@ var getMap = function (app) {
           // })
           //获取城市code
           network.requestLoading(
-            'v1/base/area/getCityCodeByCityName',
+            'api/base/v3/base/office/getOfficeIdByCityName',
             {
               cityName: city,
             },
@@ -50,10 +50,10 @@ var getMap = function (app) {
                   // wx.setStorageSync('cityCode', res.data.code)
                   app.globalData.locationCity = {
                     cityName: city,
-                    cityCode: res.data.code,
+                    cityCode: res.data,
                   }
                   that.setData({
-                    cityCode: res.data.code,
+                    cityCode: res.data,
                     souceCity: address,
                   })
                 } else {

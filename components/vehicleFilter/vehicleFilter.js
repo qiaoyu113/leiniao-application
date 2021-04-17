@@ -107,7 +107,7 @@ Component({
       // 售价：car_go_sale
       // 标签：car_go_label
       // 特点跟筛选分开，车辆特点：car_go_features  车辆标签：car_go_search
-      net.post('25/v1/base/dict/dict/list/types', {}, res => {
+      net.post('25/base/v1/base/dict/dict/list/types', {}, res => {
         console.log(res)
         const data = res.data || {}
         const ages = (data.car_go_age || []).map(transItem)

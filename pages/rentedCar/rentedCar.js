@@ -56,7 +56,7 @@ Page({
     var that = this
     //此处加判断，如果获取的城市在开通城市内显示该城市，否则切换到北京
     requestLoading(
-      '/v3/base/office/getHasLeiNiaoCity',
+      'api/base/v3/base/office/getHasLeiNiaoCityGroupHeader',
       {},
       'GET',
       '',
@@ -64,85 +64,30 @@ Page({
       function (res) {
         console.log('请求接口res', res)
         if (res.success) {
+          let dataList =  res.data
+          let newarr = []
+          for(let key in dataList){
+            dataList[key].forEach(item=>{
+              newarr.push(item.parentName)
+            })
+          }
+          console.log('newarr',newarr)
+          console.log('当前城市',app.globalData.locationCity.cityName)
+          let checkCity = newarr.includes(app.globalData.locationCity.cityName)
+      console.log('checkCity', checkCity)
+      if (checkCity) {
+        that.setData({
+          cityCode: app.globalData.locationCity.cityCode,
+          'defaultData.cityName': app.globalData.locationCity.cityName,
+        })
+        console.log('cityCode', app.globalData.locationCity.cityCode)
+      } else {
+        that.setData({
+          cityCode: 305,
+          'defaultData.cityName': '北京市',
+        })
+      }
         }
-        let dataList = {
-          B:[
-            {
-              id:305,
-              seq:4,
-              name:'雷鸟租赁',
-              type:4,
-              parentId:276,
-              parentIds:'0,16,275,276',
-              areaCode:0,
-              dutyId:5,
-              parentName:'北京市',
-              parentNamePinYin:'BEIJINGSHI'
-            }
-          ],
-          C:[
-            {
-              id:1596,
-              seq:3,
-              name:'雷鸟租赁',
-              type:4,
-              parentId:1575,
-              parentIds:'0,16,275,276',
-              areaCode:0,
-              dutyId:5,
-              parentName:'常州市',
-              parentNamePinYin:'CHANGZHOUSHI'
-            },
-            {
-              id:1597,
-              seq:3,
-              name:'雷鸟租赁',
-              type:4,
-              parentId:1577,
-              parentIds:'0,16,275,276',
-              areaCode:0,
-              dutyId:5,
-              parentName:'成都市',
-              parentNamePinYin:'CHENGDUSHI'
-            }
-          ],
-          Z:[
-            {
-              id:1598,
-              seq:3,
-              name:'雷鸟租赁',
-              type:4,
-              parentId:1578,
-              parentIds:'0,16,275,276',
-              areaCode:0,
-              dutyId:5,
-              parentName:'郑州市',
-              parentNamePinYin:'ZHENGZHOUSHI'
-            }
-          ]
-        }
-        let newarr = []
-        for(let key in dataList){
-          dataList[key].forEach(item=>{
-            newarr.push(item.parentName)
-          })
-        }
-        console.log('newarr',newarr)
-        console.log('当前城市',app.globalData.locationCity.cityName)
-        let checkCity = newarr.includes(app.globalData.locationCity.cityName)
-    console.log('checkCity', checkCity)
-    if (checkCity) {
-      that.setData({
-        cityCode: app.globalData.locationCity.cityCode,
-        'defaultData.cityName': app.globalData.locationCity.cityName,
-      })
-      console.log('cityCode', app.globalData.locationCity.cityCode)
-    } else {
-      that.setData({
-        cityCode: 276,
-        'defaultData.cityName': '北京市',
-      })
-    }
           },
       function (res) {
         wx.showToast({
@@ -186,7 +131,9 @@ Page({
     if (cityUpdata === 1) {
       app.globalData.locationCity.cityUpdata = 0
       //调用切换城市接口
-      console.log('城市切换了，调用城市接口')
+      console.log('城市切换了，当前城市信息',
+      app.globalData.locationCity
+      )
     } else {
       console.log('城市没有切换，不调用接口')
     }

@@ -139,8 +139,11 @@ Page({
   //整合字母表和城市池数据
   handleList() {
     var that = this
+    wx.showLoading({
+      title: '加载数据...',
+    });
     requestLoading(
-      'v3/base/office/getHasLeiNiaoCity',
+      'api/base/v3/base/office/getHasLeiNiaoCityGroupHeader',
       {},
       'GET',
       '',
@@ -148,63 +151,24 @@ Page({
       function (res) {
         console.log('请求接口res', res)
         if (res.success) {
+          let dataList = res.data
+          let newarr = []
+          let { alphabet, cityList } = that.data
+          alphabet.forEach((item) => {
+            for (let key in dataList) {
+              if (key === item) {
+                newarr.push({ key: item, list: dataList[key] })
+              }
+            }
+          })
+          that.setData({
+            newList: newarr,
+          })
+          wx.hideLoading()
         }
-        let dataList = {
-          B:[
-            {
-              id:305,
-              seq:4,
-              name:'雷鸟租赁',
-              type:4,
-              parentId:276,
-              parentIds:'0,16,275,276',
-              areaCode:0,
-              dutyId:5,
-              parentName:'北京市',
-              parentNamePinYin:'BEIJINGSHI'
-            }
-          ],
-          C:[
-            {
-              id:1596,
-              seq:3,
-              name:'雷鸟租赁',
-              type:4,
-              parentId:1575,
-              parentIds:'0,16,275,276',
-              areaCode:0,
-              dutyId:5,
-              parentName:'常州市',
-              parentNamePinYin:'CHANGZHOUSHI'
-            },
-            {
-              id:1597,
-              seq:3,
-              name:'雷鸟租赁',
-              type:4,
-              parentId:1577,
-              parentIds:'0,16,275,276',
-              areaCode:0,
-              dutyId:5,
-              parentName:'成都市',
-              parentNamePinYin:'CHENGDUSHI'
-            }
-          ]
-        }
-        let newarr = []
-        let { alphabet, cityList } = that.data
-        alphabet.forEach((item) => {
-          for (let key in dataList) {
-            if (key === item) {
-              newarr.push({ key: item, list: dataList[key] })
-            }
-          }
-        })
-        that.setData({
-          newList: newarr,
-        })
           },
       function (res) {
+        wx.hideLoading()
         wx.showToast({
           title: '加载数据失败',
         })
@@ -229,7 +193,7 @@ Page({
     } else {
       //所选城市不是当前城市时，改变全局城市数据
       app.globalData.locationCity.cityName = cityData.parentName
-      app.globalData.locationCity.cityCode = cityData.parentId
+      app.globalData.locationCity.cityCode = cityData.id
       app.globalData.locationCity.cityUpdata = 1
       console.log('app.globalData.locationCity', app.globalData.locationCity)
       //传值给上一页

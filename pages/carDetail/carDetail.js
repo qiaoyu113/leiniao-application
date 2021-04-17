@@ -48,7 +48,17 @@ Page({
       carId: options.carId,
       rentOrSale: options.type,
     })
-    this.getCarInfo()
+    wx.getStorage({
+      key:'phoneName',
+      success:(res)=>{
+        this.getCarInfo()
+      },
+      error:()=>{
+        wx.navigateTo({
+          url:  "pages/login/login",
+        })
+      }
+    })
   },
   //调用接口，获取车辆详情
   getCarInfo() {

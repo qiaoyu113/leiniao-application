@@ -187,14 +187,15 @@ Page({
     var that = this
     //请求列表接口
     requestLoading(
-      'car_center/v1/cargo/getVogueList',
+      'api/car_center/v1/cargo/getVogueList',
       {searchType:type,
-      searchCityId:app.globalData.locationCity.cityCode,
+      // searchCityId:app.globalData.locationCity.cityCode,
+      searchCityId:110100,
       pageNumber:page
       },
       'POST',
       '',
-      '',
+      'json',
       function (res) {
         console.log('请求接口res', res)
         if (res.success) {
@@ -214,13 +215,13 @@ Page({
     var that = this
     //请求列表接口
     requestLoading(
-      'car_center/v1/cargo/getNewestCarList',
+      'api/car_center/v1/cargo/getNewestCarList',
       {searchType:type,
-        searchCityId:app.globalData.locationCity.cityCode,
+        searchCityId:110100,
         pageNumber:page},
       'POST',
       '',
-      '',
+      'json',
       function (res) {
         console.log('请求接口res', res)
         if (res.success) {
