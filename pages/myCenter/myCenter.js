@@ -269,7 +269,7 @@ Page({
             if (res.success) {
               let phone = res.data.phone;
               let openId = wx.getStorageSync('openId')
-              network.requestLoading('25/auth/v2/jwt/getToken', {
+              network.requestLoading('25/auth/v1/leiniaoAuth/jwt/getToken', {
                   openId: openId,
                   phone: phone,
                   puserId: that.data.puserId
