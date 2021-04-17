@@ -51,26 +51,29 @@ Page({
     wx.getStorage({
       key:'phoneName',
       success:(res)=>{
+        console.log('登录成功，调取接口',res)
         this.getCarInfo()
       },
-      error:()=>{
+      error:(res)=>{
+        console.log('没有登录，需要登录',res)
         wx.navigateTo({
-          url:  "pages/login/login",
+          url:  "pages/shareLogin/shareLogin",
         })
       }
     })
+    this.getCarInfo()
   },
   //调用接口，获取车辆详情
   getCarInfo() {
     var that = this
     requestLoading(
-      'car_center/v1/cargo/getCarInfoByCarId',
+      'api/car_center/v1/cargo/getCarInfoByCarId',
       {carId:this.data.carId,
         searchType:this.data.rentOrSale==='rent'?1:2
       },
       'POST',
       '',
-      '',
+      'json',
       function (res) {
         console.log('请求接口res', res)
         if (res.success) {
@@ -239,7 +242,7 @@ Page({
   carInquiry(info){
     var that = this
     requestLoading(
-      'car/v1/car/cargo/carInquiry',
+      'api/car/v1/car/cargo/carInquiry',
       info,
       'POST',
       '',
@@ -286,21 +289,26 @@ Page({
   favorite(){
     var that = this
     requestLoading(
-      'car/v1/car/cargo/addFavorite',
+      'api/car/v1/car/cargo/addFavorite',
       {carId:this.data.carId,
       rentOrSale:this.data.rentOrSale==='rent'?1:2
       },
       'POST',
       '',
-      '',
+      'json',
       function (res) {
         console.log('请求接口res', res)
         if (res.success) {
+          that.setData({
+            nocollect: false,
+          })
+          wx.hideLoading()
+        }else{
+          wx.hideLoading()
+          wx.showModal({
+            title: res.errorMsg,
+          })
         }
-        that.setData({
-          nocollect: false,
-        })
-        wx.hideLoading()
       },
       function (res) {
         wx.showToast({
@@ -312,7 +320,7 @@ Page({
   cancelFavorite(){
     var that = this
     requestLoading(
-      'car/v1/car/cargo/cancelFavorite',
+      'api/car/v1/car/cargo/cancelFavorite',
       {carId:this.data.carId,
       rentOrSale:this.data.rentOrSale==='rent'?1:2
       },

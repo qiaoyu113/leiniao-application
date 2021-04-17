@@ -34,26 +34,26 @@
 .list_sub_lefttitle {
   display: block;
   float: left;
-  width: 135rpx;
+  width: 175rpx;
   height: 33rpx;
   font-size: 24rpx;
   font-weight: 500;
   color: #999999;
   line-height: 33rpx;
-  margin-right: 30rpx;
+  margin-right: 25rpx;
   margin-bottom: 5rpx;
   overflow: hidden;
 }
 .list_sub_righttitle {
   display: block;
   float: left;
-  width: 159rpx;
+  width: 180rpx;
   height: 33rpx;
   font-size: 24rpx;
   font-weight: 500;
   color: #999999;
   line-height: 33rpx;
-  margin-right: 100rpx;
+  margin-right: 50rpx;
   margin-bottom: 5rpx;
   overflow: hidden;
 }
@@ -112,7 +112,7 @@
 }
 .list_carlabel{
   width: 430rpx;
-  height: 40rpx;
+  height: 42rpx;
   overflow: hidden;
 }
 .list_type {

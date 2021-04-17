@@ -40,9 +40,9 @@
   </view>
   <!-- 标题 -->
   <view class="title">
-        <text class="tips" wx:if="{{carData.isNewCar}}">准新车</text>
-        <text class="tips" wx:if="{{carData.isUrgentRent}}">急租</text>
-        <text class="tips" wx:if="{{carData.isUrgentSale}}">急售</text>
+        <text class="tips" wx:if="{{carData.isNewCar==1}}">准新车</text>
+        <text class="tips" wx:if="{{carData.isUrgentRent==1}}">急租</text>
+        <text class="tips" wx:if="{{carData.isUrgentSale==1}}">急售</text>
         <text class="main_title">{{carData.brandName}}</text>
         <view class="price_info">
           <text class="" wx:if="{{rentOrSale=='sale'}}">参考价</text>
@@ -53,9 +53,9 @@
                 bindtap="showIntroduceEvent"
                 src="../../lib/image/rentcarimg/introduce.png" />
         </view>
-        <text class="bottom_tips" wx:if="{{carData.isWidth}}">宽体</text>
-        <text class="bottom_tips" wx:if="{{carData.hasTailboard}}">有尾板</text>
-        <text class="bottom_tips" wx:if="{{carData.hasPass}}">有通行证</text>
+        <text class="bottom_tips" wx:if="{{carData.isWidth==1}}">宽体</text>
+        <text class="bottom_tips" wx:if="{{carData.hasTailboard==1}}">有尾板</text>
+        <text class="bottom_tips" wx:if="{{carData.hasPass==1}}">有通行证</text>
   </view>
   <!-- 爆款推荐理由 -->
   <view class="introduce_reason" wx:if="{{showHotIntroduce}}">
@@ -71,27 +71,27 @@
           <text class="right_title" bindtap="viewAllEvent">查看全部</text>
           <view class="files_type_box">
             <view class="type_box_detail">
-              <text class="type_value">{{carData.carAgeStr}}/年</text>
+              <text class="type_value">{{carData.carAgeStr||'暂无'}}</text>
               <text class="type_key">车龄</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.mileageStr}}万公里</text>
+              <text class="type_value">{{carData.mileageStr||'暂无'}}</text>
               <text class="type_key">里程</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.width}}米</text>
+              <text class="type_value">{{carData.width||'0'}}米</text>
               <text class="type_key">箱体宽度</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.registerCityStr}}</text>
+              <text class="type_value">{{carData.registerCityStr||'暂无'}}</text>
               <text class="type_key">牌照地</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.workCityStr}}</text>
+              <text class="type_value">{{carData.workCityStr||'暂无'}}</text>
               <text class="type_key">看车地</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.carTypeStr}}</text>
+              <text class="type_value">{{carData.carTypeStr||'暂无'}}</text>
               <text class="type_key">车辆性质</text>
             </view>
           </view>

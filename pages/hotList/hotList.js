@@ -98,25 +98,28 @@ Page({
         return item.rentout
       }
     })
-    if (ifRendOut !== 1) {
-      //判断用户是否登录
-      wx.getSetting({
-        success: (res) => {
-          console.log('getSetting',res)
-          wx.navigateTo({
-            url: `/pages/carDetail/carDetail?carId=${id}&type=${this.data.rentOrSale}`,
-          })
-        },
-        fail: (res) => {
-          wx.showToast({
-            title: '请先登录',
-          })
-          wx.navigateTo({
-            url: `/pages/login/login`,
-          })
-        },
-      })
-    }
+    wx.navigateTo({
+      url: `/pages/carDetail/carDetail?carId=${id}&type=${this.data.rentOrSale}`,
+    })
+    // if (ifRendOut !== 1) {
+    //   //判断用户是否登录
+    //   // wx.getSetting({
+    //   //   success: (res) => {
+    //   //     console.log('getSetting',res)
+    //   //     wx.navigateTo({
+    //   //       url: `/pages/carDetail/carDetail?carId=${id}&type=${this.data.rentOrSale}`,
+    //   //     })
+    //   //   },
+    //   //   fail: (res) => {
+    //   //     wx.showToast({
+    //   //       title: '请先登录',
+    //   //     })
+    //   //     wx.navigateTo({
+    //   //       url: `/pages/login/login`,
+    //   //     })
+    //   //   },
+    //   // })
+    // }
   },
 
   //返回上一页
@@ -150,6 +153,7 @@ Page({
     var type
     this.data.rentOrSale=='rent'?type=1:type=2
     var page = this.data.page += 1
+    console.log('page',page)
     if(this.data.showCommend){
       //请求超值爆款接口
       this.getVogueList(type,page)

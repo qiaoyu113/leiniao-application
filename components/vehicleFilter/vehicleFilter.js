@@ -107,9 +107,6 @@ Component({
       // 售价：car_go_sale
       // 标签：car_go_label
       // 特点跟筛选分开，车辆特点：car_go_features  车辆标签：car_go_search
-<<<<<<< HEAD
-      net.post('25/base/v1/base/dict/dict/list/types', {}, res => {
-=======
       const tags = [
         'car_go_sort',
         'car_go_mileage',
@@ -118,7 +115,6 @@ Component({
         'car_go_label'
       ]
       net.post('api/base_center/open/v1/dict/list/types', tags, res => {
->>>>>>> m1-1.0
         console.log(res)
         const data = res.data || {}
         const ages = (data.car_go_age || []).map(transItem)

@@ -1,4 +1,5 @@
 <!--pages/carFiles/carFiles.wxml-->
+<wxs module="tools" src="./utils/filter.wxs" />
 <navBar
   background="linear-gradient(90deg, #009CF8 0%, #2F83FA 100%)"
   back="{{ true }}"
@@ -13,7 +14,7 @@
   <view class="main_title"><text class="line"></text>基础信息 </view>
   <view class="list_info">
     <text class="info_title">车辆编号：</text>
-    <text class="info_data">{{ carData.carId }}</text>
+    <text class="info_data">{{ carData.carId||'暂无' }}</text>
     <text
       class="info_copy"
       bindtap="copyText"
@@ -22,31 +23,31 @@
   </view>
   <view class="list_info">
     <text class="info_title">品牌：</text>
-    <text class="info_data">{{ carData.brandName }}</text>
+    <text class="info_data">{{ carData.brandName||'暂无' }}</text>
   </view>
   <view class="list_info">
     <text class="info_title">车型：</text>
-    <text class="info_data">{{ carData.modelName }}</text>
+    <text class="info_data">{{ carData.modelName||'暂无' }}</text>
   </view>
   <view class="list_info">
     <text class="info_title">车辆类型：</text>
-    <text class="info_data">{{ carData.carTypeStr }}</text>
+    <text class="info_data">{{ carData.carTypeStr||'暂无' }}</text>
   </view>
   <view class="list_info">
     <text class="info_title">车辆性质：</text>
-    <text class="info_data">{{ carData.attributeStr }}</text>
+    <text class="info_data">{{ carData.attributeStr||'暂无' }}</text>
   </view>
   <view class="list_info">
     <text class="info_title">车龄：</text>
-    <text class="info_data">{{ carData.carAgeStr }}</text>
+    <text class="info_data">{{ carData.carAgeStr||0 }}</text>
   </view>
   <view class="list_info">
     <text class="info_title">里程：</text>
-    <text class="info_data">{{ carData.mileageStr }}</text>
+    <text class="info_data">{{ carData.mileageStr||0 }}</text>
   </view>
   <view class="list_info">
     <text class="info_title">箱体宽度：</text>
-    <text class="info_data">{{ carData.width }}米</text>
+    <text class="info_data">{{ carData.width||0 }}米</text>
   </view>
   <view class="list_info">
     <text class="info_title">通行证：</text>
@@ -58,25 +59,25 @@
   </view>
   <view class="list_info">
     <text class="info_title">看车地：</text>
-    <text class="info_data">{{ carData.workCityStr }}</text>
+    <text class="info_data">{{ carData.workCityStr||'暂无' }}</text>
   </view>
   <view class="splite_box"></view>
   <!-- 牌照信息 -->
   <view class="main_title"><text class="line"></text>牌照信息 </view>
   <view class="list_info">
     <text class="info_title">首次登记日期：</text>
-    <text class="info_data">{{ carData.registerDate }}</text>
+    <text class="info_data">{{tools.filters(carData.registerDate)}}</text>
   </view>
   <view class="list_info">
     <text class="info_title">牌照地：</text>
-    <text class="info_data">{{ carData.registerCityStr }}</text>
+    <text class="info_data">{{ carData.registerCityStr||'暂无' }}</text>
   </view>
   <view class="splite_box"></view>
   <!-- 发动机信息 -->
   <view class="main_title"><text class="line"></text>发动机信息 </view>
   <view class="list_info">
     <text class="info_title">发动机型号：</text>
-    <text class="info_data">{{ carData.engineModel }}</text>
+    <text class="info_data">{{ carData.engineModel||'暂无' }}</text>
   </view>
   <view class="list_info">
     <text class="info_title">马力：</text>
@@ -87,6 +88,6 @@
   <view class="main_title"><text class="line"></text>保险信息 </view>
   <view class="list_info">
     <text class="info_title">商业保险额：</text>
-    <text class="info_data">{{ carData.insuredAmount }}</text>
+    <text class="info_data">{{ carData.insuredAmount}}</text>
   </view>
 </view>

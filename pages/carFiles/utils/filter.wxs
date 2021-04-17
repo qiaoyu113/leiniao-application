@@ -1,0 +1,11 @@
+var filters = function(item){
+  if(item){
+    var arr = item.split(' ')
+  return arr[0]
+  }else{
+    return '暂无'
+  }
+  
+}
+
+module.exports.filters = filters

@@ -22,13 +22,13 @@ Page({
   getCarFilesInfo(idnum,type) {
     var that = this
     requestLoading(
-      'car_center/v1/cargo/getCarInfoByCarId',
+      'api/car_center/v1/cargo/getCarInfoByCarId',
       {carId:idnum,
         searchType:type==='rent'?1:2
       },
       'POST',
       '',
-      '',
+      'json',
       function (res) {
         console.log('请求接口res', res)
         if (res.success) {
