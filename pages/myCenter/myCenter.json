@@ -4,5 +4,6 @@
     "van-cell-group": "../../miniprogram_npm/vant-weapp/cell-group/index",
     "van-dialog": "../../miniprogram_npm/vant-weapp/dialog/index"
   },
-  "backgroundColor": "#ffffff"
+  "backgroundColor": "#ffffff",
+  "navigationStyle": "custom"
 }

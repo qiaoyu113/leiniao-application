@@ -76,7 +76,7 @@ Page({
       })
       return false
     }
-    network.requestLoading('88/v1/leiniaoAuth/jwt/sendVerificationCode', {
+    network.requestLoading('88/auth/v1/leiniaoAuth/jwt/sendVerificationCode', {
       phone: that.data.phone
     },
     'GET',
@@ -142,15 +142,38 @@ Page({
     let that = this;
     let phone = that.data.phone
     let code = that.data.code
-    network.requestLoading('88/driver/v2/driver/applet/judgeCreateOrderPermission', {
+    network.requestLoading('88/auth/v1/leiniaoAuth/jwt/getTokenByPhone', {
       phone: phone,
       code: code
     },
-    'GET',
+    'post',
     '',
     '',
     function(res) {
       if (res.success) {
+        wx.setStorage({
+          key: 'token',
+          data: res.data.token,
+          success: function(res) {},
+        })
+        wx.setStorage({
+          key: 'phone',
+          data: res.data.phone,
+        })
+        let ph = phone.toString()
+        let phoneName =  ph.substring(0, 3)+"****"+ ph.substring(ph.length-4)
+        wx.setStorage({
+          key: 'phoneName',
+          data: phoneName,
+        })
+        wx.setStorage({
+          key: 'openId',
+          data: res.data.openId,
+        })
+        that.setData({
+          flag: true,
+          openId: res.data.openId
+        })
         wx.switchTab({
           url: '../myCenter/myCenter',
         })

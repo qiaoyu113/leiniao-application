@@ -10,24 +10,25 @@
 />
 
   <view class="myCollect">
-    <view class="collectList" wx:if="{{list.length}}" wx:for="{{list}}" wx:key="index" data-id='{{item.foldLineId}}'  bindtap='goDetail'>
-      <view class="shadow">
+    <view class="collectList" wx:if="{{list.length}}" wx:for="{{list}}" wx:key="index" data-id='{{item.carId}}' data-off="{{item.offTheShelf}}"  bindtap='goDetail'>
+      <view class="shadow" wx:if="{{item.offTheShelf}}">
         <image src="../../lib/image/off.png" mode="aspectFit"></image>
       </view>
-      <image class="img" src="https://img0.baidu.com/it/u=2291332875,175289127&fm=26&fmt=auto&gp=0.jpg" mode="aspectFit"></image>
+      <image class="img" src="{{item.url}}"></image>
       <view class="info">
-        <view class="title">撒打算发水淀粉阿斯顿发阿舒服点阿舒服点</view>
+        <view class="title">{{item.title}}</view>
         <view class="value">
-          <view class="valueList">车龄：2个月</view>
-          <view class="valueList">里程：7万公里</view>
+          <view class="valueList">车龄：{{item.carAge}}个月</view>
+          <view class="valueList">里程：{{item.mileage}}万公里</view>
         </view>
         <view class="tagBox">
-          <view class="tag">准新车</view>
-          <view class="tag">急租</view>
-          <view class="tag2">有尾板</view>
-          <view class="tag2">有通行证</view>
+          <view class="tag" wx:if="{{item.newCar}}">准新车</view>
+          <view class="tag" wx:if="{{item.urgentRent}}">急租</view>
+          <view class="tag" wx:if="{{item.urgentSale}}">急售</view>
+          <view class="tag2" wx:if="{{item.tailboard}}">有尾板</view>
+          <view class="tag2" wx:if="{{item.pass}}">有通行证</view>
         </view>
-        <view class="price">¥ 3000/月 <image class="icon" src="../../lib/image/heart.png" mode="aspectFit"></image></view>
+        <view class="price">¥ {{item.money}}/月 <image class="icon" src="../../lib/image/heart.png" mode="aspectFit" catchtap="cancelCollect" data-id="{{item.carId}}" data-type="{{item.rentOrSale}}"></image></view>
       </view>
     </view>
     <view class="block" wx:if="{{!list.length}}">
