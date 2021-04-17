@@ -110,13 +110,13 @@ App({
     userInfo: null,
     pageParam: '',
     // m1环境域名
-    url: 'https://leiniao-bss-web-m1.yunniao.cn/', 
+    url: 'https://leiniao-bss-web-m1.yunniao.cn/',
     // mock
-    url: 'http://yapi.ynimg.cn:8888/mock/255/',
+     //url: 'https://leiniao-domain-car.m2.yunniao.cn/',
     // 生产环境域名
-    // url: 'https://leiniao-bss-web.yunniao.cn/',
+    //url: 'https://leiniao-bss-web.yunniao.cn/',
     // d2环境域名
-    // url: 'http://172.17.101.77:20150/',
+    //url: 'http://szjw-domain-gateway.d2.yunniao.cn/',
     // 图片域名
     imgUrl: 'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/',
     navBarHeight: 0, // 导航栏高度

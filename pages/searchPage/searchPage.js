@@ -183,9 +183,6 @@ Page({
           })
         }
       )
-
-      
-
     } else {
       this.setData({
         ifSearchFinish: false

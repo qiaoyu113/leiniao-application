@@ -46,13 +46,14 @@ Page({
         'defaultData.cityName': cityName,
       })
     }
+    console.log('app',app.globalData.token)
   },
   //检查当前获取城市是否在城市列表内
   checkCity(){
     var that = this
     //此处加判断，如果获取的城市在开通城市内显示该城市，否则切换到北京
     requestLoading(
-      'v3/base/office/getHasLeiNiaoCity',
+      '/v3/base/office/getHasLeiNiaoCity',
       {},
       'GET',
       '',

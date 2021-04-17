@@ -191,7 +191,6 @@ Page({
             }
           ]
         }
-
         let newarr = []
         let { alphabet, cityList } = that.data
         alphabet.forEach((item) => {
@@ -201,7 +200,6 @@ Page({
             }
           }
         })
-        console.log('newarr',newarr)
         that.setData({
           newList: newarr,
         })
