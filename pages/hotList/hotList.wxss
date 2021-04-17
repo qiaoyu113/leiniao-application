@@ -111,7 +111,7 @@
 }
 .list_carlabel{
   width: 430rpx;
-  height: 42rpx;
+  height: 44rpx;
   overflow: hidden;
 }
 .list_type {
@@ -157,7 +157,7 @@
   opacity: 1;
 }
 .rentout_box {
-  opacity: 1;
+  opacity: 0.5;
   margin: 0 auto;
   position: relative;
 }

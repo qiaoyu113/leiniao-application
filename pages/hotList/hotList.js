@@ -178,8 +178,8 @@ Page({
     requestLoading(
       'api/car_center/v1/cargo/getVogueList',
       {searchType:type,
-      // searchCityId:app.globalData.locationCity.cityCode,
-      searchCityId:110100,
+       searchCityId:app.globalData.locationCity.cityCode,
+      //searchCityId:110100,
       pageNumber:page
       },
       'POST',
