@@ -38,18 +38,15 @@ Page({
     let { cityName, cityCode } = app.globalData.locationCity
     if (!cityCode) {
       utils.getMap.call(this, app).then((info)=>{
-        console.log('info',info)
         that.checkCity()
       })
-      console.log('utils.getMap')
     } else {
       this.setData({
         cityCode: cityCode,
         'defaultData.cityName': cityName,
       })
+      this.loadData(cityCode)
     }
-    const vehicleList = this.selectComponent('#vehicleList')
-    vehicleList && vehicleList.onParamChange({})
   },
   //检查当前获取城市是否在城市列表内
   checkCity(){
@@ -62,7 +59,6 @@ Page({
       '',
       '',
       function (res) {
-        console.log('请求接口res', res)
         if (res.success) {
           let dataList =  res.data
           let newarr = []
@@ -71,30 +67,26 @@ Page({
               newarr.push(item.parentName)
             })
           }
-          console.log('newarr',newarr)
-          console.log('当前城市',app.globalData.locationCity.cityName)
           let checkCity = newarr.includes(app.globalData.locationCity.cityName)
-      console.log('checkCity', checkCity)
-      if (checkCity) {
-        that.setData({
-          cityCode: app.globalData.locationCity.cityCode,
-          'defaultData.cityName': app.globalData.locationCity.cityName,
-        })
-        console.log('cityCode', app.globalData.locationCity.cityCode)
-      } else {
-        that.setData({
-          cityCode: 305,
-          'defaultData.cityName': '北京市',
-        })
-      }
+          const cityCode = checkCity ? app.globalData.locationCity.cityCode : 305
+          const cityName = checkCity ? app.globalData.locationCity.cityName : '北京市'
+          that.setData({
+            cityCode,
+            'defaultData.cityName': cityName
+          })
+          that.loadData(cityCode)
         }
-          },
+      },
       function (res) {
         wx.showToast({
           title: '加载数据失败',
         })
       }
     )
+  },
+  loadData (cityCode) {
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.onParamChange({searchCityId: cityCode})
   },
   //点击城市事件
   selectLocationEvent() {
