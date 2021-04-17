@@ -81,9 +81,10 @@ Page({
   goDetail(e) {
     let id = e.currentTarget.dataset.id
     let off = e.currentTarget.dataset.off
+    let type = e.currentTarget.dataset.type
     if (!off) {
       wx.navigateTo({
-        url: '../carDetail/carDetail?id=' + id
+        url: '../carDetail/carDetail?carId=' + id + '&type=' + type
       });
     }
   },
