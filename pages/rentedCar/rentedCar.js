@@ -48,6 +48,8 @@ Page({
         'defaultData.cityName': cityName,
       })
     }
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.onParamChange({})
   },
   //检查当前获取城市是否在城市列表内
   checkCity(){
@@ -255,7 +257,7 @@ Page({
   onShareAppMessage: function () {},
   // 获取热门车型
   getHotModels: function () {
-    net.get('api/base/v1/car/carHotInfo/getCarHotListForApplets', res => {
+    net.get('v1/car/carHotInfo/getCarHotListForApplets', res => {
       const data = (res.data || []).map((v, i) => {
         v.label = v.name
         // v.pic = v.url // todo
