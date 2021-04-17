@@ -6,7 +6,7 @@
   <view>
     <hotNew class="hotnew_box" bindgotoadList="gotoadList"></hotNew>
     <!-- 热门车型 -->
-    <view class="flex py-15" style="background-image: linear-gradient(180deg, #FFFFFF 82%, #F9F9F9 100%);">
+    <view wx:if="{{hotModels.length}}" class="flex py-15" style="background-image: linear-gradient(180deg, #FFFFFF 82%, #F9F9F9 100%);">
       <view
         class="flex-y flex-1 align-center"
         wx:for="{{ hotModels }}"

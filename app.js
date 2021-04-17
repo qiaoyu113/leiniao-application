@@ -109,10 +109,20 @@ App({
     token: null,
     userInfo: null,
     pageParam: '',
+<<<<<<< HEAD
     // m1环境域名
     url: 'https://leiniao-bss-web-m1.yunniao.cn/',
     // mock
      //url: 'https://leiniao-domain-car.m2.yunniao.cn/',
+=======
+    // m1/2环境域名
+    url: 'https://leiniao-bss-web-m1.yunniao.cn/', 
+    // url: 'https://leiniao-bss-web.m2.yunniao.cn/', 
+    // url: 'https://leiniao-domain-car.m2.yunniao.cn/', 
+    // mock
+    // url: 'http://yapi.ynimg.cn:8888/mock/',
+    // url: 'http://yapi.ynimg.cn:8888/mock/255/',
+>>>>>>> m1-1.0
     // 生产环境域名
     //url: 'https://leiniao-bss-web.yunniao.cn/',
     // d2环境域名
@@ -125,6 +135,8 @@ App({
     menuHeight: 0, // 胶囊高度（自定义内容可与胶囊高度保证一致）
     pagesWithCustomNav: ['rentedCar', 'searchPage'],
     locationCity: {},
+    brandList: [],
+    hotModelIdList: []
   },
   utils: {
     getCurrentRoute: () => {

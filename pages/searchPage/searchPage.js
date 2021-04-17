@@ -152,6 +152,7 @@ Page({
   //调用搜索接口搜索页面
   searchEvent(value) {
     console.log('keyword', value)
+<<<<<<< HEAD
 
     if (value) {
       const vehicleList = this.selectComponent('#vehicleList')
@@ -188,6 +189,14 @@ Page({
         ifSearchFinish: false
       })
     }
+=======
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.onPageKeywordChange(value)
+  },
+  onSearchFinish () {
+    this.setData({ifSearchFinish: true})
+    this.getSearchHistory()
+>>>>>>> m1-1.0
   },
   //点击搜索历史触发事件
   historySearchEvent(e) {

@@ -1,3 +1,4 @@
+const app = getApp()
 // pages/saleCar/saleCar.js
 Page({
 
@@ -69,6 +70,9 @@ Page({
   },
 
   init () {
-
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.onParamChange({
+      hotModelIdList: app.globalData.hotModelIdList
+    })
   }
 })

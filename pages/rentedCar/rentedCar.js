@@ -1,5 +1,7 @@
 const app = getApp()
 const utils = require('./utils')
+const net = require('../../utils/network')
+
 const { requestLoading } = require('../../utils/network')
 // pages/rentedCar/rentedCar.js
 Page({
@@ -46,7 +48,12 @@ Page({
         'defaultData.cityName': cityName,
       })
     }
+<<<<<<< HEAD
     console.log('app',app.globalData.token)
+=======
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.onParamChange({})
+>>>>>>> m1-1.0
   },
   //检查当前获取城市是否在城市列表内
   checkCity(){
@@ -211,11 +218,7 @@ Page({
     const vehicleList = this.selectComponent('#vehicleList')
     vehicleList && vehicleList.onPageReachBottom()
   },
-
-  onKeywordChange(val) {
-    const vehicleList = this.selectComponent('#vehicleList')
-    vehicleList && vehicleList.onPageKeywordChange(val)
-  },
+  
   onPageScroll: utils.throttle(function (e) {
     let ev = e[0]
     //判断浏览器滚动条上下滚动
@@ -258,21 +261,22 @@ Page({
   onShareAppMessage: function () {},
   // 获取热门车型
   getHotModels: function () {
-    setTimeout(() => {
-      const data = [
-        { label: '4.2箱货', id: '123', pic: '/lib/image/home/hot_1.png' },
-        { label: '小面', id: '234', pic: '/lib/image/home/hot_2.png' },
-        { label: '中面', id: '345', pic: '/lib/image/home/hot_3.png' },
-        { label: '依维柯', id: '456', pic: '/lib/image/home/hot_4.png' },
-      ]
-      this.setData({
-        hotModels: data.length > 4 ? data.slice(0, 4) : data,
+    net.get('v1/car/carHotInfo/getCarHotListForApplets', res => {
+      const data = (res.data || []).map((v, i) => {
+        v.label = v.name
+        // v.pic = v.url // todo
+        v.pic = `/lib/image/home/hot_${i + 1}.png`
+        return v
       })
-    }, 300)
+      this.setData({
+        hotModels: data.length > 4 ? data.slice(0, 4) : data
+      })
+    })
   },
   // 前往热门车型页面
   onGoHotModel: function (evt) {
     const { info } = evt.currentTarget.dataset
+    app.globalData.hotModelIdList = info.modelIdList
     wx.navigateTo({
       url: '../hotModel/hotModel?name=' + info.label,
     })

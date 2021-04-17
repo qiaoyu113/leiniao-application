@@ -7,14 +7,15 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    item: Object
+    item: Object,
+    labels: Array
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-
+    
   },
 
   lifetimes: {
@@ -31,9 +32,7 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    init () {
-
-    },
+    init () {},
     onViewDetail (evt) {
       console.log('todo 登录态检查&跳转详情页')
       // todo 登录态检查&跳转详情页
