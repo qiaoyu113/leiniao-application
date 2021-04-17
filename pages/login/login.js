@@ -41,7 +41,7 @@ Page({
             if (res.success) {
               let phone = res.data.phone;
               let openId = wx.getStorageSync('openId')
-              network.requestLoading('25/auth/v2/jwt/getToken', {
+              network.requestLoading('25/auth/v1/leiniaoAuth/jwt/getToken', {
                   openId: openId,
                   phone: phone,
                   puserId: that.data.puserId
@@ -74,9 +74,17 @@ Page({
                       flag: true,
                       openId: res.data.openId
                     })
-                    wx.navigateBack({
-                      delta: 1,
-                    })
+                    let pages = getCurrentPages();
+                    let prevpage = pages[pages.length - 2];
+                    if(prevpage == 'pages/shareLogin/shareLogin'){
+                      wx.navigateBack({
+                        delta: 2,
+                      })
+                    } else {
+                      wx.navigateBack({
+                        delta: 1,
+                      })
+                    }
                   } else {
                     wx.showToast({
                       title: res.errorMsg,

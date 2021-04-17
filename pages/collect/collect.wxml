@@ -10,7 +10,7 @@
 />
 
   <view class="myCollect">
-    <view class="collectList" wx:if="{{list.length}}" wx:for="{{list}}" wx:key="index" data-id='{{item.carId}}' data-off="{{item.offTheShelf}}"  bindtap='goDetail'>
+    <view class="collectList" wx:if="{{list.length}}" wx:for="{{list}}" wx:key="index" data-id='{{item.carId}}' data-off="{{item.offTheShelf}}" data-type="{{item.rentOrSale}}" bindtap='goDetail'>
       <view class="shadow" wx:if="{{item.offTheShelf}}">
         <image src="../../lib/image/off.png" mode="aspectFit"></image>
       </view>

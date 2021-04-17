@@ -47,7 +47,7 @@ Page({
     let that = this;
     let id = e.currentTarget.dataset.id
     let type = e.currentTarget.dataset.type
-    network.requestLoading('255/car/v1/cargo/cancelFavorite',
+    network.requestLoading('255/car/v1/car/cargo/cancelFavorite',
     {
       "carId": id,
       "rentOrSale": type
@@ -61,6 +61,10 @@ Page({
           title: '已取消',
         });
         that.onPullDownRefresh()
+      } else {
+        wx.showToast({
+          title: res.errorMsg,
+        });
       }
     },
     function(res) {
@@ -81,9 +85,10 @@ Page({
   goDetail(e) {
     let id = e.currentTarget.dataset.id
     let off = e.currentTarget.dataset.off
+    let type = e.currentTarget.dataset.type
     if (!off) {
       wx.navigateTo({
-        url: '../carDetail/carDetail?id=' + id
+        url: '../carDetail/carDetail?carId=' + id + '&type=' + type
       });
     }
   },

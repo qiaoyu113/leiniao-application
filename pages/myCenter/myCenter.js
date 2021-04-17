@@ -209,11 +209,9 @@ Page({
       function(res) {
         if (res.success) {
           let flag = res.data.flag;
-          wx.setStorageSync('driverId', res.data.driverId)
-          that.setData({
-            entranceType: flag,
-            cityName: res.data.cityName
-          })
+          if(!flag){
+
+          }
         }
       },
       function(res) {
@@ -227,7 +225,6 @@ Page({
     try {
       var value = wx.getStorageSync('phoneName')
       if (value) {
-        console.log(3333, value)
         that.setData({
           userName: value,
           canIUse: true
@@ -238,12 +235,10 @@ Page({
         })
       }
     } catch (e) {
-      console.log(1)
       that.setData({
         canIUse: false
       })
     }
-    console.log(that.data.canIUse)
     that.hasEnter()
   },
   getPhoneNumber: function(e) {
@@ -269,7 +264,7 @@ Page({
             if (res.success) {
               let phone = res.data.phone;
               let openId = wx.getStorageSync('openId')
-              network.requestLoading('25/auth/v2/jwt/getToken', {
+              network.requestLoading('25/auth/v1/leiniaoAuth/jwt/getToken', {
                   openId: openId,
                   phone: phone,
                   puserId: that.data.puserId
@@ -358,7 +353,9 @@ Page({
       this.setData({
         canIUse: false
       })
-      wx.removeStorageSync('phoneName')()
+      wx.clearStorage()
+      this.hasEnter()
+      // wx.removeStorageSync('phoneName')()
     })
     .catch(() => {
       // on cancel
