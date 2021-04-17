@@ -24,15 +24,15 @@ Component({
       swiperList: [
         {
           type: 'image',
-          url: '../../lib//image/rentcarimg/banner.png',
+          url: '../../lib/image/rentcarimg/banner.png',
         },
         {
           type: 'image',
-          url: '../../lib//image/rentcarimg/banner.png',
+          url: '../../lib/image/rentcarimg/banner.png',
         },
         {
           type: 'image',
-          url: '../../lib//image/rentcarimg/banner.png',
+          url: '../../lib/image/rentcarimg/banner.png',
         },
       ],
     })
