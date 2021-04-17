@@ -105,26 +105,6 @@ Page({
         url: `/pages/carDetail/carDetail?carId=${id}&type=${this.data.rentOrSale}`,
       })
     }
-    
-    // if (ifRendOut !== 1) {
-    //   //判断用户是否登录
-    //   // wx.getSetting({
-    //   //   success: (res) => {
-    //   //     console.log('getSetting',res)
-    //   //     wx.navigateTo({
-    //   //       url: `/pages/carDetail/carDetail?carId=${id}&type=${this.data.rentOrSale}`,
-    //   //     })
-    //   //   },
-    //   //   fail: (res) => {
-    //   //     wx.showToast({
-    //   //       title: '请先登录',
-    //   //     })
-    //   //     wx.navigateTo({
-    //   //       url: `/pages/login/login`,
-    //   //     })
-    //   //   },
-    //   // })
-    // }
   },
 
   //返回上一页

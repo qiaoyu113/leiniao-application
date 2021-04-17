@@ -45,8 +45,8 @@
         <text class="main_title">{{carData.brandName}}</text>
         <view class="price_info">
           <text class="" wx:if="{{rentOrSale=='sale'}}">参考价</text>
-          <text class="price" wx:if="{{rentOrSale=='rent'}}">￥{{carData.rent}}/月</text>
-          <text class="price" wx:if="{{rentOrSale=='sale'}}">￥{{carData.price}}</text>
+          <text class="price" wx:if="{{rentOrSale=='rent'}}">￥{{carData.rent||''}}/月</text>
+          <text class="price" wx:if="{{rentOrSale=='sale'}}">￥{{carData.price||''}}</text>
           <text class="price_tips" wx:if="{{rentOrSale=='rent'}}">起</text>
           <image class="title_img"
                 bindtap="showIntroduceEvent"

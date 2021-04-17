@@ -13,7 +13,6 @@
 .left_img {
   width: 200rpx;
   height: 200rpx;
-  background-color: pink;
   margin-right: 50rpx;
 }
 .right_list {
