@@ -257,7 +257,7 @@ Page({
   onShareAppMessage: function () {},
   // 获取热门车型
   getHotModels: function () {
-    net.get('v1/car/carHotInfo/getCarHotListForApplets', res => {
+    net.get('api/car/v1/car/carHotInfo/getCarHotListForApplets', res => {
       const data = (res.data || []).map((v, i) => {
         v.label = v.name
         // v.pic = v.url // todo
