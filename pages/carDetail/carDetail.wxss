@@ -12,6 +12,7 @@
 .top_bar_img {
   width: 750rpx;
   height: 750rpx;
+  display: block;
 }
 .title {
   width: 710rpx;
@@ -236,7 +237,7 @@
   display: block;
   margin-right: 26rpx;
   padding-left: 56rpx;
-  font-size: 30rpx;
+  font-size: 36rpx;
 }
 .icon_heart {
   color: #ff4652;
@@ -244,6 +245,7 @@
 .collect_text {
   margin-left: 12rpx;
   color: #333;
+  font-size: 30rpx;
 }
 .btn_left {
   width: 210rpx;

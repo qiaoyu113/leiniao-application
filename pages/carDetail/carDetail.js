@@ -7,22 +7,7 @@ Page({
    */
   data: {
     navBarHeight: app.globalData.navBarHeight,
-    carData: {
-      tips: ['准新车', '急租'],
-      title: '福田欧马可S3超级卡车福田欧马可S3超级卡车福田欧马可S3超级卡车',
-      price: '3000',
-      type: ['宽体', '有尾板', '有通行证'],
-      md: {
-        age: 2,
-        km: 7,
-        width: 2.3,
-        photo_address: '北京',
-        watch_address: '北京',
-        type: '营运',
-      },
-      detail:
-        '车主转业，车辆刚刚闲置，车况良好，现车主降价出手，车辆八成新，无任何隐患;车主专业，车辆刚刚闲置，车况良好，现车主降价出手，车辆八成新，无任何隐患。',
-    },
+    carData: {},
     showPriceIntroduce: false,
     showHotIntroduce: true,
     askPrice: false,
@@ -35,7 +20,6 @@ Page({
       '准新车，车况良好，无任何安全隐患，不限行，火热降价处理，市场需求度高，前景好！',
     carId: '',
     rentOrSale: '',
-    nocollect: true,
     swiperList: [],
   },
 
@@ -48,20 +32,6 @@ Page({
       carId: options.carId,
       rentOrSale: options.type,
     })
-    wx.getStorage({
-      key:'phoneName',
-      success:(res)=>{
-        console.log('登录成功，调取接口',res)
-        this.getCarInfo()
-      },
-      error:(res)=>{
-        console.log('没有登录，需要登录',res)
-        wx.navigateTo({
-          url:  "pages/shareLogin/shareLogin",
-        })
-      }
-    })
-    this.getCarInfo()
   },
   //调用接口，获取车辆详情
   getCarInfo() {
@@ -246,16 +216,19 @@ Page({
       info,
       'POST',
       '',
-      '',
+      'json',
       function (res) {
         console.log('请求询价接口res', res)
         if (res.success) {
-          
+          that.setData({
+            phoneValue:'',
+            nameValue:''
+          })
+        }else{
+          wx.showModal({
+            title: res.errorMsg,
+          })
         }
-        that.setData({
-          phoneValue:'',
-          nameValue:''
-        })
         wx.showToast({
           title: '询价成功',
         })
@@ -300,7 +273,7 @@ Page({
         console.log('请求接口res', res)
         if (res.success) {
           that.setData({
-            nocollect: false,
+            'carData.isFavorite': 1,
           })
           wx.hideLoading()
         }else{
@@ -326,15 +299,20 @@ Page({
       },
       'POST',
       '',
-      '',
+      'json',
       function (res) {
         console.log('请求接口res', res)
         if (res.success) {
+          that.setData({
+            'carData.isFavorite': 2,
+          })
+          wx.hideLoading()
+        }else{
+          wx.hideLoading()
+          wx.showModal({
+            title: res.errorMsg,
+          })
         }
-        that.setData({
-          nocollect: true,
-        })
-        wx.hideLoading()
       },
       function (res) {
         wx.showToast({
@@ -389,7 +367,21 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {},
+  onShow: function () {
+    wx.getStorage({
+      key:'phoneName',
+      success:(res)=>{
+        console.log('登录成功，调取接口',res)
+        this.getCarInfo()
+      },
+      fail:(res)=>{
+        console.log('没有登录，需要登录',res)
+        wx.navigateTo({
+          url:  "/pages/shareLogin/shareLogin",
+        })
+      }
+    })
+  },
 
   /**
    * 生命周期函数--监听页面隐藏

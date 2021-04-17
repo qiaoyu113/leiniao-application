@@ -6,7 +6,7 @@
 }
 .top_banner {
   width: 100%;
-  height: 200rpx;
+  height: 246rpx;
   margin-bottom: 40rpx;
 }
 
@@ -158,7 +158,7 @@
   opacity: 1;
 }
 .rentout_box {
-  opacity: 0.3;
+  opacity: 1;
   margin: 0 auto;
   position: relative;
 }

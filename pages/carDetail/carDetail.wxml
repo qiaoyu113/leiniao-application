@@ -2,7 +2,6 @@
 <view class="top_bar">
   <view class="goback_btn" bindtap="gobackEvent" style="top:{{navBarHeight}}rpx;">
     <image class="goback_img" src="../../lib/image/rentcarimg/goback_button.png" />
-      
   </view>
     
 <!-- 轮播图 -->
@@ -30,7 +29,7 @@
           data-url="{{item}}"
           >
           <navigator>
-            <image  class="top_bar_img" mode="widthFix" src="{{item}}"></image>
+            <image  class="top_bar_img"  src="{{item}}"></image>
           </navigator>
           <text class="swiper_index">
             {{swiperId?swiperId + 1 : 1}}/{{carData.videoUrlList.length + carData.imageUrlList.length}}
@@ -104,7 +103,7 @@
   </view>
   <!-- 底部收藏 -->
   <view class="bottom_bar">
-    <text wx:if="{{nocollect}}" class="collect_word iconfont icon-aixinD" data-index="0" bindtap="collectCarEvent">
+    <text wx:if="{{carData.isFavorite==2}}" class="collect_word iconfont icon-aixinD" data-index="0" bindtap="collectCarEvent">
       <text class="collect_text" >未收藏</text>
     </text>
     <text wx:else class="collect_word icon_heart iconfont icon-yishoucang" data-index="1" bindtap="collectCarEvent">

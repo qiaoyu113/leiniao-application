@@ -93,14 +93,19 @@ Page({
   gotoCarDetail(e) {
     var id = e.currentTarget.dataset['index']
     //判断是否租出或者售出
-    var ifRendOut = this.data.carList.findIndex((item) => {
+    var itemindex = this.data.carList.findIndex((item) => {
       if (item.carId === id) {
-        return item.rentout
+         return item
       }
     })
-    wx.navigateTo({
-      url: `/pages/carDetail/carDetail?carId=${id}&type=${this.data.rentOrSale}`,
-    })
+    var status = this.data.carList[itemindex].status
+    console.log('itemindex',itemindex,'status',status)
+    if(status!==40&&status!==50){
+      wx.navigateTo({
+        url: `/pages/carDetail/carDetail?carId=${id}&type=${this.data.rentOrSale}`,
+      })
+    }
+    
     // if (ifRendOut !== 1) {
     //   //判断用户是否登录
     //   // wx.getSetting({
