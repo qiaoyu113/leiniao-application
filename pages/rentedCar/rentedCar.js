@@ -48,12 +48,8 @@ Page({
         'defaultData.cityName': cityName,
       })
     }
-<<<<<<< HEAD
-    console.log('app',app.globalData.token)
-=======
     const vehicleList = this.selectComponent('#vehicleList')
     vehicleList && vehicleList.onParamChange({})
->>>>>>> m1-1.0
   },
   //检查当前获取城市是否在城市列表内
   checkCity(){
