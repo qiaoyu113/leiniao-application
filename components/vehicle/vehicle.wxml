@@ -2,12 +2,12 @@
   <view class="py-20 space-between bb-solid-e" bindtap="onViewDetail">
     <image class="img-100" style="border-radius: 8rpx;" src="{{item.pic}}"></image>
     <view class="flex-y space-between pt-5" style="width: 430rpx;">
-      <view class="text-14 text-gray-3 text-ellipsis" style="font-weight: 500;">{{item.name}}</view>
+      <view class="text-14 text-gray-3 text-ellipsis" style="font-weight: 500;">{{item.brandName + item.modelName + item.carDescribe}}</view>
       <view>
-        <view class="text-12 text-gray-9 flex">车龄：{{item.age}}个月<text style="width: 30rpx;"></text>里程：{{item.miles}}万公里</view>
+        <view class="text-12 text-gray-9 flex">车龄：{{item.carAgeStr}}个月<text style="width: 30rpx;"></text>里程：{{item.mileageStr}}万公里</view>
         <view class="flex" style="margin: 5rpx 0;">
-          <view wx:for="{{item.labels}}" wx:key="index" wx:for-item="label" style="border-radius: 4rpx; padding: 2rpx 6rpx;"
-            class="mr-5 text-10 {{false ? 'bg-blue text-white' : 'bg-white text-blue-3 b-solid-blue'}}">{{label}}</view>
+          <view wx:for="{{labels}}" wx:key="index" wx:for-item="label" style="border-radius: 4rpx; padding: 2rpx 6rpx;"
+            class="mr-5 text-10 {{item[label.key] ? 'bg-blue text-white' : 'bg-white text-blue-3 b-solid-blue'}}">{{label.name}}</view>
         </view>
       </view>
       <view class="text-red text-17 text-bold">¥{{item.price}}/月</view>

@@ -2,6 +2,24 @@ var app = getApp()
 var urls = app.globalData.url
 var shopId = app.globalData.shopId
 
+function get(url, params, success, fail, options) {
+  let {message = '', type = 'json'} = options || {}
+  if (params) {
+    if (typeof params === 'function') {
+      fail = success
+      success = params
+    } else if (typeof params === 'object') {
+      url = `${url}?${Object.keys(params).map(k => `${k}=${params[k]}`).join('&')}`
+    }
+  }
+  this.requestLoading(url, {}, 'get', message, type, success, fail)
+}
+
+function post(url, params, success, fail, options) {
+  let {message = '', type = 'json'} = options || {}
+  this.requestLoading(url, params, 'post', message, type, success, fail)
+}
+
 function request(url, params, met, message, types, success, fail) {
   this.requestLoading(url, params, met, message, types, success, fail)
 }
@@ -13,10 +31,9 @@ function request(url, params, met, message, types, success, fail) {
 // fail：失败的回调
 
 function requestLoading(url, params, met, message, types, success, fail) {
-  console.log(params)
   if(urls.includes('mock')){
     // mock 移除域
-    url = url.replace(/^(\d{2,3})(\/\w+)/, '$1')
+    // url = url.replace(/^(\d{2,3})(\/\w+)/, '$1')
   }else{
     url = url.replace(/^\d{2,3}/, 'api')
   }
@@ -47,7 +64,6 @@ function requestLoading(url, params, met, message, types, success, fail) {
         },
         method: met,
         success: function (res) {
-          console.log(res)
           if (res.data.code == 40101) {
             wx.removeStorage({
               key: 'token',
@@ -73,7 +89,7 @@ function requestLoading(url, params, met, message, types, success, fail) {
             if (res.statusCode == 200) {
               success(res.data)
             } else {
-              fail()
+              fail && fail()
             }
           }
         },
@@ -128,7 +144,7 @@ function requestLoading(url, params, met, message, types, success, fail) {
             if (res.statusCode == 200) {
               success(res.data)
             } else {
-              fail()
+              fail && fail()
             }
           }
         },
@@ -209,7 +225,7 @@ function getWxOpenId() {
         data: code
       })
       // requestLoading('api/auth/v1/jwt/getToken', {
-      requestLoading('25/auth/v1/leiniaoAuth/jwt/getToken', {
+      requestLoading('25/auth/v2/jwt/getToken', {
         wxCode: code
       },
         'post',
@@ -292,5 +308,8 @@ function formatTime(number, format) {
 module.exports = {
   request: request,
   requestLoading: requestLoading,
-  formatTime: formatTime
+  formatTime: formatTime,
+  get: get,
+  post: post,
+  getWxOpenId
 }

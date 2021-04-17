@@ -1,8 +1,3 @@
-<!--pages/searchPage/searchPage.wxml-->
-<!-- <view class="search_box">
-<button class="goback_btn" bindtap="goBackEvent">返回</button>
-<input type="text" class="search"></input>
-</view> -->
 <navBar
   background="linear-gradient(90deg, #009CF8 0%, #2F83FA 100%)"
   back="{{ true }}"
@@ -35,6 +30,6 @@
       </view>
   </view>
   <view hidden="{{!ifSearchFinish}}">
-    <vehicle-list id="vehicleList"></vehicle-list>
+    <vehicle-list id="vehicleList" bind:searchfinish="onSearchFinish"></vehicle-list>
   </view>
 </view>

@@ -152,45 +152,12 @@ Page({
   //调用搜索接口搜索页面
   searchEvent(value) {
     console.log('keyword', value)
-
-    if (value) {
-      const vehicleList = this.selectComponent('#vehicleList')
-      vehicleList && vehicleList.onPageKeywordChange(value)
-      wx.showLoading({title: '加载中'})
-      var that = this
-      requestLoading(
-        'car_center/v1/cargo/getSearchCarList',
-        {searchType:that.data.type==='rent'?1:2,
-          searchCityId:app.globalData.locationCity.cityCode,
-          searchContent:value},
-        'POST',
-        '',
-        '',
-        function (res) {
-          console.log('请求接口res', res)
-          if (res.success) {
-          }
-          that.setData({
-            ifSearchFinish: true
-          })
-          wx.hideLoading()
-          //搜索接口成功回调中更新搜索历史
-      that.getSearchHistory()
-        },
-        function (res) {
-          wx.showToast({
-            title: '加载数据失败',
-          })
-        }
-      )
-
-      
-
-    } else {
-      this.setData({
-        ifSearchFinish: false
-      })
-    }
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.onPageKeywordChange(value)
+  },
+  onSearchFinish () {
+    this.setData({ifSearchFinish: true})
+    this.getSearchHistory()
   },
   //点击搜索历史触发事件
   historySearchEvent(e) {
