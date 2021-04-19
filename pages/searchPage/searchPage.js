@@ -85,10 +85,12 @@ Page({
   },
   //软键盘回车搜索
   enterSearch(e) {
-    console.log('搜索值', e.detail.value)
-    if (e.detail.value) {
+    if(e.detail.value.length && e.detail.value.length<16){
       this.searchEvent(e.detail.value)
-      //this.checkInputHistory(e.detail.value)
+    }else{
+      wx.showModal({
+        title:'最多输入15个字'
+      })
     }
   },
   //校验输入内容，重复时调整搜索历史数组

@@ -25,8 +25,6 @@ Page({
       background: '',
     },
     cityupdata: '',
-    scrollTop: 0,
-    hide: false,
   },
 
   /**
@@ -153,43 +151,6 @@ Page({
     const vehicleList = this.selectComponent('#vehicleList')
     vehicleList && vehicleList.onPageReachBottom()
   },
-  
-  onPageScroll: utils.throttle(function (e) {
-    let ev = e[0]
-    //判断浏览器滚动条上下滚动
-    if (
-      ev.scrollTop > this.data.scrollTop ||
-      ev.scrollTop == wx.getSystemInfoSync().windowHeight
-    ) {
-      this.setData({
-        hide: true,
-        'defaultData.background':
-          'linear-gradient(90deg, #009CF8 0%, #2F83FA 100%)',
-      })
-      //console.log('向下滚动')
-    } else {
-      if (
-        ev.scrollTop < 200 ||
-        ev.scrollTop == wx.getSystemInfoSync().windowHeight
-      ) {
-        this.setData({
-          'defaultData.background': '',
-        })
-      }
-      // console.log('向上滚动')
-      this.setData({
-        hide: false,
-      })
-    }
-
-    //给scrollTop重新赋值
-    let _this = this
-    setTimeout(function () {
-      _this.setData({
-        scrollTop: ev.scrollTop,
-      })
-    }, 0)
-  }, 50),
   /**
    * 用户点击右上角分享
    */

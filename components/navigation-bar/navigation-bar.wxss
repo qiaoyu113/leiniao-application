@@ -1,6 +1,5 @@
 .nav-bar {
   width: 100%;
-  height: 520rpx;
   color: #fff;
   text-align: center;
 }
@@ -44,10 +43,6 @@
 /*轮播图*/
 .slides {
   width: 750rpx;
-  height: 520rpx;
-}
-.slides swiper {
-  height: 520rpx;
 }
 .slides navigator {
   width: 100%;
