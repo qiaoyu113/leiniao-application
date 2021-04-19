@@ -7,96 +7,6 @@ Page({
    */
   data: {
     cityList: {
-      B: [
-        {
-          name: '北京市',
-          key: 'B',
-          id: 1,
-        },
-        {
-          name: '包头市',
-          key: 'B',
-          id: 2,
-        },
-      ],
-      C: [
-        {
-          name: '重庆市',
-          key: 'C',
-          id: 3,
-        },
-        {
-          name: '成都市',
-          key: 'C',
-          id: 4,
-        },
-        {
-          name: '长沙市',
-          key: 'C',
-          id: 5,
-        },
-      ],
-      D: [
-        {
-          name: '大连市',
-          key: 'D',
-          id: 6,
-        },
-      ],
-      E: [
-        {
-          name: '鄂尔多斯市',
-          key: 'E',
-          id: 7,
-        },
-      ],
-      G: [
-        {
-          name: '广州市',
-          key: 'G',
-          id: 8,
-        },
-      ],
-      H: [
-        {
-          name: '杭州市',
-          key: 'H',
-          id: 9,
-        },
-      ],
-      N: [
-        {
-          name: '南京市',
-          key: 'N',
-          id: 10,
-        },
-      ],
-      S: [
-        {
-          name: '上海市',
-          key: 'S',
-          id: 11,
-        },
-      ],
-      W: [
-        {
-          name: '武汉市',
-          key: 'W',
-          id: 12,
-        },
-      ],
-      Z: [
-        {
-          name: '郑州市',
-          key: 'Z',
-          id: 13,
-        },
-        {
-          name: '驻马店市',
-          key: 'Z',
-          id: 14,
-        },
-      ],
     },
     alphabet: [
       'A',
@@ -193,7 +103,7 @@ Page({
     } else {
       //所选城市不是当前城市时，改变全局城市数据
       app.globalData.locationCity.cityName = cityData.parentName
-      app.globalData.locationCity.cityCode = cityData.id
+      app.globalData.locationCity.cityCode = cityData.parentId
       app.globalData.locationCity.cityUpdata = 1
       console.log('app.globalData.locationCity', app.globalData.locationCity)
       //传值给上一页
