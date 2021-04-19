@@ -157,24 +157,6 @@ Page({
         'push.pullText': '正在加载',
         'push.loading': '../../lib/image/rentcarimg/pull_refresh.gif',
       })
-      // {
-      //   title: '福田欧曼GTL载货车福田欧曼G1111111111111111111111',
-      //   age: '2个月',
-      //   km: '7万公里',
-      //   feature: [
-      //     { name: '准新车', type: 1 },
-      //     { name: '急租', type: 1 },
-      //     { name: '有尾板', type: 0 },
-      //     { name: '有通行证', type: 0 },
-      //   ],
-      //   recommendReason:
-      //     '准新车，车况良好，无任何隐患，不限行，火热降价急租中,准新车，车况良好，无任何隐患，不限行，火热降价急租中',
-      //   type: 1,
-      //   picurl: '',
-      //   price: 3000,
-      //   id: 1,
-      //   rentout: 0,
-      // },
   },
 
   //获取超值爆款列表
@@ -185,7 +167,6 @@ Page({
       'api/car_center/v1/cargo/getVogueList',
       {searchType:type,
        searchCityId:app.globalData.locationCity.cityCode,
-      //searchCityId:110100,
       pageNumber:page
       },
       'POST',
@@ -212,7 +193,7 @@ Page({
     requestLoading(
       'api/car_center/v1/cargo/getNewestCarList',
       {searchType:type,
-        searchCityId:110100,
+        searchCityId:app.globalData.locationCity.cityCode,
         pageNumber:page},
       'POST',
       '',

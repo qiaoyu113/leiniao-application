@@ -1,8 +1,7 @@
 <!-- 自定义顶部栏 -->
 <view class="nav-bar">
   <navBar
-  background="{{defaultData.background}}"
-  class="nav_fixed"
+  background="linear-gradient(90deg, #009CF8 0%, #2F83FA 100%)"
   bind:getnavHeight="handlerGetNavHeight"
 >
 <view slot="left" class="left_content">
@@ -14,7 +13,7 @@
   </view>
 </navBar>
     <!--轮播图 -->
-<view class="slides absolute" style="top: {{navHeight}}px">
+<view class="slides">
       <swiper autoplay indicator-dots circular>
         <swiper-item  wx:for="{{swiperList}}" wx:key="key">
           <navigator>
