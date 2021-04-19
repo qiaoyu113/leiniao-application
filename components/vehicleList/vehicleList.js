@@ -101,17 +101,11 @@ Component({
         v.selected = false
         return v
       }
+      const features = (evt.detail.car_go_label || []).slice(0, 4).map(v => {
+        return {...v}
+      }).map(transItem)
       this.data.showFastFeature && this.setData({
-        fastFeatures: (evt.detail.car_go_label || []).map(transItem)
-      }, () => { // todo 移除
-        !this.data.fastFeatures.length && this.setData({
-          fastFeatures: [
-            {label: '准新车', id: '123', selected: false},
-            {label: '降价急租', id: '234', selected: false},
-            {label: '宽体', id: '345', selected: false},
-            {label: '有尾板', id: '456', selected: false}
-          ]
-        })
+        fastFeatures: features
       })
     },
     // 筛选组件汇总后的参数变动
@@ -142,7 +136,7 @@ Component({
       this.setData({fastFeatures})
       // 同步到组件
       const vehicleFilter = this.selectComponent('#vehicleFilter')
-      vehicleFilter && vehicleFilter.onSelectFeature(evt, true)
+      vehicleFilter && vehicleFilter.onPageSelectFeature(evt)
     },
     // 同步重置操作中的筛选项
     onFilterReset (evt) {

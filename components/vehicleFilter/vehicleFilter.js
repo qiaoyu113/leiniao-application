@@ -106,7 +106,6 @@ Component({
       // 车龄：car_go_age
       // 售价：car_go_sale
       // 标签：car_go_label
-      // 特点跟筛选分开，车辆特点：car_go_features  车辆标签：car_go_search
       const tags = [
         'car_go_sort',
         'car_go_mileage',
@@ -115,7 +114,6 @@ Component({
         'car_go_label'
       ]
       net.post('api/base_center/open/v1/dict/list/types', tags, res => {
-        console.log(res)
         const data = res.data || {}
         const ages = (data.car_go_age || []).map(transItem)
         const prices = (data.car_go_sale || []).map(transItem)
@@ -277,16 +275,21 @@ Component({
       this.setData({ages})
     },
     // 选择车辆特点
-    onSelectFeature (evt, isFromPage) {
+    onSelectFeature (evt) {
       const features = this.data.features
       const clickedFeature = features.find(v => v.id === evt.currentTarget.dataset.info.id)
       clickedFeature.selected = !clickedFeature.selected
       this.setData({features}, () => {
-        if (isFromPage) {
-          this.onQuery()
-        } else {
-          this.triggerEvent('featurechange', evt.currentTarget.dataset.info)
-        }
+        this.triggerEvent('featurechange', evt.currentTarget.dataset.info)
+      })
+    },
+    onPageSelectFeature (evt) {
+      const features = this.data.features.map(v => {
+        v.id === evt.currentTarget.dataset.info.id && (v.selected = !v.selected)
+        return v
+      })
+      this.setData({features}, () => {
+        this.onQuery()
       })
     },
     // 选择里程
