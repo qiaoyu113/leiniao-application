@@ -11,7 +11,8 @@ Page({
     time: 60,
     code: '',
     phone: '',
-    phoneCheck: false
+    phoneCheck: false,
+    hintText: '手机号码格式错误'
   },
 
   /**
@@ -38,17 +39,20 @@ Page({
     if (value.length == 0) {
       that.setData({
         hintType: true,
-        phoneCheck: false
+        phoneCheck: false,
+        hintText: '请输入手机号'
       })
     } else if (value.length < 11) {
       that.setData({
         hintType: true,
-        phoneCheck: false
+        phoneCheck: false,
+        hintText: '手机号码格式错误'
       })
     } else if (!myreg.test(value)) {
       that.setData({
         hintType: true,
-        phoneCheck: false
+        phoneCheck: false,
+        hintText: '手机号码格式错误'
       })
     } else {
       that.setData({
@@ -137,7 +141,7 @@ Page({
     })
   },
 
-  // 登陆
+  // 登录
   login(){
     let that = this;
     let phone = that.data.phone
@@ -146,9 +150,9 @@ Page({
       phone: phone,
       code: code
     },
-    'get',
+    'post',
     '',
-    '',
+    'json',
     function(res) {
       if (res.success) {
         wx.setStorage({

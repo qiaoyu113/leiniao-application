@@ -1,6 +1,6 @@
 <view class="login">
   <van-nav-bar
-  title="登陆"
+  title="登录"
   left-text=""
   fixed="true"
   left-arrow
@@ -9,12 +9,12 @@
   title-class="titleStyle"
 />
 
-  <!--登陆icon-->
+  <!--登录icon-->
   <view class="icons">
     <image src="../../lib/image/bgIcon.png" mode="aspectFit"></image>
   </view>
 
-  <!--微信登陆-->
+  <!--微信登录-->
   <view class="loginBtn">
     <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信登录</button>
     <view class="phoneLogin" bindtap="goLogin">手机号登录/注册</view>

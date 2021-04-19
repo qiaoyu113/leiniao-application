@@ -1,6 +1,6 @@
 <view class="login">
   <van-nav-bar
-  title="登陆"
+  title="登录"
   left-text=""
   fixed="true"
   left-arrow
@@ -11,7 +11,7 @@
   <view class="loginBox">
     <view class="loginList">
       <input class="input" type="number" value="{{phone}}" data-modal='phone' bindinput='handlePhoneChange' bindblur="phoneCheck" maxlength="11" placeholder="请输入手机号"/>
-      <view class="hint" wx:if="{{hintType}}">手机号码格式错误</view>
+      <view class="hint" wx:if="{{hintType}}">{{hintText}}</view>
     </view>
     <view class="loginList listCode">
       <input class="code" type="number" value="{{code}}" data-modal='code' bindinput='handleCodeChange'  placeholder="请输入验证码" maxlength="4"/>
