@@ -116,13 +116,15 @@
 
 .block{
   width: 100%;
-  padding: 105px 50px;
+  padding: 105px 10px;
   box-sizing: border-box;
+  text-align: center;
 }
 
 .block image{
   width: 255px;
   height: 175px;
+  margin:auto;
 }
 
 .block .text {
