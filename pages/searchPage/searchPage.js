@@ -18,9 +18,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('options',options)
+    const isRent = app.utils.getEntryRoute() === 'rentedCar'
     this.setData({
-      type:options.type
+      placeholder: `搜索想${isRent ? '租' : '买'}的车辆`
     })
     this.init()
   },
