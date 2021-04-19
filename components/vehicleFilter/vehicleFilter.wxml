@@ -19,14 +19,16 @@
       <!-- Panels -->
       <view class="bg-white bt-solid-e">
         <!-- 车型 -->
-        <view wx:if="{{currentTab.id === 'model'}}" class="flex">
-          <view class="list-brand">
-            <view class="height-50 align-center pl-15 text-14 {{item.selected ? 'text-blue bg-white' : 'text-gray-3'}}"
-              wx:for="{{brandList}}" wx:key="index" data-info="{{item}}" bindtap="onSelectBrand">{{item.brandName}}</view>
-          </view>
-          <view class="list-model">
-            <view class="height-44 align-center pl-32 text-14 {{item.selected ? 'text-blue bg-white' : 'text-gray-6'}}"
-              wx:for="{{models}}" wx:key="index" data-info="{{item}}" bindtap="onSelectModel">{{item.modelName}}</view>
+        <view wx:if="{{currentTab.id === 'model'}}" style="height: {{maxHeight}}px;">
+          <view class="flex">
+            <scroll-view scroll-y class="list-brand" style="height: {{maxHeight}}px;">
+              <view class="height-50 align-center pl-15 text-14 {{item.selected ? 'text-blue bg-white' : 'text-gray-3'}}"
+                wx:for="{{brandList}}" wx:key="index" data-info="{{item}}" bindtap="onSelectBrand">{{item.brandName}}</view>
+            </scroll-view>
+            <scroll-view scroll-y class="list-model" style="height: {{maxHeight}}px;">
+              <view class="height-44 align-center pl-32 text-14 {{item.selected ? 'text-blue bg-white' : 'text-gray-6'}}"
+                wx:for="{{models}}" wx:key="index" data-info="{{item}}" bindtap="onSelectModel">{{item.modelName}}</view>
+            </scroll-view>
           </view>
         </view>
         <!-- 车龄 -->
