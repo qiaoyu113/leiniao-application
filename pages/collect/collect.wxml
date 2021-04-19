@@ -33,7 +33,7 @@
     </view>
     <view class="block" wx:if="{{!list.length}}">
       <image class="img" src="../../lib/image/noBG.png" mode="aspectFit"></image>
-      <view class="text">暂无收藏车辆，先去看看有没有喜欢的车吧</view>
+      <view class="text">暂无收藏车辆，先去看看有没有喜欢的车吧～</view>
       <view class="btn" bindtap="goRouter">去看看</view>
     </view>
   </view>
