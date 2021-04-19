@@ -330,9 +330,9 @@ Page({
       console.log('来自右上角转发菜单')
     }
     return {
-      title: '福田欧马可',
+      title: this.data.carData.brandName,
       path: '/pages/carDetail/carDetail',
-      imageUrl: '/lib/image/rentcarimg/car.png',
+      // imageUrl: '/lib/image/rentcarimg/car.png',
       success: (res) => {
         console.log('转发成功', res)
       },
@@ -368,20 +368,22 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    wx.getStorage({
-      key:'phoneName',
-      success:(res)=>{
-        console.log('登录成功，调取接口',res)
-        this.getCarInfo()
-        this.getPhoneNumber()
-      },
-      fail:(res)=>{
-        console.log('没有登录，需要登录',res)
-        wx.navigateTo({
-          url:  "/pages/shareLogin/shareLogin",
-        })
-      }
-    })
+    this.getCarInfo()
+    this.getPhoneNumber()
+    // wx.getStorage({
+    //   key:'phoneName',
+    //   success:(res)=>{
+    //     console.log('登录成功，调取接口',res)
+    //     this.getCarInfo()
+    //     this.getPhoneNumber()
+    //   },
+    //   fail:(res)=>{
+    //     console.log('没有登录，需要登录',res)
+    //     wx.navigateTo({
+    //       url:  "/pages/shareLogin/shareLogin",
+    //     })
+    //   }
+    // })
   },
   getPhoneNumber(){
       wx.getStorage({
@@ -395,6 +397,7 @@ Page({
         }
     })
   },
+
   /**
    * 生命周期函数--监听页面隐藏
    */

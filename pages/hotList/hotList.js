@@ -101,8 +101,21 @@ Page({
     var status = this.data.carList[itemindex].status
     console.log('itemindex',itemindex,'status',status)
     if(status!==40&&status!==50){
-      wx.navigateTo({
-        url: `/pages/carDetail/carDetail?carId=${id}&type=${this.data.rentOrSale}`,
+
+      wx.getStorage({
+        key:'phoneName',
+        success:(res)=>{
+          console.log('登录成功，调取接口',res)
+          wx.navigateTo({
+            url: `/pages/carDetail/carDetail?carId=${id}&type=${this.data.rentOrSale}`,
+          })
+        },
+        fail:(res)=>{
+          console.log('没有登录，需要登录',res)
+          wx.navigateTo({
+            url:  "/pages/shareLogin/shareLogin",
+          })
+        }
       })
     }
   },
