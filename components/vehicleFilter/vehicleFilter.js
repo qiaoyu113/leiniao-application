@@ -71,10 +71,8 @@ Component({
         {label: '筛选', id: 'filter', selected: false},
         {label: '', id: 'sort', selected: false}
       ]
-      const app = getApp()
-      const entryRoute = app.utils.getEntryRoute()
       let isSale = false
-      if (/saleCar/.test(entryRoute)) {
+      if (app.utils.getEntryRoute() === 'saleCar') {
         tabs.find(v => v.id === 'price').label = '售价'
         isSale = true
       }
@@ -82,17 +80,17 @@ Component({
     },
     // 获取全部车型（品牌+车型）
     getBrandList () {
-      let brandList = [{brandName: '不限品牌', brandId: '', selected: false}]
+      let brandList = [{brandName: '不限品牌', brandId: '', selected: true}]
       if (!app.globalData.brandList.length) {
         net.get('255/car/v1/car/CarBrandInfo/getBrandListNoPage', res => {
-          // if (res.success) {
+          if (res.success) {
             brandList = brandList.concat((res.data || []).map(v => {
               v.selected = false
               return v
             }))
             this.setData({brandList})
             app.globalData.brandList = brandList
-          // }
+          }
         }, err => {
           console.log(err)
         })
@@ -101,6 +99,7 @@ Component({
           v.selected = false
           return v
         })
+        brandList[0].selected = true
         this.setData({brandList})
       }
     },
@@ -241,7 +240,7 @@ Component({
         return v
       })
       if (brandId) {
-        let models = [{modelName: '不限车型', modelId: '', selected: false}]
+        let models = [{modelName: '不限车型', modelId: '', selected: true}]
         net.get('255/car/v1/leiniao/CarModelInfo/getModelListNoPage', {brandId}, res => {
           models = models.concat((res.data || []).map(v => {
             v.selected = false

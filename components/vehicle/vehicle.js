@@ -40,9 +40,9 @@ Component({
   methods: {
     init () {},
     onViewDetail (evt) {
-      wx.navigateTo({
-        url: `/pages/carDetail/carDetail?carId=${this.data.item.id}`,
-      })
+      const hasLogin = wx.getStorageSync('phoneName')
+      const url = hasLogin ? `/pages/carDetail/carDetail?carId=${this.data.item.carId}` : '/pages/shareLogin/shareLogin'
+      wx.navigateTo({url})
     }
   }
 })

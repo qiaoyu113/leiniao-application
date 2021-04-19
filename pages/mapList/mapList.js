@@ -71,6 +71,7 @@ Page({
               }
             }
           })
+          console.log('newarr',newarr)
           that.setData({
             newList: newarr,
           })
