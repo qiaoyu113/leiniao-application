@@ -21,7 +21,7 @@ Page({
       showSearchBar: true,
       title: '选择城市',
       swiperList: [],
-      rentOrBuy: 'rent',
+      rentOrBuy: 'sale',
       background: '',
     },
     cityupdata: '',
