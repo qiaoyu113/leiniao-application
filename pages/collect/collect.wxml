@@ -18,8 +18,8 @@
       <view class="info">
         <view class="title">{{item.title}}</view>
         <view class="value">
-          <view class="valueList">车龄：{{item.carAge}}个月</view>
-          <view class="valueList">里程：{{item.mileage}}万公里</view>
+          <view class="valueList">车龄：{{item.carAge}}</view>
+          <view class="valueList">里程：{{item.mileage}}</view>
         </view>
         <view class="tagBox">
           <view class="tag" wx:if="{{item.newCar}}">准新车</view>
