@@ -113,7 +113,9 @@
         <button class="btn btn_right" open-type='share'>分享微信好友</button>
   </view>
   <!-- 租金说明弹框 -->
-  <van-popup show="{{ showPriceIntroduce }}"closeable position="bottom"custom-style="height: 20%" bind:close="onClose">{{}}</van-popup>
+  <van-popup show="{{ showPriceIntroduce }}"closeable position="bottom"custom-style="height: 20%" bind:close="onClose">
+    <view class="zujintankuang">{{introduceData }}</view>
+    </van-popup>
   <!-- 询底价弹框 -->
   <van-popup show="{{ askPrice }}"closeable position="bottom"custom-style="height: 50%" bind:close="onClose">
     <view class="ask_box">
