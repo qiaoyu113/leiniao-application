@@ -41,7 +41,7 @@ Component({
     init () {},
     onViewDetail (evt) {
       wx.navigateTo({
-        url: `/pages/carDetail/carDetail?carId=${this.data.item.id}`,
+        url: `/pages/carDetail/carDetail?carId=${this.data.item.carId}`,
       })
     }
   }
