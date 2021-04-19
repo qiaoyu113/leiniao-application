@@ -10,7 +10,7 @@
   <image wx:if="{{defaultData.cityName}}" class="city_icon" src="../../lib/image/rentcarimg/triangle.png"/>
 </view>
 <view slot="center">
-    <input wx:if="{{defaultData.showSearchBar}}" class="search" bindfocus="gotoSearchEvent" placeholder="{{defaultData.placeholderTitle}}" ></input>
+    <input wx:if="{{defaultData.showSearchBar}}" class="search" bindfocus="gotoSearchEvent" placeholder="{{placeholderTitle}}" ></input>
   </view>
 </navBar>
     <!--轮播图 -->

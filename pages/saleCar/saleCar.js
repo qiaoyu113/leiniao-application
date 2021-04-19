@@ -16,12 +16,10 @@ Page({
     cityCode: '',
     cityName: '',
     defaultData: {
-      placeholderTitle: '搜索想买的车',
       cityName: '',
       showSearchBar: true,
       title: '选择城市',
       swiperList: [],
-      rentOrBuy: 'rent',
       background: '',
     },
     cityupdata: '',
@@ -102,7 +100,7 @@ Page({
     let query = e.detail.params
     console.log(query)
     wx.navigateTo({
-      url: `/pages/hotList/hotList?listid=${query}&type=sale`,
+      url: `/pages/hotList/hotList?listid=${query}`,
     })
   },
 
@@ -199,8 +197,7 @@ Page({
     net.get('api/car/v1/car/carHotInfo/getCarHotListForApplets', res => {
       const data = (res.data || []).map((v, i) => {
         v.label = v.name
-        // v.pic = v.url // todo
-        v.pic = `/lib/image/home/hot_${i + 1}.png`
+        v.pic = v.url
         return v
       })
       this.setData({

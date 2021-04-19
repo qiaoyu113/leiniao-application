@@ -8,10 +8,8 @@ Component({
       type: Object,
       value: {
         title: '',
-        placeholderTitle: '搜索想租的车辆',
         cityName: '',
-        showSearchBar: true,
-        rentOrBuy: 'rent',
+        showSearchBar: true
       },
       observer: function (newVal, oldVal) {},
     },
@@ -19,25 +17,35 @@ Component({
   data: {
     navHeight: '',
     swiperList: [],
+    placeholderTitle: '',
+    rentOrBuy: ''
   },
   attached: function () {
-    const banner = 'car_go_banner'
-    net.post('api/base_center/open/v1/dict/list/types', [banner], res => {
-      if (res.success) {
-        this.setData({
-          swiperList: (res.data[banner] || []).map(v => {
-            return {
-              type: 'image',
-              url: v.dictLabel
-            }
-          })
-        }, () => {
-          console.log(this.data.swiperList)
-        })
-      }
+    const isRent = app.utils.getEntryRoute() === 'rentedCar'
+    this.setData({
+      placeholderTitle: `搜索想${isRent ? '租' : '买'}的车辆`,
+      rentOrBuy: isRent ? 'rent' : 'buy'
     })
+    this.getBanners()
   },
   methods: {
+    getBanners () {
+      const banner = 'car_go_banner'
+      net.post('api/base_center/open/v1/dict/list/types', [banner], res => {
+        if (res.success) {
+          this.setData({
+            swiperList: (res.data[banner] || []).map(v => {
+              return {
+                type: 'image',
+                url: v.dictLabel
+              }
+            })
+          }, () => {
+            console.log(this.data.swiperList)
+          })
+        }
+      })
+    },
     selectLocationEvent() {
       wx.navigateTo({
         url: '/pages/mapList/mapList',
@@ -45,7 +53,7 @@ Component({
     },
     gotoSearchEvent() {
       wx.navigateTo({
-        url: `/pages/searchPage/searchPage?type=${this.data.defaultData.rentOrBuy}`,
+        url: `/pages/searchPage/searchPage`,
       })
     },
     handlerGetNavHeight(e) {

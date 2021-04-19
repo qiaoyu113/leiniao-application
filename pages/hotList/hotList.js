@@ -29,16 +29,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log(options)
-    if (options.type === 'rent') {
-      this.setData({
-        rentOrSale: 'rent',
-      })
-    } else {
-      this.setData({
-        rentOrSale: 'sale',
-      })
-    }
+    this.setData({
+      rentOrSale: app.utils.getEntryRoute() === 'rentedCar' ? 'rent' : 'sale',
+    })
 
     if (options.listid === '1') {
       //超值爆款
