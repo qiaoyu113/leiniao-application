@@ -1,54 +1,98 @@
-const utils = require('../rentedCar/utils')
 const app = getApp()
-// pages/saleCar/saleCar.js
+const utils = require('./utils')
+const net = require('../../utils/network')
+
+const { requestLoading } = require('../../utils/network')
+// pages/rentedCar/rentedCar.js
 Page({
   /**
    * 页面的初始数据
    */
   data: {
+    hotModels: [],
+    vehicleList: [],
+    fastFeatures: [],
+    keyword: '',
     cityCode: '',
-    cityName: '北京市',
+    cityName: '',
     defaultData: {
-      placeholderTitle: '搜索想买的车',
-      cityName: '北京市',
+      placeholderTitle: '搜索想租的车',
+      cityName: '',
       showSearchBar: true,
       title: '选择城市',
       swiperList: [],
+      rentOrBuy: 'rent',
+      background: '',
     },
+    cityupdata: '',
     scrollTop: 0,
     hide: false,
-    cityupdata: '',
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var that = this
     this.getHotModels()
     let { cityName, cityCode } = app.globalData.locationCity
-    console.log('app.globalData.locationCity', app.globalData.locationCity)
     if (!cityCode) {
-      utils.getMap.call(this, app)
+      utils.getMap.call(this, app).then((info)=>{
+        that.checkCity()
+      })
     } else {
       this.setData({
         cityCode: cityCode,
         'defaultData.cityName': cityName,
       })
+      this.loadData(cityCode)
     }
   },
-
+  //检查当前获取城市是否在城市列表内
+  checkCity(){
+    var that = this
+    //此处加判断，如果获取的城市在开通城市内显示该城市，否则切换到北京
+    requestLoading(
+      'api/base/v3/base/office/getHasLeiNiaoCityGroupHeader',
+      {},
+      'GET',
+      '',
+      '',
+      function (res) {
+        if (res.success) {
+          let dataList =  res.data
+          let newarr = []
+          for(let key in dataList){
+            dataList[key].forEach(item=>{
+              newarr.push(item.parentName)
+            })
+          }
+          let checkCity = newarr.includes(app.globalData.locationCity.cityName)
+          const cityCode = checkCity ? app.globalData.locationCity.cityCode : 305
+          const cityName = checkCity ? app.globalData.locationCity.cityName : '北京市'
+          that.setData({
+            cityCode,
+            'defaultData.cityName': cityName
+          })
+          that.loadData(cityCode)
+        }
+      },
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        })
+      }
+    )
+  },
+  loadData (cityCode) {
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.onParamChange({searchCityId: cityCode})
+  },
   //点击城市事件
   selectLocationEvent() {
     console.log('点击了城市')
     wx.navigateTo({
       url: '/pages/mapList/mapList',
-    })
-  },
-  //选择城市页面返回上一级
-  goBackEvent() {
-    console.log('返回上一页')
-    wx.navigateTo({
-      url: '/pages/saleCar/saleCar',
     })
   },
 
@@ -58,7 +102,7 @@ Page({
     let query = e.detail.params
     console.log(query)
     wx.navigateTo({
-      url: `/pages/hotList/hotList?listid=${query}&type=sale`,
+      url: `/pages/hotList/hotList?listid=${query}&type=rent`,
     })
   },
 
@@ -79,7 +123,9 @@ Page({
     if (cityUpdata === 1) {
       app.globalData.locationCity.cityUpdata = 0
       //调用切换城市接口
-      console.log('城市切换了，调用城市接口')
+      console.log('城市切换了，当前城市信息',
+      app.globalData.locationCity
+      )
     } else {
       console.log('城市没有切换，不调用接口')
     }
@@ -103,18 +149,14 @@ Page({
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {},
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {},
-
-  //滚动屏幕切换topbar
+  onReachBottom: function () {
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.onPageReachBottom()
+  },
+  
   onPageScroll: utils.throttle(function (e) {
     let ev = e[0]
     //判断浏览器滚动条上下滚动
-
     if (
       ev.scrollTop > this.data.scrollTop ||
       ev.scrollTop == wx.getSystemInfoSync().windowHeight
@@ -124,6 +166,7 @@ Page({
         'defaultData.background':
           'linear-gradient(90deg, #009CF8 0%, #2F83FA 100%)',
       })
+      //console.log('向下滚动')
     } else {
       if (
         ev.scrollTop < 200 ||
@@ -133,6 +176,7 @@ Page({
           'defaultData.background': '',
         })
       }
+      // console.log('向上滚动')
       this.setData({
         hide: false,
       })
@@ -146,19 +190,30 @@ Page({
       })
     }, 0)
   }, 50),
-
+  /**
+   * 用户点击右上角分享
+   */
+  onShareAppMessage: function () {},
   // 获取热门车型
   getHotModels: function () {
-    setTimeout(() => {
-      const data = [
-        { label: '4.2箱货', id: '123', pic: '/lib/image/home/hot_1.png' },
-        { label: '小面', id: '234', pic: '/lib/image/home/hot_2.png' },
-        { label: '中面', id: '345', pic: '/lib/image/home/hot_3.png' },
-        { label: '依维柯', id: '456', pic: '/lib/image/home/hot_4.png' },
-      ]
-      this.setData({
-        hotModels: data.length > 4 ? data.slice(0, 4) : data,
+    net.get('api/car/v1/car/carHotInfo/getCarHotListForApplets', res => {
+      const data = (res.data || []).map((v, i) => {
+        v.label = v.name
+        // v.pic = v.url // todo
+        v.pic = `/lib/image/home/hot_${i + 1}.png`
+        return v
       })
-    }, 300)
+      this.setData({
+        hotModels: data.length > 4 ? data.slice(0, 4) : data
+      })
+    })
+  },
+  // 前往热门车型页面
+  onGoHotModel: function (evt) {
+    const { info } = evt.currentTarget.dataset
+    app.globalData.hotModelIdList = info.modelIdList
+    wx.navigateTo({
+      url: '../hotModel/hotModel?name=' + info.label,
+    })
   },
 })
