@@ -104,6 +104,8 @@ App({
     that.globalData.menuRight = systemInfo.screenWidth - menuButtonInfo.right
     that.globalData.menuBotton = menuButtonInfo.top - systemInfo.statusBarHeight
     that.globalData.menuHeight = menuButtonInfo.height
+    this.globalData.windowHeight = systemInfo.windowHeight
+    this.globalData.screenWidth = systemInfo.screenWidth
   },
   globalData: {
     token: null,
@@ -129,7 +131,8 @@ App({
     pagesWithCustomNav: ['rentedCar', 'searchPage'],
     locationCity: {},
     brandList: [],
-    hotModelIdList: []
+    hotModelIdList: [],
+    windowHeight: 0
   },
   utils: {
     getCurrentRoute: () => {

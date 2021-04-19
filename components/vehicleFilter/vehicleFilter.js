@@ -31,7 +31,8 @@ Component({
     miles: [],
     minMiles: '',
     maxMiles: '',
-    sorts: []
+    sorts: [],
+    maxHeight: 0
   },
 
   lifetimes: {
@@ -50,8 +51,17 @@ Component({
   methods: {
     init () {
       this.initTabs()
+      this.initPanelHeight()
       this.getBrandList()
       this.getFilterDicts()
+    },
+    initPanelHeight () {
+      const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(app.utils.getCurrentRoute()) > -1
+      const windowHeight = app.globalData.windowHeight
+      const barHeight = isPageWithCustomNav ? app.globalData.CustomBar : 0
+      const filterTabHeight = 100 * app.globalData.screenWidth / 750
+      const maxHeight = windowHeight - barHeight - filterTabHeight
+      this.setData({maxHeight})
     },
     initTabs () {
       const tabs = [
@@ -63,7 +73,7 @@ Component({
       ]
       const app = getApp()
       const entryRoute = app.utils.getEntryRoute()
-      let isSale = true
+      let isSale = false
       if (/saleCar/.test(entryRoute)) {
         tabs.find(v => v.id === 'price').label = '售价'
         isSale = true
@@ -117,9 +127,12 @@ Component({
         const data = res.data || {}
         const ages = (data.car_go_age || []).map(transItem)
         const prices = (data.car_go_sale || []).map(transItem)
-        const features = (data.car_go_label || []).map(transItem)
         const miles = (data.car_go_mileage || []).map(transItem)
         const sorts = (data.car_go_sort || []).map(transItem)
+        sorts[0].selected = true
+        const features = (data.car_go_label || []).map(transItem).filter(v => this.data.isSale ? !/租/.test(v.label) : !/售/.test(v.label))
+        const urgentTag = features.find(v => /降价/.test(v.label)) || {}
+        urgentTag.label = (urgentTag.label || '').replace('降价', '')
         this.setData({
           ages,
           prices,
