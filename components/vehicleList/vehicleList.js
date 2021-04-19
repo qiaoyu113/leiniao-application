@@ -90,9 +90,9 @@ Component({
         v.selected = false
         return v
       }
-      const features = (evt.detail.car_go_label || []).slice(0, 4).map(v => {
+      let features = (evt.detail.car_go_label || []).map(v => {
         return {...v}
-      }).map(transItem)
+      }).map(transItem).filter(v => this.data.isRent ? !/售/.test(v.label) : !/租/.test(v.label)).slice(0, 4)
       this.data.showFastFeature && this.setData({
         fastFeatures: features
       })
@@ -118,7 +118,7 @@ Component({
     onSelectFeature (evt) {
       // 页面本身
       const item = evt.currentTarget.dataset.info
-      const fastFeatures = this.data.fastFeatures.map(v => {
+      let fastFeatures = this.data.fastFeatures.map(v => {
         v.id === item.id && (v.selected = !v.selected)
         return v
       })

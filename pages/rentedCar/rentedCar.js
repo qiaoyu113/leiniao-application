@@ -199,8 +199,7 @@ Page({
     net.get('api/car/v1/car/carHotInfo/getCarHotListForApplets', res => {
       const data = (res.data || []).map((v, i) => {
         v.label = v.name
-        // v.pic = v.url // todo
-        v.pic = `/lib/image/home/hot_${i + 1}.png`
+        v.pic = v.url
         return v
       })
       this.setData({

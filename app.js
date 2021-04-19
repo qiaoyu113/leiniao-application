@@ -104,6 +104,8 @@ App({
     that.globalData.menuRight = systemInfo.screenWidth - menuButtonInfo.right
     that.globalData.menuBotton = menuButtonInfo.top - systemInfo.statusBarHeight
     that.globalData.menuHeight = menuButtonInfo.height
+    this.globalData.windowHeight = systemInfo.windowHeight
+    this.globalData.screenWidth = systemInfo.screenWidth
   },
   globalData: {
     token: null,
@@ -126,10 +128,11 @@ App({
     menuRight: 0, // 胶囊距右方间距（方保持左、右间距一致）
     menuBotton: 0, // 胶囊距底部间距（保持底部间距一致）
     menuHeight: 0, // 胶囊高度（自定义内容可与胶囊高度保证一致）
-    pagesWithCustomNav: ['rentedCar', 'searchPage'],
+    pagesWithCustomNav: ['rentedCar', 'saleCar', 'searchPage'],
     locationCity: {},
     brandList: [],
-    hotModelIdList: []
+    hotModelIdList: [],
+    windowHeight: 0
   },
   utils: {
     getCurrentRoute: () => {
