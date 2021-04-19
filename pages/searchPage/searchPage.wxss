@@ -80,7 +80,8 @@
   font-size: 24rpx;
   line-height: 60rpx;
   background: #f4f4f4;
-  margin-right: 50rpx;
+  margin-right: 15rpx;
+  margin-left: 15rpx;
   padding: 0 37rpx;
   border-radius: 30rpx;
   margin-bottom: 30rpx;
