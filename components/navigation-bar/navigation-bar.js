@@ -7,7 +7,7 @@ Component({
     defaultData: {
       type: Object,
       value: {
-        title: '我是默认标题',
+        title: '',
         placeholderTitle: '搜索想租的车辆',
         cityName: '',
         showSearchBar: true,

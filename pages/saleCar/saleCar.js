@@ -16,7 +16,7 @@ Page({
     cityCode: '',
     cityName: '',
     defaultData: {
-      placeholderTitle: '搜索想租的车',
+      placeholderTitle: '搜索想买的车',
       cityName: '',
       showSearchBar: true,
       title: '选择城市',
