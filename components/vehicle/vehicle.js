@@ -1,4 +1,3 @@
-const { getWxOpenId } = require("../../utils/network")
 const app = getApp()
 
 // components/vehicleFilter/vehicleFilter.js

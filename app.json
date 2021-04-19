@@ -19,11 +19,8 @@
   ],
   "usingComponents": {
     "component-log": "components/logs/logs",
-    "hint": "components/hint/hint",
-    "popup": "components/popup/popup",
     "van-tab": "miniprogram_npm/vant-weapp/tab/index",
     "van-icon": "miniprogram_npm/vant-weapp/icon/index",
-    "c-table": "components/table/table",
     "van-loading": "miniprogram_npm/vant-weapp/loading/index",
     "van-tabs": "miniprogram_npm/vant-weapp/tabs/index",
     "van-popup": "miniprogram_npm/vant-weapp/popup/index",

@@ -80,6 +80,7 @@ Component({
     },
     // 获取全部车型（品牌+车型）
     getBrandList () {
+      const ctx = this
       let brandList = [{brandName: '不限品牌', brandId: '', selected: true}]
       if (!app.globalData.brandList.length) {
         net.get('255/car/v1/car/CarBrandInfo/getBrandListNoPage', res => {
@@ -93,7 +94,7 @@ Component({
           }
         }, err => {
           console.log(err)
-        })
+        }, {ctx})
       } else {
         brandList = app.globalData.brandList.map(v => {
           v.selected = false
@@ -128,7 +129,7 @@ Component({
           const ages = (data.car_go_age || []).map(transItem)
           const prices = (data.car_go_sale || []).map(transItem)
           const miles = (data.car_go_mileage || []).map(transItem)
-          const sorts = (data.car_go_sort || []).map(transItem)
+          const sorts = (data.car_go_sort || []).map(transItem).filter(v => this.data.isSale ? !/租金/.test(v.label) : !/售价/.test(v.label))
           ;(sorts[0] || {}).selected = true
           const features = (data.car_go_label || []).map(transItem).filter(v => this.data.isSale ? !/租/.test(v.label) : !/售/.test(v.label))
           const urgentTag = features.find(v => /降价/.test(v.label)) || {}
@@ -209,7 +210,25 @@ Component({
         maxMileage: this.data.maxMiles,
         searchSortId: (this.data.sorts.find(v => v.selected) || this.data.sorts[0] || {}).id || ''
       }
-      if (app.utils.getEntryRoute === 'rentedCar') {
+      if (parseInt(formData.minPrice) > parseInt(formData.maxPrice)) {
+        const {maxPrice, minPrice} = formData
+        formData.minPrice = maxPrice
+        formData.maxPrice = minPrice
+        this.setData({
+          minPrice: maxPrice,
+          maxPrice: minPrice
+        })
+      }
+      if (parseInt(formData.minMileage) > parseInt(formData.maxMileage)) {
+        const {maxMileage, minMileage} = formData
+        formData.minMileage = maxMileage
+        formData.maxMileage = minMileage
+        this.setData({
+          minMiles: maxMileage,
+          maxMiles: minMileage
+        })
+      }
+      if (app.utils.getEntryRoute() === 'rentedCar') {
         formData.minRent = formData.minPrice
         formData.maxRent = formData.maxPrice
         delete formData.minPrice
@@ -241,7 +260,7 @@ Component({
       })
       if (brandId) {
         let models = [{modelName: '不限车型', modelId: '', selected: true}]
-        net.get('255/car/v1/leiniao/CarModelInfo/getModelListNoPage', {brandId}, res => {
+        net.get('api/car/v1/leiniao/CarModelInfo/getModelListNoPage', {brandId}, res => {
           models = models.concat((res.data || []).map(v => {
             v.selected = false
             return v
@@ -332,6 +351,15 @@ Component({
     // 解决滚动穿透问题
     doNothing () {
       return false
+    },
+    onInputPrice (evt) {
+      const value = evt.detail.value
+      return value.split('').filter(v => parseInt(v) + '' === v).join('')
+    },
+    onInputMiles (evt) {
+      const value = evt.detail.value
+      const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
+      return parseInt(val) > 9999 ? '9999' : val
     }
   }
 })

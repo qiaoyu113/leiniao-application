@@ -28,7 +28,8 @@ Component({
     navbarHeight: 64,
     loadStatus: 0, // 0 初始化 1请求中 2请求完毕
     labels: [],
-    total: 0
+    total: 0,
+    bottomText: ''
   },
 
   lifetimes: {
@@ -142,13 +143,16 @@ Component({
     onPageReachBottom () {
       if (this.data.vehicleList.length < this.data.total) { // todo
         this.getVehicleList(true)
+      } else {
+        this.setData({
+          bottomText: '到底了亲~'
+        })
       }
     },
     // 供页面搜索关键字变化时调用，重新搜索
     // const vehicleList = this.selectComponent('#vehicleList')
     // vehicleList && vehicleList.onPageKeywordChange(newVal)
     onPageKeywordChange (val) {
-      console.log('keyword change', val)
       this.onParamChange({keyword: val})
     }
   }
