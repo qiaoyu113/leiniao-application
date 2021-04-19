@@ -114,7 +114,12 @@
   </view>
   <!-- 租金说明弹框 -->
   <van-popup show="{{ showPriceIntroduce }}"closeable position="bottom"custom-style="height: 20%" bind:close="onClose">
-    <view class="zujintankuang">{{introduceData }}</view>
+    <view class="zujintankuang" wx:if="{{rentOrSale==='rent'}}">
+    季租、半年租、年租的月租不同，详情咨询车辆顾问。
+    </view>
+    <view class="zujintankuang" wx:else>
+    售价为参考价，成交价需看车后面议
+    </view>
     </van-popup>
   <!-- 询底价弹框 -->
   <van-popup show="{{ askPrice }}"closeable position="bottom"custom-style="height: 50%" bind:close="onClose">

@@ -111,6 +111,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    utils.getMap.call(this, app).then(()=>{
+      this.setData({
+        'defaultData.cityName':  app.globalData.locationCity.cityName,
+      })
+  }).catch(()=>{
+      this.setData({
+        'defaultData.cityName': '北京市',
+      })
+    })
     // let cityUpdata = this.data.cityupdata
     let { cityName, cityCode, cityUpdata } = app.globalData.locationCity
     this.setData({

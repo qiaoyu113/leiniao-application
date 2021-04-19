@@ -6,16 +6,13 @@
 >
   <view slot="center">
     <view class="search_maxbox">
-      <input type="text" confirm-type="search"  focus="{{true}}" class="search" bindinput="inputEvent" bindconfirm="enterSearch" placeholder="{{placeholder}}" value="{{inputValue}}">
+      <input type="text" maxlength="15" confirm-type="search"  focus="{{true}}" class="search" bindinput="inputEvent" bindconfirm="enterSearch" placeholder="{{placeholder}}" value="{{inputValue}}">
     <text class="iconfont icon-sousuo sousuo_icon" bindtap="searchIconEvent"></text>
-    
   </input>
   <view class="search_right" bindtap="clearInputWordEvent">
     <view wx:if="{{showCloseBtn}}" bindtap="clearInputWordEvent"  class="iconfont icon-guanbi guanbi_icon"></view>
   </view>
     </view>
-      
-    
   </view>
 </navBar>
 
