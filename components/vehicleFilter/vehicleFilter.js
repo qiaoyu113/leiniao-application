@@ -129,6 +129,7 @@ Component({
         const prices = (data.car_go_sale || []).map(transItem)
         const miles = (data.car_go_mileage || []).map(transItem)
         const sorts = (data.car_go_sort || []).map(transItem)
+        sorts[0].selected = true
         const features = (data.car_go_label || []).map(transItem).filter(v => this.data.isSale ? !/租/.test(v.label) : !/售/.test(v.label))
         const urgentTag = features.find(v => /降价/.test(v.label)) || {}
         urgentTag.label = (urgentTag.label || '').replace('降价', '')
