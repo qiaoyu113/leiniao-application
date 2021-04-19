@@ -9,8 +9,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    showFastFeature: Boolean,
-    type:String
+    showFastFeature: Boolean
   },
 
   /**
@@ -49,21 +48,13 @@ Component({
     init () {
       const app = getApp()
       const currentRoute = app.utils.getCurrentRoute()
-      // ;(currentRoute !== 'searchPage' && currentRoute !== 'hotModel') && this.getVehicleList()
       const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(currentRoute) > -1
       const navbarHeight = app.globalData.CustomBar
       const isRent = app.utils.getEntryRoute() === 'rentedCar'
-      const labels = [
-        {name: '准新车', key: 'isNewCar'},
-        {name: isRent ? '降价急租' : '降价急售', key: isRent ? 'isUrgentRent' : 'isUrgentSale'},
-        {name: '有尾板', key: 'hasTailboard'},
-        {name: '有通行证', key: 'hasPass'}
-      ]
       this.setData({
         isPageWithCustomNav,
         navbarHeight,
-        isRent,
-        labels
+        isRent
       })
     },
     // 获取车辆列表
@@ -74,15 +65,13 @@ Component({
         limit: this.data.pageSize,
         page: pageIndex,
         searchCityId: (app.globalData.locationCity || {}).cityCode || '',
-        searchType:this.data.type==='rent'?1:2
+        searchType: this.data.isRent ? 1 : 2
       })
       formData.searchContent = formData.keyword || ''
       delete formData.keyword
-      console.log(formData)
       net.post('255/car_center/v1/cargo/getSearchCarList', formData, res => {
         const vehicleList = (res.data || []).map(v => {
-          // v.pic = (v.imageUrlList || [])[0] || '' // todo
-          v.pic = '/lib/image/home/hot_3.png' // todo 移除
+          v.pic = (v.imageUrlList || [])[0] || ''
           return v
         })
         this.setData({
