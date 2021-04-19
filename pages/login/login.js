@@ -25,7 +25,7 @@ Page({
       wx.login({
         success: res => {
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
-          // 登陆成功后存token
+          // 登录成功后存token
           let code = res.code;
           let openId = wx.getStorageSync('openId')
           network.requestLoading('25/core/v1/wx/encryptedData2PhoneNoToLeiNiao', {

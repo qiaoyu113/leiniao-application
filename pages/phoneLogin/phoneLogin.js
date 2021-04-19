@@ -137,7 +137,7 @@ Page({
     })
   },
 
-  // 登陆
+  // 登录
   login(){
     let that = this;
     let phone = that.data.phone
@@ -146,9 +146,9 @@ Page({
       phone: phone,
       code: code
     },
-    'get',
+    'post',
     '',
-    '',
+    'json',
     function(res) {
       if (res.success) {
         wx.setStorage({

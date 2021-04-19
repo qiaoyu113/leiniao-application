@@ -1,6 +1,6 @@
 <view class="login">
   <van-nav-bar
-  title="登陆"
+  title="登录"
   left-text=""
   fixed="true"
   left-arrow
@@ -18,9 +18,9 @@
       <view class="getCode" wx:if="{{time == 60}}" bindtap="getCode">获取验证码</view>
       <view class="overCode" wx:else>（{{time}}s）重新发送</view>
     </view>
-    <view class="btn_check" bindtap="login" wx:if="{{phoneCheck && code}}">登陆</view>
-    <view class="btn" wx:else>登陆</view>
+    <view class="btn_check" bindtap="login" wx:if="{{phoneCheck && code}}">登录</view>
+    <view class="btn" wx:else>登录</view>
   </view>
-  <view class="author">登陆代表您已同意<a class="link" bindtap="goRouter" data-type="0">《用户协议》</a>和<a class="link" bindtap="goRouter" data-type="1">《隐私协议》</a></view>
+  <view class="author">登录代表您已同意<a class="link" bindtap="goRouter" data-type="0">《用户协议》</a>和<a class="link" bindtap="goRouter" data-type="1">《隐私协议》</a></view>
 <van-dialog id="van-dialog" />
 </view>

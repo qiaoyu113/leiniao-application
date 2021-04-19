@@ -1,19 +1,19 @@
 <view class="login">
   <van-nav-bar
-  title="登陆"
+  title="登录"
   fixed="true"
   custom-style="navStyle"
   title-class="titleStyle"
 />
 
-  <!--登陆icon-->
+  <!--登录icon-->
   <view class="icons">
     <image src="../../lib/image/bgIcon.png" mode="aspectFit"></image>
-    <view class="title">您还没有登陆，请登陆后查看！</view>
+    <view class="title">您还没有登录，请登录后查看！</view>
   </view>
 
-  <!--微信登陆-->
+  <!--微信登录-->
   <view class="loginBtn">
-    <view class="btn" bindtap="goRoute">登陆</view>
+    <view class="btn" bindtap="goRoute">登录</view>
   </view>
 </view>
