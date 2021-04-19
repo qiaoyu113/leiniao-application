@@ -102,7 +102,7 @@ Page({
     let query = e.detail.params
     console.log(query)
     wx.navigateTo({
-      url: `/pages/hotList/hotList?listid=${query}&type=rent`,
+      url: `/pages/hotList/hotList?listid=${query}&type=sale`,
     })
   },
 
