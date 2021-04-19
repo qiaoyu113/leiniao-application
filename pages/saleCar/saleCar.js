@@ -121,9 +121,8 @@ Page({
     if (cityUpdata === 1) {
       app.globalData.locationCity.cityUpdata = 0
       //调用切换城市接口
-      console.log('城市切换了，当前城市信息',
-      app.globalData.locationCity
-      )
+      console.log('城市切换了，当前城市信息', app.globalData.locationCity)
+      this.loadData(cityCode)
     } else {
       console.log('城市没有切换，不调用接口')
     }
