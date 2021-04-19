@@ -1,3 +1,6 @@
+const { getWxOpenId } = require("../../utils/network")
+const app = getApp()
+
 // components/vehicleFilter/vehicleFilter.js
 Component({
   options: {
@@ -15,11 +18,14 @@ Component({
    * 组件的初始数据
    */
   data: {
-    
+    isRent: false
   },
 
   lifetimes: {
     attached: function() {
+      this.setData({
+        isRent: app.utils.getEntryRoute() === 'rentedCar'
+      })
       // 在组件实例进入页面节点树时执行
       this.init()
     },
@@ -34,8 +40,9 @@ Component({
   methods: {
     init () {},
     onViewDetail (evt) {
-      console.log('todo 登录态检查&跳转详情页')
-      // todo 登录态检查&跳转详情页
+      wx.navigateTo({
+        url: `/pages/carDetail/carDetail?carId=${this.data.item.id}`,
+      })
     }
   }
 })
