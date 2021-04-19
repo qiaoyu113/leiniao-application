@@ -239,6 +239,14 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    let userId = wx.getStorageSync('userId')
+    return {
+      title: '雷鸟车池',
+      path: '/pages/rentedCar/rentedCar?puserId=' + userId + '&source=2',
+      imageUrl: '',
+      success: function(res) {
+        // 转发成功
+      },
+    }
   }
 })
