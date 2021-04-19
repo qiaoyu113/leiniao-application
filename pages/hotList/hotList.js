@@ -70,12 +70,16 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {},
+  onPullDownRefresh: function () {
+    console.log('下拉刷新------->')
+  },
 
   /**
    * 页面上拉触底事件的处理函数
    */
-  onReachBottom: function () {},
+  onReachBottom: function () {
+    console.log('到底部了------->')
+  },
 
   /**
    * 用户点击右上角分享
@@ -106,7 +110,7 @@ Page({
         fail:(res)=>{
           console.log('没有登录，需要登录',res)
           wx.navigateTo({
-            url:  "/pages/shareLogin/shareLogin",
+            url:  "/pages/login/login",
           })
         }
       })
@@ -132,11 +136,15 @@ Page({
       'pull.pullText': '正在加载',
     })
     if(this.data.showCommend){
-      //请求超值爆款接口
+      setTimeout(()=>{
+        //请求超值爆款接口
       this.getVogueList(type,1)
+      },1000)
     }else{
-      //请求今日上新接口
+      setTimeout(()=>{
+        //请求今日上新接口
       this.getNewList(type,1)
+      },1000)
     }
   },
   //上拉加载

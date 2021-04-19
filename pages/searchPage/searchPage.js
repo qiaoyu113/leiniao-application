@@ -85,13 +85,7 @@ Page({
   },
   //软键盘回车搜索
   enterSearch(e) {
-    if(e.detail.value.length && e.detail.value.length<16){
       this.searchEvent(e.detail.value)
-    }else{
-      wx.showModal({
-        title:'最多输入15个字'
-      })
-    }
   },
   //校验输入内容，重复时调整搜索历史数组
   checkInputHistory(value) {
@@ -165,9 +159,15 @@ Page({
   },
   //调用搜索接口搜索页面
   searchEvent(value) {
-    console.log('keyword', value)
+    if(/^[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(value)){
     const vehicleList = this.selectComponent('#vehicleList')
     vehicleList && vehicleList.onPageKeywordChange(value)
+    }else if(!value){
+    }else{
+      wx.showModal({
+        title:'请输入正确的格式，支持汉字、数字、字母、下划线'
+      })
+    }
   },
   onSearchFinish () {
     this.setData({ifSearchFinish: true})

@@ -83,6 +83,9 @@ var getMap = function (app) {
     },
     fail(err) {
       console.log(err)
+      reject(err)
+      app.globalData.locationCity.cityCode = 276
+      app.globalData.locationCity.cityName = '北京市'
     },
   })
   })
