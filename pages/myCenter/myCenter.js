@@ -249,7 +249,7 @@ Page({
       wx.login({
         success: res => {
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
-          // 登录成功后存token
+          // 登陆成功后存token
           let code = res.code;
           network.requestLoading('25/core/v1/wx/encryptedData2PhoneNo', {
             code: code,
@@ -348,7 +348,7 @@ Page({
   // 退出
   quit() {
     Dialog.confirm({
-      message: '确定退出登录吗？',
+      message: '确定退出登陆吗？',
     }).then(() => {
       this.setData({
         canIUse: false

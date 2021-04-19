@@ -16,7 +16,7 @@
 
   <!--微信登陆-->
   <view class="loginBtn">
-    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信登录</button>
-    <view class="phoneLogin" bindtap="goLogin">手机号登录/注册</view>
+    <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信登陆</button>
+    <view class="phoneLogin" bindtap="goLogin">手机号登陆/注册</view>
   </view>
 </view>

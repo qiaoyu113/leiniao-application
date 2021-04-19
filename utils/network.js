@@ -172,7 +172,7 @@ function getRouter() {
   // for (let i = 0; i < roterList.length; i++) {
   //   if (roterList[i] == router) {
       // wx.showToast({
-      //   title: "登录已过期",
+      //   title: "登陆已过期",
       //   icon: 'loading',//图标，支持"success"、"loading" 
       //   duration: 1000,
       // })
@@ -207,7 +207,7 @@ function getWxOpenId() {
   //         data: code
   //       })
   //     } else {
-  //       console.log('登录失败！' + res.errMsg)
+  //       console.log('登陆失败！' + res.errMsg)
   //     }
   //   },
   //   fail: res => {
@@ -218,7 +218,7 @@ function getWxOpenId() {
     success: res => {
       // 发送 res.code 到后台换取 openId, sessionKey, unionId
 
-      // 登录成功后存token
+      // 登陆成功后存token
       let code = res.code
       wx.setStorage({
         key: 'code',

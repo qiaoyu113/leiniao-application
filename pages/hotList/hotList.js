@@ -98,13 +98,13 @@ Page({
       wx.getStorage({
         key:'phoneName',
         success:(res)=>{
-          console.log('登录成功，调取接口',res)
+          console.log('登陆成功，调取接口',res)
           wx.navigateTo({
             url: `/pages/carDetail/carDetail?carId=${id}&type=${this.data.rentOrSale}`,
           })
         },
         fail:(res)=>{
-          console.log('没有登录，需要登录',res)
+          console.log('没有登陆，需要登陆',res)
           wx.navigateTo({
             url:  "/pages/shareLogin/shareLogin",
           })

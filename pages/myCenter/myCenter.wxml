@@ -11,7 +11,7 @@
         <image  class="image-default" src="../../lib/image/bgIcon.png" mode="aspectFit"></image>
       </view>
       <view class="loginBox">
-        <!-- <button wx:if="{{canIUse}}" class="topCenterLeftBtn-Btn" open-type="getUserInfo" bindgetuserinfo="getUserInfoFun">授权登录</button> -->
+        <!-- <button wx:if="{{canIUse}}" class="topCenterLeftBtn-Btn" open-type="getUserInfo" bindgetuserinfo="getUserInfoFun">授权登陆</button> -->
         <view wx:if="{{!canIUse}}" class="topCenterLeftBtn" bindtap="goLogin">登陆/注册</view>
         <view wx:if="{{canIUse}}" class="topCenterLeftBtn">{{userName}}</view>
       </view>
@@ -26,7 +26,7 @@
 </view>
 
 <!--退出-->
-<view wx:if="{{canIUse}}" class="quit" bindtap="quit">退出登录</view>
+<view wx:if="{{canIUse}}" class="quit" bindtap="quit">退出登陆</view>
 <van-dialog id="van-dialog" />
 
 <!-- <view class="cu-list menu card-menu margin-top-xl margin-bottom-xl shadow-lg">

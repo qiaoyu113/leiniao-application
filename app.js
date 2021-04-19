@@ -14,19 +14,19 @@ App({
     //     if (res.code) {
     //       console.log(res)
     //     } else {
-    //       console.log('登录失败！' + res.errMsg)
+    //       console.log('登陆失败！' + res.errMsg)
     //     }
     //   },
     //   fail: res => {
     //     console.log(4444, res)
     //   }
     // });
-    // 登录
+    // 登陆
     wx.login({
       success: (res) => {
         // console.log('login',res)
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
-        // 登录成功后存token
+        // 登陆成功后存token
         // wx.setStorage({
         //   key:'KtcNGbsFV35gHldcjgWd0g==',
         //   data:'oQdm84n33zYoU8MqXzBQoT4rdu_M'
