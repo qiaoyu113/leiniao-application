@@ -146,7 +146,7 @@ Page({
       phone: phone,
       code: code
     },
-    'post',
+    'get',
     '',
     '',
     function(res) {

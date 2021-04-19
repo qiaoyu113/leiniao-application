@@ -1,4 +1,6 @@
 const app = getApp()
+const net = require('../../utils/network')
+
 Component({
   properties: {
     // defaultData（父页面传递的数据）
@@ -19,22 +21,20 @@ Component({
     swiperList: [],
   },
   attached: function () {
-    console.log('页面初始化---------->')
-    this.setData({
-      swiperList: [
-        {
-          type: 'image',
-          url: '../../lib/image/rentcarimg/banner.png',
-        },
-        {
-          type: 'image',
-          url: '../../lib/image/rentcarimg/banner.png',
-        },
-        {
-          type: 'image',
-          url: '../../lib/image/rentcarimg/banner.png',
-        },
-      ],
+    const banner = 'car_go_banner'
+    net.post('api/base_center/open/v1/dict/list/types', [banner], res => {
+      if (res.success) {
+        this.setData({
+          swiperList: (res.data[banner] || []).map(v => {
+            return {
+              type: 'image',
+              url: v.dictLabel
+            }
+          })
+        }, () => {
+          console.log(this.data.swiperList)
+        })
+      }
     })
   },
   methods: {
