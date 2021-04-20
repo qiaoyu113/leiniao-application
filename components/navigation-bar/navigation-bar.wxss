@@ -24,12 +24,12 @@
   font-weight: bold;
 }
 .nav-bar .search {
+  position: relative;
   width: 380rpx;
   height: 58rpx;
-  background: rgba(255, 255, 255, 0.2);
+  background: #fff;
   border-radius: 29rpx;
-  color: #333;
-  font-size: 24rpx;
+  line-height: 58rpx;
 }
 .nav_title {
   font-size: 14px;
@@ -70,4 +70,23 @@
 }
 .hotnew_box {
   margin-top: 20rpx;
+}
+.sousuo_icon {
+  color: #666;
+  font-size: 30rpx;
+  z-index: 9999;
+  position: absolute;
+  top:5rpx;
+  left:15rpx;
+}
+.center{
+  text-align: center;
+}
+.placeholder{
+  color: #666;
+  font-size: 24rpx;
+}
+.search_maxbox{
+  width: 400rpx;
+  height: 58rpx;
 }
