@@ -50,7 +50,7 @@
               <text class="list_type" wx:if="{{item.hasTailboard==1}}">有尾板</text>
         <text class="list_type" wx:if="{{item.hasPass==1}}">有通行证</text>
             </view>
-            <text class="list_price" wx:if="{{rentOrSale =='rent'}}">￥{{item.rent||''}}/月</text>
+            <text class="list_price" wx:if="{{rentOrSale =='rent'}}">￥{{item.yearlyRent||''}}/月</text>
             <text class="list_price" wx:else>￥{{item.price||''}}</text>
           </view>
       </view>
