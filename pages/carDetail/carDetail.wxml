@@ -131,7 +131,7 @@
     <view class="ask_ques_box">
       <text class="ask_ques_title">联系电话</text>
       <input class="ask_ques_content" type="number" data-index="phone" bindinput="inputEvent" class="ask_ques_content" placeholder="请输入电话" bindblur="checkphoneEvent" value="{{phoneValue}}"></input>
-      <!-- <text class="ask_ques_reg"  wx:if="{{phoneReg}}">请填写正确的联系电话</text> -->
+      <text class="ask_ques_title">询价成功后，我们将第一时间为您报价</text>
       <view class="ask_ques_btn" bindtap="getLowPriceEvent">获取底价</view>
     </view>
   </view>
