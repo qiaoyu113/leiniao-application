@@ -12,7 +12,7 @@ Page({
     code: '',
     phone: '',
     phoneCheck: false,
-    hintText: '手机号码格式错误'
+    hintText: ''
   },
 
   /**
@@ -42,23 +42,20 @@ Page({
         phoneCheck: false,
         hintText: '请输入手机号'
       })
-    } else if (value.length < 11) {
-      that.setData({
-        hintType: true,
-        phoneCheck: false,
-        hintText: '手机号码格式错误'
-      })
+      return false
     } else if (!myreg.test(value)) {
       that.setData({
         hintType: true,
         phoneCheck: false,
         hintText: '手机号码格式错误'
       })
+      return false
     } else {
       that.setData({
         hintType: false,
         phoneCheck: true
       })
+      return true
     }
   },
 
@@ -73,11 +70,7 @@ Page({
   // 获取验证码
   getCode() {
     let that = this;
-    if(!that.data.phoneCheck){
-      that.setData({
-        hintType: true,
-        phoneCheck: false
-      })
+    if(!that.phoneCheck()){
       return false
     }
     network.requestLoading('88/auth/v1/leiniaoAuth/jwt/sendVerificationCode', {
