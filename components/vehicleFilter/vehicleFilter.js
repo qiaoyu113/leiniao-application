@@ -61,7 +61,7 @@ Component({
       const barHeight = isPageWithCustomNav ? app.globalData.navBarHeight : 0
       const filterTabHeight = 100 * app.globalData.screenWidth / 750
       const maxHeight = windowHeight - barHeight - filterTabHeight
-      this.setData({maxHeight: maxHeight * 0.8})
+      this.setData({maxHeight: maxHeight * 0.6})
     },
     initTabs () {
       const tabs = [
@@ -358,7 +358,8 @@ Component({
     },
     onInputPrice (evt) {
       const value = evt.detail.value
-      return value.split('').filter(v => parseInt(v) + '' === v).join('')
+      const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
+      return parseInt(val) > 99999 ? '99999' : val
     },
     onInputMiles (evt) {
       const value = evt.detail.value

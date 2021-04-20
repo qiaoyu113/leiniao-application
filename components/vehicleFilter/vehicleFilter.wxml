@@ -43,7 +43,7 @@
           <view wx:if="{{isSale}}" class="mb-20">
             <view class="text-15 text-gray-3">车辆价格</view>
             <view class="flex flex-wrap text-12">
-              <view class="feature-item mx-15 mt-15 center_center {{item.selected ? 'text-blue bg-lightblue' : 'text-gray-3 bg-gray'}}"
+              <view class="feature-item_price mt-15 center_center {{item.selected ? 'text-blue bg-lightblue' : 'text-gray-3 bg-gray'}}"
                 wx:for="{{prices}}" wx:key="index" data-info="{{item}}" bindtap="onSelectPrice">{{item.label}}</view>
             </view>
           </view>
@@ -62,7 +62,7 @@
         <view wx:if="{{currentTab.id === 'filter'}}" class="p-15">
           <view class="text-15 text-gray-3">车辆特点</view>
           <view class="flex flex-wrap text-12">
-            <view class="feature-item mx-15 mt-15 center_center {{item.selected ? 'text-blue bg-lightblue' : 'text-gray-3 bg-gray'}}"
+            <view class="feature-item_miles mx-15 mt-15 center_center {{item.selected ? 'text-blue bg-lightblue' : 'text-gray-3 bg-gray'}}"
               wx:for="{{features}}" wx:key="index" data-info="{{item}}" bindtap="onSelectFeature">{{item.label}}</view>
           </view>
           <view class="text-15 text-gray-3 mt-20">里程</view>
@@ -73,11 +73,11 @@
           <view class="text-15 text-gray-9 mt-15">请输入里程（万公里）</view>
           <view class="center_space-around mt-12 text-12">
             <input class="b-solid-e input-range text-center bg-gray mx-15" type="number"
-              bindblur="onMilesInput" bindinput="onInputMiles"
+              bindblur="onMilesInput" bindinput="onInputMiles" pattern="[0-9]"
               model:value="{{minMiles}}" placeholder="最小值" />
             <view class="text-gray-6">—</view>
             <input class="b-solid-e input-range text-center bg-gray mx-15" type="number"
-              bindblur="onMilesInput" bindinput="onInputMiles"
+              bindblur="onMilesInput" bindinput="onInputMiles" pattern="[0-9]"
               model:value="{{maxMiles}}" placeholder="最大值" />
           </view>
         </view>
