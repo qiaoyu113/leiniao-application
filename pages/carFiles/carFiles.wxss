@@ -23,7 +23,7 @@
   background: #1c8efa;
 }
 .list_info {
-  height: 82rpx;
+  min-height: 82rpx;
   line-height: 82rpx;
   margin-left: 49rpx;
 }
@@ -32,10 +32,16 @@
   color: #999;
   margin-right: 25rpx;
 }
-.info_data {
+.list_info .info_data {
   font-size: 26rpx;
+  line-height: 30rpx;
   color: #333;
   font-weight: bold;
+  width: 100%;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-line;
+
 }
 .splite_box {
   height: 20rpx;

@@ -43,7 +43,7 @@
         <view class="price_info">
           <text class="" wx:if="{{rentOrSale=='sale'}}">参考价：</text>
           <text class="price" wx:if="{{rentOrSale=='rent'}}">￥{{carData.yearlyRent+'/月'||''}}</text>
-          <text class="price" wx:if="{{rentOrSale=='sale'}}">￥{{carData.price+'万元'||''}}</text>
+          <text class="price" wx:if="{{rentOrSale=='sale'}}">￥{{carData.price+'万'||''}}</text>
           <text class="price_tips" wx:if="{{rentOrSale=='rent'}}">起</text>
           <image class="title_img"
                 bindtap="showIntroduceEvent"
@@ -113,7 +113,7 @@
   <van-popup show="{{ showPriceIntroduce }}"closeable position="bottom"custom-style="height: 20%" bind:close="onClose">
     <text class="introduce_title" >价格说明</text>
     <view class="zujintankuang" wx:if="{{rentOrSale==='rent'}}">
-    季租、半年租、年租的月租不同，详情咨询车辆顾问。
+    季租、半年租、年租的月租金不同，详情咨询车辆顾问。
     </view>
     <view class="zujintankuang" wx:else>
     售价为参考价，成交价需看车后面议

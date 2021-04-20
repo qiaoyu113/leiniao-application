@@ -18,6 +18,8 @@
   position: relative;
   width: 710rpx;
   padding-top: 24rpx;
+  padding-bottom: 15rpx;
+  padding-left: 10rpx;
   margin: 0 auto;
 }
 .top_title {
@@ -78,7 +80,7 @@
   bottom: -3rpx;
 }
 .price_info {
-  width: 300rpx;
+  min-width: 300rpx;
   height: 56rpx;
   line-height: 56rpx;
   margin-top: 24rpx;
@@ -92,10 +94,11 @@
   border: 1rpx solid #338bff;
   color: #338bff;
   margin-right: 10rpx;
+  margin-bottom: 10rpx;
 }
 .introduce_reason {
   width: 690rpx;
-  height: 190rpx;
+  min-height: 190rpx;
   padding-left: 30rpx;
   padding-top: 20rpx;
   margin: 40rpx auto;
@@ -119,6 +122,9 @@
   color: #999;
   line-height: 33rpx;
   margin-bottom: 40rpx;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-line;
 }
 .splite_line {
   width: 100%;
@@ -212,7 +218,10 @@
   font-size: 24rpx;
   line-height: 33rpx;
   color: #999;
-  min-height: 120rpx;
+  min-height: 300rpx;
+  word-wrap: break-word;
+  word-break: break-all;
+  white-space: pre-line;
 }
 .bottom_bar {
   position: fixed;
@@ -314,7 +323,7 @@
 .swiper_index {
   position: absolute;
   bottom: 20rpx;
-  right:20rpx;
+  right:55rpx;
   color: #fff;
 }
 .ask_box{
