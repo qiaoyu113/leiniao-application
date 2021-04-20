@@ -298,12 +298,6 @@ Component({
       clickedPrice.selected = !clickedPrice.selected
       this.setData({prices, minPrice: '', maxPrice: ''})
     },
-    onPriceInput (evt) {
-      if ((evt.detail || {}).value) {
-        const prices = this.data.prices.map(setItemUnselected)
-        this.setData({prices})
-      }
-    },
     // 选择车龄
     onSelectAge (evt) {
       const ages = this.data.ages
@@ -336,12 +330,6 @@ Component({
       clickedMiles.selected = !clickedMiles.selected
       this.setData({miles, minMiles: '', maxMiles: ''})
     },
-    onMilesInput (evt) {
-      if ((evt.detail || {}).value) {
-        const miles = this.data.miles.map(setItemUnselected)
-        this.setData({miles})
-      }
-    },
     // 选择排序基准
     onSelectSort (evt) {
       const sorts = this.data.sorts.map(v => {
@@ -359,11 +347,19 @@ Component({
     onInputPrice (evt) {
       const value = evt.detail.value
       const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
+      if (val && this.data.isSale) {
+        const prices = this.data.prices.map(setItemUnselected)
+        this.setData({prices})
+      }
       return parseInt(val) > 99999 ? '99999' : val
     },
     onInputMiles (evt) {
       const value = evt.detail.value
       const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
+      if (val) {
+        const miles = this.data.miles.map(setItemUnselected)
+        this.setData({miles})
+      }
       return parseInt(val) > 9999 ? '9999' : val
     },
     onPageRefresh () {
