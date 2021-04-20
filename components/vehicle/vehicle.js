@@ -38,14 +38,16 @@ Component({
    */
   methods: {
     init () {
+      const isRent = this.data.isRent
+      const labels = [
+        {name: '准新车', key: 'isNewCar', bold: true},
+        {name: isRent ? '急租' : '急售', key: isRent ? 'isUrgentRent' : 'isUrgentSale', bold: true},
+        {name: '宽体', key: 'isWidth'},
+        {name: '有尾板', key: 'hasTailboard'},
+        {name: '有通行证', key: 'hasPass'}
+      ]
       this.setData({
-        labels: [
-          {name: '准新车', key: 'isNewCar'},
-          this.data.isRent ? {name: '急租', key: 'isUrgentRent'} : {name: '急售', key: 'isUrgentSale'},
-          {name: '宽体', key: 'isWidth'},
-          {name: '有尾板', key: 'hasTailboard'},
-          {name: '有通行证', key: 'hasPass'},
-        ]
+        labels: labels.filter(v => this.data.item[v.key] === 1)
       })
     },
     onViewDetail (evt) {

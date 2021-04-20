@@ -61,7 +61,7 @@ Component({
       const barHeight = isPageWithCustomNav ? app.globalData.navBarHeight : 0
       const filterTabHeight = 100 * app.globalData.screenWidth / 750
       const maxHeight = windowHeight - barHeight - filterTabHeight
-      this.setData({maxHeight})
+      this.setData({maxHeight: maxHeight * 0.8})
     },
     initTabs () {
       const tabs = [
