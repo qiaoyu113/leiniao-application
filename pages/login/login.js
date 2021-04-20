@@ -1,5 +1,6 @@
 const app = getApp();
 var network = require("../../utils/network.js");
+import Dialog from '../../miniprogram_npm/vant-weapp/dialog/dialog';
 // pages/login/login.js
 Page({
 
@@ -27,90 +28,132 @@ Page({
           // 发送 res.code 到后台换取 openId, sessionKey, unionId
           // 登录成功后存token
           let code = res.code;
-          let openId = wx.getStorageSync('openId')
-          network.requestLoading('25/core/v1/wx/encryptedData2PhoneNoToLeiNiao', {
-            code: code,
-            iv: e.detail.iv,
-            encryptedData: e.detail.encryptedData,
-            openId: openId
-          },
-          'POST',
-          '',
-          'json',
-          function(res) {
-            if (res.success) {
-              let phone = res.data.phone;
-              let openId = wx.getStorageSync('openId')
-              network.requestLoading('25/auth/v1/leiniaoAuth/jwt/getToken', {
-                  openId: openId,
-                  phone: phone,
-                  puserId: that.data.puserId
-                },
-                'post',
-                '',
-                'json',
-                function(res) {
-                  if (res.success) {
-                    wx.setStorage({
-                      key: 'token',
-                      data: res.data.token,
-                      success: function(res) {},
-                    })
-                    wx.setStorage({
-                      key: 'phone',
-                      data: res.data.phone,
-                    })
-                    let ph = phone.toString()
-                    let phoneName =  ph.substring(0, 3)+"****"+ ph.substring(ph.length-4)
-                    wx.setStorage({
-                      key: 'phoneName',
-                      data: phoneName,
-                    })
-                    wx.setStorage({
-                      key: 'openId',
-                      data: res.data.openId,
-                    })
-                    that.setData({
-                      flag: true,
-                      openId: res.data.openId
-                    })
-                    let pages = getCurrentPages();
-                    let prevpage = pages[pages.length - 2];
-                    console.log('prevpage',prevpage.route)
-                    if(prevpage.route == 'pages/shareLogin/shareLogin'){
-                      wx.navigateBack({
-                        delta: 2,
-                      })
-                    } else {
-                      wx.navigateBack({
-                        delta: 1,
-                      })
-                    }
-                  } else {
-                    wx.showToast({
-                      title: res.errorMsg,
+          // let openId = wx.getStorageSync('openId')
+          try {
+            var openId = wx.getStorageSync('openId')
+            if (openId) {
+              network.requestLoading('25/core/v1/wx/encryptedData2PhoneNoToLeiNiao', {
+                code: code,
+                iv: e.detail.iv,
+                encryptedData: e.detail.encryptedData,
+                openId: openId
+              },
+              'POST',
+              '',
+              'json',
+              function(res) {
+                if (res.success) {
+                  let phone = res.data.phone;
+                  let openId = wx.getStorageSync('openId')
+                  network.requestLoading('25/auth/v1/leiniaoAuth/jwt/getToken', {
+                      openId: openId,
+                      phone: phone,
+                      puserId: that.data.puserId
+                    },
+                    'post',
+                    '',
+                    'json',
+                    function(res) {
+                      if (res.success) {
+                        wx.setStorage({
+                          key: 'token',
+                          data: res.data.token,
+                          success: function(res) {},
+                        })
+                        wx.setStorage({
+                          key: 'phone',
+                          data: res.data.phone,
+                        })
+                        let ph = phone.toString()
+                        let phoneName =  ph.substring(0, 3)+"****"+ ph.substring(ph.length-4)
+                        wx.setStorage({
+                          key: 'phoneName',
+                          data: phoneName,
+                        })
+                        wx.setStorage({
+                          key: 'openId',
+                          data: res.data.openId,
+                        })
+                        that.setData({
+                          flag: true,
+                          openId: res.data.openId
+                        })
+                        let pages = getCurrentPages();
+                        let prevpage = pages[pages.length - 2];
+                        console.log('prevpage',prevpage.route)
+                        if(prevpage.route == 'pages/shareLogin/shareLogin'){
+                          wx.navigateBack({
+                            delta: 2,
+                          })
+                        } else {
+                          wx.navigateBack({
+                            delta: 1,
+                          })
+                        }
+                      } else {
+                        wx.showToast({
+                          title: res.errorMsg,
+                        });
+                      }
+                    },
+                    function(res) {
+                      wx.showToast({
+                        title: '加载数据失败',
+                      });
                     });
-                  }
-                },
-                function(res) {
+                } else {
                   wx.showToast({
-                    title: '加载数据失败',
+                    title: res.errorMsg,
                   });
+                }
+              },
+              function(res) {
+                wx.showToast({
+                  title: '加载数据失败',
                 });
-            } else {
-              wx.showToast({
-                title: res.errorMsg,
               });
+            } else {
+              Dialog.alert({
+                title: '提示',
+                message: '请重新登陆'
+              }).then(() => {
+                
+              })
+              wx.clearStorageSync()
+              that.hasEnter()
             }
-          },
-          function(res) {
-            wx.showToast({
-              title: '加载数据失败',
-            });
-          });
+          } catch (e) {
+            Dialog.alert({
+              title: '提示',
+              message: '请重新登陆'
+            }).then(() => {
+              
+            })
+            wx.clearStorageSync()
+            that.hasEnter()
+          }
         }
       })
     }
+  },
+
+  hasEnter() {
+    //是否已经入驻
+    let that = this;
+    network.requestLoading('81/driver/v2/driver/applet/appletsMagpieClientJudge', {},
+      'GET',
+      '',
+      '',
+      function(res) {
+        if (res.success) {
+          
+        }
+      },
+      function(res) {
+        // wx.showToast({
+        //   title: '加载数据失败',
+        // });
+      });
   },
 
   // 返回按钮
