@@ -198,17 +198,17 @@ Component({
     // 查询
     onQuery () {
       const formData = {
-        brandId: (this.data.brandList.find(v => v.selected) || {}).brandId || '',
-        modelId: (this.data.models.find(v => v.selected) || {}).modelId || '',
-        carAgeIdList: this.data.ages.filter(v => v.selected).map(v => v.id),
-        priceIdList: this.data.prices.filter(v => v.selected).map(v => v.id),
-        minPrice: this.data.minPrice,
-        maxPrice: this.data.maxPrice,
-        carLabelIdList: this.data.features.filter(v => v.selected).map(v => v.id),
-        mileageIdList: this.data.miles.filter(v => v.selected).map(v => v.id).join(','),
-        minMileage: this.data.minMiles,
-        maxMileage: this.data.maxMiles,
-        searchSortId: (this.data.sorts.find(v => v.selected) || this.data.sorts[0] || {}).id || ''
+        brandId: (this.data.brandList.find(v => v.selected) || {}).brandId,
+        modelId: (this.data.models.find(v => v.selected) || {}).modelId,
+        carAgeIdList: this.data.ages.filter(v => v.selected).map(v => parseInt(v.id)),
+        priceIdList: this.data.prices.filter(v => v.selected).map(v => parseInt(v.id)),
+        minPrice: parseFloat(this.data.minPrice),
+        maxPrice: parseFloat(this.data.maxPrice),
+        carLabelIdList: this.data.features.filter(v => v.selected).map(v => parseInt(v.id)),
+        mileageIdList: this.data.miles.filter(v => v.selected).map(v => parseInt(v.id)),
+        minMileage: parseFloat(this.data.minMiles),
+        maxMileage: parseFloat(this.data.maxMiles),
+        searchSortId: parseInt((this.data.sorts.find(v => v.selected) || this.data.sorts[0] || {}).id)
       }
       if (parseInt(formData.minPrice) > parseInt(formData.maxPrice)) {
         const {maxPrice, minPrice} = formData
@@ -265,15 +265,19 @@ Component({
             v.selected = false
             return v
           }))
-          this.setData({
-            brandList,
-            models
-          })
+
+          this.setData({brandList, models})
         }, err => {
           console.log(err)
         })
       } else {
-        this.onQuery()
+        const brandList = this.data.brandList.map((v, i) => {
+          v.selected = !i
+          return v
+        })
+        this.setData({models: [], brandList}, () => {
+          this.onQuery()
+        })
       }
     },
     // 选择型号
@@ -360,6 +364,27 @@ Component({
       const value = evt.detail.value
       const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
       return parseInt(val) > 9999 ? '9999' : val
+    },
+    onPageRefresh () {
+      this.setData({
+        isSale: false,
+        tabs: [],
+        currentTab: null,
+        brandList: [],
+        models: [],
+        ages: [],
+        prices: [],
+        minPrice: '',
+        maxPrice: '',
+        features: [],
+        miles: [],
+        minMiles: '',
+        maxMiles: '',
+        sorts: [],
+        maxHeight: 0
+      }, () => {
+        this.init()
+      })
     }
   }
 })

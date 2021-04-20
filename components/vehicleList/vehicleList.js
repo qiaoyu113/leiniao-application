@@ -154,6 +154,29 @@ Component({
     // vehicleList && vehicleList.onPageKeywordChange(newVal)
     onPageKeywordChange (val) {
       this.onParamChange({keyword: val})
+    },
+    onPageRefresh () {
+      console.log('works')
+      this.setData({
+        formData: {
+          sort: '1'
+        },
+        isRent: false,
+        pageSize: 30,
+        pageIndex: 1,
+        fastFeatures: [],
+        vehicleList: [],
+        isPageWithCustomNav: false,
+        navbarHeight: 64,
+        loadStatus: 0, // 0 初始化 1请求中 2请求完毕
+        labels: [],
+        total: 0,
+        bottomText: ''
+      }, () => {
+        this.init()
+        const vehicleFilter = this.selectComponent('#vehicleFilter')
+        vehicleFilter && vehicleFilter.onPageRefresh()
+      })
     }
   }
 })
