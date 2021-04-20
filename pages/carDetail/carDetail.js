@@ -15,7 +15,6 @@ Page({
     phoneReg: false,
     nameValue: '',
     phoneValue: '',
-    introduceData: '季租、半年租、年租的月租不同，详情咨询车辆顾问。',
     hotDetail:
       '准新车，车况良好，无任何安全隐患，不限行，火热降价处理，市场需求度高，前景好！',
     carId: '',
@@ -47,10 +46,8 @@ Page({
       function (res) {
         console.log('请求接口res', res)
         if (res.success) {
-        }
-        let carInfo = res.data
-        //过滤整理车辆信息
-        that.carInfofilter(carInfo)
+          let carInfo = res.data
+          carInfo.carDescribe = carInfo.carDescribe.trim()
         if(carInfo.vogueReason){
           that.setData({
             carData:carInfo,
@@ -62,6 +59,7 @@ Page({
             showHotIntroduce:false
           })
         }
+        }
       },
       function (res) {
         wx.showToast({
@@ -69,28 +67,6 @@ Page({
         })
       }
     )
-
-    this.setData({
-      swiperList: [
-        {
-          type: 'video',
-          url: 'http://clips.vorwaerts-gmbh.de/big_buck_bunny.mp4',
-        },
-        {
-          type: 'image',
-          url: '../../lib/image/rentcarimg/detail_car.png',
-        },
-        {
-          type: 'image',
-          url: '../../lib/image/rentcarimg/detail_car.png',
-        },
-      ],
-    })
-  },
-  //过滤器
-  carInfofilter(carInfo){
-    
-    return
   },
   //返回上一页
   gobackEvent() {
@@ -276,6 +252,9 @@ Page({
             'carData.isFavorite': 1,
           })
           wx.hideLoading()
+          wx.showToast({
+            title:'收藏成功'
+          })
         }else{
           wx.hideLoading()
           wx.showModal({
@@ -307,6 +286,9 @@ Page({
             'carData.isFavorite': 2,
           })
           wx.hideLoading()
+          wx.showToast({
+            title:'已取消收藏'
+          })
         }else{
           wx.hideLoading()
           wx.showModal({
@@ -353,6 +335,7 @@ Page({
     let swiperList = []
     swiperList = this.data.carData.videoUrlList.concat(this.data.carData.imageUrlList)
     const urls = swiperList
+    console.log('urls',swiperList, e.currentTarget.dataset.url)
     const current = e.currentTarget.dataset.url
     wx.previewImage({
       urls,

@@ -12,7 +12,8 @@
   <view class="myCollect">
     <view class="collectList" wx:if="{{list.length}}" wx:for="{{list}}" wx:key="index" data-id='{{item.carId}}' data-off="{{item.offTheShelf}}" data-type="{{item.rentOrSale}}" bindtap='goDetail'>
       <view class="shadow" wx:if="{{item.offTheShelf}}">
-        <image src="../../lib/image/off.png" mode="aspectFit"></image>
+        <image class="image1" src="../../lib/image/off.png" mode="aspectFit"></image>
+        <image class="image2" src="../../lib/image/heart.png" mode="aspectFit" catchtap="cancelCollect" data-id="{{item.carId}}" data-type="{{item.rentOrSale}}"></image>
       </view>
       <image class="img" src="{{item.url}}"></image>
       <view class="info">

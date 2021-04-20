@@ -6,7 +6,7 @@
     
 <!-- 轮播图 -->
     <!-- <image class="top_bar_img" src="../../lib/image/rentcarimg/detail_car.png" /> -->
-  <view>
+  
    <swiper class="top_bar_swiper" bindchange="changeSwiperEvent"  indicator-dots circular> 
     <swiper-item
       wx:for="{{carData.videoUrlList}}"
@@ -18,9 +18,12 @@
             <!-- <video class="top_bar_img" wx:if="{{item.type==='video'}}" src='{{item.url}}' bindtap="bofang" controls='true'></video> -->
             <video class="top_bar_img" src='{{item}}' bindtap="bofang" controls='true'></video>
           </navigator>
+          <text class="swiper_index">
+            {{swiperId?swiperId + 1 : 1}}/{{carData.videoUrlList.length + carData.imageUrlList.length}}
+          </text>
         </swiper-item>
         <swiper-item
-          wx:for="{{carData.imageUrlList}}" 
+          wx:for="{{carData.imageUrlList}}"
           wx:key="key"
           bindtap="handlePreviewImg"
           data-url="{{item}}"
@@ -28,12 +31,11 @@
           <navigator>
             <image  class="top_bar_img"  src="{{item}}"></image>
           </navigator>
-        </swiper-item>
-      </swiper>
-      <text class="swiper_index">
+          <text class="swiper_index">
             {{swiperId?swiperId + 1 : 1}}/{{carData.videoUrlList.length + carData.imageUrlList.length}}
           </text>
-      </view>
+        </swiper-item>
+      </swiper>
   </view>
   <!-- 标题 -->
   <view class="title">
@@ -95,7 +97,7 @@
       </view>
     </view>
     <!-- 车辆描述 -->
-    <view class="car_description">
+    <view class="car_description" wx:if="{{carData.carDescribe}}">
         <text class="car_des_title"><text class="des_title_detail">车辆描述</text></text>
         <view class="car_des_detail">{{carData.carDescribe}}</view>
   </view>

@@ -115,7 +115,7 @@ Page({
             } else {
               Dialog.alert({
                 title: '提示',
-                message: '请重新登陆'
+                message: '请重新登录'
               }).then(() => {
                 
               })
@@ -125,7 +125,7 @@ Page({
           } catch (e) {
             Dialog.alert({
               title: '提示',
-              message: '请重新登陆'
+              message: '请重新登录'
             }).then(() => {
               
             })
