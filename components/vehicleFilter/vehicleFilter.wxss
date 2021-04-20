@@ -46,7 +46,14 @@
   height: 60rpx;
   border-radius: 30rpx;
 }
-.feature-item {
+.feature-item_price {
+  width: 250rpx;
+  margin-left: 44rpx;
+  margin-right: 44rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+}
+.feature-item_miles {
   width: 160rpx;
   height: 60rpx;
   border-radius: 30rpx;
