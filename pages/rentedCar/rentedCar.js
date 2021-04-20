@@ -35,12 +35,12 @@ Page({
       utils.getMap.call(this, app).then((info)=>{
         that.checkCity()
       }).catch(()=>{
-        cityCode = 276
-        cityName = '北京市'
+        app.globalData.locationCity.cityCode = 276
+        app.globalData.locationCity.cityName = '北京市'
         this.setData({
           'defaultData.cityName': '北京市',
         })
-        this.loadData(cityCode)
+        this.loadData(app.globalData.locationCity.cityCode)
       })
     } else {
       this.setData({
@@ -119,36 +119,18 @@ Page({
    */
   onShow: function () {
     let { cityName, cityCode, cityUpdata } = app.globalData.locationCity
-    utils.getMap.call(this, app).then(()=>{
-  }).catch(()=>{
-    console.log('失败了')
-    wx.getStorage({
-      key:'selectcity',
-      success:(res)=>{
-        console.log('res',res)
-      },
-      fail:(res)=>{
-        cityCode = 276
-        cityName = '北京市'
-        this.setData({
-          'defaultData.cityName': '北京市',
-        })
-        this.loadData(cityCode)
-      }
-    })
-    })
-    // let cityUpdata = this.data.cityupdata
-    this.setData({
-      'defaultData.cityName': cityName,
-    })
     if (cityUpdata === 1) {
       app.globalData.locationCity.cityUpdata = 0
-      //调用切换城市接口
+      var cityinfo = app.globalData.locationCity
+      //城市切换了
       console.log('城市切换了，当前城市信息', app.globalData.locationCity)
       this.loadData(cityCode)
     } else {
       console.log('城市没有切换，不调用接口')
     }
+    this.setData({
+      'defaultData.cityName': cityName,
+    })
   },
 
   /**
@@ -172,6 +154,7 @@ Page({
     this.onShow()
     const vehicleList = this.selectComponent('#vehicleList')
     vehicleList && vehicleList.onPageRefresh()
+    wx.stopPullDownRefresh()
   },
 
   /**
