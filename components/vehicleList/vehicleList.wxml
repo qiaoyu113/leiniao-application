@@ -11,7 +11,7 @@
   </view>
   <!-- 车辆列表 -->
   <view wx:if="{{vehicleList.length}}" class="bt-solid-e">
-    <vehicle wx:for="{{vehicleList}}" wx:key="index" item="{{item}}" labels="{{labels}}"></vehicle>
+    <vehicle wx:for="{{vehicleList}}" wx:key="index" item="{{item}}"></vehicle>
   </view>
   <view wx:if="{{vehicleList.length && bottomText}}" class="center_center text-12 text-gray-9" style="height: 50rpx;">{{bottomText}}</view>
   <view wx:if="{{!vehicleList.length && loadStatus === 2}}" class="bt-solid-e flex-y align-center" style="padding-top: 100rpx;">
