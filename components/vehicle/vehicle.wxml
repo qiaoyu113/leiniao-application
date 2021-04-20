@@ -2,7 +2,7 @@
   <view class="py-20 space-between bb-solid-e" bindtap="onViewDetail">
     <image class="img-100" style="border-radius: 8rpx;" src="{{item.pic}}"></image>
     <view class="flex-y space-between pt-5" style="width: 430rpx;">
-      <view class="text-14 text-gray-3 text-ellipsis" style="font-weight: 500;">{{item.brandName + ' ' + item.modelName + ' ' + item.horsepower}}</view>
+      <view class="text-14 text-gray-3 text-ellipsis" style="font-weight: 500;">{{item.brandName + ' ' + item.modelName + ' ' + item.horsepower + '匹'}}</view>
       <view>
         <view class="text-12 text-gray-9 flex">车龄：{{item.carAgeStr}}<text style="width: 30rpx;"></text>里程：{{item.mileageStr}}</view>
         <view class="flex" style="margin: 5rpx 0;">

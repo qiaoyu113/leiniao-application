@@ -58,7 +58,7 @@ Component({
     initPanelHeight () {
       const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(app.utils.getCurrentRoute()) > -1
       const windowHeight = app.globalData.windowHeight
-      const barHeight = isPageWithCustomNav ? app.globalData.CustomBar : 0
+      const barHeight = isPageWithCustomNav ? app.globalData.navBarHeight : 0
       const filterTabHeight = 100 * app.globalData.screenWidth / 750
       const maxHeight = windowHeight - barHeight - filterTabHeight
       this.setData({maxHeight})
@@ -198,8 +198,8 @@ Component({
     // 查询
     onQuery () {
       const formData = {
-        brandId: (this.data.brandList.find(v => v.selected) || {}).brandId,
-        modelId: (this.data.models.find(v => v.selected) || {}).modelId,
+        brandId: (this.data.brandList.find(v => v.selected) || {}).id || null,
+        modelId: (this.data.models.find(v => v.selected) || {}).id || null,
         carAgeIdList: this.data.ages.filter(v => v.selected).map(v => parseInt(v.id)),
         priceIdList: this.data.prices.filter(v => v.selected).map(v => parseInt(v.id)),
         minPrice: parseFloat(this.data.minPrice),
@@ -244,7 +244,7 @@ Component({
       query.selectViewport().scrollOffset()
       const app = getApp()
       const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(app.utils.getCurrentRoute()) > -1
-      const barHeight = isPageWithCustomNav ? app.globalData.CustomBar : 0
+      const barHeight = isPageWithCustomNav ? app.globalData.navBarHeight : 0
       query.exec(res => {
         if (res[0] && res[1] && (res[0] || {}).top !== barHeight) {
           wx.pageScrollTo({scrollTop: res[0].top + res[1].scrollTop - barHeight})

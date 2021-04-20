@@ -49,7 +49,7 @@ Component({
       const app = getApp()
       const currentRoute = app.utils.getCurrentRoute()
       const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(currentRoute) > -1
-      const navbarHeight = app.globalData.CustomBar
+      const navbarHeight = app.globalData.navBarHeight
       const isRent = app.utils.getEntryRoute() === 'rentedCar'
       this.setData({
         isPageWithCustomNav,
@@ -75,7 +75,7 @@ Component({
           return v
         })
         this.setData({
-          vehicleList,
+          vehicleList: append ? this.data.vehicleList.concat(vehicleList) : vehicleList,
           loadStatus: 2,
           pageIndex,
           total: (res.page || {}).total || 0
@@ -155,7 +155,6 @@ Component({
       this.onParamChange({keyword: val})
     },
     onPageRefresh () {
-      console.log('works')
       this.setData({
         formData: {
           sort: '1'
