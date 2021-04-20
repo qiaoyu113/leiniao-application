@@ -3,10 +3,8 @@
   <view class="goback_btn" bindtap="gobackEvent" style="top:{{navBarHeight}}rpx;">
     <image class="goback_img" src="../../lib/image/rentcarimg/goback_button.png" />
   </view>
-    
 <!-- 轮播图 -->
     <!-- <image class="top_bar_img" src="../../lib/image/rentcarimg/detail_car.png" /> -->
-  
    <swiper class="top_bar_swiper" bindchange="changeSwiperEvent"  indicator-dots circular>
     <swiper-item
       wx:for="{{carData.videoUrlList}}"
@@ -18,9 +16,9 @@
             <!-- <video class="top_bar_img" wx:if="{{item.type==='video'}}" src='{{item.url}}' bindtap="bofang" controls='true'></video> -->
             <video class="top_bar_img" src='{{item}}' bindtap="bofang" controls='true'></video>
           </navigator>
-          <text class="swiper_index">
+          <!-- <text class="swiper_index">
             {{swiperId?swiperId + 1 : 1}}/{{carData.videoUrlList.length + carData.imageUrlList.length}}
-          </text>
+          </text> -->
         </swiper-item>
         <swiper-item
           wx:for="{{carData.imageUrlList}}"
@@ -31,11 +29,10 @@
           <navigator>
             <image  class="top_bar_img"  src="{{item}}"></image>
           </navigator>
-          <text class="swiper_index">
-            {{swiperId?swiperId + 1 : 1}}/{{carData.videoUrlList.length + carData.imageUrlList.length}}
-          </text>
+
         </swiper-item>
       </swiper>
+      <view class="swiper_index">{{swiperId?swiperId + 1 : 1}}/{{carData.videoUrlList.length + carData.imageUrlList.length}}</view>
   </view>
   <!-- 标题 -->
   <view class="title">
@@ -46,7 +43,7 @@
         <view class="price_info">
           <text class="" wx:if="{{rentOrSale=='sale'}}">参考价：</text>
           <text class="price" wx:if="{{rentOrSale=='rent'}}">￥{{carData.yearlyRent+'/月'||''}}</text>
-          <text class="price" wx:if="{{rentOrSale=='sale'}}">￥{{carData.price||''}}</text>
+          <text class="price" wx:if="{{rentOrSale=='sale'}}">￥{{carData.price+'万元'||''}}</text>
           <text class="price_tips" wx:if="{{rentOrSale=='rent'}}">起</text>
           <image class="title_img"
                 bindtap="showIntroduceEvent"
