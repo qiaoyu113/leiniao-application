@@ -111,8 +111,9 @@
 }
 .list_carlabel{
   width: 430rpx;
-  height: 44rpx;
+  height: 50rpx;
   overflow: hidden;
+  line-height:45rpx
 }
 .list_type {
   padding: 3rpx 3rpx;

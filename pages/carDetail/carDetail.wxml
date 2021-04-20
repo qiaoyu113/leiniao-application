@@ -6,7 +6,7 @@
     
 <!-- 轮播图 -->
     <!-- <image class="top_bar_img" src="../../lib/image/rentcarimg/detail_car.png" /> -->
-  
+  <view>
    <swiper class="top_bar_swiper" bindchange="changeSwiperEvent"  indicator-dots circular> 
     <swiper-item
       wx:for="{{carData.videoUrlList}}"
@@ -18,9 +18,6 @@
             <!-- <video class="top_bar_img" wx:if="{{item.type==='video'}}" src='{{item.url}}' bindtap="bofang" controls='true'></video> -->
             <video class="top_bar_img" src='{{item}}' bindtap="bofang" controls='true'></video>
           </navigator>
-          <text class="swiper_index">
-            {{swiperId?swiperId + 1 : 1}}/{{carData.videoUrlList.length + carData.imageUrlList.length}}
-          </text>
         </swiper-item>
         <swiper-item
           wx:for="{{carData.imageUrlList}}" 
@@ -31,11 +28,12 @@
           <navigator>
             <image  class="top_bar_img"  src="{{item}}"></image>
           </navigator>
-          <text class="swiper_index">
-            {{swiperId?swiperId + 1 : 1}}/{{carData.videoUrlList.length + carData.imageUrlList.length}}
-          </text>
         </swiper-item>
       </swiper>
+      <text class="swiper_index">
+            {{swiperId?swiperId + 1 : 1}}/{{carData.videoUrlList.length + carData.imageUrlList.length}}
+          </text>
+      </view>
   </view>
   <!-- 标题 -->
   <view class="title">
@@ -45,7 +43,7 @@
         <text class="main_title">{{carData.brandName}}</text>
         <view class="price_info">
           <text class="" wx:if="{{rentOrSale=='sale'}}">参考价</text>
-          <text class="price" wx:if="{{rentOrSale=='rent'}}">￥{{carData.rent||''}}/月</text>
+          <text class="price" wx:if="{{rentOrSale=='rent'}}">￥{{carData.rent+'/月'||''}}</text>
           <text class="price" wx:if="{{rentOrSale=='sale'}}">￥{{carData.price||''}}</text>
           <text class="price_tips" wx:if="{{rentOrSale=='rent'}}">起</text>
           <image class="title_img"
@@ -70,27 +68,27 @@
           <text class="right_title" bindtap="viewAllEvent">查看全部</text>
           <view class="files_type_box">
             <view class="type_box_detail">
-              <text class="type_value">{{carData.carAgeStr||'暂无'}}</text>
+              <text class="type_value">{{carData.carAgeStr||''}}</text>
               <text class="type_key">车龄</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.mileageStr||'暂无'}}</text>
+              <text class="type_value">{{carData.mileageStr||''}}</text>
               <text class="type_key">里程</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.width||'0'}}米</text>
+              <text class="type_value">{{carData.width+'米'||''}}</text>
               <text class="type_key">箱体宽度</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.registerCityStr||'暂无'}}</text>
+              <text class="type_value">{{carData.registerCityStr||''}}</text>
               <text class="type_key">牌照地</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.workCityStr||'暂无'}}</text>
+              <text class="type_value">{{carData.workCityStr||''}}</text>
               <text class="type_key">看车地</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.carTypeStr||'暂无'}}</text>
+              <text class="type_value">{{carData.carTypeStr||''}}</text>
               <text class="type_key">车辆性质</text>
             </view>
           </view>
