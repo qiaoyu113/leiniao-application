@@ -75,7 +75,7 @@ Component({
           return v
         })
         this.setData({
-          vehicleList,
+          vehicleList: append ? this.data.vehicleList.concat(vehicleList) : vehicleList,
           loadStatus: 2,
           pageIndex,
           total: (res.page || {}).total || 0
@@ -155,7 +155,6 @@ Component({
       this.onParamChange({keyword: val})
     },
     onPageRefresh () {
-      console.log('works')
       this.setData({
         formData: {
           sort: '1'

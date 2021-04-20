@@ -198,8 +198,8 @@ Component({
     // 查询
     onQuery () {
       const formData = {
-        brandId: (this.data.brandList.find(v => v.selected) || {}).brandId,
-        modelId: (this.data.models.find(v => v.selected) || {}).modelId,
+        brandId: (this.data.brandList.find(v => v.selected) || {}).id || null,
+        modelId: (this.data.models.find(v => v.selected) || {}).id || null,
         carAgeIdList: this.data.ages.filter(v => v.selected).map(v => parseInt(v.id)),
         priceIdList: this.data.prices.filter(v => v.selected).map(v => parseInt(v.id)),
         minPrice: parseFloat(this.data.minPrice),
