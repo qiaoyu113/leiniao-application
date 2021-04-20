@@ -35,6 +35,12 @@ Page({
     if (!cityCode) {
       utils.getMap.call(this, app).then((info)=>{
         that.checkCity()
+      }).catch(()=>{
+        cityCode = 276
+        cityName = '北京市'
+        this.setData({
+          'defaultData.cityName': '北京市',
+        })
       })
     } else {
       this.setData({
@@ -111,17 +117,25 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  //   utils.getMap.call(this, app).then(()=>{
-  //     this.setData({
-  //       'defaultData.cityName':  app.globalData.locationCity.cityName,
-  //     })
-  // }).catch(()=>{
-  //     this.setData({
-  //       'defaultData.cityName': '北京市',
-  //     })
-  //   })
-    // let cityUpdata = this.data.cityupdata
     let { cityName, cityCode, cityUpdata } = app.globalData.locationCity
+    utils.getMap.call(this, app).then(()=>{
+  }).catch(()=>{
+    console.log('失败了')
+    wx.getStorage({
+      key:'selectcity',
+      success:(res)=>{
+        console.log('res',res)
+      },
+      fail:(res)=>{
+        cityCode = 276
+      cityName = '北京市'
+      this.setData({
+        'defaultData.cityName': '北京市',
+      })
+      }
+    })
+    })
+    // let cityUpdata = this.data.cityupdata
     this.setData({
       'defaultData.cityName': cityName,
     })

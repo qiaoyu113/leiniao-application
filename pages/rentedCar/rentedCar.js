@@ -34,6 +34,13 @@ Page({
     if (!cityCode) {
       utils.getMap.call(this, app).then((info)=>{
         that.checkCity()
+      }).catch(()=>{
+        cityCode = 276
+        cityName = '北京市'
+        this.setData({
+          'defaultData.cityName': '北京市',
+        })
+        this.loadData(cityCode)
       })
     } else {
       this.setData({
@@ -63,6 +70,7 @@ Page({
             })
           }
           let checkCity = newarr.includes(app.globalData.locationCity.cityName)
+          console.log('checkCity',newarr,checkCity)
           const cityCode = checkCity ? app.globalData.locationCity.cityCode : 276
           const cityName = checkCity ? app.globalData.locationCity.cityName : '北京市'
           that.setData({
@@ -110,19 +118,26 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  //   utils.getMap.call(this, app).then(()=>{
-  //     console.log('成功了')
-  //     this.setData({
-  //       'defaultData.cityName':  app.globalData.locationCity.cityName,
-  //     })
-  // }).catch(()=>{
-  //     console.log('失败了')
-  //     this.setData({
-  //       'defaultData.cityName': '北京市',
-  //     })
-  //   })
-    // let cityUpdata = this.data.cityupdata
     let { cityName, cityCode, cityUpdata } = app.globalData.locationCity
+    utils.getMap.call(this, app).then(()=>{
+  }).catch(()=>{
+    console.log('失败了')
+    wx.getStorage({
+      key:'selectcity',
+      success:(res)=>{
+        console.log('res',res)
+      },
+      fail:(res)=>{
+        cityCode = 276
+        cityName = '北京市'
+        this.setData({
+          'defaultData.cityName': '北京市',
+        })
+        this.loadData(cityCode)
+      }
+    })
+    })
+    // let cityUpdata = this.data.cityupdata
     this.setData({
       'defaultData.cityName': cityName,
     })

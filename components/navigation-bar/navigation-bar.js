@@ -2,6 +2,9 @@ const app = getApp()
 const net = require('../../utils/network')
 
 Component({
+  options: {
+    addGlobalClass: true 
+  },
   properties: {
     // defaultData（父页面传递的数据）
     defaultData: {
