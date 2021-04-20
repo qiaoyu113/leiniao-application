@@ -65,19 +65,28 @@ Component({
     },
     // 获取车辆列表
     getVehicleList (append, isKeywordChanged) {
+      const isRent = app.utils.getEntryRoute() === 'rentedCar'
       const formData = this.data.formData
+      const labels = [
+        {name: '准新车', key: 'isNewCar', bold: true},
+        {name: isRent ? '急租' : '急售', key: isRent ? 'isUrgentRent' : 'isUrgentSale', bold: true},
+        {name: '宽体', key: 'isWidth'},
+        {name: '有尾板', key: 'hasTailboard'},
+        {name: '有通行证', key: 'hasPass'}
+      ]
       const pageIndex = append ? this.data.pageIndex + 1 : 1
       Object.assign(formData, {
         limit: this.data.pageSize,
         page: pageIndex,
         searchCityId: (app.globalData.locationCity || {}).cityCode || '',
-        searchType: app.utils.getEntryRoute() === 'rentedCar' ? 1 : 2 // pullDownRefresh 时先于 init 执行
+        searchType: isRent ? 1 : 2 // pullDownRefresh 时先于 init 执行
       })
       formData.searchContent = formData.keyword || ''
       delete formData.keyword
       net.post('255/car_center/v1/cargo/getSearchCarList', formData, res => {
         const vehicleList = (res.data || []).map(v => {
           v.pic = (v.imageUrlList || [])[0] || ''
+          v.labels = labels.filter(l => v[l.key] === 1)
           return v
         })
         this.setData({
