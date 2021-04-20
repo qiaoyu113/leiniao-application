@@ -106,12 +106,20 @@
   background: rgba(255, 255, 255, 0.7);
 }
 
-.shadow image{
+.shadow .image1{
   width: 55px;
   height: 45px;
   position: absolute;
   top: 15px;
   right: 25px;
+}
+
+.shadow .image2{
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  bottom: 18px;
+  right: 20px;
 }
 
 .block{
