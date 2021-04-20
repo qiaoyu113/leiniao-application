@@ -1,4 +1,4 @@
-<view>
+<view class="vehicle-list">
   <!-- 筛选组件 -->
   <view class="sticky" style="top: {{isPageWithCustomNav ? navbarHeight : 0}}px">
     <vehicle-filter id="vehicleFilter" 
