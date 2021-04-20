@@ -322,6 +322,16 @@
 }
 .zujintankuang{
   line-height:40rpx;
-  padding-top: 80rpx;
+  padding-top: 50rpx;
   padding-left: 20rpx;
+}
+
+.introduce_title{
+  display: block;
+  width: 100%;
+  height: 30rpx;
+  text-align: center;
+  font-size: 32rpx;
+  line-height: 30rpx;
+  padding-top: 35rpx;
 }
