@@ -15,6 +15,7 @@
   display: block;
 }
 .title {
+  position: relative;
   width: 710rpx;
   padding-top: 24rpx;
   margin: 0 auto;
@@ -312,8 +313,8 @@
 }
 .swiper_index {
   position: absolute;
-  bottom: 5rpx;
-  right: 5rpx;
+  bottom: 20rpx;
+  right:20rpx;
   color: #fff;
 }
 .ask_box{
