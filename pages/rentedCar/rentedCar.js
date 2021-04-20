@@ -12,7 +12,6 @@ Page({
     hotModels: [],
     vehicleList: [],
     fastFeatures: [],
-    keyword: '',
     cityCode: '',
     cityName: '',
     defaultData: {
@@ -150,7 +149,15 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {},
+  onPullDownRefresh: function () {
+    this.setData({
+      hotModels: []
+    })
+    this.onLoad()
+    this.onShow()
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.onPageRefresh()
+  },
 
   /**
    * 页面上拉触底事件的处理函数
