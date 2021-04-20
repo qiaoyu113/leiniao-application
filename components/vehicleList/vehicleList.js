@@ -51,10 +51,16 @@ Component({
       const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(currentRoute) > -1
       const navbarHeight = app.globalData.navBarHeight
       const isRent = app.utils.getEntryRoute() === 'rentedCar'
+
+      const windowHeight = app.globalData.windowHeight
+      const barHeight = isPageWithCustomNav ? app.globalData.navBarHeight : 0
+      const filterTabHeight = 100 * app.globalData.screenWidth / 750
+      const minHeight = windowHeight - barHeight - filterTabHeight
       this.setData({
         isPageWithCustomNav,
         navbarHeight,
-        isRent
+        isRent,
+        minHeight
       })
     },
     // 获取车辆列表
@@ -65,7 +71,7 @@ Component({
         limit: this.data.pageSize,
         page: pageIndex,
         searchCityId: (app.globalData.locationCity || {}).cityCode || '',
-        searchType: this.data.isRent ? 1 : 2
+        searchType: app.utils.getEntryRoute() === 'rentedCar' ? 1 : 2 // pullDownRefresh 时先于 init 执行
       })
       formData.searchContent = formData.keyword || ''
       delete formData.keyword

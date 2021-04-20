@@ -17,7 +17,7 @@
     <!-- Panel -->
     <view wx:if="{{currentTab}}" class="absolute z-1000 width-100p" style="top: 100rpx;">
       <!-- Panels -->
-      <view class="bg-white bt-solid-e">
+      <view class="bt-solid-e bg-white">
         <!-- 车型 -->
         <view wx:if="{{currentTab.id === 'model'}}" style="height: {{maxHeight}}px;">
           <view class="flex">
@@ -26,7 +26,7 @@
                 wx:for="{{brandList}}" wx:key="index" data-info="{{item}}" bindtap="onSelectBrand">{{item.brandName}}</view>
             </scroll-view>
             <scroll-view scroll-y class="list-model" style="height: {{maxHeight}}px;">
-              <view class="height-44 align-center pl-32 text-14 {{item.selected ? 'text-blue bg-white' : 'text-gray-6'}}"
+              <view class="height-44 align-center pl-32 text-14 bg-white {{item.selected ? 'text-blue' : 'text-gray-6'}}"
                 wx:for="{{models}}" wx:key="index" data-info="{{item}}" bindtap="onSelectModel">{{item.modelName}}</view>
             </scroll-view>
           </view>
@@ -50,11 +50,11 @@
           <text class="text-15 {{isSale ? 'text-gray-6' : 'text-gray-3'}}">请输入价格（{{isSale ? '万元' : '元'}}）</text>
           <view class="center_space-around text-12" style="margin: 80rpx 0;">
             <input class="b-solid-e input-range text-center bg-gray" type="number" 
-              bindblur="onPriceInput" bindinput="onInputPrice"
+              bindblur="onPriceInput" bindinput="onInputPrice" pattern="[0-9]"
               model:value="{{minPrice}}" placeholder="最小值" />
             <view class="text-gray-6">—</view>
             <input class="b-solid-e input-range text-center bg-gray" type="number"
-              bindblur="onPriceInput" bindinput="onInputPrice"
+              bindblur="onPriceInput" bindinput="onInputPrice" pattern="[0-9]"
               model:value="{{maxPrice}}" placeholder="最大值" />
           </view>
         </view>
