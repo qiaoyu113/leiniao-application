@@ -39,7 +39,7 @@
       >
         <image class="left_img" src="{{item.imageUrlList[0]}}" />
           <view class="right_list">
-            <text class="list_title hidden_word" >{{item.brandName}}</text>
+            <text class="list_title hidden_word" >{{item.brandName+'  '+item.modelName+'  '}}{{item.horsepower?item.horsepower+'匹':''}}</text>
             <text class="list_sub_lefttitle" >车龄:{{item.carAgeStr}}</text>
             <text class="list_sub_righttitle" >里程:{{item.mileageStr}}</text>
             <view class="list_carlabel" >
