@@ -312,7 +312,7 @@ Page({
     }
     return {
       title: this.data.carData.brandName,
-      path: '/pages/carDetail/carDetail',
+      path: `/pages/carDetail/carDetail?type=${this.data.rentOrSale}&carId=${this.data.carId}`,
       // imageUrl: '/lib/image/rentcarimg/car.png',
       success: (res) => {
         console.log('转发成功', res)
@@ -330,7 +330,28 @@ Page({
     console.log('e', e)
   },
   //放大预览轮播图图片
-  handlePreviewImg(e){
+  handlePreviewVideo(e){
+    let swiperList = []
+    swiperList = this.data.carData.videoUrlList.concat(this.data.carData.imageUrlList)
+    const urls = swiperList
+    let urlList = []
+    swiperList.forEach(item=>{
+      urlList.push({
+        url:item
+      })
+    })
+    console.log('urls',swiperList,urlList)
+    // let data =[
+    //   {
+    //     url:'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/…910896933%E6%93%8D%E4%BD%9C%E8%A7%86%E9%A2%91.mp4'},
+    //     {
+    //       type:'image',
+    //       url:'https://qizhiniao-dev.oss-cn-beijing.aliyuncs.com/img/161891087805615.0%20KB.jpg'}
+    // ]
+    wx.previewMedia({
+      sources:urlList
+    })
+
     let swiperList = []
     swiperList = this.data.carData.videoUrlList.concat(this.data.carData.imageUrlList)
     const urls = swiperList
@@ -338,9 +359,19 @@ Page({
     const current = e.currentTarget.dataset.url
     wx.previewMedia({
       urls,
-      current
     })
   },
+  // handlePreviewImg(e){
+  //   let swiperList = []
+  //   swiperList = this.data.carData.videoUrlList.concat(this.data.carData.imageUrlList)
+  //   const urls = swiperList
+  //   console.log('urls',swiperList, e.currentTarget.dataset.url)
+  //   const current = e.currentTarget.dataset.url
+  //   wx.previewMedia({
+  //     urls,
+  //     current
+  //   })
+  // },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
