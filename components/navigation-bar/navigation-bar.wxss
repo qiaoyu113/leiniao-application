@@ -29,7 +29,7 @@
   height: 58rpx;
   background: #fff;
   border-radius: 29rpx;
-  line-height: 58rpx;
+  line-height: 54rpx;
 }
 .nav_title {
   font-size: 14px;
@@ -85,8 +85,4 @@
 .placeholder{
   color: #666;
   font-size: 24rpx;
-}
-.search_maxbox{
-  width: 400rpx;
-  height: 58rpx;
 }
