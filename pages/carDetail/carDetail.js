@@ -48,7 +48,7 @@ Page({
         if (res.success) {
           let carInfo = res.data
           carInfo.carDescribe = carInfo.carDescribe.trim()
-        if(carInfo.vogueReason){
+        if(carInfo.isVogue){
           that.setData({
             carData:carInfo,
             showHotIntroduce:true
@@ -337,7 +337,7 @@ Page({
     const urls = swiperList
     console.log('urls',swiperList, e.currentTarget.dataset.url)
     const current = e.currentTarget.dataset.url
-    wx.previewImage({
+    wx.previewMedia({
       urls,
       current
     })
