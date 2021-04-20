@@ -49,7 +49,7 @@ Component({
       const app = getApp()
       const currentRoute = app.utils.getCurrentRoute()
       const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(currentRoute) > -1
-      const navbarHeight = app.globalData.CustomBar
+      const navbarHeight = app.globalData.navBarHeight
       const isRent = app.utils.getEntryRoute() === 'rentedCar'
       this.setData({
         isPageWithCustomNav,

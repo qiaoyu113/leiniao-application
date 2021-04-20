@@ -172,6 +172,7 @@ Page({
     this.onShow()
     const vehicleList = this.selectComponent('#vehicleList')
     vehicleList && vehicleList.onPageRefresh()
+    wx.stopPullDownRefresh()
   },
 
   /**
