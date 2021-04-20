@@ -81,13 +81,13 @@
   </view>
   <view class="list_info">
     <text class="info_title">马力：</text>
-    <text class="info_data">{{ carData.horsepower+'匹'||'' }}</text>
+    <text class="info_data">{{ carData.horsepower?carData.horsepower+'匹':'' }}</text>
   </view>
   <view class="splite_box"></view>
   <!-- 保险信息 -->
   <view class="main_title"><text class="line"></text>保险信息 </view>
   <view class="list_info">
     <text class="info_title">商业保险额：</text>
-    <text class="info_data">{{ carData.insuredAmount || ''}}</text>
+    <text class="info_data">{{ carData.insuredAmount?carData.insuredAmount+'万元':''}}</text>
   </view>
 </view>

@@ -175,7 +175,8 @@ Page({
       'api/car_center/v1/cargo/getVogueList',
       {searchType:type,
        searchCityId:app.globalData.locationCity.cityCode,
-      pageNumber:page
+      page:page,
+      limit:30
       },
       'POST',
       '',
@@ -202,7 +203,9 @@ Page({
       'api/car_center/v1/cargo/getNewestCarList',
       {searchType:type,
         searchCityId:app.globalData.locationCity.cityCode,
-        pageNumber:page},
+        page:page,
+        limit:30
+      },
       'POST',
       '',
       'json',
@@ -243,7 +246,8 @@ Page({
           'push.pullText': '上拉加载更多',
       })
     } else {
-      if(page = 1){
+      console.log('page',page,this.data.carList)
+      if(!this.data.carList.length){
         that.setData({
           showList: false,
         })

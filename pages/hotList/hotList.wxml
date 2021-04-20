@@ -44,14 +44,14 @@
             <text class="list_sub_righttitle" >里程:{{item.mileageStr}}</text>
             <view class="list_carlabel" >
               <text class="list_top_type" wx:if="{{item.isNewCar==1}}">准新车</text>
-              <text class="list_top_type" wx:if="{{item.isUrgentRent==1}}">急租</text>
-              <text class="list_type" wx:if="{{item.isUrgentSale==1}}">急售</text>
-              <text class="list_type" wx:if="{{item.isWidth}}">宽体</text>
+              <text class="list_top_type" wx:if="{{item.isUrgentRent==1&&rentOrSale=='rent'}}">急租</text>
+              <text class="list_top_type" wx:if="{{item.isUrgentSale==1&&rentOrSale=='sale'}}">急售</text>
+              <text class="list_type" wx:if="{{item.isWidth==1}}">宽体</text>
               <text class="list_type" wx:if="{{item.hasTailboard==1}}">有尾板</text>
         <text class="list_type" wx:if="{{item.hasPass==1}}">有通行证</text>
             </view>
             <text class="list_price" wx:if="{{rentOrSale =='rent'}}">￥{{item.yearlyRent||''}}/月</text>
-            <text class="list_price" wx:else>￥{{item.price||''}}</text>
+            <text class="list_price" wx:else>￥{{item.price+'万'||''}}</text>
           </view>
       </view>
       <view wx:if="{{showCommend}}" class="{{item.status==40||item.status==50?'rentout_box ':' '}} bottom_list mx-5">

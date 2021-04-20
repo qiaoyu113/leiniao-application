@@ -33,6 +33,13 @@ Page({
 
   },
 
+  init () {
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.onParamChange({
+      hotModelIdList: app.globalData.hotModelIdList
+    })
+  },
+
   /**
    * 生命周期函数--监听页面隐藏
    */
@@ -51,7 +58,10 @@ Page({
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.onPageRefresh()
+    this.init()
+    wx.stopPullDownRefresh()
   },
 
   /**
@@ -67,12 +77,5 @@ Page({
    */
   onShareAppMessage: function () {
 
-  },
-
-  init () {
-    const vehicleList = this.selectComponent('#vehicleList')
-    vehicleList && vehicleList.onParamChange({
-      hotModelIdList: app.globalData.hotModelIdList
-    })
   }
 })

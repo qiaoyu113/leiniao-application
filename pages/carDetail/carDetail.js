@@ -121,7 +121,7 @@ Page({
   //询底价校验手机号
   checkphoneEvent(e) {
     if (
-      !/^((13[0-9])|(14[5|7])|(15([0-3]|[5-9]))|(18[0,5-9]))\d{8}$/.test(
+      !/^[1][3-9][0-9]{9}$/.test(
         e.detail.value
       ) &&
       e.detail.value
@@ -197,7 +197,6 @@ Page({
         console.log('请求询价接口res', res)
         if (res.success) {
           that.setData({
-            phoneValue:'',
             nameValue:''
           })
         }else{
@@ -394,7 +393,8 @@ Page({
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
-  onPullDownRefresh: function () {},
+  onPullDownRefresh: function () {
+  },
 
   /**
    * 页面上拉触底事件的处理函数
