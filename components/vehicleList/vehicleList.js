@@ -1,3 +1,4 @@
+const { getWxOpenId } = require('../../utils/network')
 const net = require('../../utils/network')
 const app = getApp()
 
@@ -85,8 +86,10 @@ Component({
       delete formData.keyword
       net.post('255/car_center/v1/cargo/getSearchCarList', formData, res => {
         const vehicleList = (res.data || []).map(v => {
+          const hasPower = v.horsepower > 0
           v.pic = (v.imageUrlList || [])[0] || ''
           v.labels = labels.filter(l => v[l.key] === 1)
+          v.fullDesc = `${v.brandName} ${v.modelName} ${hasPower ? v.horsepower : ''}${hasPower ? '匹' : ''}`
           return v
         })
         this.setData({
@@ -96,6 +99,21 @@ Component({
           total: (res.page || {}).total || 0
         })
         isKeywordChanged && this.triggerEvent('searchfinish')
+        // if (!append && isKeywordChanged) {
+        //   const query = this.createSelectorQuery()
+        //   query.select('.vehicle-list').boundingClientRect()
+        //   query.selectViewport().scrollOffset()
+        //   const app = getApp()
+        //   const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(app.utils.getCurrentRoute()) > -1
+        //   const barHeight = isPageWithCustomNav ? app.globalData.navBarHeight : 0
+        //   query.exec(res => {
+        //     if (res[0] && res[1]) {
+        //       console.log(res[0].top, res[1].scrollTop)
+        //       // wx.pageScrollTo({scrollTop: res[0].top + res[1].scrollTop - barHeight})
+        //       // wx.pageScrollTo({scrollTop: res[0].top + res[1].scrollTop - barHeight})
+        //     }
+        //   })
+        // }
       })
     },
     onFastFeatureReady (evt) {
@@ -113,11 +131,11 @@ Component({
       })
     },
     // 筛选组件汇总后的参数变动
-    onParamChange: function (evt) {
+    onParamChange: function (evt, isPageInit) {
       this.setData({
         formData: Object.assign({}, this.data.formData, evt.detail || evt)
       }, () => {
-        this.getVehicleList(false, !evt.detail)
+        this.getVehicleList(false, !evt.detail, isPageInit)
       })
     },
     // 筛选组件筛选项变动，同步到页面
