@@ -1,3 +1,4 @@
+const { getWxOpenId } = require('../../utils/network')
 const net = require('../../utils/network')
 const app = getApp()
 
@@ -65,19 +66,30 @@ Component({
     },
     // 获取车辆列表
     getVehicleList (append, isKeywordChanged) {
+      const isRent = app.utils.getEntryRoute() === 'rentedCar'
       const formData = this.data.formData
+      const labels = [
+        {name: '准新车', key: 'isNewCar', bold: true},
+        {name: isRent ? '急租' : '急售', key: isRent ? 'isUrgentRent' : 'isUrgentSale', bold: true},
+        {name: '宽体', key: 'isWidth'},
+        {name: '有尾板', key: 'hasTailboard'},
+        {name: '有通行证', key: 'hasPass'}
+      ]
       const pageIndex = append ? this.data.pageIndex + 1 : 1
       Object.assign(formData, {
         limit: this.data.pageSize,
         page: pageIndex,
         searchCityId: (app.globalData.locationCity || {}).cityCode || '',
-        searchType: app.utils.getEntryRoute() === 'rentedCar' ? 1 : 2 // pullDownRefresh 时先于 init 执行
+        searchType: isRent ? 1 : 2 // pullDownRefresh 时先于 init 执行
       })
       formData.searchContent = formData.keyword || ''
       delete formData.keyword
       net.post('255/car_center/v1/cargo/getSearchCarList', formData, res => {
         const vehicleList = (res.data || []).map(v => {
+          const hasPower = v.horsepower > 0
           v.pic = (v.imageUrlList || [])[0] || ''
+          v.labels = labels.filter(l => v[l.key] === 1)
+          v.fullDesc = `${v.brandName} ${v.modelName} ${hasPower ? v.horsepower : ''}${hasPower ? '匹' : ''}`
           return v
         })
         this.setData({
@@ -87,6 +99,21 @@ Component({
           total: (res.page || {}).total || 0
         })
         isKeywordChanged && this.triggerEvent('searchfinish')
+        // if (!append && isKeywordChanged) {
+        //   const query = this.createSelectorQuery()
+        //   query.select('.vehicle-list').boundingClientRect()
+        //   query.selectViewport().scrollOffset()
+        //   const app = getApp()
+        //   const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(app.utils.getCurrentRoute()) > -1
+        //   const barHeight = isPageWithCustomNav ? app.globalData.navBarHeight : 0
+        //   query.exec(res => {
+        //     if (res[0] && res[1]) {
+        //       console.log(res[0].top, res[1].scrollTop)
+        //       // wx.pageScrollTo({scrollTop: res[0].top + res[1].scrollTop - barHeight})
+        //       // wx.pageScrollTo({scrollTop: res[0].top + res[1].scrollTop - barHeight})
+        //     }
+        //   })
+        // }
       })
     },
     onFastFeatureReady (evt) {
@@ -104,11 +131,11 @@ Component({
       })
     },
     // 筛选组件汇总后的参数变动
-    onParamChange: function (evt) {
+    onParamChange: function (evt, isPageInit) {
       this.setData({
         formData: Object.assign({}, this.data.formData, evt.detail || evt)
       }, () => {
-        this.getVehicleList(false, !evt.detail)
+        this.getVehicleList(false, !evt.detail, isPageInit)
       })
     },
     // 筛选组件筛选项变动，同步到页面
