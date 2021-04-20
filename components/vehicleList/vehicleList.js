@@ -27,7 +27,6 @@ Component({
     isPageWithCustomNav: false,
     navbarHeight: 64,
     loadStatus: 0, // 0 初始化 1请求中 2请求完毕
-    labels: [],
     total: 0,
     bottomText: ''
   },
@@ -169,7 +168,6 @@ Component({
         isPageWithCustomNav: false,
         navbarHeight: 64,
         loadStatus: 0, // 0 初始化 1请求中 2请求完毕
-        labels: [],
         total: 0,
         bottomText: ''
       }, () => {

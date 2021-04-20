@@ -9,15 +9,15 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    item: Object,
-    labels: Array
+    item: Object
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-    isRent: false
+    isRent: false,
+    labels: []
   },
 
   lifetimes: {
@@ -37,7 +37,17 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    init () {},
+    init () {
+      this.setData({
+        labels: [
+          {name: '准新车', key: 'isNewCar'},
+          this.data.isRent ? {name: '急租', key: 'isUrgentRent'} : {name: '急售', key: 'isUrgentSale'},
+          {name: '宽体', key: 'isWidth'},
+          {name: '有尾板', key: 'hasTailboard'},
+          {name: '有通行证', key: 'hasPass'},
+        ]
+      })
+    },
     onViewDetail (evt) {
       const hasLogin = wx.getStorageSync('phoneName')
       const url = hasLogin ? `/pages/carDetail/carDetail?carId=${this.data.item.carId}` : '/pages/shareLogin/shareLogin'
