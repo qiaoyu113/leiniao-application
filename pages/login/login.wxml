@@ -20,3 +20,4 @@
     <view class="phoneLogin" bindtap="goLogin">手机号登录/注册</view>
   </view>
 </view>
+<van-dialog id="van-dialog" />
