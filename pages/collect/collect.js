@@ -136,6 +136,7 @@ Page({
       page: 1
     })
     this.getList()
+    wx.stopPullDownRefresh()
   },
 
   /**
