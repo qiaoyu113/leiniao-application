@@ -159,13 +159,13 @@ Page({
   },
   //调用搜索接口搜索页面
   searchEvent(value) {
-    if(/^[a-zA-Z0-9_\u4e00-\u9fa5]+$/.test(value)){
+    if(/^[a-zA-Z0-9_.\u4e00-\u9fa5]+$/.test(value)){
     const vehicleList = this.selectComponent('#vehicleList')
     vehicleList && vehicleList.onPageKeywordChange(value)
     }else if(!value){
     }else{
       wx.showModal({
-        title:'请输入正确的格式，支持汉字、数字、字母、下划线'
+        title:'请输入正确的格式，支持汉字、数字、字母、下划线、小数点'
       })
     }
   },
