@@ -226,7 +226,7 @@ function getWxOpenId(ctx) {
         data: code
       })
       // requestLoading('api/auth/v1/jwt/getToken', {
-      requestLoading('25/auth/v2/jwt/getToken', {
+      requestLoading('25/auth/v1/leiniaoAuth/jwt/getToken', {
         wxCode: code
       },
         'post',
