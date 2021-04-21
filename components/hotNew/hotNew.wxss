@@ -40,7 +40,7 @@
   position: absolute;
   left: 0;
   top: 22rpx;
-  width: 110rpx;
+  width: 130rpx;
   height: 39rpx;
   background: linear-gradient(270deg, #ff4652 0%, #ff7c8a 100%);
   border-radius: 0rpx 100rpx 100rpx 0rpx;
@@ -54,12 +54,12 @@
   left: -10rpx;
   top: 22rpx;
   width: 130rpx;
-  height: 32rpx;
+  height: 39rpx;
   background: linear-gradient(90deg, #ffa000 0%, #ff6400 100%);
   border-radius: 16rpx;
-  font-size: 22rpx;
+  font-size: 24rpx;
   padding-left: 21rpx;
-  line-height: 33rpx;
+  line-height: 39rpx;
 }
 .ad_left_img {
   position: absolute;
