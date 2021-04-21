@@ -27,7 +27,7 @@
   line-height: 42rpx;
 }
 .goback_btn {
-  position: absolute;
+  position: fixed;
   left: 20rpx;
   width: 54rpx;
   height: 54rpx;
@@ -357,4 +357,5 @@
 .page{
   padding-bottom: 20rpx;
   box-sizing: border-box;
+  position: relative;
 }
