@@ -103,6 +103,9 @@
 .text-bold {
   font-weight: bold;
 }
+.text-normal {
+  font-weight: normal;
+}
 .box-shadow {
   box-shadow: 0 10rpx 20rpx 0 rgba(221,221,221,0.50);
 }
