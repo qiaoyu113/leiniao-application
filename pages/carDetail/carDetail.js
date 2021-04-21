@@ -26,10 +26,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const isRent = app.utils.getEntryRoute() === 'rentedCar'
+    // const isRent = app.utils.getEntryRoute() === 'rentedCar'
     this.setData({
       carId: options.carId,
-      rentOrSale: isRent ? 'rent' : 'sale'
+      rentOrSale: options.type
     })
   },
   //调用接口，获取车辆详情
