@@ -20,6 +20,7 @@ Page({
     carId: '',
     rentOrSale: '',
     swiperList: [],
+    swiperId:0
   },
 
 
@@ -341,6 +342,7 @@ Page({
     })
     wx.previewMedia({
       sources:urlList,
+      current:this.data.swiperId
     })
   },
 
