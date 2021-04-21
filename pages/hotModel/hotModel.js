@@ -37,7 +37,7 @@ Page({
     const vehicleList = this.selectComponent('#vehicleList')
     vehicleList && vehicleList.onParamChange({
       hotModelIdList: app.globalData.hotModelIdList
-    })
+    }, 'isPageInit=true')
   },
 
   /**
