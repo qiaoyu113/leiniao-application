@@ -38,8 +38,8 @@
   height: 54rpx;
 }
 .goback_img {
-  width: 54rpx;
-  height: 54rpx;
+  width: 56rpx;
+  height: 56rpx;
 }
 .tips {
   font-size: 20rpx;

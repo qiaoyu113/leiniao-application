@@ -46,8 +46,8 @@
                 bindtap="showIntroduceEvent"
                 src="../../lib/image/rentcarimg/introduce.png" />
         </view>
-        <text class="bottom_tips" wx:if="{{carData.isWidth==1}}">宽体</text>
-        <text class="bottom_tips" wx:if="{{carData.hasTailboard==1}}">有尾板</text>
+          <text class="bottom_tips" wx:if="{{carData.isWidth==1}}">宽体</text>
+          <text class="bottom_tips" wx:if="{{carData.hasTailboard==1}}">有尾板</text>
         <text class="bottom_tips" wx:if="{{carData.hasPass==1}}">有通行证</text>
   </view>
   <!-- 爆款推荐理由 -->
