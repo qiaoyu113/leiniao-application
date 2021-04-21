@@ -1,4 +1,3 @@
-const { getWxOpenId } = require('../../utils/network')
 const net = require('../../utils/network')
 const app = getApp()
 
@@ -65,7 +64,7 @@ Component({
       })
     },
     // 获取车辆列表
-    getVehicleList (append, isKeywordChanged) {
+    getVehicleList (append, isKeywordChanged, isPageInit) {
       const isRent = app.utils.getEntryRoute() === 'rentedCar'
       const formData = this.data.formData
       const labels = [
@@ -99,21 +98,21 @@ Component({
           total: (res.page || {}).total || 0
         })
         isKeywordChanged && this.triggerEvent('searchfinish')
-        // if (!append && isKeywordChanged) {
-        //   const query = this.createSelectorQuery()
-        //   query.select('.vehicle-list').boundingClientRect()
-        //   query.selectViewport().scrollOffset()
-        //   const app = getApp()
-        //   const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(app.utils.getCurrentRoute()) > -1
-        //   const barHeight = isPageWithCustomNav ? app.globalData.navBarHeight : 0
-        //   query.exec(res => {
-        //     if (res[0] && res[1]) {
-        //       console.log(res[0].top, res[1].scrollTop)
-        //       // wx.pageScrollTo({scrollTop: res[0].top + res[1].scrollTop - barHeight})
-        //       // wx.pageScrollTo({scrollTop: res[0].top + res[1].scrollTop - barHeight})
-        //     }
-        //   })
-        // }
+      })
+      !append && !isPageInit && this.backToTop()
+    },
+    backToTop () {
+      const query = this.createSelectorQuery()
+      query.select('.vehicle-list').boundingClientRect()
+      query.selectViewport().scrollOffset()
+      const isEntryPage = ['rentedCar', 'saleCar'].indexOf(app.utils.getCurrentRoute()) > -1
+      const filterTabHeight = (isEntryPage ? 130 : 100) * app.globalData.screenWidth / 750
+      console.log('isEntryPage', isEntryPage)
+      query.exec(res => {
+        if (res[0] && res[1]) {
+          const offset = res[0].top + res[1].scrollTop - filterTabHeight
+          wx.pageScrollTo({scrollTop: offset})
+        }
       })
     },
     onFastFeatureReady (evt) {
@@ -185,7 +184,7 @@ Component({
     // const vehicleList = this.selectComponent('#vehicleList')
     // vehicleList && vehicleList.onPageKeywordChange(newVal)
     onPageKeywordChange (val) {
-      this.onParamChange({keyword: val})
+      this.onParamChange({keyword: val}, 'isPageInit=true')
     },
     onPageRefresh () {
       this.setData({

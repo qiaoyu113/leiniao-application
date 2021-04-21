@@ -90,7 +90,7 @@ Page({
   },
   loadData (cityCode) {
     const vehicleList = this.selectComponent('#vehicleList')
-    vehicleList && vehicleList.onParamChange({searchCityId: cityCode})
+    vehicleList && vehicleList.onParamChange({searchCityId: cityCode}, 'isPageInit=true')
   },
   //点击城市事件
   selectLocationEvent() {
