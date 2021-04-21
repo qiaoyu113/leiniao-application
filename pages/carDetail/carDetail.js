@@ -31,7 +31,6 @@ Page({
       carId: options.carId,
       rentOrSale: options.type
     })
-    console.log('options',options)
     if(options.isshare){
       this.setData({
         isshare:'1'
@@ -50,7 +49,6 @@ Page({
       '',
       'json',
       function (res) {
-        console.log('请求接口res', res)
         if (res.success) {
           let carInfo = res.data
           carInfo.carDescribe = carInfo.carDescribe.trim()
@@ -77,9 +75,6 @@ Page({
   //返回上一页
   gobackEvent() {
     let page = getCurrentPages()
-    console.log('page', page)
-
-    console.log('返回上一页')
     if(this.data.isshare){
       wx.switchTab({
         url: '/pages/rentedCar/rentedCar'
@@ -151,7 +146,6 @@ Page({
   inputEvent(e) {
     let inputType = e.currentTarget.dataset['index']
     let value = e.detail.value
-    console.log('inputType', inputType)
     if (inputType === 'phone') {
       this.setData({
         phoneValue: value,
@@ -167,10 +161,8 @@ Page({
     let { nameReg, phoneReg, phoneValue, nameValue } = this.data
     //未填写称呼时
     if (!nameReg && !phoneReg) {
-      console.log('phoneValue', phoneValue)
       if (phoneValue) {
         //调用获取底价接口
-        console.log('校验通过，获取底价')
         let info = {
           carId:this.data.carId,
           inquiryName:nameValue,
@@ -206,19 +198,20 @@ Page({
       '',
       'json',
       function (res) {
-        console.log('请求询价接口res', res)
         if (res.success) {
           that.setData({
             nameValue:''
           })
+          setTimeout(()=>{
+            wx.showToast({
+              title: '询价成功',
+            })
+          },500)
         }else{
           wx.showModal({
             title: res.errorMsg,
           })
         }
-        wx.showToast({
-          title: '询价成功',
-        })
         that.onClose()
       },
       function (res) {
@@ -231,7 +224,6 @@ Page({
   //收藏
   collectCarEvent(e) {
     let collectid = e.currentTarget.dataset['index']
-    console.log(collectid)
     if (collectid == 0) {
       wx.showLoading({
         title: '加载中',
@@ -257,7 +249,6 @@ Page({
       '',
       'json',
       function (res) {
-        console.log('请求接口res', res)
         if (res.success) {
           that.setData({
             'carData.isFavorite': 1,
@@ -291,7 +282,6 @@ Page({
       '',
       'json',
       function (res) {
-        console.log('请求接口res', res)
         if (res.success) {
           that.setData({
             'carData.isFavorite': 2,
@@ -319,7 +309,6 @@ Page({
     this.setData({
       swiperId: e.detail.current,
     })
-    console.log('e', e)
   },
   //放大预览轮播图图片
   handlePreviewImg(e){
@@ -350,7 +339,6 @@ Page({
         type:'image'
       })
     })
-    console.log('urls',urlList)
     wx.previewMedia({
       sources:urlList,
     })
@@ -358,7 +346,6 @@ Page({
 
    //按钮分享
 onShareAppMessage() {
-  console.log('onShareAppMessage')
   return {
     title: this.data.carData.brandName,
     path: `/pages/carDetail/carDetail?type=${this.data.rentOrSale}&carId=${this.data.carId}&isshare=1`
@@ -373,7 +360,6 @@ onShareAppMessage() {
    * 生命周期函数--监听页面显示
    */
   onShow: function (options) {
-    console.log('onshow',options)
     this.getCarInfo()
     this.getPhoneNumber()
   },

@@ -14,7 +14,6 @@ var getMap = function (app) {
   wx.getLocation({
     type: 'wgs84',
     success(res) {
-      console.log(res)
       qqmapsdk.reverseGeocoder({
         location: {
           latitude: res.latitude,
@@ -24,7 +23,6 @@ var getMap = function (app) {
           var city = addressRes.result.address_component.city
           var city_code = addressRes.result.ad_info.city_code
           app.globalData.locationCity = { cityName: city, cityCode: city_code }
-          console.log('城市信息', app.globalData.locationCity)
           var address =
             addressRes.result.address_component.city +
             addressRes.result.address_component.province +
@@ -44,7 +42,6 @@ var getMap = function (app) {
             '',
             '',
             function (res) {
-              console.log('getCityCodeByCityName',res)
               if (res.success) {
                 if (that.data.cityCode == '') {
                   // wx.setStorageSync('cityCode', res.data.code)
@@ -66,10 +63,6 @@ var getMap = function (app) {
                     souceCity: address,
                   })
                 }
-                console.log(
-                  'app.globalData.locationCity',
-                  app.globalData.locationCity
-                )
               }
             },
             function (res) {
@@ -82,7 +75,6 @@ var getMap = function (app) {
       })
     },
     fail(err) {
-      console.log(err)
       reject(err)
     },
   })

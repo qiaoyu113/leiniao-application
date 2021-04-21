@@ -78,7 +78,7 @@
   z-index: 9999;
   position: absolute;
   top:5rpx;
-  left:15rpx;
+  left:30rpx;
 }
 .center{
   text-align: center;

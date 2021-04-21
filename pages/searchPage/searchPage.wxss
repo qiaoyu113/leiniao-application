@@ -50,7 +50,7 @@
   font-size: 30rpx;
   position: absolute;
   top: 15rpx;
-  right: 28rpx;
+  right: 60rpx;
   color: #ccc;
 }
 .tesst_input {

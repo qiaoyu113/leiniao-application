@@ -122,8 +122,7 @@
     <view class="asktitle">询底价</view>
     <view class="ask_ques_box">
       <text class="ask_ques_title">如何称呼您</text>
-      <input class="ask_ques_content name_input" data-index="username"  bindinput="inputEvent"  placeholder="请输入称呼(选填)" value="{{nameValue}}" bindblur="checknameEvent"></input>
-      <text class="ask_ques_reg" wx:if="{{nameReg}}">最多输入20个字</text>
+      <input class="ask_ques_content name_input" maxlength="20" data-index="username"  bindinput="inputEvent"  placeholder="请输入称呼(选填)" value="{{nameValue}}" bindblur="checknameEvent"></input>
     </view>
     <view class="ask_ques_box">
       <text class="ask_ques_title">联系电话</text>

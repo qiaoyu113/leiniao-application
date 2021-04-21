@@ -156,7 +156,7 @@
   float: right;
   margin-right: 28rpx;
   font-size: 26rpx;
-  color: #666;
+  color: #1C8EFA;
 }
 .files_type_box {
   width: 100%;

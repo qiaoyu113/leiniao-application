@@ -138,12 +138,12 @@
   color: #fff;
 }
 .bottom_line {
-  border: 1rpx solid #e8e8e8;
+  border-bottom: 1rpx solid #e8e8e8;
   width: 690rpx;
   margin: 40rpx auto 0;
 }
 .todaynewcar_bottom_line {
-  border: 1rpx solid #e8e8e8;
+  border-bottom: 1rpx solid #e8e8e8;
   width: 690rpx;
   margin: 0 auto;
 }

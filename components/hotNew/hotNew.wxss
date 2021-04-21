@@ -46,33 +46,33 @@
   border-radius: 0rpx 100rpx 100rpx 0rpx;
   font-size: 24rpx;
   padding-left: 16rpx;
-  line-height: 38rpx;
+  line-height: 39rpx;
 }
 .sub_right_title {
   display: block;
-  position: absolute;
-  left: -10rpx;
-  top: 22rpx;
-  width: 130rpx;
-  height: 39rpx;
-  background: linear-gradient(90deg, #ffa000 0%, #ff6400 100%);
-  border-radius: 16rpx;
-  font-size: 24rpx;
-  padding-left: 21rpx;
-  line-height: 39rpx;
+    position: absolute;
+    left: -10rpx;
+    top: 22rpx;
+    width: 140rpx;
+    height: 39rpx;
+    background: linear-gradient(90deg, #ffa000 0%, #ff6400 100%);
+    font-size: 24rpx;
+    padding-left: 21rpx;
+    line-height: 39rpx;
+    border-radius: 0rpx 100rpx 100rpx 0rpx;
 }
 .ad_left_img {
   position: absolute;
-    right: -50rpx;
-    bottom: -17rpx;
+  right: -53rpx;
+  bottom: -21rpx;
     width: 365rpx;
     height: 289rpx;
     border-radius: 8rpx;
 }
 .ad_right_img {
   position: absolute;
-  right: -21px;
-  bottom: -18rpx;
+  right: -25px;
+  bottom: -22rpx;
   width: 353rpx;
   height: 282rpx;
   border-radius: 8rpx;
