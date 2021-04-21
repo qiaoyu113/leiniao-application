@@ -116,8 +116,8 @@
   line-height:45rpx
 }
 .list_type {
-  padding: 3rpx 3rpx;
-  border: 1px solid #1c8efa;
+  padding: 1rpx 1rpx;
+  border: 2rpx solid #1c8efa;
   margin-right: 10rpx;
   border-radius: 4rpx;
   margin-bottom: 5rpx;
