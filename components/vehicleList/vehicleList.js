@@ -106,11 +106,11 @@ Component({
       query.select('.vehicle-list').boundingClientRect()
       query.selectViewport().scrollOffset()
       const isEntryPage = ['rentedCar', 'saleCar'].indexOf(app.utils.getCurrentRoute()) > -1
-      const filterTabHeight = (isEntryPage ? 130 : 100) * app.globalData.screenWidth / 750
-      console.log('isEntryPage', isEntryPage)
+      const filterTabHeight = (isEntryPage ? 170 : 100) * app.globalData.screenWidth / 750
       query.exec(res => {
         if (res[0] && res[1]) {
-          const offset = res[0].top + res[1].scrollTop - filterTabHeight
+          const offset = res[0].top + res[1].scrollTop - app.globalData.navBarHeight - filterTabHeight
+          console.log(filterTabHeight, offset)
           wx.pageScrollTo({scrollTop: offset})
         }
       })

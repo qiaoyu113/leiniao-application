@@ -119,6 +119,7 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    console.log('works')
     let { cityName, cityCode, cityUpdata } = app.globalData.locationCity
     if (cityUpdata === 1) {
       app.globalData.locationCity.cityUpdata = 0
@@ -168,7 +169,9 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {},
+  onShareAppMessage: function () {
+    console.log('share')
+  },
   // 获取热门车型
   getHotModels: function () {
     net.get('api/car/v1/car/carHotInfo/getCarHotListForApplets', res => {
@@ -185,9 +188,8 @@ Page({
   // 前往热门车型页面
   onGoHotModel: function (evt) {
     const { info } = evt.currentTarget.dataset
-    app.globalData.hotModelIdList = info.modelIdList
     wx.navigateTo({
-      url: '../hotModel/hotModel?name=' + info.label,
+      url: `../hotModel/hotModel?name=${info.label}&id=${info.id}`,
     })
   },
   //保存北京code

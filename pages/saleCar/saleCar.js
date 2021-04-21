@@ -184,9 +184,8 @@ Page({
   // 前往热门车型页面
   onGoHotModel: function (evt) {
     const { info } = evt.currentTarget.dataset
-    app.globalData.hotModelIdList = info.modelIdList
     wx.navigateTo({
-      url: '../hotModel/hotModel?name=' + info.label,
+      url: `../hotModel/hotModel?name=${info.label}&id=${info.id}`,
     })
   },
 })
