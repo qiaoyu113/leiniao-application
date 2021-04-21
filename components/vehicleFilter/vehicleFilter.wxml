@@ -49,13 +49,11 @@
           </view>
           <text class="text-15 {{isSale ? 'text-gray-6' : 'text-gray-3'}}">请输入价格（{{isSale ? '万元' : '元'}}）</text>
           <view class="center_space-around text-12" style="margin: 80rpx 0;">
-            <input class="b-solid-e input-range text-center bg-gray" type="number" 
-              bindinput="onInputPrice" pattern="[0-9]" maxlength="5"
-              model:value="{{minPrice}}" placeholder="最小值" />
+            <input class="b-solid-e input-range text-center bg-gray" type="number" model:value="{{minPrice}}"
+              bindinput="onInputMinPrice"  pattern="[0-9]" maxlength="5" placeholder="最小值" />
             <view class="text-gray-6">—</view>
-            <input class="b-solid-e input-range text-center bg-gray" type="number"
-              bindinput="onInputPrice" pattern="[0-9]" maxlength="5"
-              model:value="{{maxPrice}}" placeholder="最大值" />
+            <input class="b-solid-e input-range text-center bg-gray" type="number" model:value="{{maxPrice}}"
+              bindinput="onInputMaxPrice" pattern="[0-9]" maxlength="5" placeholder="最大值" />
           </view>
         </view>
         <!-- 筛选 -->
@@ -72,13 +70,11 @@
           </view>
           <view class="text-15 text-gray-9 mt-15">请输入里程（万公里）</view>
           <view class="center_space-around mt-12 text-12">
-            <input class="b-solid-e input-range text-center bg-gray mx-15" type="number"
-              bindinput="onInputMiles" pattern="[0-9]" maxlength="5"
-              model:value="{{minMiles}}" placeholder="最小值" />
+            <input class="b-solid-e input-range text-center bg-gray mx-15" type="number" model:value="{{minMiles}}"
+              bindinput="onInputMinMiles" pattern="[0-9]" maxlength="5" placeholder="最小值" />
             <view class="text-gray-6">—</view>
-            <input class="b-solid-e input-range text-center bg-gray mx-15" type="number"
-              bindinput="onInputMiles" pattern="[0-9]" maxlength="5"
-              model:value="{{maxMiles}}" placeholder="最大值" />
+            <input class="b-solid-e input-range text-center bg-gray mx-15" type="number" model:value="{{maxMiles}}"
+              bindinput="onInputMaxMiles" pattern="[0-9]" maxlength="5" placeholder="最大值" />
           </view>
         </view>
         <!-- 排序 -->
