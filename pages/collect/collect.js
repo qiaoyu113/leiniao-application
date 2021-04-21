@@ -91,6 +91,11 @@ Page({
     let id = e.currentTarget.dataset.id
     let off = e.currentTarget.dataset.off
     let type = e.currentTarget.dataset.type
+    if (Number(type) == 1) {
+      type = 'rent'
+    } else {
+      type = 'sale'
+    }
     if (!off) {
       wx.navigateTo({
         url: '../carDetail/carDetail?carId=' + id + '&type=' + type
