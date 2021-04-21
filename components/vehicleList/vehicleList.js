@@ -54,7 +54,8 @@ Component({
 
       const windowHeight = app.globalData.windowHeight
       const barHeight = isPageWithCustomNav ? app.globalData.navBarHeight : 0
-      const filterTabHeight = 170 * app.globalData.screenWidth / 750
+      const isEntryPage = ['rentedCar', 'saleCar'].indexOf(app.utils.getCurrentRoute()) > -1
+      const filterTabHeight = (isEntryPage ? 170 : 100) * app.globalData.screenWidth / 750
       const minHeight = windowHeight - barHeight - filterTabHeight
       this.setData({
         isPageWithCustomNav,
