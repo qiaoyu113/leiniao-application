@@ -137,6 +137,19 @@ Page({
     }
   },
 
+  // 查看协议
+  goRouter(e) {
+    if(e.target.dataset.type == 1) {
+      wx.navigateTo({
+        url: '../privacy/privacy'
+      });
+    } else {
+      wx.navigateTo({
+        url: '../clause/clause'
+      });
+    }
+  },
+
   hasEnter() {
     //是否已经入驻
     let that = this;

@@ -5,5 +5,5 @@
     "scroll-y": "/components/scroll-y/scroll-y"
   },
   "navigationStyle": "custom",
-  "enablePullDownRefresh":true
+  "enablePullDownRefresh": true
 }

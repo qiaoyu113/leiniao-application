@@ -1,4 +1,5 @@
 <!--pages/carDetail/carDetail.wxml-->
+<view class="page">
 <view class="top_bar">
   <view class="goback_btn" bindtap="gobackEvent" style="top:{{navBarHeight}}rpx;">
     <image class="goback_img" src="../../lib/image/rentcarimg/goback_button.png" />
@@ -9,7 +10,7 @@
     <swiper-item
       wx:for="{{carData.videoUrlList}}"
       wx:key="key"
-      bindtap="handlePreviewImg"
+      bindtap="handlePreviewVideo"
       data-url="{{item}}"
       >
             <!-- <video class="top_bar_img" wx:if="{{item.type==='video'}}" src='{{item.url}}' bindtap="bofang" controls='true'></video> -->
@@ -21,10 +22,10 @@
         <swiper-item
           wx:for="{{carData.imageUrlList}}"
           wx:key="key"
-          bindtap="handlePreviewImg"
+          bindtap="handlePreviewVideo"
           data-url="{{item}}"
           >
-            <image  class="top_bar_img"  src="{{item}}"></image>
+            <image  class="top_bar_img"  mode="aspectFill" src="{{item}}"></image>
 
         </swiper-item>
       </swiper>
@@ -35,11 +36,11 @@
         <text class="tips" wx:if="{{carData.isNewCar==1}}">准新车</text>
         <text class="tips" wx:if="{{carData.isUrgentRent==1&&rentOrSale=='rent'}}">急租</text>
         <text class="tips" wx:if="{{carData.isUrgentSale==1&&rentOrSale=='sale'}}">急售</text>
-        <text class="main_title">{{carData.brandName+' '+carData.modelName+' '+carData.horsepower+'匹'}}</text>
+        <text class="main_title">{{carData.brandName+' '+carData.modelName+' '}}{{item.horsepower?item.horsepower+'匹':''}}</text>
         <view class="price_info">
           <text class="" wx:if="{{rentOrSale=='sale'}}">参考价：</text>
-          <text class="price" wx:if="{{rentOrSale=='rent'}}">￥{{carData.yearlyRent+'/月'||''}}</text>
-          <text class="price" wx:if="{{rentOrSale=='sale'}}">￥{{carData.price+'万'||''}}</text>
+          <text class="price" wx:if="{{rentOrSale=='rent'}}">￥{{carData.yearlyRent?carData.yearlyRent+'/月':''}}</text>
+          <text class="price" wx:if="{{rentOrSale=='sale'}}">￥{{carData.price?carData.price+'万':''}}</text>
           <text class="price_tips" wx:if="{{rentOrSale=='rent'}}">起</text>
           <image class="title_img"
                 bindtap="showIntroduceEvent"
@@ -53,7 +54,7 @@
   <view class="introduce_reason" wx:if="{{showHotIntroduce}}">
     <image class="hot_img" src="../../lib/image/rentcarimg/hot.png" />
     <text class="hot_title">爆款推荐理由:</text>
-      <view class="hot_content">{{carData.vogueReason}}</view>
+      <view class="hot_content">{{carData.vogueReason?carData.vogueReason:''}}</view>
   </view>
     <view class="splite_line"></view>
     <!-- 车辆档案 -->
@@ -63,11 +64,11 @@
           <text class="right_title" bindtap="viewAllEvent">查看全部</text>
           <view class="files_type_box">
             <view class="type_box_detail">
-              <text class="type_value">{{carData.carAgeStr||''}}</text>
+              <text class="type_value">{{carData.carAgeStr?carData.carAgeStr:''}}</text>
               <text class="type_key">车龄</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.mileageStr||''}}</text>
+              <text class="type_value">{{carData.mileageStr?carData.mileageStr:''}}</text>
               <text class="type_key">里程</text>
             </view>
             <view class="type_box_detail">
@@ -75,15 +76,15 @@
               <text class="type_key">箱体宽度</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.registerCityStr||''}}</text>
+              <text class="type_value">{{carData.registerCityStr?carData.registerCityStr:''}}</text>
               <text class="type_key">牌照地</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.workCityStr||''}}</text>
+              <text class="type_value">{{carData.workCityStr?carData.workCityStr:''}}</text>
               <text class="type_key">看车地</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.carTypeStr||''}}</text>
+              <text class="type_value">{{carData.attributeStr?carData.attributeStr:''}}</text>
               <text class="type_key">车辆性质</text>
             </view>
           </view>
@@ -92,7 +93,7 @@
     <!-- 车辆描述 -->
     <view class="car_description" wx:if="{{carData.carDescribe}}">
         <text class="car_des_title"><text class="des_title_detail">车辆描述</text></text>
-        <view class="car_des_detail">{{carData.carDescribe}}</view>
+        <view class="car_des_detail">{{carData.carDescribe?carData.carDescribe:''}}</view>
   </view>
   <!-- 底部收藏 -->
   <view class="bottom_bar">
@@ -132,3 +133,4 @@
     </view>
   </view>
   </van-popup>
+</view>

@@ -26,11 +26,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    // const isRent = app.utils.getEntryRoute() === 'rentedCar'
     this.setData({
       carId: options.carId,
       rentOrSale: options.type
     })
+    console.log('options',options)
+    if(options.page){
+      
+    }
   },
   //调用接口，获取车辆详情
   getCarInfo() {
@@ -312,8 +315,7 @@ Page({
     }
     return {
       title: this.data.carData.brandName,
-      path: `/pages/carDetail/carDetail?type=${this.data.rentOrSale}&carId=${this.data.carId}`,
-      // imageUrl: '/lib/image/rentcarimg/car.png',
+      path: `/pages/carDetail/carDetail?type=${this.data.rentOrSale}&carId=${this.data.carId}&isshare=1`,
       success: (res) => {
         console.log('转发成功', res)
       },
@@ -330,19 +332,37 @@ Page({
     console.log('e', e)
   },
   //放大预览轮播图图片
-  handlePreviewVideo(e){
+  handlePreviewImg(e){
     let swiperList = []
-    swiperList = this.data.carData.videoUrlList.concat(this.data.carData.imageUrlList)
+    swiperList = this.data.carData.imageUrlList
     const urls = swiperList
+    const current = e.currentTarget.dataset.url
+    wx.previewImage({
+      urls,
+      current
+    })
+
+  },
+  handlePreviewVideo(e){
+    let swiperList = this.data.carData.videoUrlList
+
+    let imageList = this.data.carData.imageUrlList
     let urlList = []
     swiperList.forEach(item=>{
       urlList.push({
-        url:item
+        url:item,
+        type:'video'
       })
     })
+    imageList.forEach(item=>{
+      urlList.push({
+        url:item,
+        type:'image'
+      })
+    })
+    console.log('urls',urlList)
     wx.previewMedia({
-      urls,
-      current
+      sources:urlList,
     })
   },
   /**
@@ -356,20 +376,6 @@ Page({
   onShow: function () {
     this.getCarInfo()
     this.getPhoneNumber()
-    // wx.getStorage({
-    //   key:'phoneName',
-    //   success:(res)=>{
-    //     console.log('登录成功，调取接口',res)
-    //     this.getCarInfo()
-    //     this.getPhoneNumber()
-    //   },
-    //   fail:(res)=>{
-    //     console.log('没有登录，需要登录',res)
-    //     wx.navigateTo({
-    //       url:  "/pages/shareLogin/shareLogin",
-    //     })
-    //   }
-    // })
   },
   getPhoneNumber(){
       wx.getStorage({

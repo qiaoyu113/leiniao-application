@@ -126,7 +126,8 @@ App({
     pagesWithCustomNav: ['rentedCar', 'saleCar', 'searchPage'],
     locationCity: {},
     brandList: [],
-    windowHeight: 0
+    windowHeight: 0,
+    beijingCode:''
   },
   utils: {
     getCurrentRoute: () => {
