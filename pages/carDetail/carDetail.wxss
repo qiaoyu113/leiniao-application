@@ -177,6 +177,7 @@
   align-items: center;
 }
 .type_value {
+  height: 42rpx;
   font-size: 30rpx;
   color: #333;
   font-weight: bold;
