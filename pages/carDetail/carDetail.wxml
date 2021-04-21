@@ -12,10 +12,8 @@
       bindtap="handlePreviewImg"
       data-url="{{item}}"
       >
-          <navigator>
             <!-- <video class="top_bar_img" wx:if="{{item.type==='video'}}" src='{{item.url}}' bindtap="bofang" controls='true'></video> -->
-            <video class="top_bar_img" src='{{item}}' bindtap="bofang" controls='true'></video>
-          </navigator>
+            <video class="top_bar_img" src='{{item}}'></video>
           <!-- <text class="swiper_index">
             {{swiperId?swiperId + 1 : 1}}/{{carData.videoUrlList.length + carData.imageUrlList.length}}
           </text> -->
@@ -26,9 +24,7 @@
           bindtap="handlePreviewImg"
           data-url="{{item}}"
           >
-          <navigator>
             <image  class="top_bar_img"  src="{{item}}"></image>
-          </navigator>
 
         </swiper-item>
       </swiper>
