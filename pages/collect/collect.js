@@ -7,7 +7,8 @@ Page({
    */
   data: {
     page: 1,
-    list:[]
+    list:[],
+    noneType: false
   },
 
   /**
@@ -19,6 +20,9 @@ Page({
 
   getList(){
     var that = this;
+    that.setData({
+      noneType: false
+    })
     //获取我的收藏
     network.requestLoading('255/car/v1/car/cargo/favoriteList',
     {
@@ -31,7 +35,8 @@ Page({
     function(res) {
       if (res.success) {
         that.setData({
-          list: that.data.list.concat(res.data)
+          list: that.data.list.concat(res.data),
+          noneType: true
         });
       }
     },
