@@ -82,7 +82,7 @@ Component({
         searchCityId: (app.globalData.locationCity || {}).cityCode || '',
         searchType: isRent ? 1 : 2 // pullDownRefresh 时先于 init 执行
       })
-      formData.searchContent = formData.keyword || ''
+      formData.searchContent = formData.searchContent || formData.keyword || ''
       delete formData.keyword
       net.post('255/car_center/v1/cargo/getSearchCarList', formData, res => {
         const vehicleList = (res.data || []).map(v => {
