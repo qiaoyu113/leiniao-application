@@ -98,7 +98,7 @@ Component({
           total: (res.page || {}).total || 0
         })
         isKeywordChanged && this.triggerEvent('searchfinish')
-      })
+      }, e => console.log(e), {message: '加载中'})
       !append && !isPageInit && this.backToTop()
     },
     backToTop () {
@@ -110,7 +110,6 @@ Component({
       query.exec(res => {
         if (res[0] && res[1]) {
           const offset = res[0].top + res[1].scrollTop - app.globalData.navBarHeight - filterTabHeight
-          console.log(filterTabHeight, offset)
           wx.pageScrollTo({scrollTop: offset})
         }
       })

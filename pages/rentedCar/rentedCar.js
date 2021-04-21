@@ -119,7 +119,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log('works')
     let { cityName, cityCode, cityUpdata } = app.globalData.locationCity
     if (cityUpdata === 1) {
       app.globalData.locationCity.cityUpdata = 0

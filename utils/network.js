@@ -12,11 +12,13 @@ function get(url, params, success, fail, options) {
       url = `${url}?${Object.keys(params).map(k => `${k}=${params[k]}`).join('&')}`
     }
   }
+  wx.showLoading({title: (options || {}).message || ''})
   let {message = '', type = 'json', ctx = null} = options || {}
   this.requestLoading(url, {}, 'get', message, type, success, fail, ctx)
 }
 
 function post(url, params, success, fail, options) {
+  wx.showLoading({title: (options || {}).message || ''})
   let {message = '', type = 'json'} = options || {}
   this.requestLoading(url, params, 'post', message, type, success, fail)
 }
@@ -102,7 +104,7 @@ function requestLoading(url, params, met, message, types, success, fail, ctx) {
           getRouter(ctx);
         },
         complete: function (res) {
-
+          wx.hideLoading()
         },
       })
     },
