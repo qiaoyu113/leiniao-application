@@ -39,7 +39,7 @@
   border-radius: 30rpx;
 }
 .b-solid-blue {
-  border: 1rpx solid #1C8EFA;
+  border: 2rpx solid #1C8EFA;
 }
 .input-range {
   width: 260rpx;
