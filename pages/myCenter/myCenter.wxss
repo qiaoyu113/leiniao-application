@@ -34,8 +34,6 @@ page {
   top: 35px;
   box-sizing: border-box;
   border: 2px solid #F9F9F9;
-  padding: 15px;
-  box-sizing: border-box;
   text-align: center;
 }
 
@@ -57,13 +55,13 @@ page {
 
 .UCenter-bg .image-default {
   width: 57px;
-  height: 57px;
+  height: 84px;
   margin: auto;
 }
 
 .UCenter-bg .image {
   width: 57px;
-  height: 57px;
+  height: 84px;
   margin: auto;
 }
 
