@@ -35,7 +35,7 @@ Page({
       utils.getMap.call(this, app).then((info)=>{
         that.checkCity()
       }).catch(()=>{
-        app.globalData.locationCity.cityCode = 276
+        app.globalData.locationCity.cityCode = app.globalData.beijingCode || 276
         app.globalData.locationCity.cityName = '北京市'
         this.setData({
           'defaultData.cityName': '北京市',
@@ -71,7 +71,7 @@ Page({
           }
           let checkCity = newarr.includes(app.globalData.locationCity.cityName)
           console.log('checkCity',newarr,checkCity)
-          const cityCode = checkCity ? app.globalData.locationCity.cityCode : 276
+          const cityCode = checkCity ? app.globalData.locationCity.cityCode : (app.globalData.beijingCode||276)
           const cityName = checkCity ? app.globalData.locationCity.cityName : '北京市'
           that.setData({
             cityCode,
@@ -89,7 +89,7 @@ Page({
   },
   loadData (cityCode) {
     const vehicleList = this.selectComponent('#vehicleList')
-    vehicleList && vehicleList.onParamChange({searchCityId: cityCode})
+    vehicleList && vehicleList.onParamChange({searchCityId: cityCode}, 'isPageInit=true')
   },
   //点击城市事件
   selectLocationEvent() {
