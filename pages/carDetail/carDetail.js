@@ -30,6 +30,10 @@ Page({
       carId: options.carId,
       rentOrSale: options.type
     })
+    console.log('options',options)
+    if(options.page){
+      
+    }
   },
   //调用接口，获取车辆详情
   getCarInfo() {
@@ -311,7 +315,7 @@ Page({
     }
     return {
       title: this.data.carData.brandName,
-      path: `/pages/carDetail/carDetail?type=${this.data.rentOrSale}&carId=${this.data.carId}`,
+      path: `/pages/carDetail/carDetail?type=${this.data.rentOrSale}&carId=${this.data.carId}&isshare=1`,
       success: (res) => {
         console.log('转发成功', res)
       },
