@@ -40,8 +40,8 @@
         <image class="left_img" src="{{item.imageUrlList[0]}}" />
           <view class="right_list">
             <text class="list_title hidden_word" >{{item.brandName+'  '+item.modelName+'  '}}{{item.horsepower?item.horsepower+'匹':''}}</text>
-            <text class="list_sub_lefttitle" >车龄:{{item.carAgeStr}}</text>
-            <text class="list_sub_righttitle" >里程:{{item.mileageStr}}</text>
+            <text class="list_sub_lefttitle" >车龄:{{item.carAgeStr?item.carAgeStr:''}}</text>
+            <text class="list_sub_righttitle" >里程:{{item.mileageStr?item.mileageStr:''}}</text>
             <view class="list_carlabel" >
               <text class="list_top_type" wx:if="{{item.isNewCar==1}}">准新车</text>
               <text class="list_top_type" wx:if="{{item.isUrgentRent==1&&rentOrSale=='rent'}}">急租</text>
@@ -50,14 +50,14 @@
               <text class="list_type" wx:if="{{item.hasTailboard==1}}">有尾板</text>
         <text class="list_type" wx:if="{{item.hasPass==1}}">有通行证</text>
             </view>
-            <text class="list_price" wx:if="{{rentOrSale =='rent'}}">￥{{item.yearlyRent||''}}/月</text>
-            <text class="list_price" wx:else>￥{{item.price+'万'||''}}</text>
+            <text class="list_price" wx:if="{{rentOrSale =='rent'}}">￥{{item.yearlyRent?item.yearlyRent+'/月':''}}</text>
+            <text class="list_price" wx:else>￥{{item.price?item.price+'万':''}}</text>
           </view>
       </view>
       <view wx:if="{{showCommend}}" class="{{item.status==40||item.status==50?'rentout_box ':' '}} bottom_list mx-5">
         <image class="bottom_img" src="../../lib/image/rentcarimg/hot.png"/>
         <text class="bottom_title">推荐理由:</text>
-        <text class="hidden_muchword">{{item.vogueReason}}</text>
+        <text class="hidden_muchword">{{item.vogueReason?item.vogueReason:''}}</text>
       </view>
       <text class="{{showCommend?'bottom_line':'todaynewcar_bottom_line'}}"></text>
     </view>
