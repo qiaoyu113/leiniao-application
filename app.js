@@ -127,7 +127,8 @@ App({
     locationCity: {},
     brandList: [],
     hotModelIdList: [],
-    windowHeight: 0
+    windowHeight: 0,
+    beijingCode:''
   },
   utils: {
     getCurrentRoute: () => {

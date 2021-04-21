@@ -9,7 +9,7 @@
     <swiper-item
       wx:for="{{carData.videoUrlList}}"
       wx:key="key"
-      bindtap="handlePreviewImg"
+      bindtap="handlePreviewVideo"
       data-url="{{item}}"
       >
             <!-- <video class="top_bar_img" wx:if="{{item.type==='video'}}" src='{{item.url}}' bindtap="bofang" controls='true'></video> -->
@@ -21,7 +21,7 @@
         <swiper-item
           wx:for="{{carData.imageUrlList}}"
           wx:key="key"
-          bindtap="handlePreviewImg"
+          bindtap="handlePreviewVideo"
           data-url="{{item}}"
           >
             <image  class="top_bar_img"  src="{{item}}"></image>
