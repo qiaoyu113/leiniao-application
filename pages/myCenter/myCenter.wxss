@@ -34,6 +34,9 @@ page {
   top: 35px;
   box-sizing: border-box;
   border: 2px solid #F9F9F9;
+  padding: 15px;
+  box-sizing: border-box;
+  text-align: center;
 }
 
 .headBg image{
@@ -53,14 +56,15 @@ page {
 }
 
 .UCenter-bg .image-default {
-  width: 73px;
-  height: 73px;
-  margin-top:6px;
+  width: 57px;
+  height: 57px;
+  margin: auto;
 }
 
 .UCenter-bg .image {
-  width: 84px;
-  height: 84px;
+  width: 57px;
+  height: 57px;
+  margin: auto;
 }
 
 .UCenter-bg .gif-wave {
