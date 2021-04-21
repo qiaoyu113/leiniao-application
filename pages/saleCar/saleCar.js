@@ -187,5 +187,5 @@ Page({
     wx.navigateTo({
       url: `../hotModel/hotModel?name=${info.label}&id=${info.id}`,
     })
-  },
+  }
 })
