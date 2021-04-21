@@ -346,8 +346,9 @@ Page({
 
    //按钮分享
 onShareAppMessage() {
+  let {brandName,modelName,horsepower} = this.data.carData
   return {
-    title: this.data.carData.brandName,
+    title: `${brandName}  ${modelName?modelName:''}  ${horsepower?horsepower+'匹':''}`,
     path: `/pages/carDetail/carDetail?type=${this.data.rentOrSale}&carId=${this.data.carId}&isshare=1`
   }
 },

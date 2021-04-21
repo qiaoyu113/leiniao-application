@@ -27,7 +27,7 @@
   line-height: 42rpx;
 }
 .goback_btn {
-  position: absolute;
+  position: fixed;
   left: 20rpx;
   width: 54rpx;
   height: 54rpx;
@@ -38,8 +38,8 @@
   height: 54rpx;
 }
 .goback_img {
-  width: 54rpx;
-  height: 54rpx;
+  width: 56rpx;
+  height: 56rpx;
 }
 .tips {
   font-size: 20rpx;
@@ -91,7 +91,7 @@
   font-size: 20rpx;
   line-height: 28rpx;
   border-radius: 4rpx;
-  border: 1rpx solid #338bff;
+  border: 2rpx solid #338bff;
   color: #338bff;
   margin-right: 10rpx;
   margin-left: 5rpx;
@@ -357,4 +357,5 @@
 .page{
   padding-bottom: 20rpx;
   box-sizing: border-box;
+  position: relative;
 }

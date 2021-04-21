@@ -1,9 +1,9 @@
 <!--pages/carDetail/carDetail.wxml-->
 <view class="page">
-<view class="top_bar">
   <view class="goback_btn" bindtap="gobackEvent" style="top:{{navBarHeight}}rpx;">
     <image class="goback_img" src="../../lib/image/rentcarimg/goback_button.png" />
   </view>
+<view class="top_bar">
 <!-- 轮播图 -->
     <!-- <image class="top_bar_img" src="../../lib/image/rentcarimg/detail_car.png" /> -->
    <swiper class="top_bar_swiper" bindchange="changeSwiperEvent"  indicator-dots circular>
@@ -13,11 +13,7 @@
       bindtap="handlePreviewVideo"
       data-url="{{item}}"
       >
-            <!-- <video class="top_bar_img" wx:if="{{item.type==='video'}}" src='{{item.url}}' bindtap="bofang" controls='true'></video> -->
             <video class="top_bar_img" src='{{item}}'></video>
-          <!-- <text class="swiper_index">
-            {{swiperId?swiperId + 1 : 1}}/{{carData.videoUrlList.length + carData.imageUrlList.length}}
-          </text> -->
         </swiper-item>
         <swiper-item
           wx:for="{{carData.imageUrlList}}"
@@ -46,8 +42,8 @@
                 bindtap="showIntroduceEvent"
                 src="../../lib/image/rentcarimg/introduce.png" />
         </view>
-        <text class="bottom_tips" wx:if="{{carData.isWidth==1}}">宽体</text>
-        <text class="bottom_tips" wx:if="{{carData.hasTailboard==1}}">有尾板</text>
+          <text class="bottom_tips" wx:if="{{carData.isWidth==1}}">宽体</text>
+          <text class="bottom_tips" wx:if="{{carData.hasTailboard==1}}">有尾板</text>
         <text class="bottom_tips" wx:if="{{carData.hasPass==1}}">有通行证</text>
   </view>
   <!-- 爆款推荐理由 -->
