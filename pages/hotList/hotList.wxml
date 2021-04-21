@@ -37,7 +37,7 @@
       class="{{item.status==40||item.status==50?'rentout_box ':' '}} top_banner center_center"
     style="margin-bottom:{{!showCommend?'40rpx':' '}}"
       >
-        <image class="left_img" src="{{item.imageUrlList[0]}}" />
+        <image class="left_img" mode="aspectFill"  src="{{item.imageUrlList[0]}}" />
           <view class="right_list">
             <text class="list_title hidden_word" >{{item.brandName+'  '+item.modelName+'  '}}{{item.horsepower?item.horsepower+'匹':''}}</text>
             <text class="list_sub_lefttitle" >车龄:{{item.carAgeStr?item.carAgeStr:''}}</text>
