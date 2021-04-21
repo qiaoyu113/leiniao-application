@@ -9,7 +9,7 @@
 </navBar>
 <van-index-bar  highlight-color="#333">
   <view wx:for="{{alphabet}}" wx:key="key" >
-    <van-index-anchor index="{{item}}" />
+    <van-index-anchor index="{{item}}" wx:if='{{tools.arrayfind(newList,item)!==-1}}' />
     <block  wx:if='{{tools.arrayfind(newList,item)!==-1}}'>
       <van-cell
           data-index="{{item}}"

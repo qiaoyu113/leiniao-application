@@ -18,9 +18,9 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('options',options)
+    const isRent = app.utils.getEntryRoute() === 'rentedCar'
     this.setData({
-      type:options.type
+      placeholder: `搜索想${isRent ? '租' : '买'}的车辆`
     })
     this.init()
   },
@@ -51,7 +51,6 @@ Page({
       '',
       function (res) {
         if (res.success) {
-          console.log('请求接口res', res.data)
         }
         that.setData({
           searchHistoryList:res.data
@@ -85,11 +84,7 @@ Page({
   },
   //软键盘回车搜索
   enterSearch(e) {
-    console.log('搜索值', e.detail.value)
-    if (e.detail.value) {
       this.searchEvent(e.detail.value)
-      //this.checkInputHistory(e.detail.value)
-    }
   },
   //校验输入内容，重复时调整搜索历史数组
   checkInputHistory(value) {
@@ -105,7 +100,6 @@ Page({
         return arr
       }
     })
-    console.log('res', res)
     if (!res) {
       arr.unshift(value)
       if (arr.length >= 11) {
@@ -119,7 +113,6 @@ Page({
   },
   //清除输入框
   clearInputWordEvent() {
-    console.log('inputValue', this.data.inputValue)
     this.setData({
       inputValue: '',
       showCloseBtn: false,
@@ -136,7 +129,6 @@ Page({
       '',
       '',
       function (res) {
-        console.log('请求接口res', res)
         if (res.success) {
         }
         that.setData({
@@ -163,9 +155,15 @@ Page({
   },
   //调用搜索接口搜索页面
   searchEvent(value) {
-    console.log('keyword', value)
+    if(/^[a-zA-Z0-9_.\u4e00-\u9fa5]+$/.test(value)){
     const vehicleList = this.selectComponent('#vehicleList')
     vehicleList && vehicleList.onPageKeywordChange(value)
+    }else if(!value){
+    }else{
+      wx.showModal({
+        title:'请输入正确的格式，支持汉字、数字、字母、下划线、小数点'
+      })
+    }
   },
   onSearchFinish () {
     this.setData({ifSearchFinish: true})
@@ -174,7 +172,6 @@ Page({
   //点击搜索历史触发事件
   historySearchEvent(e) {
     let searchValue = e.currentTarget.dataset['index']
-    console.log('searchValue',searchValue)
     this.setData({
       inputValue: searchValue,
       showCloseBtn: true,

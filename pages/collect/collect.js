@@ -7,7 +7,8 @@ Page({
    */
   data: {
     page: 1,
-    list:[]
+    list:[],
+    noneType: false
   },
 
   /**
@@ -19,6 +20,9 @@ Page({
 
   getList(){
     var that = this;
+    that.setData({
+      noneType: false
+    })
     //获取我的收藏
     network.requestLoading('255/car/v1/car/cargo/favoriteList',
     {
@@ -31,7 +35,8 @@ Page({
     function(res) {
       if (res.success) {
         that.setData({
-          list: res.data
+          list: that.data.list.concat(res.data),
+          noneType: true
         });
       }
     },
@@ -86,6 +91,11 @@ Page({
     let id = e.currentTarget.dataset.id
     let off = e.currentTarget.dataset.off
     let type = e.currentTarget.dataset.type
+    if (Number(type) == 1) {
+      type = 'rent'
+    } else {
+      type = 'sale'
+    }
     if (!off) {
       wx.navigateTo({
         url: '../carDetail/carDetail?carId=' + id + '&type=' + type
@@ -136,6 +146,7 @@ Page({
       page: 1
     })
     this.getList()
+    wx.stopPullDownRefresh()
   },
 
   /**
@@ -154,6 +165,14 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    let userId = wx.getStorageSync('userId')
+    return {
+      title: '雷鸟车池',
+      path: '/pages/rentedCar/rentedCar?puserId=' + userId + '&source=2',
+      imageUrl: '',
+      success: function(res) {
+        // 转发成功
+      },
+    }
   }
 })

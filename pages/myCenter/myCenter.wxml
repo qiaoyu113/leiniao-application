@@ -12,7 +12,7 @@
       </view>
       <view class="loginBox">
         <!-- <button wx:if="{{canIUse}}" class="topCenterLeftBtn-Btn" open-type="getUserInfo" bindgetuserinfo="getUserInfoFun">授权登录</button> -->
-        <view wx:if="{{!canIUse}}" class="topCenterLeftBtn" bindtap="goLogin">登陆/注册</view>
+        <view wx:if="{{!canIUse}}" class="topCenterLeftBtn" bindtap="goLogin">登录/注册</view>
         <view wx:if="{{canIUse}}" class="topCenterLeftBtn">{{userName}}</view>
       </view>
     </view>

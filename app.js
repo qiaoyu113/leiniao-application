@@ -94,30 +94,27 @@ App({
     const systemInfo = wx.getSystemInfoSync()
     // 胶囊按钮位置信息
     const menuButtonInfo = wx.getMenuButtonBoundingClientRect()
-    console.log(systemInfo)
-    console.log(menuButtonInfo)
     // 导航栏高度 = 状态栏到胶囊的间距（胶囊距上距离-状态栏高度） * 2 + 胶囊高度 + 状态栏高度
-    that.globalData.navBarHeight =
-      (menuButtonInfo.top - systemInfo.statusBarHeight) * 2 +
-      menuButtonInfo.height +
-      systemInfo.statusBarHeight
+    that.globalData.navBarHeight = (menuButtonInfo.top - systemInfo.statusBarHeight) * 2 + menuButtonInfo.height + systemInfo.statusBarHeight
     that.globalData.menuRight = systemInfo.screenWidth - menuButtonInfo.right
     that.globalData.menuBotton = menuButtonInfo.top - systemInfo.statusBarHeight
     that.globalData.menuHeight = menuButtonInfo.height
+    this.globalData.windowHeight = systemInfo.windowHeight
+    this.globalData.screenWidth = systemInfo.screenWidth
   },
   globalData: {
     token: null,
     userInfo: null,
     pageParam: '',
     // m1/2环境域名
-    url: 'https://leiniao-bss-web-m1.yunniao.cn/', 
+    // url: 'https://leiniao-bss-web-m1.yunniao.cn/', 
     // url: 'https://leiniao-bss-web.m2.yunniao.cn/', 
     // url: 'https://leiniao-domain-car.m2.yunniao.cn/', 
     // mock
     // url: 'http://yapi.ynimg.cn:8888/mock/',
     // url: 'http://yapi.ynimg.cn:8888/mock/255/',
     // 生产环境域名
-    //url: 'https://leiniao-bss-web.yunniao.cn/',
+    url: 'https://leiniao-bss-web.yunniao.cn/',
     // d2环境域名
     // url: 'http://172.17.101.77:20150/',
     // 图片域名
@@ -126,10 +123,11 @@ App({
     menuRight: 0, // 胶囊距右方间距（方保持左、右间距一致）
     menuBotton: 0, // 胶囊距底部间距（保持底部间距一致）
     menuHeight: 0, // 胶囊高度（自定义内容可与胶囊高度保证一致）
-    pagesWithCustomNav: ['rentedCar', 'searchPage'],
+    pagesWithCustomNav: ['rentedCar', 'saleCar', 'searchPage'],
     locationCity: {},
     brandList: [],
-    hotModelIdList: []
+    windowHeight: 0,
+    beijingCode:''
   },
   utils: {
     getCurrentRoute: () => {

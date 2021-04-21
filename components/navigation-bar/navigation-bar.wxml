@@ -1,25 +1,25 @@
 <!-- 自定义顶部栏 -->
 <view class="nav-bar">
   <navBar
-  background="{{defaultData.background}}"
-  class="nav_fixed"
+  background="linear-gradient(90deg, #009CF8 0%, #2F83FA 100%)"
   bind:getnavHeight="handlerGetNavHeight"
 >
 <view slot="left" class="left_content">
 <text wx:if="{{defaultData.cityName}}" class="nav_city" style="font-size:{{defaultData.cityName.length>3?'22rpx':'26rpx'}}" bindtap="selectLocationEvent">{{defaultData.cityName}}</text>
   <image wx:if="{{defaultData.cityName}}" class="city_icon" src="../../lib/image/rentcarimg/triangle.png"/>
 </view>
-<view slot="center">
-    <input wx:if="{{defaultData.showSearchBar}}" class="search" bindfocus="gotoSearchEvent" placeholder="{{defaultData.placeholderTitle}}" ></input>
+<view slot="center" class="center">
+    <view  class="search" bindtap="gotoSearchEvent">
+    <text class="iconfont icon-sousuo sousuo_icon"></text>
+    <text class="placeholder">{{placeholderTitle}}</text>
+  </view>
   </view>
 </navBar>
     <!--轮播图 -->
-<view class="slides absolute" style="top: {{navHeight}}px">
+<view class="slides">
       <swiper autoplay indicator-dots circular>
         <swiper-item  wx:for="{{swiperList}}" wx:key="key">
-          <navigator>
             <image class="banner_img" mode="widthFix" src="{{item.url}}"></image>
-          </navigator>
         </swiper-item>
       </swiper>
       <!-- <image class="banner_img" src="../../lib//image/rentcarimg/banner.png" alt=""/> -->

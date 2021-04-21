@@ -14,7 +14,6 @@ var getMap = function (app) {
   wx.getLocation({
     type: 'wgs84',
     success(res) {
-      console.log(res)
       qqmapsdk.reverseGeocoder({
         location: {
           latitude: res.latitude,
@@ -24,7 +23,6 @@ var getMap = function (app) {
           var city = addressRes.result.address_component.city
           var city_code = addressRes.result.ad_info.city_code
           app.globalData.locationCity = { cityName: city, cityCode: city_code }
-          console.log('城市信息', app.globalData.locationCity)
           var address =
             addressRes.result.address_component.city +
             addressRes.result.address_component.province +
@@ -44,7 +42,6 @@ var getMap = function (app) {
             '',
             '',
             function (res) {
-              console.log('getCityCodeByCityName',res)
               if (res.success) {
                 if (that.data.cityCode == '') {
                   // wx.setStorageSync('cityCode', res.data.code)
@@ -66,10 +63,6 @@ var getMap = function (app) {
                     souceCity: address,
                   })
                 }
-                console.log(
-                  'app.globalData.locationCity',
-                  app.globalData.locationCity
-                )
               }
             },
             function (res) {
@@ -82,41 +75,12 @@ var getMap = function (app) {
       })
     },
     fail(err) {
-      console.log(err)
+      reject(err)
     },
   })
   })
   
 }
 
-/*函数节流*/
-function throttle(fn, interval) {
-  var enterTime = 0 //触发的时间
-  var gapTime = interval || 300 //间隔时间，如果interval不传，则默认300ms
-  return function () {
-    var context = this
-    var backTime = new Date() //第一次函数return即触发的时间
-    if (backTime - enterTime > gapTime) {
-      fn.call(context, arguments)
-      enterTime = backTime //赋值给第一次触发的时间，这样就保存了第二次触发的时间
-    }
-  }
-}
-
-/*函数防抖*/
-function debounce(fn, interval) {
-  var timer
-  var gapTime = interval || 200 //间隔时间，如果interval不传，则默认1000ms
-  return function () {
-    clearTimeout(timer)
-    var context = this
-    var args = arguments //保存此处的arguments，因为setTimeout是全局的，arguments不是防抖函数需要的。
-    timer = setTimeout(function () {
-      fn.call(context, args)
-    }, gapTime)
-  }
-}
 
 module.exports.getMap = getMap
-module.exports.throttle = throttle
-module.exports.debounce = debounce

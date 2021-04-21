@@ -10,7 +10,7 @@
       <text slot="center" class="top_title" wx:else>今日上新</text>
     </navBar>
   <block wx:if="{{showList}}">
-    <scroll-y
+    <!-- <scroll-y
       wx:if="{{showList}}"
       class="scroll-view"
       pull="{{ pull }}"
@@ -18,50 +18,52 @@
       listLength="{{ carList.length }}"
       bindrefresh="refresh"
       bindtoload="toload"
-    >
+    > -->
     <view
     wx:if="{{carList.length}}"
     wx:for="{{ carList }}" wx:key="key"
     data-index="{{item.carId}}"
     bindtap="gotoCarDetail"
     class="list_box space-between flex-y"
-    style="position:{{item.status==40||item.status==50?'relative':'static'}};"
+    style="position:{{item.status==40||item.status==50||item.status==60?'relative':'static'}};"
     >
       <block wx:if="{{rentOrSale =='rent'}}">
-      <image wx:if="{{item.status==40}}" class="rentoutlogo" src="../../lib/image/rentcarimg/rentOut.png"/>
+      <image wx:if="{{item.status==40||item.status==60}}" class="rentoutlogo" src="../../lib/image/rentcarimg/rentOut.png"/>
       </block>
       <block wx:if="{{rentOrSale =='sale'}}">
-      <image wx:if="{{item.status==50}}" class="rentoutlogo" src="../../lib/image/rentcarimg/saleOut.png"/>
+      <image wx:if="{{item.status==50||item.status==60}}" class="rentoutlogo" src="../../lib/image/rentcarimg/saleOut.png"/>
       </block>
       <view
-      class="{{item.status==40||item.status==50?'rentout_box ':' '}} top_banner center_center"
+      class="{{item.status==40||item.status==50||item.status==60?'rentout_box ':' '}} top_banner center_center"
     style="margin-bottom:{{!showCommend?'40rpx':' '}}"
       >
-        <image class="left_img" src="{{item.imageUrlList[0]}}" />
+        <image class="left_img" mode="aspectFill"  src="{{item.imageUrlList[0]}}" />
           <view class="right_list">
-            <text class="list_title hidden_word" >{{item.brandName}}</text>
-            <text class="list_sub_lefttitle" >车龄:{{item.carAgeStr}}</text>
-            <text class="list_sub_righttitle" >里程:{{item.mileageStr}}</text>
+            <text class="list_title hidden_word" >{{item.brandName+'  '+item.modelName+'  '}}{{item.horsepower?item.horsepower+'匹':''}}</text>
+            <text class="list_sub_lefttitle" >车龄:{{item.carAgeStr?item.carAgeStr:''}}</text>
+            <text class="list_sub_righttitle" >里程:{{item.mileageStr?item.mileageStr:''}}</text>
             <view class="list_carlabel" >
               <text class="list_top_type" wx:if="{{item.isNewCar==1}}">准新车</text>
-              <text class="list_top_type" wx:if="{{item.isUrgentRent==1}}">急租</text>
-              <text class="list_type" wx:if="{{item.isUrgentSale==1}}">急售</text>
-              <text class="list_type" wx:if="{{item.isWidth}}">宽体</text>
+              <text class="list_top_type" wx:if="{{item.isUrgentRent==1&&rentOrSale=='rent'}}">急租</text>
+              <text class="list_top_type" wx:if="{{item.isUrgentSale==1&&rentOrSale=='sale'}}">急售</text>
+              <text class="list_type" wx:if="{{item.isWidth==1}}">宽体</text>
               <text class="list_type" wx:if="{{item.hasTailboard==1}}">有尾板</text>
         <text class="list_type" wx:if="{{item.hasPass==1}}">有通行证</text>
             </view>
-            <text class="list_price" wx:if="{{rentOrSale =='rent'}}">￥{{item.rent||''}}/月</text>
-            <text class="list_price" wx:else>￥{{item.price||''}}</text>
+            <text class="list_price" wx:if="{{rentOrSale =='rent'}}">￥{{item.yearlyRent?item.yearlyRent+'/月':''}}</text>
+            <text class="list_price" wx:else>￥{{item.price?item.price+'万':''}}</text>
           </view>
       </view>
-      <view wx:if="{{showCommend}}" class="{{item.status==40||item.status==50?'rentout_box ':' '}} bottom_list mx-5">
+      <view wx:if="{{showCommend}}" class="{{item.status==40||item.status==50||item.status==60?'rentout_box ':' '}} bottom_list mx-5">
         <image class="bottom_img" src="../../lib/image/rentcarimg/hot.png"/>
         <text class="bottom_title">推荐理由:</text>
-        <text class="hidden_muchword">{{item.vogueReason}}</text>
+        <text class="hidden_muchword">{{item.vogueReason?item.vogueReason:''}}</text>
       </view>
       <text class="{{showCommend?'bottom_line':'todaynewcar_bottom_line'}}"></text>
+     
     </view>
-    </scroll-y>
+    <view wx:if="{{carList.length >= total}}" class="center_center text-12 text-gray-9" style="height: 60rpx;">{{bottomText}}</view>
+    <!-- </scroll-y> -->
   </block>
   <view wx:else class="nocar_page">
     <image class="nocar_img" src="../../lib/image/rentcarimg/nocar.png" />

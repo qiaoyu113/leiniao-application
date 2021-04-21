@@ -7,19 +7,34 @@
   top: 55rpx;
 }
 .search {
-  position: relative;
-  width: 400rpx;
+  float: left;
+  width: 300rpx;
   height: 58rpx;
   background: #fff;
-  border-radius: 29rpx;
+  border-top-left-radius: 29rpx;
+  border-bottom-left-radius: 29rpx;
   color: #333;
   font-size: 24rpx;
+  text-align: center;
+  padding-left: 40rpx;
+}
+.search_maxbox{
+  width: 400rpx;
+  height: 58rpx;
 }
 .search_box {
   width: 100%;
   height: 150rpx;
   background: #2f83fa;
   position: relative;
+}
+.search_right{
+  float: left;
+  background-color: #fff;
+  width: 60rpx;
+  height: 58rpx;
+  border-top-right-radius: 29rpx;
+  border-bottom-right-radius: 29rpx;
 }
 .sousuo_icon {
   color: #666;
@@ -30,12 +45,13 @@
   z-index: 9999;
 }
 .guanbi_icon {
+  width: 30rpx;
+  height: 30rpx;
   font-size: 30rpx;
   position: absolute;
   top: 15rpx;
-  right: 30rpx;
+  right: 60rpx;
   color: #ccc;
-  z-index: 9999;
 }
 .tesst_input {
   width: 100rpx;
@@ -45,7 +61,7 @@
 }
 .search_history_box {
   min-height: 240rpx;
-  margin: 42rpx 30rpx;
+  margin: 25rpx 30rpx;
 }
 .history_toptitle {
   width: 100%;
@@ -70,7 +86,6 @@
 .history_box {
   min-height: 150rpx;
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
 }
 .history_detail_box {
@@ -80,7 +95,8 @@
   font-size: 24rpx;
   line-height: 60rpx;
   background: #f4f4f4;
-  margin-right: 50rpx;
+  margin-right: 15rpx;
+  margin-left: 15rpx;
   padding: 0 37rpx;
   border-radius: 30rpx;
   margin-bottom: 30rpx;

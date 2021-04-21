@@ -2,10 +2,10 @@
   "pages": [
     "pages/rentedCar/rentedCar",
     "pages/shareLogin/shareLogin",
+    "pages/myCenter/myCenter",
     "pages/collect/collect",
     "pages/phoneLogin/phoneLogin",
     "pages/saleCar/saleCar",
-    "pages/myCenter/myCenter",
     "pages/hotModel/hotModel",
     "pages/userAgreement/userAgreement",
     "pages/login/login",
@@ -19,11 +19,8 @@
   ],
   "usingComponents": {
     "component-log": "components/logs/logs",
-    "hint": "components/hint/hint",
-    "popup": "components/popup/popup",
     "van-tab": "miniprogram_npm/vant-weapp/tab/index",
     "van-icon": "miniprogram_npm/vant-weapp/icon/index",
-    "c-table": "components/table/table",
     "van-loading": "miniprogram_npm/vant-weapp/loading/index",
     "van-tabs": "miniprogram_npm/vant-weapp/tabs/index",
     "van-popup": "miniprogram_npm/vant-weapp/popup/index",
@@ -58,7 +55,7 @@
         "selectedIconPath": "lib/image/home/21.png",
         "iconPath": "lib/image/home/20.png",
         "pagePath": "pages/saleCar/saleCar",
-        "text": "买车"
+        "text": "收车/买车"
       },
       {
         "selectedIconPath": "lib/image/home/31.png",

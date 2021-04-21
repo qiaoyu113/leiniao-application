@@ -1,3 +1,5 @@
+const app = getApp()
+
 // components/vehicleFilter/vehicleFilter.js
 Component({
   options: {
@@ -7,21 +9,22 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    item: Object,
-    labels: Array
+    item: Object
   },
 
   /**
    * 组件的初始数据
    */
   data: {
-    
+    isRent: false,
+    labels: []
   },
 
   lifetimes: {
     attached: function() {
-      // 在组件实例进入页面节点树时执行
-      this.init()
+      this.setData({
+        isRent: app.utils.getEntryRoute() === 'rentedCar'
+      })
     },
     detached: function() {
       // 在组件实例被从页面节点树移除时执行
@@ -32,10 +35,10 @@ Component({
    * 组件的方法列表
    */
   methods: {
-    init () {},
     onViewDetail (evt) {
-      console.log('todo 登录态检查&跳转详情页')
-      // todo 登录态检查&跳转详情页
+      const hasLogin = wx.getStorageSync('phoneName')
+      const url = hasLogin ? `/pages/carDetail/carDetail?carId=${this.data.item.carId}&type=${this.data.isRent ? 'rent':'sale'}` : '/pages/login/login'
+      wx.navigateTo({url})
     }
   }
 })

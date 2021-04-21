@@ -3,19 +3,22 @@ var urls = app.globalData.url
 var shopId = app.globalData.shopId
 
 function get(url, params, success, fail, options) {
-  let {message = '', type = 'json'} = options || {}
   if (params) {
     if (typeof params === 'function') {
+      options = fail
       fail = success
       success = params
     } else if (typeof params === 'object') {
       url = `${url}?${Object.keys(params).map(k => `${k}=${params[k]}`).join('&')}`
     }
   }
-  this.requestLoading(url, {}, 'get', message, type, success, fail)
+  wx.showLoading({title: (options || {}).message || ''})
+  let {message = '', type = 'json', ctx = null} = options || {}
+  this.requestLoading(url, {}, 'get', message, type, success, fail, ctx)
 }
 
 function post(url, params, success, fail, options) {
+  wx.showLoading({title: (options || {}).message || ''})
   let {message = '', type = 'json'} = options || {}
   this.requestLoading(url, params, 'post', message, type, success, fail)
 }
@@ -30,7 +33,7 @@ function request(url, params, met, message, types, success, fail) {
 // success:成功的回调函数
 // fail：失败的回调
 
-function requestLoading(url, params, met, message, types, success, fail) {
+function requestLoading(url, params, met, message, types, success, fail, ctx) {
   if(urls.includes('mock')){
     // mock 移除域
     // url = url.replace(/^(\d{2,3})(\/\w+)/, '$1')
@@ -69,7 +72,7 @@ function requestLoading(url, params, met, message, types, success, fail) {
               key: 'token',
               success: function(res) {}
             })
-            getRouter();
+            getRouter(ctx);
           } else if (res.data.code == 40301) {
             wx.showToast({
               title: "权限验证失败",
@@ -80,7 +83,7 @@ function requestLoading(url, params, met, message, types, success, fail) {
             wx.hideNavigationBarLoading()
             fail()
           } else if (res.data.errorCode == 660) {
-            getRouter();
+            getRouter(ctx);
           }else {
             wx.hideNavigationBarLoading()
             if (message != "") {
@@ -98,10 +101,10 @@ function requestLoading(url, params, met, message, types, success, fail) {
           if (message != "") {
             wx.hideLoading()
           }
-          getRouter();
+          getRouter(ctx);
         },
         complete: function (res) {
-
+          wx.hideLoading()
         },
       })
     },
@@ -124,7 +127,7 @@ function requestLoading(url, params, met, message, types, success, fail) {
         method: met,
         success: function (res) {
           if (res.data.code == 40101) {
-            getRouter();
+            getRouter(ctx);
           } else if (res.data.code == 40301) {
             wx.showToast({
               title: "权限验证失败",
@@ -135,7 +138,7 @@ function requestLoading(url, params, met, message, types, success, fail) {
             wx.hideNavigationBarLoading()
             fail()
           } else if (res.data.errorCode == 660) {
-            getRouter();
+            getRouter(ctx);
           } else {
             wx.hideNavigationBarLoading()
             if (message != "") {
@@ -153,7 +156,7 @@ function requestLoading(url, params, met, message, types, success, fail) {
           if (message != "") {
             wx.hideLoading()
           }
-          getRouter();
+          getRouter(ctx);
         },
         complete: function (res) {
 
@@ -163,9 +166,9 @@ function requestLoading(url, params, met, message, types, success, fail) {
   })
 }
 
-function getRouter() {
+function getRouter(ctx) {
   let router = getCurrentPages()[getCurrentPages().length - 1].route;
-  getWxOpenId();
+  getWxOpenId(ctx);
   // let index = router.lastIndexOf("\/");
   // router = router.substring(index + 1, router.length);
   // let roterList = ['index','lineList','myCenter','myRecommend'];
@@ -190,7 +193,7 @@ function getRouter() {
 }
 
 //获取openid
-function getWxOpenId() {
+function getWxOpenId(ctx) {
   var pagelist = getCurrentPages();
   wx.clearStorageSync()
   wx.showToast({
@@ -225,7 +228,7 @@ function getWxOpenId() {
         data: code
       })
       // requestLoading('api/auth/v1/jwt/getToken', {
-      requestLoading('25/auth/v2/jwt/getToken', {
+      requestLoading('25/auth/v1/leiniaoAuth/jwt/getToken', {
         wxCode: code
       },
         'post',
@@ -253,13 +256,13 @@ function getWxOpenId() {
             wx.setStorage({
               key: 'token',
               data: res.data.token,
-              success: function (res) {
-              },
+              success: function (res) {},
             })
             if (getCurrentPages().length != 0) {
               //刷新当前页面的数据
               getCurrentPages()[getCurrentPages().length - 1].onLoad();
               getCurrentPages()[getCurrentPages().length - 1].onShow();
+              ctx && ctx.init && ctx.init();
             }
           }
         },

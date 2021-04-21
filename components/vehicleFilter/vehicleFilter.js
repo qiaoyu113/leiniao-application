@@ -31,7 +31,8 @@ Component({
     miles: [],
     minMiles: '',
     maxMiles: '',
-    sorts: []
+    sorts: [],
+    maxHeight: 0
   },
 
   lifetimes: {
@@ -50,8 +51,17 @@ Component({
   methods: {
     init () {
       this.initTabs()
+      this.initPanelHeight()
       this.getBrandList()
       this.getFilterDicts()
+    },
+    initPanelHeight () {
+      const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(app.utils.getCurrentRoute()) > -1
+      const windowHeight = app.globalData.windowHeight
+      const barHeight = isPageWithCustomNav ? app.globalData.navBarHeight : 0
+      const filterTabHeight = 100 * app.globalData.screenWidth / 750
+      const maxHeight = windowHeight - barHeight - filterTabHeight
+      this.setData({maxHeight: maxHeight * 0.6})
     },
     initTabs () {
       const tabs = [
@@ -61,10 +71,8 @@ Component({
         {label: '筛选', id: 'filter', selected: false},
         {label: '', id: 'sort', selected: false}
       ]
-      const app = getApp()
-      const entryRoute = app.utils.getEntryRoute()
-      let isSale = true
-      if (/saleCar/.test(entryRoute)) {
+      let isSale = false
+      if (app.utils.getEntryRoute() === 'saleCar') {
         tabs.find(v => v.id === 'price').label = '售价'
         isSale = true
       }
@@ -72,25 +80,27 @@ Component({
     },
     // 获取全部车型（品牌+车型）
     getBrandList () {
-      let brandList = [{brandName: '不限品牌', brandId: '', selected: false}]
+      const ctx = this
+      let brandList = [{brandName: '不限品牌', brandId: '', selected: true}]
       if (!app.globalData.brandList.length) {
         net.get('255/car/v1/car/CarBrandInfo/getBrandListNoPage', res => {
-          // if (res.success) {
+          if (res.success) {
             brandList = brandList.concat((res.data || []).map(v => {
               v.selected = false
               return v
             }))
             this.setData({brandList})
             app.globalData.brandList = brandList
-          // }
+          }
         }, err => {
           console.log(err)
-        })
+        }, {ctx})
       } else {
         brandList = app.globalData.brandList.map(v => {
           v.selected = false
           return v
         })
+        brandList[0].selected = true
         this.setData({brandList})
       }
     },
@@ -106,7 +116,6 @@ Component({
       // 车龄：car_go_age
       // 售价：car_go_sale
       // 标签：car_go_label
-      // 特点跟筛选分开，车辆特点：car_go_features  车辆标签：car_go_search
       const tags = [
         'car_go_sort',
         'car_go_mileage',
@@ -115,96 +124,150 @@ Component({
         'car_go_label'
       ]
       net.post('api/base_center/open/v1/dict/list/types', tags, res => {
-        console.log(res)
-        const data = res.data || {}
-        const ages = (data.car_go_age || []).map(transItem)
-        const prices = (data.car_go_sale || []).map(transItem)
-        const features = (data.car_go_label || []).map(transItem)
-        const miles = (data.car_go_mileage || []).map(transItem)
-        const sorts = (data.car_go_sort || []).map(transItem)
-        this.setData({
-          ages,
-          prices,
-          features,
-          miles,
-          sorts
-        })
-        this.triggerEvent('fastfeatureready', data)
+        if (res.success) {
+          const data = res.data || {}
+          const ages = (data.car_go_age || []).map(transItem)
+          const prices = (data.car_go_sale || []).map(transItem)
+          const miles = (data.car_go_mileage || []).map(transItem)
+          const sorts = (data.car_go_sort || []).map(transItem).filter(v => this.data.isSale ? !/租金/.test(v.label) : !/售价/.test(v.label))
+          ;(sorts[0] || {}).selected = true
+          const features = (data.car_go_label || []).map(transItem).filter(v => this.data.isSale ? !/租/.test(v.label) : !/售/.test(v.label))
+          const urgentTag = features.find(v => /降价/.test(v.label)) || {}
+          urgentTag.label = (urgentTag.label || '').replace('降价', '')
+          this.setData({
+            ages,
+            prices,
+            features,
+            miles,
+            sorts
+          })
+          this.triggerEvent('fastfeatureready', data)
+        }
       })
     },
     // 点击tab
     onSelectTab (evt) {
       const selectedTabId = evt ? ((evt.currentTarget.dataset.info || {}).id || '') : ''
       const currenttabId = this.data.currentTab ? this.data.currentTab.id : ''
-      if (this.data.currentTab && currenttabId === selectedTabId) {
-        const tabs = this.data.tabs.map(setItemUnselected)
-        this.setData({tabs, currentTab: null})
-      } else {
-        let currentTab = null
-        const tabs = this.data.tabs.map((tab, i) => {
+      let currentTab = null
+      let tabs = this.data.tabs
+      tabs.find(v => v.id === 'model').selected = !!(this.data.brandList.find(v => v.selected) || {}).id
+      tabs.find(v => v.id === 'age').selected = this.data.ages.some(v => v.selected)
+      tabs.find(v => v.id === 'sort').selected = this.data.sorts.slice(1).some(v => v.selected)
+      tabs.find(v => v.id === 'price').selected = this.data.prices.some(v => v.selected) || this.data.minPrice || this.data.maxPrice
+      tabs.find(v => v.id === 'filter').selected = this.data.features.some(v => v.selected) || this.data.miles.some(v => v.selected) || this.data.minMiles || this.data.maxMiles
+      if (!(this.data.currentTab && currenttabId === selectedTabId)) {
+        tabs = tabs.map((tab, i) => {
           if (tab.id === selectedTabId) {
             tab.selected = true
             currentTab = tab
-          } else {
-            tab.selected = false
           }
           return tab
         })
-        this.setData({tabs, currentTab})
         this.moveFilterTop()
       }
+      this.setData({tabs, currentTab})
     },
     // 重置
     onReset () {
-      const tabs = this.data.tabs.map(setItemUnselected)
-      const ages = this.data.ages.map(setItemUnselected)
-      const brandList = this.data.brandList.map(setItemUnselected)
-      const features = this.data.features.map(setItemUnselected)
-      const miles = this.data.miles.map(setItemUnselected)
-      const sorts = this.data.sorts.map((v, i) => {
-        v.selected = !i
+      const tabs = this.data.tabs.map(v => {
+        if (v.id === this.data.currentTab.id) {
+          v.selected = false
+        }
         return v
       })
-      this.setData({
-        tabs,
-        ages,
-        brandList,
-        models: [],
-        features,
-        miles,
-        sorts,
-        currentTab: null,
-        minPrice: '',
-        maxPrice: '',
-        minMiles: '',
-        maxMiles: ''
-      })
-      this.onQuery()
-      this.triggerEvent('filterreset')
+
+      switch (this.data.currentTab.id) {
+        case 'age':
+          const ages = this.data.ages.map(setItemUnselected)
+          this.setData({ages, tabs}, () => {
+            this.onQuery()
+          })
+          return
+        case 'price':
+          const prices = this.data.prices.map(setItemUnselected)
+          this.setData({prices, tabs, minPrice: '', maxPrice: ''}, () => {
+            this.onQuery()
+          })
+          return
+        case 'filter':
+          const features = this.data.features.map(setItemUnselected)
+          const miles = this.data.miles.map(setItemUnselected)
+          this.setData({miles, features, tabs, minMiles: '', maxMiles: ''}, () => {
+            this.onQuery()
+          })
+          this.triggerEvent('filterreset')
+          return
+        // done
+      }
+      
+      // const sorts = this.data.sorts.map((v, i) => {
+      //   v.selected = !i
+      //   return v
+      // })
+      // const brandList = this.data.brandList.map((v, i) => {
+      //   v.selected = !i
+      //   return v
+      // })
+      // this.setData({
+      //   tabs,
+      //   ages,
+      //   brandList,
+      //   models: [],
+      //   features,
+      //   miles,
+      //   prices,
+      //   sorts,
+      //   currentTab: null,
+      //   minPrice: '',
+      //   maxPrice: '',
+      //   minMiles: '',
+      //   maxMiles: ''
+      // })
+      // this.onQuery()
+      // this.triggerEvent('filterreset')
     },
     // 查询
     onQuery () {
       const formData = {
-        brandId: (this.data.brandList.find(v => v.selected) || {}).brandId || '',
-        modelId: (this.data.models.find(v => v.selected) || {}).modelId || '',
-        carAgeIdList: this.data.ages.filter(v => v.selected).map(v => v.id),
-        priceIdList: this.data.prices.filter(v => v.selected).map(v => v.id),
-        minPrice: this.data.minPrice,
-        maxPrice: this.data.maxPrice,
-        carLabelIdList: this.data.features.filter(v => v.selected).map(v => v.id),
-        mileageIdList: this.data.miles.filter(v => v.selected).map(v => v.id).join(','),
-        minMileage: this.data.minMiles,
-        maxMileage: this.data.maxMiles,
-        searchSortId: (this.data.sorts.find(v => v.selected) || this.data.sorts[0] || {}).id || ''
+        brandId: (this.data.brandList.find(v => v.selected) || {}).id || null,
+        modelId: (this.data.models.find(v => v.selected) || {}).id || null,
+        carAgeIdList: this.data.ages.filter(v => v.selected).map(v => parseInt(v.id)),
+        priceIdList: this.data.prices.filter(v => v.selected).map(v => parseInt(v.id)),
+        minPrice: parseFloat(this.data.minPrice),
+        maxPrice: parseFloat(this.data.maxPrice),
+        carLabelIdList: this.data.features.filter(v => v.selected).map(v => parseInt(v.id)),
+        mileageIdList: this.data.miles.filter(v => v.selected).map(v => parseInt(v.id)),
+        minMileage: parseFloat(this.data.minMiles),
+        maxMileage: parseFloat(this.data.maxMiles),
+        searchSortId: parseInt((this.data.sorts.find(v => v.selected) || this.data.sorts[0] || {}).id)
       }
-      if (app.utils.getEntryRoute === 'rentedCar') {
+      if (parseInt(formData.minPrice) > parseInt(formData.maxPrice)) {
+        const {maxPrice, minPrice} = formData
+        formData.minPrice = maxPrice
+        formData.maxPrice = minPrice
+        this.setData({
+          minPrice: maxPrice,
+          maxPrice: minPrice
+        })
+      }
+      if (parseInt(formData.minMileage) > parseInt(formData.maxMileage)) {
+        const {maxMileage, minMileage} = formData
+        formData.minMileage = maxMileage
+        formData.maxMileage = minMileage
+        this.setData({
+          minMiles: maxMileage,
+          maxMiles: minMileage
+        })
+      }
+      if (app.utils.getEntryRoute() === 'rentedCar') {
         formData.minRent = formData.minPrice
         formData.maxRent = formData.maxPrice
         delete formData.minPrice
         delete formData.maxPrice
       }
       this.triggerEvent('change', formData)
-      this.onSelectTab() // 触发收起filter
+      this.onSelectTab(false, true) // 触发收起filter
     },
     // 滚动页面至顶部
     moveFilterTop () {
@@ -213,7 +276,7 @@ Component({
       query.selectViewport().scrollOffset()
       const app = getApp()
       const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(app.utils.getCurrentRoute()) > -1
-      const barHeight = isPageWithCustomNav ? app.globalData.CustomBar : 0
+      const barHeight = isPageWithCustomNav ? app.globalData.navBarHeight : 0
       query.exec(res => {
         if (res[0] && res[1] && (res[0] || {}).top !== barHeight) {
           wx.pageScrollTo({scrollTop: res[0].top + res[1].scrollTop - barHeight})
@@ -228,21 +291,25 @@ Component({
         return v
       })
       if (brandId) {
-        let models = [{modelName: '不限车型', modelId: '', selected: false}]
-        net.get('255/car/v1/leiniao/CarModelInfo/getModelListNoPage', {brandId}, res => {
+        let models = [{modelName: '不限车型', modelId: '', selected: true}]
+        net.get('api/car/v1/leiniao/CarModelInfo/getModelListNoPage', {brandId}, res => {
           models = models.concat((res.data || []).map(v => {
             v.selected = false
             return v
           }))
-          this.setData({
-            brandList,
-            models
-          })
+
+          this.setData({brandList, models})
         }, err => {
           console.log(err)
         })
       } else {
-        this.onQuery()
+        const brandList = this.data.brandList.map((v, i) => {
+          v.selected = !i
+          return v
+        })
+        this.setData({models: [], brandList}, () => {
+          this.onQuery()
+        })
       }
     },
     // 选择型号
@@ -263,12 +330,6 @@ Component({
       clickedPrice.selected = !clickedPrice.selected
       this.setData({prices, minPrice: '', maxPrice: ''})
     },
-    onPriceInput (evt) {
-      if ((evt.detail || {}).value) {
-        const prices = this.data.prices.map(setItemUnselected)
-        this.setData({prices})
-      }
-    },
     // 选择车龄
     onSelectAge (evt) {
       const ages = this.data.ages
@@ -277,16 +338,21 @@ Component({
       this.setData({ages})
     },
     // 选择车辆特点
-    onSelectFeature (evt, isFromPage) {
+    onSelectFeature (evt) {
       const features = this.data.features
       const clickedFeature = features.find(v => v.id === evt.currentTarget.dataset.info.id)
       clickedFeature.selected = !clickedFeature.selected
       this.setData({features}, () => {
-        if (isFromPage) {
-          this.onQuery()
-        } else {
-          this.triggerEvent('featurechange', evt.currentTarget.dataset.info)
-        }
+        this.triggerEvent('featurechange', evt.currentTarget.dataset.info)
+      })
+    },
+    onPageSelectFeature (evt) {
+      const features = this.data.features.map(v => {
+        v.id === evt.currentTarget.dataset.info.id && (v.selected = !v.selected)
+        return v
+      })
+      this.setData({features}, () => {
+        this.onQuery()
       })
     },
     // 选择里程
@@ -295,12 +361,6 @@ Component({
       const clickedMiles = miles.find(v => v.id === evt.currentTarget.dataset.info.id)
       clickedMiles.selected = !clickedMiles.selected
       this.setData({miles, minMiles: '', maxMiles: ''})
-    },
-    onMilesInput (evt) {
-      if ((evt.detail || {}).value) {
-        const miles = this.data.miles.map(setItemUnselected)
-        this.setData({miles})
-      }
     },
     // 选择排序基准
     onSelectSort (evt) {
@@ -315,6 +375,62 @@ Component({
     // 解决滚动穿透问题
     doNothing () {
       return false
+    },
+    onInputPrice (evt, field) {
+      const value = evt.detail.value
+      const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
+      if (val) {
+        const limit = this.data.isSale ? 9999 : 99999
+        const data = {
+          [field]: parseInt(val) > limit ? (limit + '') : val
+        }
+        if (this.data.isSale) {
+          data.prices = this.data.prices.map(setItemUnselected)
+        }
+        this.setData(data)
+      } else {
+        this.setData({[field]: ''})
+      }
+    },
+    onInputMinPrice (evt) {
+      this.onInputPrice(evt, 'minPrice')
+    },
+    onInputMaxPrice (evt) {
+      this.onInputPrice(evt, 'maxPrice')
+    },
+    onInputMiles (evt, field) {
+      const value = evt.detail.value
+      const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
+      const miles = this.data.miles.map(setItemUnselected)
+      this.setData({miles, [field]: parseInt(val) > 9999 ? '9999' : val})
+    },
+    onInputMinMiles (evt) {
+      this.onInputMiles(evt, 'minMiles')
+    },
+    onInputMaxMiles (evt) {
+      this.onInputMiles(evt, 'maxMiles')
+    },
+    onPageRefresh () {
+      app.globalData.brandList = []
+      this.setData({
+        isSale: false,
+        tabs: [],
+        currentTab: null,
+        brandList: [],
+        models: [],
+        ages: [],
+        prices: [],
+        minPrice: '',
+        maxPrice: '',
+        features: [],
+        miles: [],
+        minMiles: '',
+        maxMiles: '',
+        sorts: [],
+        maxHeight: 0
+      }, () => {
+        this.init()
+      })
     }
   }
 })

@@ -63,7 +63,7 @@
   color: #fff;
   font-size: 12px;
   text-align: center;
-  padding:0 6px;
+  padding:0 4px;
   margin-bottom: 2px;
 }
 .tagBox .tag2{
@@ -76,7 +76,7 @@
   color: #1C8EFA;
   font-size: 12px;
   text-align: center;
-  padding:0 6px;
+  padding:0 4px;
   float: left;
   margin-bottom: 2px;
 }
@@ -106,7 +106,7 @@
   background: rgba(255, 255, 255, 0.7);
 }
 
-.shadow image{
+.shadow .image1{
   width: 55px;
   height: 45px;
   position: absolute;
@@ -114,15 +114,25 @@
   right: 25px;
 }
 
+.shadow .image2{
+  width: 18px;
+  height: 18px;
+  position: absolute;
+  bottom: 18px;
+  right: 20px;
+}
+
 .block{
   width: 100%;
-  padding: 105px 50px;
+  padding: 105px 10px;
   box-sizing: border-box;
+  text-align: center;
 }
 
 .block image{
   width: 255px;
   height: 175px;
+  margin:auto;
 }
 
 .block .text {

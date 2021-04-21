@@ -1,6 +1,7 @@
 {
   "usingComponents": {
-    "van-nav-bar": "../../miniprogram_npm/vant-weapp/nav-bar/index"
+    "van-nav-bar": "../../miniprogram_npm/vant-weapp/nav-bar/index",
+    "van-dialog": "../../miniprogram_npm/vant-weapp/dialog/index"
   },
   "navigationStyle": "custom"
 }

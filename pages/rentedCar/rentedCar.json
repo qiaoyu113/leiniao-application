@@ -4,5 +4,5 @@
     "hotNew": "/components/hotNew/hotNew"
   },
   "navigationStyle": "custom",
-  "enablePullDownRefresh":false
+  "enablePullDownRefresh": true
 }

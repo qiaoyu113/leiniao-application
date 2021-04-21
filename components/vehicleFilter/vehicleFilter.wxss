@@ -39,14 +39,21 @@
   border-radius: 30rpx;
 }
 .b-solid-blue {
-  border: 1rpx solid #1C8EFA;
+  border: 2rpx solid #1C8EFA;
 }
 .input-range {
   width: 260rpx;
   height: 60rpx;
   border-radius: 30rpx;
 }
-.feature-item {
+.feature-item_price {
+  width: 250rpx;
+  margin-left: 44rpx;
+  margin-right: 44rpx;
+  height: 60rpx;
+  border-radius: 30rpx;
+}
+.feature-item_miles {
   width: 160rpx;
   height: 60rpx;
   border-radius: 30rpx;

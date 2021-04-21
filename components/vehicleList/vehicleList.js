@@ -9,8 +9,7 @@ Component({
    * 组件的属性列表
    */
   properties: {
-    showFastFeature: Boolean,
-    type:String
+    showFastFeature: Boolean
   },
 
   /**
@@ -28,8 +27,8 @@ Component({
     isPageWithCustomNav: false,
     navbarHeight: 64,
     loadStatus: 0, // 0 初始化 1请求中 2请求完毕
-    labels: [],
-    total: 0
+    total: 0,
+    bottomText: ''
   },
 
   lifetimes: {
@@ -49,49 +48,71 @@ Component({
     init () {
       const app = getApp()
       const currentRoute = app.utils.getCurrentRoute()
-      // ;(currentRoute !== 'searchPage' && currentRoute !== 'hotModel') && this.getVehicleList()
       const isPageWithCustomNav = app.globalData.pagesWithCustomNav.indexOf(currentRoute) > -1
-      const navbarHeight = app.globalData.CustomBar
+      const navbarHeight = app.globalData.navBarHeight
       const isRent = app.utils.getEntryRoute() === 'rentedCar'
-      const labels = [
-        {name: '准新车', key: 'isNewCar'},
-        {name: isRent ? '降价急租' : '降价急售', key: isRent ? 'isUrgentRent' : 'isUrgentSale'},
-        {name: '有尾板', key: 'hasTailboard'},
-        {name: '有通行证', key: 'hasPass'}
-      ]
+
+      const windowHeight = app.globalData.windowHeight
+      const barHeight = isPageWithCustomNav ? app.globalData.navBarHeight : 0
+      const isEntryPage = ['rentedCar', 'saleCar'].indexOf(app.utils.getCurrentRoute()) > -1
+      const filterTabHeight = (isEntryPage ? 170 : 100) * app.globalData.screenWidth / 750
+      const minHeight = windowHeight - barHeight - filterTabHeight
       this.setData({
         isPageWithCustomNav,
         navbarHeight,
         isRent,
-        labels
+        minHeight
       })
     },
     // 获取车辆列表
-    getVehicleList (append, isKeywordChanged) {
+    getVehicleList (append, isKeywordChanged, isPageInit) {
+      const isRent = app.utils.getEntryRoute() === 'rentedCar'
       const formData = this.data.formData
+      const labels = [
+        {name: '准新车', key: 'isNewCar', bold: true},
+        {name: isRent ? '急租' : '急售', key: isRent ? 'isUrgentRent' : 'isUrgentSale', bold: true},
+        {name: '宽体', key: 'isWidth'},
+        {name: '有尾板', key: 'hasTailboard'},
+        {name: '有通行证', key: 'hasPass'}
+      ]
       const pageIndex = append ? this.data.pageIndex + 1 : 1
       Object.assign(formData, {
         limit: this.data.pageSize,
         page: pageIndex,
         searchCityId: (app.globalData.locationCity || {}).cityCode || '',
-        searchType:this.data.type==='rent'?1:2
+        searchType: isRent ? 1 : 2 // pullDownRefresh 时先于 init 执行
       })
-      formData.searchContent = formData.keyword || ''
+      formData.searchContent = formData.keyword || formData.searchContent || ''
       delete formData.keyword
-      console.log(formData)
       net.post('255/car_center/v1/cargo/getSearchCarList', formData, res => {
         const vehicleList = (res.data || []).map(v => {
-          // v.pic = (v.imageUrlList || [])[0] || '' // todo
-          v.pic = '/lib/image/home/hot_3.png' // todo 移除
+          const hasPower = v.horsepower > 0
+          v.pic = (v.imageUrlList || [])[0] || ''
+          v.labels = labels.filter(l => v[l.key] === 1)
+          v.fullDesc = `${v.brandName} ${v.modelName} ${hasPower ? v.horsepower : ''}${hasPower ? '匹' : ''}`
           return v
         })
         this.setData({
-          vehicleList,
+          vehicleList: append ? this.data.vehicleList.concat(vehicleList) : vehicleList,
           loadStatus: 2,
           pageIndex,
           total: (res.page || {}).total || 0
         })
         isKeywordChanged && this.triggerEvent('searchfinish')
+      }, e => console.log(e), {message: '加载中'})
+      !append && !isPageInit && this.backToTop()
+    },
+    backToTop () {
+      const query = this.createSelectorQuery()
+      query.select('.vehicle-list').boundingClientRect()
+      query.selectViewport().scrollOffset()
+      const isEntryPage = ['rentedCar', 'saleCar'].indexOf(app.utils.getCurrentRoute()) > -1
+      const filterTabHeight = (isEntryPage ? 170 : 100) * app.globalData.screenWidth / 750
+      query.exec(res => {
+        if (res[0] && res[1]) {
+          const offset = res[0].top + res[1].scrollTop - app.globalData.navBarHeight - filterTabHeight
+          wx.pageScrollTo({scrollTop: offset})
+        }
       })
     },
     onFastFeatureReady (evt) {
@@ -101,25 +122,19 @@ Component({
         v.selected = false
         return v
       }
+      let features = (evt.detail.car_go_label || []).map(v => {
+        return {...v}
+      }).map(transItem).filter(v => this.data.isRent ? !/售/.test(v.label) : !/租/.test(v.label)).slice(0, 4)
       this.data.showFastFeature && this.setData({
-        fastFeatures: (evt.detail.car_go_label || []).map(transItem)
-      }, () => { // todo 移除
-        !this.data.fastFeatures.length && this.setData({
-          fastFeatures: [
-            {label: '准新车', id: '123', selected: false},
-            {label: '降价急租', id: '234', selected: false},
-            {label: '宽体', id: '345', selected: false},
-            {label: '有尾板', id: '456', selected: false}
-          ]
-        })
+        fastFeatures: features
       })
     },
     // 筛选组件汇总后的参数变动
-    onParamChange: function (evt) {
+    onParamChange: function (evt, isPageInit) {
       this.setData({
         formData: Object.assign({}, this.data.formData, evt.detail || evt)
       }, () => {
-        this.getVehicleList(false, !evt.detail)
+        this.getVehicleList(false, !evt.detail, isPageInit)
       })
     },
     // 筛选组件筛选项变动，同步到页面
@@ -135,14 +150,14 @@ Component({
     onSelectFeature (evt) {
       // 页面本身
       const item = evt.currentTarget.dataset.info
-      const fastFeatures = this.data.fastFeatures.map(v => {
+      let fastFeatures = this.data.fastFeatures.map(v => {
         v.id === item.id && (v.selected = !v.selected)
         return v
       })
       this.setData({fastFeatures})
       // 同步到组件
       const vehicleFilter = this.selectComponent('#vehicleFilter')
-      vehicleFilter && vehicleFilter.onSelectFeature(evt, true)
+      vehicleFilter && vehicleFilter.onPageSelectFeature(evt)
     },
     // 同步重置操作中的筛选项
     onFilterReset (evt) {
@@ -159,14 +174,38 @@ Component({
     onPageReachBottom () {
       if (this.data.vehicleList.length < this.data.total) { // todo
         this.getVehicleList(true)
+      } else {
+        this.setData({
+          bottomText: '到底了亲~'
+        })
       }
     },
     // 供页面搜索关键字变化时调用，重新搜索
     // const vehicleList = this.selectComponent('#vehicleList')
     // vehicleList && vehicleList.onPageKeywordChange(newVal)
     onPageKeywordChange (val) {
-      console.log('keyword change', val)
-      this.onParamChange({keyword: val})
+      this.onParamChange({keyword: val}, 'isPageInit=true')
+    },
+    onPageRefresh () {
+      this.setData({
+        formData: {
+          sort: '1'
+        },
+        isRent: false,
+        pageSize: 30,
+        pageIndex: 1,
+        fastFeatures: [],
+        vehicleList: [],
+        isPageWithCustomNav: false,
+        navbarHeight: 64,
+        loadStatus: 0, // 0 初始化 1请求中 2请求完毕
+        total: 0,
+        bottomText: ''
+      }, () => {
+        this.init()
+        const vehicleFilter = this.selectComponent('#vehicleFilter')
+        vehicleFilter && vehicleFilter.onPageRefresh()
+      })
     }
   }
 })

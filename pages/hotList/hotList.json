@@ -4,5 +4,6 @@
     "navBar": "/components/navBar/navBar",
     "scroll-y": "/components/scroll-y/scroll-y"
   },
-  "navigationStyle": "custom"
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true
 }

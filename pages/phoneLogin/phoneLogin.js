@@ -11,7 +11,8 @@ Page({
     time: 60,
     code: '',
     phone: '',
-    phoneCheck: false
+    phoneCheck: false,
+    hintText: ''
   },
 
   /**
@@ -34,27 +35,27 @@ Page({
   phoneCheck(){
     let that = this;
     let value = that.data.phone
-    var myreg = /^(((13[0-9]{1})|(15[0-9]{1})|(18[0-9]{1})|(17[0-9]{1}))+\d{8})$/;
+    var myreg = /^1[3456789]\d{9}$/;
     if (value.length == 0) {
       that.setData({
         hintType: true,
-        phoneCheck: false
+        phoneCheck: false,
+        hintText: '请输入手机号'
       })
-    } else if (value.length < 11) {
-      that.setData({
-        hintType: true,
-        phoneCheck: false
-      })
+      return false
     } else if (!myreg.test(value)) {
       that.setData({
         hintType: true,
-        phoneCheck: false
+        phoneCheck: false,
+        hintText: '手机号码格式错误'
       })
+      return false
     } else {
       that.setData({
         hintType: false,
         phoneCheck: true
       })
+      return true
     }
   },
 
@@ -69,11 +70,7 @@ Page({
   // 获取验证码
   getCode() {
     let that = this;
-    if(!that.data.phoneCheck){
-      that.setData({
-        hintType: true,
-        phoneCheck: false
-      })
+    if(!that.phoneCheck()){
       return false
     }
     network.requestLoading('88/auth/v1/leiniaoAuth/jwt/sendVerificationCode', {
@@ -137,7 +134,7 @@ Page({
     })
   },
 
-  // 登陆
+  // 登录
   login(){
     let that = this;
     let phone = that.data.phone
@@ -146,9 +143,9 @@ Page({
       phone: phone,
       code: code
     },
-    'get',
+    'post',
     '',
-    '',
+    'json',
     function(res) {
       if (res.success) {
         wx.setStorage({
@@ -239,6 +236,14 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-
+    let userId = wx.getStorageSync('userId')
+    return {
+      title: '雷鸟车池',
+      path: '/pages/rentedCar/rentedCar?puserId=' + userId + '&source=2',
+      imageUrl: '',
+      success: function(res) {
+        // 转发成功
+      },
+    }
   }
 })

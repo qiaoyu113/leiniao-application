@@ -27,6 +27,6 @@ function request(options) {
 
 };
 
-module.exports = {  
+module.exports = {
   request: request
 }
