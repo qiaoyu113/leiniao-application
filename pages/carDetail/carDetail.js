@@ -338,7 +338,6 @@ Page({
   },
   handlePreviewVideo(e){
     let swiperList = this.data.carData.videoUrlList
-
     let imageList = this.data.carData.imageUrlList
     let urlList = []
     swiperList.forEach(item=>{
@@ -378,16 +377,39 @@ onShareAppMessage() {
   onShow: function (options) {
     this.getCarInfo()
     this.getPhoneNumber()
+    wx.getStorage({
+      key:'phoneName',
+      success:(res)=>{
+        console.log('成功res')
+      },
+      fail:(res)=>{
+        if(this.data.isshare=='1'){
+        wx.navigateTo({
+          url:  "/pages/login/login?isshare=1",
+        })
+      }
+      }
+    })
   },
-  getPhoneNumber(){
+  goLoginOnShow (hasPhone) {
+    if(this.data.isshare=='1' && hasPhone){
+      wx.navigateTo({
+        url:  "/pages/login/login?isshare=1",
+      })
+    }
+  },
+  getPhoneNumber(callback){
       wx.getStorage({
         key:'phone',
         success:(res)=>{
           this.setData({
             phoneValue:res.data
+          }, () => {
+            callback && callback(true)
           })
         },
         fail:(res)=>{
+          callback && callback(false)
         }
     })
   },

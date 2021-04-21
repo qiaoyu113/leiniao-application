@@ -10,7 +10,6 @@
     <swiper-item
       wx:for="{{carData.videoUrlList}}"
       wx:key="key"
-      bindtap="handlePreviewVideo"
       data-url="{{item}}"
       data-id="{{swiperId}}"
       >
