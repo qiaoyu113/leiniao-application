@@ -29,7 +29,7 @@
           <view class="tag2" wx:if="{{item.tailboard}}">有尾板</view>
           <view class="tag2" wx:if="{{item.pass}}">有通行证</view>
         </view>
-        <view class="price">¥ {{item.money}}/月 <image class="icon" src="../../lib/image/heart.png" mode="aspectFit" catchtap="cancelCollect" data-id="{{item.carId}}" data-type="{{item.rentOrSale}}"></image></view>
+        <view class="price">¥ {{item.money}} <image class="icon"  wx:if="{{!item.offTheShelf}}" src="../../lib/image/heart.png" mode="aspectFit" catchtap="cancelCollect" data-id="{{item.carId}}" data-type="{{item.rentOrSale}}"></image></view>
       </view>
     </view>
     <view class="block" wx:if="{{!list.length}}">

@@ -37,7 +37,7 @@ Component({
   methods: {
     onViewDetail (evt) {
       const hasLogin = wx.getStorageSync('phoneName')
-      const url = hasLogin ? `/pages/carDetail/carDetail?carId=${this.data.item.carId}` : '/pages/login/login'
+      const url = hasLogin ? `/pages/carDetail/carDetail?carId=${this.data.item.carId}&type=${this.data.isRent ? 'rent':'sale'}` : '/pages/login/login'
       wx.navigateTo({url})
     }
   }

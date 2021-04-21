@@ -31,7 +31,7 @@ Page({
     function(res) {
       if (res.success) {
         that.setData({
-          list: res.data
+          list: that.data.list.concat(res.data)
         });
       }
     },
@@ -136,6 +136,7 @@ Page({
       page: 1
     })
     this.getList()
+    wx.stopPullDownRefresh()
   },
 
   /**

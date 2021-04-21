@@ -26,10 +26,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const isRent = app.utils.getEntryRoute() === 'rentedCar'
+    // const isRent = app.utils.getEntryRoute() === 'rentedCar'
     this.setData({
       carId: options.carId,
-      rentOrSale: isRent ? 'rent' : 'sale'
+      rentOrSale: options.type
     })
   },
   //调用接口，获取车辆详情
@@ -312,7 +312,7 @@ Page({
     }
     return {
       title: this.data.carData.brandName,
-      path: '/pages/carDetail/carDetail',
+      path: `/pages/carDetail/carDetail?type=${this.data.rentOrSale}&carId=${this.data.carId}`,
       // imageUrl: '/lib/image/rentcarimg/car.png',
       success: (res) => {
         console.log('转发成功', res)
@@ -330,12 +330,16 @@ Page({
     console.log('e', e)
   },
   //放大预览轮播图图片
-  handlePreviewImg(e){
+  handlePreviewVideo(e){
     let swiperList = []
     swiperList = this.data.carData.videoUrlList.concat(this.data.carData.imageUrlList)
     const urls = swiperList
-    console.log('urls',swiperList, e.currentTarget.dataset.url)
-    const current = e.currentTarget.dataset.url
+    let urlList = []
+    swiperList.forEach(item=>{
+      urlList.push({
+        url:item
+      })
+    })
     wx.previewMedia({
       urls,
       current
