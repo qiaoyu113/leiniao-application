@@ -33,8 +33,21 @@ Page({
       rentOrSale: options.type
     })
     if(options.isshare){
+      console.log('isshare')
       this.setData({
         isshare:'1'
+      })
+      wx.getStorage({
+        key:'phoneName',
+        success:(res)=>{
+          console.log('成功res')
+        },
+        fail:(res)=>{
+          console.log('失败res')
+          wx.navigateTo({
+            url:  "/pages/login/login",
+          })
+        }
       })
     }
   },
