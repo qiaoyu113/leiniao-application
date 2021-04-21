@@ -149,51 +149,83 @@ Component({
     onSelectTab (evt) {
       const selectedTabId = evt ? ((evt.currentTarget.dataset.info || {}).id || '') : ''
       const currenttabId = this.data.currentTab ? this.data.currentTab.id : ''
-      if (this.data.currentTab && currenttabId === selectedTabId) {
-        const tabs = this.data.tabs.map(setItemUnselected)
-        this.setData({tabs, currentTab: null})
-      } else {
-        let currentTab = null
-        const tabs = this.data.tabs.map((tab, i) => {
+      let currentTab = null
+      let tabs = this.data.tabs
+      tabs.find(v => v.id === 'model').selected = !!(this.data.brandList.find(v => v.selected) || {}).id
+      tabs.find(v => v.id === 'age').selected = this.data.ages.some(v => v.selected)
+      tabs.find(v => v.id === 'sort').selected = this.data.sorts.slice(1).some(v => v.selected)
+      tabs.find(v => v.id === 'price').selected = this.data.prices.some(v => v.selected) || this.data.minPrice || this.data.maxPrice
+      tabs.find(v => v.id === 'filter').selected = this.data.features.some(v => v.selected) || this.data.miles.some(v => v.selected) || this.data.minMiles || this.data.maxMiles
+      if (!(this.data.currentTab && currenttabId === selectedTabId)) {
+        tabs = tabs.map((tab, i) => {
           if (tab.id === selectedTabId) {
             tab.selected = true
             currentTab = tab
-          } else {
-            tab.selected = false
           }
           return tab
         })
-        this.setData({tabs, currentTab})
         this.moveFilterTop()
       }
+      this.setData({tabs, currentTab})
     },
     // 重置
     onReset () {
-      const tabs = this.data.tabs.map(setItemUnselected)
-      const ages = this.data.ages.map(setItemUnselected)
-      const brandList = this.data.brandList.map(setItemUnselected)
-      const features = this.data.features.map(setItemUnselected)
-      const miles = this.data.miles.map(setItemUnselected)
-      const sorts = this.data.sorts.map((v, i) => {
-        v.selected = !i
+      const tabs = this.data.tabs.map(v => {
+        if (v.id === this.data.currentTab.id) {
+          v.selected = false
+        }
         return v
       })
-      this.setData({
-        tabs,
-        ages,
-        brandList,
-        models: [],
-        features,
-        miles,
-        sorts,
-        currentTab: null,
-        minPrice: '',
-        maxPrice: '',
-        minMiles: '',
-        maxMiles: ''
-      })
-      this.onQuery()
-      this.triggerEvent('filterreset')
+
+      switch (this.data.currentTab.id) {
+        case 'age':
+          const ages = this.data.ages.map(setItemUnselected)
+          this.setData({ages, tabs}, () => {
+            this.onQuery()
+          })
+          return
+        case 'price':
+          const prices = this.data.prices.map(setItemUnselected)
+          this.setData({prices, tabs, minPrice: '', maxPrice: ''}, () => {
+            this.onQuery()
+          })
+          return
+        case 'filter':
+          const features = this.data.features.map(setItemUnselected)
+          const miles = this.data.miles.map(setItemUnselected)
+          this.setData({miles, features, tabs, minMiles: '', maxMiles: ''}, () => {
+            this.onQuery()
+          })
+          this.triggerEvent('filterreset')
+          return
+        // done
+      }
+      
+      // const sorts = this.data.sorts.map((v, i) => {
+      //   v.selected = !i
+      //   return v
+      // })
+      // const brandList = this.data.brandList.map((v, i) => {
+      //   v.selected = !i
+      //   return v
+      // })
+      // this.setData({
+      //   tabs,
+      //   ages,
+      //   brandList,
+      //   models: [],
+      //   features,
+      //   miles,
+      //   prices,
+      //   sorts,
+      //   currentTab: null,
+      //   minPrice: '',
+      //   maxPrice: '',
+      //   minMiles: '',
+      //   maxMiles: ''
+      // })
+      // this.onQuery()
+      // this.triggerEvent('filterreset')
     },
     // 查询
     onQuery () {
@@ -235,7 +267,7 @@ Component({
         delete formData.maxPrice
       }
       this.triggerEvent('change', formData)
-      this.onSelectTab() // 触发收起filter
+      this.onSelectTab(false, true) // 触发收起filter
     },
     // 滚动页面至顶部
     moveFilterTop () {
@@ -344,25 +376,42 @@ Component({
     doNothing () {
       return false
     },
-    onInputPrice (evt) {
-      const value = evt.detail.value
-      const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
-      if (val && this.data.isSale) {
-        const prices = this.data.prices.map(setItemUnselected)
-        this.setData({prices})
-      }
-      return parseInt(val) > 99999 ? '99999' : val
-    },
-    onInputMiles (evt) {
+    onInputPrice (evt, field) {
       const value = evt.detail.value
       const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
       if (val) {
-        const miles = this.data.miles.map(setItemUnselected)
-        this.setData({miles})
+        const limit = this.data.isSale ? 9999 : 99999
+        const data = {
+          [field]: parseInt(val) > limit ? (limit + '') : val
+        }
+        if (this.data.isSale) {
+          data.prices = this.data.prices.map(setItemUnselected)
+        }
+        this.setData(data)
+      } else {
+        this.setData({[field]: ''})
       }
-      return parseInt(val) > 9999 ? '9999' : val
+    },
+    onInputMinPrice (evt) {
+      this.onInputPrice(evt, 'minPrice')
+    },
+    onInputMaxPrice (evt) {
+      this.onInputPrice(evt, 'maxPrice')
+    },
+    onInputMiles (evt, field) {
+      const value = evt.detail.value
+      const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
+      const miles = this.data.miles.map(setItemUnselected)
+      this.setData({miles, [field]: parseInt(val) > 9999 ? '9999' : val})
+    },
+    onInputMinMiles (evt) {
+      this.onInputMiles(evt, 'minMiles')
+    },
+    onInputMaxMiles (evt) {
+      this.onInputMiles(evt, 'maxMiles')
     },
     onPageRefresh () {
+      app.globalData.brandList = []
       this.setData({
         isSale: false,
         tabs: [],

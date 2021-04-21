@@ -25,11 +25,12 @@
 }
 .nav-bar .search {
   position: relative;
-  width: 380rpx;
+  width: 365rpx;
   height: 58rpx;
   background: #fff;
   border-radius: 29rpx;
   line-height: 54rpx;
+  margin-left: -25rpx;
 }
 .nav_title {
   font-size: 14px;
@@ -77,7 +78,7 @@
   z-index: 9999;
   position: absolute;
   top:5rpx;
-  left:15rpx;
+  left:30rpx;
 }
 .center{
   text-align: center;

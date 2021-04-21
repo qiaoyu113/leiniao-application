@@ -35,7 +35,7 @@ Page({
       utils.getMap.call(this, app).then((info)=>{
         that.checkCity()
       }).catch(()=>{
-        app.globalData.locationCity.cityCode = 276
+        app.globalData.locationCity.cityCode = app.globalData.beijingCode || 276
         app.globalData.locationCity.cityName = '北京市'
         this.setData({
           'defaultData.cityName': '北京市',
@@ -70,8 +70,7 @@ Page({
             })
           }
           let checkCity = newarr.includes(app.globalData.locationCity.cityName)
-          console.log('checkCity',newarr,checkCity)
-          const cityCode = checkCity ? app.globalData.locationCity.cityCode : 276
+          const cityCode = checkCity ? app.globalData.locationCity.cityCode : (app.globalData.beijingCode||276)
           const cityName = checkCity ? app.globalData.locationCity.cityName : '北京市'
           that.setData({
             cityCode,
@@ -89,11 +88,10 @@ Page({
   },
   loadData (cityCode) {
     const vehicleList = this.selectComponent('#vehicleList')
-    vehicleList && vehicleList.onParamChange({searchCityId: cityCode})
+    vehicleList && vehicleList.onParamChange({searchCityId: cityCode}, 'isPageInit=true')
   },
   //点击城市事件
   selectLocationEvent() {
-    console.log('点击了城市')
     wx.navigateTo({
       url: '/pages/mapList/mapList',
     })
@@ -101,9 +99,7 @@ Page({
 
   //跳转爆款上新列表
   gotoadList(e) {
-    console.log(e)
     let query = e.detail.params
-    console.log(query)
     wx.navigateTo({
       url: `/pages/hotList/hotList?listid=${query}`,
     })
@@ -123,10 +119,8 @@ Page({
       app.globalData.locationCity.cityUpdata = 0
       var cityinfo = app.globalData.locationCity
       //城市切换了
-      console.log('城市切换了，当前城市信息', app.globalData.locationCity)
       this.loadData(cityCode)
     } else {
-      console.log('城市没有切换，不调用接口')
     }
     this.setData({
       'defaultData.cityName': cityName,
@@ -184,9 +178,8 @@ Page({
   // 前往热门车型页面
   onGoHotModel: function (evt) {
     const { info } = evt.currentTarget.dataset
-    app.globalData.hotModelIdList = info.modelIdList
     wx.navigateTo({
-      url: '../hotModel/hotModel?name=' + info.label,
+      url: `../hotModel/hotModel?name=${info.label}&id=${info.id}`,
     })
-  },
+  }
 })

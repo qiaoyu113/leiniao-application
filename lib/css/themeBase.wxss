@@ -22,6 +22,10 @@
   background-color: #f5f5f5;
 }
 
+.b-solid-trans {
+  border: 1rpx solid transparent;
+}
+
 .b-solid-d {
   border: 1rpx solid #dddddd;
 }
@@ -98,6 +102,9 @@
 /* decorations */
 .text-bold {
   font-weight: bold;
+}
+.text-normal {
+  font-weight: normal;
 }
 .box-shadow {
   box-shadow: 0 10rpx 20rpx 0 rgba(221,221,221,0.50);

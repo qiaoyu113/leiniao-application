@@ -19,5 +19,7 @@
     <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">微信登录</button>
     <view class="phoneLogin" bindtap="goLogin">手机号登录/注册</view>
   </view>
+
+  <view class="author">登录代表您已同意<a class="link" bindtap="goRouter" data-type="0">《用户协议》</a>和<a class="link" bindtap="goRouter" data-type="1">《隐私协议》</a></view>
 </view>
 <van-dialog id="van-dialog" />

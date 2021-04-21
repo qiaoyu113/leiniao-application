@@ -5,15 +5,15 @@
       bind:change="onParamChange" bind:featurechange="onFeatureChange" bind:filterreset="onFilterReset" bind:fastfeatureready="onFastFeatureReady"></vehicle-filter>
   </view>
   <!-- 快捷筛选项 -->
-  <view wx:if="{{showFastFeature}}" class="px-15 mb-15 space-between pb-1">
+  <view wx:if="{{showFastFeature}}" class="px-15 pb-15 center_space-between" style="height: 70rpx;">
     <view class="fast-feature center_center text-12 {{item.selected ? 'bg-blue text-white' : 'bg-lightblue text-blue'}}" 
       wx:for="{{fastFeatures}}" wx:key="index" data-info="{{item}}" bindtap="onSelectFeature">{{item.label}}</view>
   </view>
   <!-- 车辆列表 -->
-  <view wx:if="{{vehicleList.length}}" class="bt-solid-e" style="min-height: {{minHeight}}px;">
+  <view wx:if="{{vehicleList.length}}" class="bt-solid-e vehicle-list" style="min-height: {{minHeight}}px;">
     <vehicle wx:for="{{vehicleList}}" wx:key="index" item="{{item}}"></vehicle>
   </view>
-  <view wx:if="{{vehicleList.length && bottomText}}" class="center_center text-12 text-gray-9" style="height: 50rpx;">{{bottomText}}</view>
+  <view wx:if="{{vehicleList.length && bottomText}}" class="center_center text-12 text-gray-9" style="height: 60rpx;">{{bottomText}}</view>
   <view wx:if="{{!vehicleList.length && loadStatus === 2}}" class="bt-solid-e flex-y align-center" style="padding-top: 100rpx; min-height: {{minHeight}}px;">
     <image style="width: 560rpx; height:349rpx;" src="/lib/image/noBG.png"></image>
     <view class="text-14 text-gray-6 my-12">暂无相关车源，换个筛选条件试试!</view>

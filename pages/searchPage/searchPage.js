@@ -51,7 +51,6 @@ Page({
       '',
       function (res) {
         if (res.success) {
-          console.log('请求接口res', res.data)
         }
         that.setData({
           searchHistoryList:res.data
@@ -101,7 +100,6 @@ Page({
         return arr
       }
     })
-    console.log('res', res)
     if (!res) {
       arr.unshift(value)
       if (arr.length >= 11) {
@@ -115,7 +113,6 @@ Page({
   },
   //清除输入框
   clearInputWordEvent() {
-    console.log('inputValue', this.data.inputValue)
     this.setData({
       inputValue: '',
       showCloseBtn: false,
@@ -132,7 +129,6 @@ Page({
       '',
       '',
       function (res) {
-        console.log('请求接口res', res)
         if (res.success) {
         }
         that.setData({
@@ -176,7 +172,6 @@ Page({
   //点击搜索历史触发事件
   historySearchEvent(e) {
     let searchValue = e.currentTarget.dataset['index']
-    console.log('searchValue',searchValue)
     this.setData({
       inputValue: searchValue,
       showCloseBtn: true,

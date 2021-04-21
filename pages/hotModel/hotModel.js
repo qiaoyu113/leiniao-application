@@ -1,4 +1,4 @@
-const app = getApp()
+const net = require('../../utils/network')
 // pages/saleCar/saleCar.js
 Page({
 
@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-
+    hotId: ''
   },
 
   /**
@@ -16,7 +16,9 @@ Page({
     wx.setNavigationBarTitle({
       title: options.name // 页面标题为路由参数
     })
-    this.init()
+    this.setData({
+      hotId: options.id
+    }, this.init)
   },
 
   /**
@@ -34,9 +36,18 @@ Page({
   },
 
   init () {
-    const vehicleList = this.selectComponent('#vehicleList')
-    vehicleList && vehicleList.onParamChange({
-      hotModelIdList: app.globalData.hotModelIdList
+    net.get('api/car/v1/car/carHotInfo/getCarHotListForApplets', res => {
+      const hotModelIdList = ((res.data || []).find(v => parseInt(v.id) === parseInt(this.data.hotId)) || {}).modelIdList
+      if (hotModelIdList) {
+        const vehicleList = this.selectComponent('#vehicleList')
+        vehicleList && vehicleList.onParamChange({
+          hotModelIdList
+        }, 'isPageInit=true')
+      } else {
+        if (res.success) {
+          wx.showToast({title: '数据可能已过期，请返回刷新重试'})
+        }
+      }
     })
   },
 

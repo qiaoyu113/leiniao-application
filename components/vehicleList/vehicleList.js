@@ -64,7 +64,7 @@ Component({
       })
     },
     // 获取车辆列表
-    getVehicleList (append, isKeywordChanged) {
+    getVehicleList (append, isKeywordChanged, isPageInit) {
       const isRent = app.utils.getEntryRoute() === 'rentedCar'
       const formData = this.data.formData
       const labels = [
@@ -85,8 +85,10 @@ Component({
       delete formData.keyword
       net.post('255/car_center/v1/cargo/getSearchCarList', formData, res => {
         const vehicleList = (res.data || []).map(v => {
+          const hasPower = v.horsepower > 0
           v.pic = (v.imageUrlList || [])[0] || ''
           v.labels = labels.filter(l => v[l.key] === 1)
+          v.fullDesc = `${v.brandName} ${v.modelName} ${hasPower ? v.horsepower : ''}${hasPower ? '匹' : ''}`
           return v
         })
         this.setData({
@@ -96,6 +98,20 @@ Component({
           total: (res.page || {}).total || 0
         })
         isKeywordChanged && this.triggerEvent('searchfinish')
+      }, e => console.log(e), {message: '加载中'})
+      !append && !isPageInit && this.backToTop()
+    },
+    backToTop () {
+      const query = this.createSelectorQuery()
+      query.select('.vehicle-list').boundingClientRect()
+      query.selectViewport().scrollOffset()
+      const isEntryPage = ['rentedCar', 'saleCar'].indexOf(app.utils.getCurrentRoute()) > -1
+      const filterTabHeight = (isEntryPage ? 170 : 100) * app.globalData.screenWidth / 750
+      query.exec(res => {
+        if (res[0] && res[1]) {
+          const offset = res[0].top + res[1].scrollTop - app.globalData.navBarHeight - filterTabHeight
+          wx.pageScrollTo({scrollTop: offset})
+        }
       })
     },
     onFastFeatureReady (evt) {
@@ -113,11 +129,11 @@ Component({
       })
     },
     // 筛选组件汇总后的参数变动
-    onParamChange: function (evt) {
+    onParamChange: function (evt, isPageInit) {
       this.setData({
         formData: Object.assign({}, this.data.formData, evt.detail || evt)
       }, () => {
-        this.getVehicleList(false, !evt.detail)
+        this.getVehicleList(false, !evt.detail, isPageInit)
       })
     },
     // 筛选组件筛选项变动，同步到页面
@@ -167,7 +183,7 @@ Component({
     // const vehicleList = this.selectComponent('#vehicleList')
     // vehicleList && vehicleList.onPageKeywordChange(newVal)
     onPageKeywordChange (val) {
-      this.onParamChange({keyword: val})
+      this.onParamChange({keyword: val}, 'isPageInit=true')
     },
     onPageRefresh () {
       this.setData({
