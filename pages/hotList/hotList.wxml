@@ -25,12 +25,14 @@
     data-index="{{item.carId}}"
     bindtap="gotoCarDetail"
     class="list_box space-between flex-y"
-    style="position:{{item.status==40||item.status==50?'relative':'static'}};"
+    style="position:{{item.status==40||item.status==50||item.status==60?'relative':'static'}};"
     >
       <block wx:if="{{rentOrSale =='rent'}}">
       <image wx:if="{{item.status==40}}" class="rentoutlogo" src="../../lib/image/rentcarimg/rentOut.png"/>
+      <image wx:if="{{item.status==60}}" class="rentoutlogo" src="../../lib/image/rentcarimg/xiajia.png"/>
       </block>
       <block wx:if="{{rentOrSale =='sale'}}">
+        <image wx:if="{{item.status==60}}" class="rentoutlogo" src="../../lib/image/rentcarimg/xiajia.png"/>
       <image wx:if="{{item.status==50}}" class="rentoutlogo" src="../../lib/image/rentcarimg/saleOut.png"/>
       </block>
       <view

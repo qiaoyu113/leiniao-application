@@ -25,11 +25,12 @@
 }
 .nav-bar .search {
   position: relative;
-  width: 380rpx;
+  width: 365rpx;
   height: 58rpx;
   background: #fff;
   border-radius: 29rpx;
   line-height: 54rpx;
+  margin-left: -25rpx;
 }
 .nav_title {
   font-size: 14px;

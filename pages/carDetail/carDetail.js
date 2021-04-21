@@ -22,6 +22,7 @@ Page({
     swiperList: [],
   },
 
+
   /**
    * 生命周期函数--监听页面加载
    */
@@ -31,8 +32,10 @@ Page({
       rentOrSale: options.type
     })
     console.log('options',options)
-    if(options.page){
-      
+    if(options.isshare){
+      this.setData({
+        isshare:'1'
+      })
     }
   },
   //调用接口，获取车辆详情
@@ -77,7 +80,13 @@ Page({
     console.log('page', page)
 
     console.log('返回上一页')
-    wx.navigateBack()
+    if(this.data.isshare){
+      wx.switchTab({
+        url: '/pages/rentedCar/rentedCar'
+      })
+    }else{
+      wx.navigateBack()
+    }
   },
 
   //点击说明按钮，弹出说明框
@@ -305,25 +314,6 @@ Page({
       }
     )
   },
-  //分享好友
-  onShareAppMessage: function (res) {
-    if (res.from === 'button') {
-      console.log('来自页面内转发按钮')
-      console.log(res.target)
-    } else {
-      console.log('来自右上角转发菜单')
-    }
-    return {
-      title: this.data.carData.brandName,
-      path: `/pages/carDetail/carDetail?type=${this.data.rentOrSale}&carId=${this.data.carId}&isshare=1`,
-      success: (res) => {
-        console.log('转发成功', res)
-      },
-      fail: (res) => {
-        console.log('转发失败', res)
-      },
-    }
-  },
   //切换轮播图事件
   changeSwiperEvent(e) {
     this.setData({
@@ -365,6 +355,15 @@ Page({
       sources:urlList,
     })
   },
+
+   //按钮分享
+onShareAppMessage() {
+  console.log('onShareAppMessage')
+  return {
+    title: this.data.carData.brandName,
+    path: `/pages/carDetail/carDetail?type=${this.data.rentOrSale}&carId=${this.data.carId}&isshare=1`
+  }
+},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -373,7 +372,8 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function (options) {
+    console.log('onshow',options)
     this.getCarInfo()
     this.getPhoneNumber()
   },
@@ -411,8 +411,5 @@ Page({
    */
   onReachBottom: function () {},
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {},
-})
+}
+)
