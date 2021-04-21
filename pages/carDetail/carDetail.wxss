@@ -307,11 +307,15 @@
   background: none;
   outline: none;
 }
+.ask_ques_box .name_input{
+  margin-bottom: 8rpx;
+}
 .ask_ques_content:focus {
   border: none;
 }
 .ask_ques_reg {
   font-size: 22rpx;
+  color: #ff4652;
 }
 .ask_ques_btn {
   width: 635rpx;

@@ -23,6 +23,7 @@ Page({
     this.setData({
       rentOrSale: app.utils.getEntryRoute() === 'rentedCar' ? 'rent' : 'sale',
     })
+    console.log('options',options)
 
     if (options.listid === '1') {
       //超值爆款

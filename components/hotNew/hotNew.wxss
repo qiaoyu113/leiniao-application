@@ -63,17 +63,17 @@
 }
 .ad_left_img {
   position: absolute;
-  right: 13rpx;
-  bottom: 17rpx;
-  width: 225rpx;
-  height: 194rpx;
-  border-radius: 8rpx;
+    right: -50rpx;
+    bottom: -17rpx;
+    width: 365rpx;
+    height: 289rpx;
+    border-radius: 8rpx;
 }
 .ad_right_img {
   position: absolute;
-  right: 0;
-  bottom: 7rpx;
-  width: 275rpx;
-  height: 190rpx;
+  right: -21px;
+  bottom: -18rpx;
+  width: 353rpx;
+  height: 282rpx;
   border-radius: 8rpx;
 }

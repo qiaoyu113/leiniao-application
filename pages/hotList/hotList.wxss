@@ -152,10 +152,13 @@
   width: 110rpx;
   height: 90rpx;
   position: absolute;
-  z-index: 10000;
+  z-index: 1000;
   right: 20rpx;
   top: 10rpx;
   opacity: 1;
+}
+.navbar{
+  z-index: 9999;
 }
 .rentout_box {
   opacity: 0.5;
