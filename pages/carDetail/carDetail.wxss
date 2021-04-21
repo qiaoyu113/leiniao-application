@@ -48,7 +48,7 @@
   background: #1c8efa;
   border-radius: 4rpx;
   color: #fff;
-  margin-right: 2rpx;
+  margin-right: 5rpx;
   margin-left: 8rpx;
   position: relative;
   top: -5rpx;
@@ -149,6 +149,7 @@
   font-size: 30rpx;
   font-weight: bold;
   line-height: 42rpx;
+  color: #666;
 }
 .right_title {
   display: block;
@@ -228,6 +229,7 @@
   position: fixed;
   bottom: 0;
   width: 100%;
+  padding-bottom: 10rpx;
   height: 100rpx;
   background-color: #fff;
   border-top: 1rpx solid #e8e8e8;
@@ -249,7 +251,8 @@
 }
 .collect_word {
   display: block;
-  margin-right: 26rpx;
+  width: 150rpx;
+  margin-right: 16rpx;
   padding-left: 56rpx;
   font-size: 36rpx;
 }
@@ -268,7 +271,7 @@
   margin-right: 20rpx;
 }
 .btn_right {
-  width: 270rpx;
+  width: 260rpx;
   height: 70rpx;
   background: #1c8efa;
 }

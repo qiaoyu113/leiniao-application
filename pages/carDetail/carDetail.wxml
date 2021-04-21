@@ -25,7 +25,7 @@
           bindtap="handlePreviewVideo"
           data-url="{{item}}"
           >
-            <image  class="top_bar_img"  src="{{item}}"></image>
+            <image  class="top_bar_img"  mode="aspectFill" src="{{item}}"></image>
 
         </swiper-item>
       </swiper>
@@ -84,7 +84,7 @@
               <text class="type_key">看车地</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.carTypeStr?carData.carTypeStr:''}}</text>
+              <text class="type_value">{{carData.attributeStr?carData.attributeStr:''}}</text>
               <text class="type_key">车辆性质</text>
             </view>
           </view>

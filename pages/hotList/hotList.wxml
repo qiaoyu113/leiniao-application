@@ -10,7 +10,7 @@
       <text slot="center" class="top_title" wx:else>今日上新</text>
     </navBar>
   <block wx:if="{{showList}}">
-    <scroll-y
+    <!-- <scroll-y
       wx:if="{{showList}}"
       class="scroll-view"
       pull="{{ pull }}"
@@ -18,7 +18,7 @@
       listLength="{{ carList.length }}"
       bindrefresh="refresh"
       bindtoload="toload"
-    >
+    > -->
     <view
     wx:if="{{carList.length}}"
     wx:for="{{ carList }}" wx:key="key"
@@ -37,7 +37,7 @@
       class="{{item.status==40||item.status==50?'rentout_box ':' '}} top_banner center_center"
     style="margin-bottom:{{!showCommend?'40rpx':' '}}"
       >
-        <image class="left_img" src="{{item.imageUrlList[0]}}" />
+        <image class="left_img" mode="aspectFill"  src="{{item.imageUrlList[0]}}" />
           <view class="right_list">
             <text class="list_title hidden_word" >{{item.brandName+'  '+item.modelName+'  '}}{{item.horsepower?item.horsepower+'匹':''}}</text>
             <text class="list_sub_lefttitle" >车龄:{{item.carAgeStr?item.carAgeStr:''}}</text>
@@ -60,8 +60,10 @@
         <text class="hidden_muchword">{{item.vogueReason?item.vogueReason:''}}</text>
       </view>
       <text class="{{showCommend?'bottom_line':'todaynewcar_bottom_line'}}"></text>
+     
     </view>
-    </scroll-y>
+    <view wx:if="{{carList.length >= total}}" class="center_center text-12 text-gray-9" style="height: 60rpx;">{{bottomText}}</view>
+    <!-- </scroll-y> -->
   </block>
   <view wx:else class="nocar_page">
     <image class="nocar_img" src="../../lib/image/rentcarimg/nocar.png" />
