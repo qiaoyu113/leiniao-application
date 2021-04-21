@@ -149,23 +149,24 @@ Component({
     onSelectTab (evt) {
       const selectedTabId = evt ? ((evt.currentTarget.dataset.info || {}).id || '') : ''
       const currenttabId = this.data.currentTab ? this.data.currentTab.id : ''
-      if (this.data.currentTab && currenttabId === selectedTabId) {
-        const tabs = this.data.tabs.map(setItemUnselected)
-        this.setData({tabs, currentTab: null})
-      } else {
-        let currentTab = null
-        const tabs = this.data.tabs.map((tab, i) => {
+      let currentTab = null
+      let tabs = this.data.tabs
+      tabs.find(v => v.id === 'model').selected = !!(this.data.brandList.find(v => v.selected) || {}).id
+      tabs.find(v => v.id === 'age').selected = this.data.ages.some(v => v.selected)
+      tabs.find(v => v.id === 'sort').selected = this.data.sorts.slice(1).some(v => v.selected)
+      tabs.find(v => v.id === 'price').selected = this.data.prices.some(v => v.selected) || this.data.minPrice || this.data.maxPrice
+      tabs.find(v => v.id === 'filter').selected = this.data.features.some(v => v.selected) || this.data.miles.some(v => v.selected) || this.data.minMiles || this.data.maxMiles
+      if (!(this.data.currentTab && currenttabId === selectedTabId)) {
+        tabs = tabs.map((tab, i) => {
           if (tab.id === selectedTabId) {
             tab.selected = true
             currentTab = tab
-          } else {
-            tab.selected = false
           }
           return tab
         })
-        this.setData({tabs, currentTab})
         this.moveFilterTop()
       }
+      this.setData({tabs, currentTab})
     },
     // 重置
     onReset () {
@@ -240,7 +241,7 @@ Component({
         delete formData.maxPrice
       }
       this.triggerEvent('change', formData)
-      this.onSelectTab() // 触发收起filter
+      this.onSelectTab(false, true) // 触发收起filter
     },
     // 滚动页面至顶部
     moveFilterTop () {
@@ -356,7 +357,8 @@ Component({
         const prices = this.data.prices.map(setItemUnselected)
         this.setData({prices})
       }
-      return parseInt(val) > 99999 ? '99999' : val
+      const limit = this.data.isSale ? 9999 : 99999
+      return parseInt(val) > limit ? (limit + '') : val
     },
     onInputMiles (evt) {
       const value = evt.detail.value
@@ -368,6 +370,7 @@ Component({
       return parseInt(val) > 9999 ? '9999' : val
     },
     onPageRefresh () {
+      app.globalData.brandList = []
       this.setData({
         isSale: false,
         tabs: [],

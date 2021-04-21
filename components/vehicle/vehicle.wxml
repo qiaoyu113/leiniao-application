@@ -7,7 +7,7 @@
         <view class="text-12 text-gray-9 flex">车龄：{{item.carAgeStr}}<text style="width: 30rpx;"></text>里程：{{item.mileageStr}}</view>
         <view class="flex" style="margin: 5rpx 0;">
           <view wx:for="{{item.labels}}" wx:key="index" wx:for-item="label" style="border-radius: 4rpx; padding: 2rpx 6rpx;"
-            class="align-center mr-5 text-10 {{label.bold ? 'bg-blue text-white' : 'bg-white text-blue-3 b-solid-blue'}}">{{label.name}}</view>
+            class="align-center mr-5 text-10 {{label.bold ? 'bg-blue text-white b-solid-trans' : 'bg-white text-blue-3 b-solid-blue'}}">{{label.name}}</view>
         </view>
       </view>
       <view class="text-red text-17 text-bold align-center">
