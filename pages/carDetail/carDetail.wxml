@@ -12,6 +12,7 @@
       wx:key="key"
       bindtap="handlePreviewVideo"
       data-url="{{item}}"
+      data-id="{{swiperId}}"
       >
             <video class="top_bar_img" src='{{item}}'></video>
         </swiper-item>
@@ -20,9 +21,9 @@
           wx:key="key"
           bindtap="handlePreviewVideo"
           data-url="{{item}}"
+          data-id="{{swiperId}}"
           >
             <image  class="top_bar_img"  mode="aspectFill" src="{{item}}"></image>
-
         </swiper-item>
       </swiper>
       <view class="swiper_index">{{swiperId?swiperId + 1 : 1}}/{{carData.videoUrlList.length + carData.imageUrlList.length}}</view>
