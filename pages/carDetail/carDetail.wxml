@@ -14,7 +14,7 @@
       data-url="{{item}}"
       data-id="{{swiperId}}"
       >
-            <video class="top_bar_img" src='{{item}}'></video>
+            <video class="top_bar_img" src='{{item}}' controls='true'></video>
         </swiper-item>
         <swiper-item
           wx:for="{{carData.imageUrlList}}"

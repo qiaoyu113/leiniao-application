@@ -45,7 +45,7 @@ Page({
         fail:(res)=>{
           console.log('失败res')
           wx.navigateTo({
-            url:  "/pages/login/login",
+            url:  "/pages/login/login?isshare=1",
           })
         }
       })
