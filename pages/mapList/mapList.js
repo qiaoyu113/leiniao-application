@@ -59,7 +59,6 @@ Page({
       '',
       '',
       function (res) {
-        console.log('请求接口res', res)
         if (res.success) {
           let dataList = res.data
           let newarr = []
@@ -71,7 +70,6 @@ Page({
               }
             }
           })
-          console.log('newarr',newarr)
           that.setData({
             newList: newarr,
           })
@@ -100,7 +98,6 @@ Page({
       app.globalData.locationCity.cityName = cityData.parentName
       app.globalData.locationCity.cityCode = cityData.parentId
       app.globalData.locationCity.cityUpdata = 1
-      console.log('app.globalData.locationCity', app.globalData.locationCity)
     }
     wx.setStorage({
       key:'selectcity',
@@ -119,7 +116,6 @@ Page({
     wx.navigateBack({
       delta: 1, // 返回上一级页面。
       success: function () {
-        console.log('成功！')
       },
     })
   },

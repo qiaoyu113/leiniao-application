@@ -36,7 +36,7 @@
         <text class="tips" wx:if="{{carData.isNewCar==1}}">准新车</text>
         <text class="tips" wx:if="{{carData.isUrgentRent==1&&rentOrSale=='rent'}}">急租</text>
         <text class="tips" wx:if="{{carData.isUrgentSale==1&&rentOrSale=='sale'}}">急售</text>
-        <text class="main_title">{{carData.brandName+' '+carData.modelName+' '}}{{item.horsepower?item.horsepower+'匹':''}}</text>
+        <text class="main_title">{{carData.brandName+' '+carData.modelName+' '}}{{carData.horsepower?carData.horsepower+'匹':''}}</text>
         <view class="price_info">
           <text class="" wx:if="{{rentOrSale=='sale'}}">参考价：</text>
           <text class="price" wx:if="{{rentOrSale=='rent'}}">￥{{carData.yearlyRent?carData.yearlyRent+'/月':''}}</text>
@@ -122,8 +122,7 @@
     <view class="asktitle">询底价</view>
     <view class="ask_ques_box">
       <text class="ask_ques_title">如何称呼您</text>
-      <input class="ask_ques_content" data-index="username"  bindinput="inputEvent"  placeholder="请输入称呼(选填)" value="{{nameValue}}" bindblur="checknameEvent"></input>
-      <text class="ask_ques_reg" wx:if="{{nameReg}}">最多输入20个字</text>
+      <input class="ask_ques_content name_input" maxlength="20" data-index="username"  bindinput="inputEvent"  placeholder="请输入称呼(选填)" value="{{nameValue}}" bindblur="checknameEvent"></input>
     </view>
     <view class="ask_ques_box">
       <text class="ask_ques_title">联系电话</text>
