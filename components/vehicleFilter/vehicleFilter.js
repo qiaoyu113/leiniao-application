@@ -376,24 +376,39 @@ Component({
     doNothing () {
       return false
     },
-    onInputPrice (evt) {
-      const value = evt.detail.value
-      const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
-      if (val && this.data.isSale) {
-        const prices = this.data.prices.map(setItemUnselected)
-        this.setData({prices})
-      }
-      const limit = this.data.isSale ? 9999 : 99999
-      return parseInt(val) > limit ? (limit + '') : val
-    },
-    onInputMiles (evt) {
+    onInputPrice (evt, field) {
       const value = evt.detail.value
       const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
       if (val) {
-        const miles = this.data.miles.map(setItemUnselected)
-        this.setData({miles})
+        const limit = this.data.isSale ? 9999 : 99999
+        const data = {
+          [field]: parseInt(val) > limit ? (limit + '') : val
+        }
+        if (this.data.isSale) {
+          data.prices = this.data.prices.map(setItemUnselected)
+        }
+        this.setData(data)
+      } else {
+        this.setData({[field]: ''})
       }
-      return parseInt(val) > 9999 ? '9999' : val
+    },
+    onInputMinPrice (evt) {
+      this.onInputPrice(evt, 'minPrice')
+    },
+    onInputMaxPrice (evt) {
+      this.onInputPrice(evt, 'maxPrice')
+    },
+    onInputMiles (evt, field) {
+      const value = evt.detail.value
+      const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
+      const miles = this.data.miles.map(setItemUnselected)
+      this.setData({miles, [field]: parseInt(val) > 9999 ? '9999' : val})
+    },
+    onInputMinMiles (evt) {
+      this.onInputMiles(evt, 'minMiles')
+    },
+    onInputMaxMiles (evt) {
+      this.onInputMiles(evt, 'maxMiles')
     },
     onPageRefresh () {
       app.globalData.brandList = []
