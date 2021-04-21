@@ -73,7 +73,7 @@
             <input class="b-solid-e input-range text-center bg-gray mx-15" type="number" model:value="{{minMiles}}"
               bindinput="onInputMinMiles" pattern="[0-9]" maxlength="5" placeholder="最小值" />
             <view class="text-gray-6">—</view>
-            <input class="b-solid-e input-range text-center bg-gray mx-15" type="number" model:value="{{mixMiles}}"
+            <input class="b-solid-e input-range text-center bg-gray mx-15" type="number" model:value="{{maxMiles}}"
               bindinput="onInputMaxMiles" pattern="[0-9]" maxlength="5" placeholder="最大值" />
           </view>
         </view>
