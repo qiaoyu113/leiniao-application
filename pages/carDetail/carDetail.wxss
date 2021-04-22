@@ -27,7 +27,7 @@
   line-height: 42rpx;
 }
 .goback_btn {
-  position: absolute;
+  position: fixed;
   left: 20rpx;
   width: 54rpx;
   height: 54rpx;
@@ -38,8 +38,8 @@
   height: 54rpx;
 }
 .goback_img {
-  width: 54rpx;
-  height: 54rpx;
+  width: 56rpx;
+  height: 56rpx;
 }
 .tips {
   font-size: 20rpx;
@@ -91,7 +91,7 @@
   font-size: 20rpx;
   line-height: 28rpx;
   border-radius: 4rpx;
-  border: 1rpx solid #338bff;
+  border: 2rpx solid #338bff;
   color: #338bff;
   margin-right: 10rpx;
   margin-left: 5rpx;
@@ -156,7 +156,7 @@
   float: right;
   margin-right: 28rpx;
   font-size: 26rpx;
-  color: #666;
+  color: #1C8EFA;
 }
 .files_type_box {
   width: 100%;
@@ -177,6 +177,7 @@
   align-items: center;
 }
 .type_value {
+  height: 42rpx;
   font-size: 30rpx;
   color: #333;
   font-weight: bold;
@@ -307,11 +308,15 @@
   background: none;
   outline: none;
 }
+.ask_ques_box .name_input{
+  margin-bottom: 8rpx;
+}
 .ask_ques_content:focus {
   border: none;
 }
 .ask_ques_reg {
   font-size: 22rpx;
+  color: #ff4652;
 }
 .ask_ques_btn {
   width: 635rpx;
@@ -353,4 +358,5 @@
 .page{
   padding-bottom: 20rpx;
   box-sizing: border-box;
+  position: relative;
 }

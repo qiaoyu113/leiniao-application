@@ -20,7 +20,9 @@ Page({
     carId: '',
     rentOrSale: '',
     swiperList: [],
+    swiperId:0
   },
+
 
   /**
    * 生命周期函数--监听页面加载
@@ -30,9 +32,23 @@ Page({
       carId: options.carId,
       rentOrSale: options.type
     })
-    console.log('options',options)
-    if(options.page){
-      
+    if(options.isshare){
+      console.log('isshare')
+      this.setData({
+        isshare:'1'
+      })
+      wx.getStorage({
+        key:'phoneName',
+        success:(res)=>{
+          console.log('成功res')
+        },
+        fail:(res)=>{
+          console.log('失败res')
+          wx.navigateTo({
+            url:  "/pages/login/login?isshare=1",
+          })
+        }
+      })
     }
   },
   //调用接口，获取车辆详情
@@ -47,7 +63,6 @@ Page({
       '',
       'json',
       function (res) {
-        console.log('请求接口res', res)
         if (res.success) {
           let carInfo = res.data
           carInfo.carDescribe = carInfo.carDescribe.trim()
@@ -74,10 +89,13 @@ Page({
   //返回上一页
   gobackEvent() {
     let page = getCurrentPages()
-    console.log('page', page)
-
-    console.log('返回上一页')
-    wx.navigateBack()
+    if(this.data.isshare){
+      wx.switchTab({
+        url: '/pages/rentedCar/rentedCar'
+      })
+    }else{
+      wx.navigateBack()
+    }
   },
 
   //点击说明按钮，弹出说明框
@@ -142,7 +160,6 @@ Page({
   inputEvent(e) {
     let inputType = e.currentTarget.dataset['index']
     let value = e.detail.value
-    console.log('inputType', inputType)
     if (inputType === 'phone') {
       this.setData({
         phoneValue: value,
@@ -158,10 +175,8 @@ Page({
     let { nameReg, phoneReg, phoneValue, nameValue } = this.data
     //未填写称呼时
     if (!nameReg && !phoneReg) {
-      console.log('phoneValue', phoneValue)
       if (phoneValue) {
         //调用获取底价接口
-        console.log('校验通过，获取底价')
         let info = {
           carId:this.data.carId,
           inquiryName:nameValue,
@@ -197,19 +212,20 @@ Page({
       '',
       'json',
       function (res) {
-        console.log('请求询价接口res', res)
         if (res.success) {
           that.setData({
             nameValue:''
           })
+          setTimeout(()=>{
+            wx.showToast({
+              title: '询价成功',
+            })
+          },500)
         }else{
           wx.showModal({
             title: res.errorMsg,
           })
         }
-        wx.showToast({
-          title: '询价成功',
-        })
         that.onClose()
       },
       function (res) {
@@ -222,7 +238,6 @@ Page({
   //收藏
   collectCarEvent(e) {
     let collectid = e.currentTarget.dataset['index']
-    console.log(collectid)
     if (collectid == 0) {
       wx.showLoading({
         title: '加载中',
@@ -248,7 +263,6 @@ Page({
       '',
       'json',
       function (res) {
-        console.log('请求接口res', res)
         if (res.success) {
           that.setData({
             'carData.isFavorite': 1,
@@ -282,7 +296,6 @@ Page({
       '',
       'json',
       function (res) {
-        console.log('请求接口res', res)
         if (res.success) {
           that.setData({
             'carData.isFavorite': 2,
@@ -305,31 +318,11 @@ Page({
       }
     )
   },
-  //分享好友
-  onShareAppMessage: function (res) {
-    if (res.from === 'button') {
-      console.log('来自页面内转发按钮')
-      console.log(res.target)
-    } else {
-      console.log('来自右上角转发菜单')
-    }
-    return {
-      title: this.data.carData.brandName,
-      path: `/pages/carDetail/carDetail?type=${this.data.rentOrSale}&carId=${this.data.carId}&isshare=1`,
-      success: (res) => {
-        console.log('转发成功', res)
-      },
-      fail: (res) => {
-        console.log('转发失败', res)
-      },
-    }
-  },
   //切换轮播图事件
   changeSwiperEvent(e) {
     this.setData({
       swiperId: e.detail.current,
     })
-    console.log('e', e)
   },
   //放大预览轮播图图片
   handlePreviewImg(e){
@@ -345,7 +338,6 @@ Page({
   },
   handlePreviewVideo(e){
     let swiperList = this.data.carData.videoUrlList
-
     let imageList = this.data.carData.imageUrlList
     let urlList = []
     swiperList.forEach(item=>{
@@ -360,11 +352,20 @@ Page({
         type:'image'
       })
     })
-    console.log('urls',urlList)
     wx.previewMedia({
       sources:urlList,
+      current:this.data.swiperId
     })
   },
+
+   //按钮分享
+onShareAppMessage() {
+  let {brandName,modelName,horsepower} = this.data.carData
+  return {
+    title: `${brandName}  ${modelName?modelName:''}  ${horsepower?horsepower+'匹':''}`,
+    path: `/pages/carDetail/carDetail?type=${this.data.rentOrSale}&carId=${this.data.carId}&isshare=1`
+  }
+},
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -373,19 +374,42 @@ Page({
   /**
    * 生命周期函数--监听页面显示
    */
-  onShow: function () {
+  onShow: function (options) {
     this.getCarInfo()
     this.getPhoneNumber()
+    wx.getStorage({
+      key:'phoneName',
+      success:(res)=>{
+        console.log('成功res')
+      },
+      fail:(res)=>{
+        if(this.data.isshare=='1'){
+        wx.navigateTo({
+          url:  "/pages/login/login?isshare=1",
+        })
+      }
+      }
+    })
   },
-  getPhoneNumber(){
+  goLoginOnShow (hasPhone) {
+    if(this.data.isshare=='1' && hasPhone){
+      wx.navigateTo({
+        url:  "/pages/login/login?isshare=1",
+      })
+    }
+  },
+  getPhoneNumber(callback){
       wx.getStorage({
         key:'phone',
         success:(res)=>{
           this.setData({
             phoneValue:res.data
+          }, () => {
+            callback && callback(true)
           })
         },
         fail:(res)=>{
+          callback && callback(false)
         }
     })
   },
@@ -411,8 +435,5 @@ Page({
    */
   onReachBottom: function () {},
 
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {},
-})
+}
+)

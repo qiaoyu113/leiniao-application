@@ -170,36 +170,62 @@ Component({
     },
     // 重置
     onReset () {
-      const tabs = this.data.tabs.map(setItemUnselected)
-      const ages = this.data.ages.map(setItemUnselected)
-      const prices = this.data.prices.map(setItemUnselected)
-      const features = this.data.features.map(setItemUnselected)
-      const miles = this.data.miles.map(setItemUnselected)
-      const sorts = this.data.sorts.map((v, i) => {
-        v.selected = !i
+      const tabs = this.data.tabs.map(v => {
+        if (v.id === this.data.currentTab.id) {
+          v.selected = false
+        }
         return v
       })
-      const brandList = this.data.brandList.map((v, i) => {
-        v.selected = !i
-        return v
-      })
-      this.setData({
-        tabs,
-        ages,
-        brandList,
-        models: [],
-        features,
-        miles,
-        prices,
-        sorts,
-        currentTab: null,
-        minPrice: '',
-        maxPrice: '',
-        minMiles: '',
-        maxMiles: ''
-      })
-      this.onQuery()
-      this.triggerEvent('filterreset')
+
+      switch (this.data.currentTab.id) {
+        case 'age':
+          const ages = this.data.ages.map(setItemUnselected)
+          this.setData({ages, tabs}, () => {
+            this.onQuery()
+          })
+          return
+        case 'price':
+          const prices = this.data.prices.map(setItemUnselected)
+          this.setData({prices, tabs, minPrice: '', maxPrice: ''}, () => {
+            this.onQuery()
+          })
+          return
+        case 'filter':
+          const features = this.data.features.map(setItemUnselected)
+          const miles = this.data.miles.map(setItemUnselected)
+          this.setData({miles, features, tabs, minMiles: '', maxMiles: ''}, () => {
+            this.onQuery()
+          })
+          this.triggerEvent('filterreset')
+          return
+        // done
+      }
+      
+      // const sorts = this.data.sorts.map((v, i) => {
+      //   v.selected = !i
+      //   return v
+      // })
+      // const brandList = this.data.brandList.map((v, i) => {
+      //   v.selected = !i
+      //   return v
+      // })
+      // this.setData({
+      //   tabs,
+      //   ages,
+      //   brandList,
+      //   models: [],
+      //   features,
+      //   miles,
+      //   prices,
+      //   sorts,
+      //   currentTab: null,
+      //   minPrice: '',
+      //   maxPrice: '',
+      //   minMiles: '',
+      //   maxMiles: ''
+      // })
+      // this.onQuery()
+      // this.triggerEvent('filterreset')
     },
     // 查询
     onQuery () {
@@ -350,24 +376,39 @@ Component({
     doNothing () {
       return false
     },
-    onInputPrice (evt) {
-      const value = evt.detail.value
-      const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
-      if (val && this.data.isSale) {
-        const prices = this.data.prices.map(setItemUnselected)
-        this.setData({prices})
-      }
-      const limit = this.data.isSale ? 9999 : 99999
-      return parseInt(val) > limit ? (limit + '') : val
-    },
-    onInputMiles (evt) {
+    onInputPrice (evt, field) {
       const value = evt.detail.value
       const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
       if (val) {
-        const miles = this.data.miles.map(setItemUnselected)
-        this.setData({miles})
+        const limit = this.data.isSale ? 9999 : 99999
+        const data = {
+          [field]: parseInt(val) > limit ? (limit + '') : val
+        }
+        if (this.data.isSale) {
+          data.prices = this.data.prices.map(setItemUnselected)
+        }
+        this.setData(data)
+      } else {
+        this.setData({[field]: ''})
       }
-      return parseInt(val) > 9999 ? '9999' : val
+    },
+    onInputMinPrice (evt) {
+      this.onInputPrice(evt, 'minPrice')
+    },
+    onInputMaxPrice (evt) {
+      this.onInputPrice(evt, 'maxPrice')
+    },
+    onInputMiles (evt, field) {
+      const value = evt.detail.value
+      const val = value.split('').filter(v => parseInt(v) + '' === v).join('')
+      const miles = this.data.miles.map(setItemUnselected)
+      this.setData({miles, [field]: parseInt(val) > 9999 ? '9999' : val})
+    },
+    onInputMinMiles (evt) {
+      this.onInputMiles(evt, 'minMiles')
+    },
+    onInputMaxMiles (evt) {
+      this.onInputMiles(evt, 'maxMiles')
     },
     onPageRefresh () {
       app.globalData.brandList = []

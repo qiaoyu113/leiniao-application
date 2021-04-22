@@ -54,7 +54,8 @@ Component({
 
       const windowHeight = app.globalData.windowHeight
       const barHeight = isPageWithCustomNav ? app.globalData.navBarHeight : 0
-      const filterTabHeight = 100 * app.globalData.screenWidth / 750
+      const isEntryPage = ['rentedCar', 'saleCar'].indexOf(app.utils.getCurrentRoute()) > -1
+      const filterTabHeight = (isEntryPage ? 170 : 100) * app.globalData.screenWidth / 750
       const minHeight = windowHeight - barHeight - filterTabHeight
       this.setData({
         isPageWithCustomNav,
@@ -81,7 +82,7 @@ Component({
         searchCityId: (app.globalData.locationCity || {}).cityCode || '',
         searchType: isRent ? 1 : 2 // pullDownRefresh 时先于 init 执行
       })
-      formData.searchContent = formData.keyword || ''
+      formData.searchContent = formData.keyword || formData.searchContent || ''
       delete formData.keyword
       net.post('255/car_center/v1/cargo/getSearchCarList', formData, res => {
         const vehicleList = (res.data || []).map(v => {
@@ -98,7 +99,7 @@ Component({
           total: (res.page || {}).total || 0
         })
         isKeywordChanged && this.triggerEvent('searchfinish')
-      })
+      }, e => console.log(e), {message: '加载中'})
       !append && !isPageInit && this.backToTop()
     },
     backToTop () {
@@ -110,7 +111,6 @@ Component({
       query.exec(res => {
         if (res[0] && res[1]) {
           const offset = res[0].top + res[1].scrollTop - app.globalData.navBarHeight - filterTabHeight
-          console.log(filterTabHeight, offset)
           wx.pageScrollTo({scrollTop: offset})
         }
       })

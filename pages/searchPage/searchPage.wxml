@@ -1,4 +1,5 @@
 <navBar
+  class="navbar"
   background="linear-gradient(90deg, #009CF8 0%, #2F83FA 100%)"
   back="{{ true }}"
   bindback="handlerGobackClick"

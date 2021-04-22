@@ -116,8 +116,8 @@
   line-height:45rpx
 }
 .list_type {
-  padding: 3rpx 3rpx;
-  border: 1px solid #1c8efa;
+  padding: 1rpx 1rpx;
+  border: 2rpx solid #1c8efa;
   margin-right: 10rpx;
   border-radius: 4rpx;
   margin-bottom: 5rpx;
@@ -138,12 +138,12 @@
   color: #fff;
 }
 .bottom_line {
-  border: 1rpx solid #e8e8e8;
+  border-bottom: 1rpx solid #e8e8e8;
   width: 690rpx;
   margin: 40rpx auto 0;
 }
 .todaynewcar_bottom_line {
-  border: 1rpx solid #e8e8e8;
+  border-bottom: 1rpx solid #e8e8e8;
   width: 690rpx;
   margin: 0 auto;
 }
@@ -152,10 +152,13 @@
   width: 110rpx;
   height: 90rpx;
   position: absolute;
-  z-index: 10000;
+  z-index: 1000;
   right: 20rpx;
   top: 10rpx;
   opacity: 1;
+}
+.navbar{
+  z-index: 9999;
 }
 .rentout_box {
   opacity: 0.5;

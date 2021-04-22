@@ -3,7 +3,7 @@
   title="登录"
   left-text=""
   fixed="true"
-  left-arrow
+  left-arrow ="{{showArrow}}"
   bind:click-left="onClickLeft"
   custom-style="navStyle"
   title-class="titleStyle"

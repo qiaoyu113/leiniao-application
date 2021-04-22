@@ -8,7 +8,7 @@
 }
 .search {
   float: left;
-  width: 330rpx;
+  width: 300rpx;
   height: 58rpx;
   background: #fff;
   border-top-left-radius: 29rpx;
@@ -50,7 +50,7 @@
   font-size: 30rpx;
   position: absolute;
   top: 15rpx;
-  right: 28rpx;
+  right: 60rpx;
   color: #ccc;
 }
 .tesst_input {
@@ -61,7 +61,7 @@
 }
 .search_history_box {
   min-height: 240rpx;
-  margin: 42rpx 30rpx;
+  margin: 25rpx 30rpx;
 }
 .history_toptitle {
   width: 100%;
@@ -86,7 +86,6 @@
 .history_box {
   min-height: 150rpx;
   display: flex;
-  align-items: center;
   flex-wrap: wrap;
 }
 .history_detail_box {

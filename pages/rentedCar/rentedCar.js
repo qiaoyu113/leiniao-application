@@ -71,7 +71,6 @@ Page({
             })
           }
           let checkCity = newarr.includes(app.globalData.locationCity.cityName)
-          console.log('checkCity',newarr,checkCity)
           const cityCode = checkCity ? app.globalData.locationCity.cityCode : (app.globalData.beijingCode||276)
           const cityName = checkCity ? app.globalData.locationCity.cityName : '北京市'
           that.setData({
@@ -94,7 +93,6 @@ Page({
   },
   //点击城市事件
   selectLocationEvent() {
-    console.log('点击了城市')
     wx.navigateTo({
       url: '/pages/mapList/mapList',
     })
@@ -102,9 +100,7 @@ Page({
 
   //跳转爆款上新列表
   gotoadList(e) {
-    console.log(e)
     let query = e.detail.params
-    console.log(query)
     wx.navigateTo({
       url: `/pages/hotList/hotList?listid=${query}`,
     })
@@ -119,16 +115,13 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    console.log('works')
     let { cityName, cityCode, cityUpdata } = app.globalData.locationCity
     if (cityUpdata === 1) {
       app.globalData.locationCity.cityUpdata = 0
       var cityinfo = app.globalData.locationCity
       //城市切换了
-      console.log('城市切换了，当前城市信息', app.globalData.locationCity)
       this.loadData(cityCode)
     } else {
-      console.log('城市没有切换，不调用接口')
     }
     this.setData({
       'defaultData.cityName': cityName,
@@ -170,7 +163,6 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-    console.log('share')
   },
   // 获取热门车型
   getHotModels: function () {
@@ -203,7 +195,6 @@ Page({
       '',
       '',
       function (res) {
-        console.log('getCityCodeByCityName',res)
         if (res.success) {
           app.globalData.beijingCode = res.data
         }

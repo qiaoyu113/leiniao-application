@@ -1,6 +1,6 @@
 <view class="px-15">
   <view class="py-20 space-between bb-solid-e" bindtap="onViewDetail">
-    <image class="img-100" style="border-radius: 8rpx;" src="{{item.pic}}"></image>
+    <image mode="aspectFill" class="img-100" style="border-radius: 8rpx;" src="{{item.pic}}"></image>
     <view class="flex-y space-between pt-5" style="width: 430rpx;">
       <view class="text-14 text-gray-3 text-ellipsis" style="font-weight: 500;">{{item.fullDesc}}</view>
       <view>
@@ -11,7 +11,7 @@
         </view>
       </view>
       <view class="text-red text-17 text-bold align-center">
-        <text class="text-gray-9 text-12" wx:if="{{!isRent}}">参考价：</text>
+        <text class="text-gray-9 text-12 text-normal" wx:if="{{!isRent}}">参考价：</text>
         ¥{{isRent ? item.yearlyRent : item.price}}
         <text wx:if="{{isRent}}">/月</text>
         <text wx:if="{{!isRent}}">万</text>
