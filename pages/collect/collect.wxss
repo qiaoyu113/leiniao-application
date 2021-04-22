@@ -60,8 +60,7 @@
   color: #fff;
   font-size: 10px;
   text-align: center;
-  border-radius: 2px;
-  padding: 1px 3px;
+  padding:0 4px;
   margin-bottom: 2px;
 }
 .tagBox .tag2{
@@ -72,8 +71,7 @@
   color: #1C8EFA;
   font-size: 10px;
   text-align: center;
-  border-radius: 2px;
-  padding: 1px 3px;
+  padding:0 4px;
   float: left;
   margin-bottom: 2px;
 }
