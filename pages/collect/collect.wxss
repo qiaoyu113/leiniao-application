@@ -55,28 +55,25 @@
 .tagBox .tag{
   float: left;
   margin-right: 5px;
-  height: 15px;
-  line-height: 15px;
   background: #1C8EFA;
   border: 1px solid #1C8EFA;
-  border-radius: 4px;
   color: #fff;
-  font-size: 12px;
+  font-size: 10px;
   text-align: center;
-  padding:0 6px;
+  border-radius: 2px;
+  padding: 1px 3px;
   margin-bottom: 2px;
 }
 .tagBox .tag2{
   margin-right: 5px;
-  height: 15px;
-  line-height: 15px;
   background: #fff;
   border: 1px solid #1C8EFA;
   border-radius: 4px;
   color: #1C8EFA;
-  font-size: 12px;
+  font-size: 10px;
   text-align: center;
-  padding:0 6px;
+  border-radius: 2px;
+  padding: 1px 3px;
   float: left;
   margin-bottom: 2px;
 }
