@@ -4,44 +4,44 @@
 }
 
 .icons{
-  width: 80px;
-  margin: 250px auto 125px;
+  width: 160rpx;
+  margin: 25vh auto 250rpx;
 }
 
 .icons image{
-  width: 80px;
-  height: 80px;
+  width: 160rpx;
+  height: 160rpx;
 }
 
 .loginBtn{
-  padding: 0 80px;
+  padding: 0 160rpx;
 }
 
 .loginBtn button{
   width: 100%;
-  height: 40px;
-  line-height: 40px;
+  height: 80rpx;
+  line-height: 80rpx;
   background: #1C8EFA;
-  border-radius: 5px;
+  border-radius: 10rpx;
   color: #fff;
-  font-size: 14px;
+  font-size: 28rpx;
 }
 
 .phoneLogin{
   width: 100%;
   color: #666666;
-  font-size: 14px;
+  font-size: 28rpx;
   text-align: center;
-  line-height: 60px;
+  line-height: 120rpx;
 }
 
 .author{
   width: 100%;
   text-align: center;
   position: absolute;
-  bottom: 18px;
+  bottom: 36rpx;
   color:#666;
-  font-size: 12px;
+  font-size: 24rpx;
 }
 
 .link{

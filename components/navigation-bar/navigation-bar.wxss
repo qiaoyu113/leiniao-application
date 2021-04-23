@@ -31,6 +31,18 @@
   border-radius: 29rpx;
   line-height: 54rpx;
   margin-left: -25rpx;
+  text-align: left;
+  padding-left: 60rpx;
+  display: flex;
+  align-items: center;
+}
+.sousuo_icon {
+  color: #666;
+  font-size: 30rpx;
+  z-index: 9999;
+  position: absolute;
+  top: 5rpx;
+  left: 24rpx;
 }
 .nav_title {
   font-size: 14px;
@@ -71,17 +83,6 @@
 }
 .hotnew_box {
   margin-top: 20rpx;
-}
-.sousuo_icon {
-  color: #666;
-  font-size: 30rpx;
-  z-index: 9999;
-  position: absolute;
-  top:5rpx;
-  left:30rpx;
-}
-.center{
-  text-align: center;
 }
 .placeholder{
   color: #666;

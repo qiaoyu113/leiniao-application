@@ -9,7 +9,7 @@
   <image wx:if="{{defaultData.cityName}}" class="city_icon" src="../../lib/image/rentcarimg/triangle.png"/>
 </view>
 <view slot="center" class="center">
-    <view  class="search" bindtap="gotoSearchEvent">
+    <view class="search" bindtap="gotoSearchEvent">
     <text class="iconfont icon-sousuo sousuo_icon"></text>
     <text class="placeholder">{{placeholderTitle}}</text>
   </view>

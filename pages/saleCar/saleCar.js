@@ -21,7 +21,7 @@ Page({
       swiperList: [],
       background: '',
     },
-    cityupdata: '',
+    cityUpdate: {},
   },
 
   /**
@@ -49,6 +49,7 @@ Page({
       })
       this.loadData(cityCode)
     }
+    this.loadBeijingCode()
   },
   //检查当前获取城市是否在城市列表内
   checkCity(){
@@ -114,10 +115,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let { cityName, cityCode, cityUpdata } = app.globalData.locationCity
-    if (cityUpdata === 1) {
-      app.globalData.locationCity.cityUpdata = 0
-      var cityinfo = app.globalData.locationCity
+    let { cityName, cityCode, cityUpdate} = app.globalData.locationCity
+    cityUpdate = cityUpdate || {}
+    const currentRoute = app.utils.getCurrentRoute()
+    if (cityUpdate[currentRoute] === 1) {
+      app.globalData.locationCity.cityUpdate[currentRoute] = 0
       //城市切换了
       this.loadData(cityCode)
     } else {
@@ -161,7 +163,8 @@ Page({
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {},
+  onShareAppMessage: function () {
+  },
   // 获取热门车型
   getHotModels: function () {
     net.get('api/car/v1/car/carHotInfo/getCarHotListForApplets', res => {
@@ -181,5 +184,27 @@ Page({
     wx.navigateTo({
       url: `../hotModel/hotModel?name=${info.label}&id=${info.id}`,
     })
+  },
+  //保存北京code
+  loadBeijingCode(){
+    requestLoading(
+      'api/base/v3/base/office/getOfficeIdByCityName',
+      {
+        cityName: '北京市',
+      },
+      'GET',
+      '',
+      '',
+      function (res) {
+        if (res.success) {
+          app.globalData.beijingCode = res.data
+        }
+      },
+      function (res) {
+        wx.showToast({
+          title: '加载数据失败',
+        })
+      }
+    )
   }
 })

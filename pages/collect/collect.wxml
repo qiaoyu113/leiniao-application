@@ -1,25 +1,16 @@
 <view class="collect">
-  <van-nav-bar
-  title="我的收藏"
-  left-text=""
-  fixed="true"
-  left-arrow
-  bind:click-left="onClickLeft"
-  custom-style="navStyle"
-  title-class="titleStyle"
-/>
-
   <view class="myCollect">
-    <view class="collectList" wx:if="{{list.length}}" wx:for="{{list}}" wx:key="index" data-id='{{item.carId}}' data-off="{{item.offTheShelf}}" data-type="{{item.rentOrSale}}" bindtap='goDetail'>
+    <view class="collectList" wx:if="{{list.length}}" wx:for="{{list}}"
+      wx:key="index" data-id='{{item.carId}}' data-off="{{item.offTheShelf}}" data-type="{{item.rentOrSale}}" bindtap='goDetail'>
       <view class="shadow" wx:if="{{item.offTheShelf}}">
         <image class="image1" src="../../lib/image/off.png" mode="aspectFit"></image>
         <image class="image2" src="../../lib/image/heart.png" mode="aspectFit" catchtap="cancelCollect" data-id="{{item.carId}}" data-type="{{item.rentOrSale}}"></image>
       </view>
-      <image class="img" src="{{item.url}}"></image>
+      <image mode="aspectFill" class="img" src="{{item.url}}"></image>
       <view class="info">
         <view class="title">{{item.title}}</view>
         <view class="value">
-          <view class="valueList">车龄：{{item.carAge}}</view>
+          <view class="valueList mr-15">车龄：{{item.carAge}}</view>
           <view class="valueList">里程：{{item.mileage}}</view>
         </view>
         <view class="tagBox">

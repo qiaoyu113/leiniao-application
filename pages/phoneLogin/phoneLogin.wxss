@@ -1,7 +1,7 @@
 /* pages/login/login.wxss */
 .loginBox{
   width: 100%;
-  padding: 180px 38px;
+  padding: 360rpx 76rpx;
   box-sizing: border-box;
 }
 
@@ -12,79 +12,79 @@
 .loginList .hint{
   width:100%;
   display: block;
-  font-size: 11px;
+  font-size: 22rpx;
   color: #FF4652;
-  margin: 2px 3px 8px;
+  margin: 4rpx 6rpx 16rpx;
 }
 
 .loginList .input{
   flex: 1;
-  height: 40px;
-  border-bottom: 1px solid #E8E8E8;
-  font-size: 14px;
+  height: 80rpx;
+  border-bottom: 1rpx solid #E8E8E8;
+  font-size: 28rpx;
 }
 
 .listCode{
  display: flex;
- padding-top: 24px;
+ padding-top: 48rpx;
 }
 
 .loginList .code{
   flex: 1;
-  height: 40px;
+  height: 80rpx;
   border-bottom: 1px solid #E8E8E8;
-  font-size: 14px;
+  font-size: 28rpx;
 }
 
 .loginList .getCode{
-  flex:0 0 100px;
-  height: 40px;
-  line-height: 40px;
+  flex: 0 0 200rpx;
+  height: 80rpx;
+  line-height: 80rpx;
   text-align: center;
   border-bottom: 1px solid #E8E8E8;
-  font-size: 14px;
+  font-size: 28rpx;
   color: #1C8EFA;
 }
 
 .loginList .overCode{
   flex: 1;
-  height: 40px;
-  line-height: 40px;
+  height: 80rpx;
+  line-height: 80rpx;
   text-align: center;
   border-bottom: 1px solid #E8E8E8;
-  font-size: 14px;
+  font-size: 28rpx;
   color: #333333;
 }
 
 .btn{
   width: 100%;
-  height: 40px;
-  line-height: 40px;
+  height: 80rpx;
+  line-height: 80rpx;
   text-align: center;
   color: #fff;
-  font-size: 14px;
+  font-size: 28rpx;
   background: #C6E3FF;
-  margin-top: 90px;
+  margin-top: 180rpx;
 }
 
 .btn_check{
   width: 100%;
-  height: 40px;
-  line-height: 40px;
+  height: 80rpx;
+  line-height: 80rpx;
   text-align: center;
   color: #fff;
-  font-size: 14px;
+  font-size: 80rpx;
   background: #1C8EFA;
-  margin-top: 90px;
+  margin-top: 80rpx;
 }
 
 .author{
   width: 100%;
   text-align: center;
   position: absolute;
-  bottom: 18px;
+  bottom: 36rpx;
   color:#666;
-  font-size: 12px;
+  font-size: 24rpx;
 }
 
 .link{

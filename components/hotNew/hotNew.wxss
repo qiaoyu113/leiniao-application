@@ -40,7 +40,7 @@
   position: absolute;
   left: 0;
   top: 22rpx;
-  width: 130rpx;
+  padding-right: 24rpx;
   height: 39rpx;
   background: linear-gradient(270deg, #ff4652 0%, #ff7c8a 100%);
   border-radius: 0rpx 100rpx 100rpx 0rpx;
@@ -53,7 +53,7 @@
     position: absolute;
     left: -10rpx;
     top: 22rpx;
-    width: 140rpx;
+    padding-right: 24rpx;
     height: 39rpx;
     background: linear-gradient(90deg, #ffa000 0%, #ff6400 100%);
     font-size: 24rpx;
@@ -63,17 +63,17 @@
 }
 .ad_left_img {
   position: absolute;
-  right: -53rpx;
-  bottom: -21rpx;
-    width: 365rpx;
-    height: 289rpx;
+  right: 0;
+  bottom: 0;
+    width: 330rpx;
+    height: 160rpx;
     border-radius: 8rpx;
 }
 .ad_right_img {
   position: absolute;
-  right: -25px;
-  bottom: -22rpx;
-  width: 353rpx;
-  height: 282rpx;
+  right: 0;
+  bottom: 0;
+  width: 330rpx;
+  height: 135rpx;
   border-radius: 8rpx;
 }

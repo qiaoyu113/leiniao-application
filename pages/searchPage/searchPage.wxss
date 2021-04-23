@@ -15,8 +15,10 @@
   border-bottom-left-radius: 29rpx;
   color: #333;
   font-size: 24rpx;
-  text-align: center;
-  padding-left: 40rpx;
+  text-align: left;
+  padding-left: 60rpx;
+  display: flex;
+  align-items: center;
 }
 .search_maxbox{
   width: 400rpx;
@@ -40,8 +42,8 @@
   color: #666;
   font-size: 30rpx;
   position: absolute;
-  left: 35rpx;
-  top: 15rpx;
+  left: 40rpx;
+  top: 14rpx;
   z-index: 9999;
 }
 .guanbi_icon {
@@ -100,4 +102,8 @@
   padding: 0 37rpx;
   border-radius: 30rpx;
   margin-bottom: 30rpx;
+}
+.center {
+  display: flex;
+  align-items: center;
 }

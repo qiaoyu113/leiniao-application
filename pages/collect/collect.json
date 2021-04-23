@@ -1,7 +1,4 @@
 {
-  "usingComponents": {
-    "van-nav-bar": "../../miniprogram_npm/vant-weapp/nav-bar/index"
-  },
-  "enablePullDownRefresh": true,
-  "navigationStyle": "custom"
+  "usingComponents": {},
+  "enablePullDownRefresh": true
 }
