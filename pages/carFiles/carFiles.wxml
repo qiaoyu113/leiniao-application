@@ -1,25 +1,17 @@
 <!--pages/carFiles/carFiles.wxml-->
 <wxs module="tools" src="./utils/filter.wxs" />
-<navBar
-  background="linear-gradient(90deg, #009CF8 0%, #2F83FA 100%)"
-  back="{{ true }}"
-  bindback="handlerGobackClick"
->
+<navBar background="linear-gradient(90deg, #009CF8 0%, #2F83FA 100%)" back="{{ true }}" bindback="handlerGobackClick">
   <view slot="center" class="top_title">
-   车辆档案
+    车辆档案
   </view>
 </navBar>
 <!-- 车辆档案 -->
 <view class="baseinfo_box">
-  <view class="main_title"><text class="line"></text>基础信息 </view>
+  <view class="main_title"><text class="line"></text><text>基础信息</text></view>
   <view class="list_info">
     <text class="info_title">车辆编号：</text>
     <text class="info_data">{{ carData.carId || '--' }}</text>
-    <text
-      class="info_copy"
-      bindtap="copyText"
-      data-text="{{ carData.carId }}"
-      >复制</text>
+    <text class="info_copy center_center" bindtap="copyText" data-text="{{ carData.carId }}">复制</text>
   </view>
   <view class="list_info">
     <text class="info_title">品牌：</text>

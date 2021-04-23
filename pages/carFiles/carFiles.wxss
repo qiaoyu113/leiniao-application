@@ -2,25 +2,20 @@
 
 .baseinfo_box {
   min-height: 1059rpx;
-  width: 690rpx;
-  margin: 0 auto;
 }
 .main_title {
-  display: block;
-  position: relative;
   height: 90rpx;
-  line-height: 90rpx;
   margin: 0 30rpx;
-  padding-left: 19rpx;
   border-bottom: 1rpx solid #ddd;
+  display: flex;
+  align-items: center;
 }
 .line {
-  position: absolute;
-  top: 30rpx;
   width: 4rpx;
   height: 30rpx;
-  left: 0;
   background: #1c8efa;
+  border: 2rpx solid transparent;
+  margin-right: 16rpx;
 }
 .list_info {
   min-height: 82rpx;
