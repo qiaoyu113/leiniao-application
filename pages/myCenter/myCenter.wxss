@@ -195,6 +195,6 @@ page {
   text-align: center;
   color:#999999;
   color:12px;
-  margin-top: 187px;
-  font-weight: 300;
+  position: fixed;
+  bottom: 120rpx;
 }

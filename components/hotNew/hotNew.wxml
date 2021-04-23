@@ -1,16 +1,15 @@
-
 <!-- 爆款上新 -->
-  <view class="ad_box">
-    <view class="detail_box left_box">
+<view class="ad_box">
+  <view class="detail_box left_box" data-index="1" bindtap="gotoadList">
     <text class="sub_title">正在抢</text>
     <text class="ad_title">超值爆款</text>
-      <image class="ad_left_img" src="../../lib/image/rentcarimg/hotimg.png" data-index="1" bindtap="gotoadList"></image>
-    </view>
-    <view class="detail_box right_box">
-    <view class="title">
-    <text class="ad_title todaynew_title">今日上新</text>
-      <text class="sub_right_title">每日更新</text>
-      </view>
-      <image class="ad_right_img" src="../../lib/image/rentcarimg/newimg.png" data-index="2" bindtap="gotoadList"></image>
-    </view>
+    <image class="ad_left_img" src="../../lib/image/rentcarimg/hotimg.png"></image>
   </view>
+  <view class="detail_box right_box" data-index="2" bindtap="gotoadList">
+    <view class="title">
+      <text class="ad_title todaynew_title">今日上新</text>
+      <text class="sub_right_title">每日更新</text>
+    </view>
+    <image class="ad_right_img" src="../../lib/image/rentcarimg/newimg.png"></image>
+  </view>
+</view>

@@ -50,8 +50,8 @@
 .tagBox .tag{
   float: left;
   margin-right: 10rpx;
-  background: #1C8EFA;
-  border: 1px solid #1C8EFA;
+  background: #4fa9ff;
+  border: 1px solid transparent;
   color: #fff;
   font-size: 20rpx;
   text-align: center;

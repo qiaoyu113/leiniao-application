@@ -135,7 +135,7 @@
 .car_files_box {
   width: 100%;
   min-height: 400rpx;
-  padding-top: 33rpx;
+  padding: 34rpx 0;
   position: relative;
 }
 .files_title {
@@ -245,20 +245,22 @@
 }
 .btn {
   border-radius: 10rpx;
-  line-height: 70rpx;
+  height: 70rpx;
   color: #fff;
   text-align: center;
   font-size: 30rpx;
+}
+.btn::after {
+  border: none;
 }
 .collect_word {
   display: block;
   width: 150rpx;
   margin-right: 16rpx;
-  padding-left: 56rpx;
+  margin-left: 56rpx;
   font-size: 36rpx;
-}
-.icon_heart {
-  color: #ff4652;
+  display: flex;
+  align-items: center;
 }
 .collect_text {
   margin-left: 12rpx;
@@ -267,14 +269,18 @@
 }
 .btn_left {
   width: 210rpx;
-  height: 70rpx;
   background: #ff661c;
   margin-right: 20rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .btn_right {
   width: 260rpx;
-  height: 70rpx;
   background: #1c8efa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .asktitle {
   width: 100%;
@@ -294,10 +300,8 @@
 }
 .ask_ques_title {
   color: #333;
-  font-size: 28rpx;
+  font-size: 30rpx;
   line-height: 40rpx;
-
-  font-weight: bold;
 }
 .ask_ques_content {
   margin-top: 26rpx;
@@ -307,6 +311,7 @@
   padding-bottom: 13rpx;
   background: none;
   outline: none;
+  color: #666;
 }
 .ask_ques_box .name_input{
   margin-bottom: 8rpx;
