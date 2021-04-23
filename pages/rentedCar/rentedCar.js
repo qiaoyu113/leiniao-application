@@ -21,7 +21,7 @@ Page({
       swiperList: [],
       background: '',
     },
-    cityupdata: '',
+    cityUpdate: {},
   },
 
   /**
@@ -115,10 +115,11 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    let { cityName, cityCode, cityUpdata } = app.globalData.locationCity
-    if (cityUpdata === 1) {
-      app.globalData.locationCity.cityUpdata = 0
-      var cityinfo = app.globalData.locationCity
+    let { cityName, cityCode, cityUpdate} = app.globalData.locationCity
+    cityUpdate = cityUpdate || {}
+    const currentRoute = app.utils.getCurrentRoute()
+    if (cityUpdate[currentRoute] === 1) {
+      app.globalData.locationCity.cityUpdate[currentRoute] = 0
       //城市切换了
       this.loadData(cityCode)
     } else {

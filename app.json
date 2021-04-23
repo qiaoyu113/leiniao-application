@@ -7,7 +7,6 @@
     "pages/phoneLogin/phoneLogin",
     "pages/saleCar/saleCar",
     "pages/hotModel/hotModel",
-    "pages/userAgreement/userAgreement",
     "pages/login/login",
     "pages/privacy/privacy",
     "pages/clause/clause",
@@ -34,7 +33,7 @@
   },
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#2F83FA",
+    "navigationBarBackgroundColor": "#178FF9",
     "navigationBarTitleText": "",
     "navigationBarTextStyle": "white",
     "backgroundColor": "#ffffff",

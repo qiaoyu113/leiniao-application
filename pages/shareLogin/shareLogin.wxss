@@ -5,41 +5,41 @@
 
 .icons{
   text-align: center;
-  margin: 250px auto 125px;
+  margin: 500rpx auto 250rpx;
 }
 
 .icons image{
-  width: 80px;
-  height: 80px;
+  width: 160rpx;
+  height: 160rpx;
   margin: auto;
 }
 
 .title{
-  font-size: 14px;
+  font-size: 28rpx;
   text-align: center;
   color: #666;
   font-weight: 400;
 }
 
 .loginBtn{
-  padding: 0 30px;
+  padding: 0 60rpx;
 }
 
 .loginBtn .btn{
   width: 100%;
-  height: 40px;
+  height: 80rpx;
   text-align: center;
-  line-height: 40px;
+  line-height: 80rpx;
   background: #1C8EFA;
-  border-radius: 5px;
+  border-radius: 10rpx;
   color: #fff;
-  font-size: 14px;
+  font-size: 28rpx;
 }
 
 .phoneLogin{
   width: 100%;
   color: #666666;
-  font-size: 14px;
+  font-size: 28rpx;
   text-align: center;
-  line-height: 60px;
+  line-height: 120rpx;
 }

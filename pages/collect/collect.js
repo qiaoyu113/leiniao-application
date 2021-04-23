@@ -8,7 +8,8 @@ Page({
   data: {
     page: 1,
     list:[],
-    noneType: false
+    noneType: false,
+    navBarHeight: 0
   },
 
   /**
@@ -16,6 +17,12 @@ Page({
    */
   onLoad: function (options) {
     this.getList();
+    this.setData({
+      navBarHeight: app.globalData.navBarHeight,
+    })
+    wx.setNavigationBarTitle({
+      title: '我的收藏'
+    })
   },
 
   getList(){

@@ -4,14 +4,12 @@
     <view class='topCenterRight'>
       我的      
       <view wx:if="{{canIUse}}" class='headBg'>
-        <!-- <image class="image" src="{{headImg}}" mode="aspectFit"></image> -->
-        <image class="image" src="../../lib/image/bgIcon.png" mode="aspectFit"></image>
+        <image class="image-default" src="../../lib/image/bgIcon.png" mode="aspectFit"></image>
       </view>
       <view wx:if="{{!canIUse}}" class="headBg">
-        <image  class="image-default" src="../../lib/image/bgIcon.png" mode="aspectFit"></image>
+        <image class="image-default" src="../../lib/image/bgIcon.png" mode="aspectFit"></image>
       </view>
       <view class="loginBox">
-        <!-- <button wx:if="{{canIUse}}" class="topCenterLeftBtn-Btn" open-type="getUserInfo" bindgetuserinfo="getUserInfoFun">授权登录</button> -->
         <view wx:if="{{!canIUse}}" class="topCenterLeftBtn" bindtap="goLogin">登录/注册</view>
         <view wx:if="{{canIUse}}" class="topCenterLeftBtn">{{userName}}</view>
       </view>

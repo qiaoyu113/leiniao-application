@@ -60,27 +60,27 @@
           <text class="right_title" bindtap="viewAllEvent">查看全部</text>
           <view class="files_type_box">
             <view class="type_box_detail">
-              <text class="type_value">{{carData.carAgeStr?carData.carAgeStr:''}}</text>
+              <text class="type_value">{{carData.carAgeStr || '--'}}</text>
               <text class="type_key">车龄</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.mileageStr?carData.mileageStr:''}}</text>
+              <text class="type_value">{{carData.mileageStr || '--'}}</text>
               <text class="type_key">里程</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.width?carData.width+'米':'--'}}</text>
+              <text class="type_value">{{carData.width ? carData.width + '米' : '--'}}</text>
               <text class="type_key">箱体宽度</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.registerCityStr?carData.registerCityStr:''}}</text>
+              <text class="type_value">{{carData.registerCityStr || '--'}}</text>
               <text class="type_key">牌照地</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.workCityStr?carData.workCityStr:''}}</text>
+              <text class="type_value">{{carData.workCityStr || '--'}}</text>
               <text class="type_key">看车地</text>
             </view>
             <view class="type_box_detail">
-              <text class="type_value">{{carData.attributeStr?carData.attributeStr:''}}</text>
+              <text class="type_value">{{carData.attributeStr || '--'}}</text>
               <text class="type_key">车辆性质</text>
             </view>
           </view>

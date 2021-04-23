@@ -92,12 +92,18 @@ Page({
     let { cityName, cityCode } = app.globalData.locationCity
     //判断所选城市是否是当前定位城市
     if (cityName === cityData.parentName) {
-      app.globalData.locationCity.cityUpdata = 0
+      app.globalData.locationCity.cityUpdate = {
+        rentedCar: 0,
+        saleCar: 0
+      }
     } else {
       //所选城市不是当前城市时，改变全局城市数据
       app.globalData.locationCity.cityName = cityData.parentName
       app.globalData.locationCity.cityCode = cityData.parentId
-      app.globalData.locationCity.cityUpdata = 1
+      app.globalData.locationCity.cityUpdate= {
+        rentedCar: 1,
+        saleCar: 1
+      }
     }
     wx.setStorage({
       key:'selectcity',

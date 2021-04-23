@@ -43,8 +43,6 @@ Component({
                 url: v.dictLabel
               }
             })
-          }, () => {
-            console.log(this.data.swiperList)
           })
         }
       })
