@@ -15,7 +15,7 @@
   </view>
   <view wx:if="{{vehicleList.length && bottomText}}" class="center_center text-12 text-gray-9" style="height: 60rpx;">{{bottomText}}</view>
   <view wx:if="{{!vehicleList.length && loadStatus === 2}}" class="bt-solid-e flex-y align-center" style="padding-top: 100rpx; min-height: {{minHeight}}px;">
-    <image style="width: 560rpx; height:349rpx;" src="/lib/image/noBG.png"></image>
+    <image style="width: 560rpx; height:349rpx;" src="/lib/image/rentcarimg/nocar.png"></image>
     <view class="text-14 text-gray-6 my-12">暂无相关车源，换个筛选条件试试!</view>
   </view>
 </view>
