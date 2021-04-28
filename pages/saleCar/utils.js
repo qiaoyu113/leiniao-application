@@ -27,7 +27,6 @@ var getMap = function (app) {
             addressRes.result.address_component.city +
             addressRes.result.address_component.province +
             addressRes.result.address_component.district
-          resolve(city)
           // that.setData({
           //   cityName: city,
           //   'defaultData.cityName': city,
@@ -52,6 +51,8 @@ var getMap = function (app) {
                   that.setData({
                     cityCode: res.data,
                     souceCity: address,
+                  }, () => {
+                    resolve(city)
                   })
                 } else {
                   // wx.setStorageSync('cityCode', that.data.cityCode)
