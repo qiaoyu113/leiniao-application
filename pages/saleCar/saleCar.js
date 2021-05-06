@@ -50,6 +50,8 @@ Page({
       this.loadData(cityCode)
     }
     this.loadBeijingCode()
+    const navBar = this.selectComponent('#navBar')
+    navBar && navBar.getBanners()
   },
   //检查当前获取城市是否在城市列表内
   checkCity(){

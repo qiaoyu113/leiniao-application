@@ -29,7 +29,6 @@ Component({
       placeholderTitle: `搜索想${isRent ? '租' : '买'}的车辆`,
       rentOrBuy: isRent ? 'rent' : 'buy'
     })
-    this.getBanners()
   },
   methods: {
     getBanners () {

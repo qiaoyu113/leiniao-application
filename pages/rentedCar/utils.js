@@ -20,17 +20,8 @@ var getMap = function (app) {
           longitude: res.longitude,
         },
         success: function (addressRes) {
-          var city = addressRes.result.address_component.city
-          var city_code = addressRes.result.ad_info.city_code
-          app.globalData.locationCity = { cityName: city, cityCode: city_code }
-          var address =
-            addressRes.result.address_component.city +
-            addressRes.result.address_component.province +
-            addressRes.result.address_component.district
-          // that.setData({
-          //   cityName: city,
-          //   'defaultData.cityName': city,
-          // })
+          const {city, province, district} = addressRes.result.address_component
+          var address = city + province + district
           //获取城市code
           network.requestLoading(
             'api/base/v3/base/office/getOfficeIdByCityName',
@@ -42,8 +33,7 @@ var getMap = function (app) {
             '',
             function (res) {
               if (res.success) {
-                if (that.data.cityCode == '') {
-                  // wx.setStorageSync('cityCode', res.data.code)
+                if (!that.data.cityCode) {
                   app.globalData.locationCity = {
                     cityName: city,
                     cityCode: res.data,
@@ -55,7 +45,6 @@ var getMap = function (app) {
                     resolve(city)
                   })
                 } else {
-                  // wx.setStorageSync('cityCode', that.data.cityCode)
                   app.globalData.locationCity = {
                     cityName: city,
                     cityCode: that.data.cityCode,

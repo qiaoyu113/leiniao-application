@@ -1,6 +1,6 @@
 // pages/carDetail/carDetail.js
 const app = getApp()
-const { requestLoading } = require('../../utils/network')
+const net = require('../../utils/network')
 Page({
   /**
    * 页面的初始数据
@@ -54,18 +54,14 @@ Page({
   //调用接口，获取车辆详情
   getCarInfo() {
     var that = this
-    requestLoading(
-      'api/car_center/v1/cargo/getCarInfoByCarId',
-      {carId:this.data.carId,
-        searchType:this.data.rentOrSale==='rent'?1:2
-      },
-      'POST',
-      '',
-      'json',
-      function (res) {
-        if (res.success) {
-          let carInfo = res.data
-          carInfo.carDescribe = carInfo.carDescribe.trim()
+    const params = {
+      carId:this.data.carId,
+      searchType:this.data.rentOrSale==='rent'?1:2
+    }
+    net.post('api/car_center/v1/cargo/getCarInfoByCarId', params, res => {
+      if (res.success) {
+        let carInfo = res.data
+        carInfo.carDescribe = carInfo.carDescribe.trim()
         if(carInfo.isVogue){
           that.setData({
             carData:carInfo,
@@ -77,14 +73,12 @@ Page({
             showHotIntroduce:false
           })
         }
-        }
-      },
-      function (res) {
-        wx.showToast({
-          title: '加载数据失败',
-        })
       }
-    )
+    }, err => {
+      wx.showToast({
+        title: '加载数据失败',
+      })
+    })
   },
   //返回上一页
   gobackEvent() {
@@ -205,35 +199,27 @@ Page({
   //调用询底价接口
   carInquiry(info){
     var that = this
-    requestLoading(
-      'api/car/v1/car/cargo/carInquiry',
-      info,
-      'POST',
-      '',
-      'json',
-      function (res) {
-        if (res.success) {
-          that.setData({
-            nameValue:''
+    net.post('api/car/v1/car/cargo/carInquiry', info, res => {
+      if (res.success) {
+        that.setData({
+          nameValue:''
+        })
+        setTimeout(()=>{
+          wx.showToast({
+            title: '询价成功',
           })
-          setTimeout(()=>{
-            wx.showToast({
-              title: '询价成功',
-            })
-          },500)
-        }else{
-          wx.showModal({
-            title: res.errorMsg,
-          })
-        }
-        that.onClose()
-      },
-      function (res) {
-        wx.showToast({
-          title: '加载数据失败',
+        },500)
+      }else{
+        wx.showModal({
+          title: res.errorMsg,
         })
       }
-    )
+      that.onClose()
+    }, err => {
+      wx.showToast({
+        title: '加载数据失败',
+      })
+    })
   },
   //收藏
   collectCarEvent(e) {
