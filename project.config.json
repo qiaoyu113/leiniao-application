@@ -30,7 +30,7 @@
       "outputPath": ""
     },
     "enableEngineNative": false,
-    "bundle": true,
+    "bundle": false,
     "useIsolateContext": true,
     "useCompilerModule": true,
     "userConfirmedUseCompilerModuleSwitch": true,
@@ -40,7 +40,7 @@
     "minifyWXSS": true
   },
   "compileType": "miniprogram",
-  "libVersion": "2.16.0",
+  "libVersion": "2.16.1",
   "appid": "wxf40a4e3c7a77deec",
   "projectname": "%E6%A2%A7%E6%A1%90%E5%8F%B8%E6%9C%BA%E7%AB%AF%E5%B0%8F%E7%A8%8B%E5%BA%8F",
   "cloudfunctionTemplateRoot": "",

@@ -1,5 +1,5 @@
 const app = getApp()
-const utils = require('./utils')
+const utils = require('../../utils/getMap')
 const net = require('../../utils/network')
 
 const { requestLoading } = require('../../utils/network')
@@ -28,13 +28,19 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that = this
-    this.getHotModels()
+    this.getHotModels(this.initLocationCity)
+    const navBar = this.selectComponent('#navBar')
+    navBar && navBar.getBanners()
+  },
+  initLocationCity () {
+    const that = this
     let { cityName, cityCode } = app.globalData.locationCity
     if (!cityCode) {
       utils.getMap.call(this, app).then((info)=>{
+        console.log('then:', info)
         that.checkCity()
-      }).catch(()=>{
+      }).catch((err)=>{
+        console.log('catch:', err)
         app.globalData.locationCity.cityCode = app.globalData.beijingCode || 276
         app.globalData.locationCity.cityName = '北京市'
         this.setData({
@@ -50,8 +56,6 @@ Page({
       this.loadData(cityCode)
     }
     this.loadBeijingCode()
-    const navBar = this.selectComponent('#navBar')
-    navBar && navBar.getBanners()
   },
   //检查当前获取城市是否在城市列表内
   checkCity(){
@@ -121,6 +125,7 @@ Page({
     cityUpdate = cityUpdate || {}
     const currentRoute = app.utils.getCurrentRoute()
     if (cityUpdate[currentRoute] === 1) {
+      console.log('changed')
       app.globalData.locationCity.cityUpdate[currentRoute] = 0
       //城市切换了
       this.loadData(cityCode)
@@ -168,7 +173,7 @@ Page({
   onShareAppMessage: function () {
   },
   // 获取热门车型
-  getHotModels: function () {
+  getHotModels: function (callback) {
     net.get('api/car/v1/car/carHotInfo/getCarHotListForApplets', res => {
       const data = (res.data || []).map((v, i) => {
         v.label = v.name
@@ -178,6 +183,7 @@ Page({
       this.setData({
         hotModels: data.length > 4 ? data.slice(0, 4) : data
       })
+      callback && callback()
     })
   },
   // 前往热门车型页面
