@@ -74,7 +74,6 @@
 }
 
 .price{
-  margin-top: 18rpx;
   color: #FF4652;
   font-size: 34rpx;
   font-weight: bold;
@@ -103,14 +102,13 @@
   height: 90rpx;
   position: absolute;
   top: 30rpx;
-  right: 50rpx;
+  right: 30rpx;
 }
 
 .image2{
   width: 36rpx;
   height: 36rpx;
-  position: absolute;
-  bottom: 36rpx;
+  bottom: 50rpx;
   right: 4rpx;
 }
 

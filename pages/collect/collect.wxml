@@ -4,8 +4,8 @@
       wx:key="index" data-id='{{item.carId}}' data-off="{{item.offTheShelf}}" data-type="{{item.rentOrSale}}" bindtap='goDetail'>
       <view class="shadow" wx:if="{{item.offTheShelf}}">
         <image class="image1" src="../../lib/image/off.png" mode="aspectFit"></image>
+        <image wx:if="{{item.offTheShelf}}" class="image2 absolute" src="../../lib/image/heart.png" mode="aspectFit" catchtap="cancelCollect" data-id="{{item.carId}}" data-type="{{item.rentOrSale}}"></image>
       </view>
-      <image class="image2" src="../../lib/image/heart.png" mode="aspectFit" catchtap="cancelCollect" data-id="{{item.carId}}" data-type="{{item.rentOrSale}}"></image>
       <image mode="aspectFill" class="img" src="{{item.url}}"></image>
       <view class="info">
         <view class="title">{{item.title}}</view>
@@ -19,6 +19,10 @@
           <view class="tag" wx:if="{{item.urgentSale}}">急售</view>
           <view class="tag2" wx:if="{{item.tailboard}}">有尾板</view>
           <view class="tag2" wx:if="{{item.pass}}">有通行证</view>
+        </view>
+        <view class="center_space-between" style="margin-top: 18rpx;">
+          <view class="price">{{item.money}}</view>
+          <image wx:if="{{!item.offTheShelf}}" class="image2" src="../../lib/image/heart.png" mode="aspectFit" catchtap="cancelCollect" data-id="{{item.carId}}" data-type="{{item.rentOrSale}}"></image>
         </view>
       </view>
     </view>
