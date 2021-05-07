@@ -49,6 +49,8 @@ Page({
         }
       }
     })
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.init()
   },
 
   /**

@@ -28,9 +28,14 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getHotModels(this.initLocationCity)
+    this.getHotModels(this.init)
+  },
+  init () {
+    this.initLocationCity()
     const navBar = this.selectComponent('#navBar')
     navBar && navBar.getBanners()
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.init()
   },
   initLocationCity () {
     const that = this

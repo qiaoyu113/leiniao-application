@@ -240,69 +240,55 @@ Page({
   },
   favorite(){
     var that = this
-    requestLoading(
-      'api/car/v1/car/cargo/addFavorite',
-      {carId:this.data.carId,
+    net.post('api/car/v1/car/cargo/addFavorite', {
+      carId:this.data.carId,
       rentOrSale:this.data.rentOrSale==='rent'?1:2
-      },
-      'POST',
-      '',
-      'json',
-      function (res) {
-        if (res.success) {
-          that.setData({
-            'carData.isFavorite': 1,
-          })
-          wx.hideLoading()
-          wx.showToast({
-            title:'收藏成功'
-          })
-        }else{
-          wx.hideLoading()
-          wx.showModal({
-            title: res.errorMsg,
-          })
-        }
-      },
-      function (res) {
+    }, res => {
+      if (res.success) {
+        that.setData({
+          'carData.isFavorite': 1,
+        })
+        wx.hideLoading()
         wx.showToast({
-          title: '加载数据失败',
+          title:'收藏成功'
+        })
+      }else{
+        wx.hideLoading()
+        wx.showModal({
+          title: res.errorMsg,
         })
       }
-    )
+    }, err => {
+      wx.showToast({
+        title: '加载数据失败',
+      })
+    })
   },
   cancelFavorite(){
     var that = this
-    requestLoading(
-      'api/car/v1/car/cargo/cancelFavorite',
-      {carId:this.data.carId,
+    net.post('api/car/v1/car/cargo/cancelFavorite', {
+      carId:this.data.carId,
       rentOrSale:this.data.rentOrSale==='rent'?1:2
-      },
-      'POST',
-      '',
-      'json',
-      function (res) {
-        if (res.success) {
-          that.setData({
-            'carData.isFavorite': 2,
-          })
-          wx.hideLoading()
-          wx.showToast({
-            title:'已取消收藏'
-          })
-        }else{
-          wx.hideLoading()
-          wx.showModal({
-            title: res.errorMsg,
-          })
-        }
-      },
-      function (res) {
+    }, res => {
+      if (res.success) {
+        that.setData({
+          'carData.isFavorite': 2,
+        })
+        wx.hideLoading()
         wx.showToast({
-          title: '加载数据失败',
+          title:'已取消收藏'
+        })
+      }else{
+        wx.hideLoading()
+        wx.showModal({
+          title: res.errorMsg,
         })
       }
-    )
+    }, err => {
+      wx.showToast({
+        title: '加载数据失败',
+      })
+    })
   },
   //切换轮播图事件
   changeSwiperEvent(e) {

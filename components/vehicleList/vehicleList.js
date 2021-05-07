@@ -34,7 +34,6 @@ Component({
   lifetimes: {
     attached: function() {
       // 在组件实例进入页面节点树时执行
-      this.init()
     },
     detached: function() {
       // 在组件实例被从页面节点树移除时执行
@@ -63,6 +62,8 @@ Component({
         isRent,
         minHeight
       })
+      const vehicleFilter = this.selectComponent('#vehicleFilter')
+      vehicleFilter && vehicleFilter.init()
     },
     // 获取车辆列表
     getVehicleList (append, isKeywordChanged, isPageInit) {

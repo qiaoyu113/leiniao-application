@@ -52,6 +52,8 @@ var getMap = function (app) {
                     }
                     that.setData({
                       souceCity: address,
+                    }, () => {
+                      resolve(city)
                     })
                   }
                 }
