@@ -74,9 +74,9 @@
 }
 
 .price{
-  margin-top: 9px;
+  margin-top: 18rpx;
   color: #FF4652;
-  font-size: 17px;
+  font-size: 34rpx;
   font-weight: bold;
 }
 
@@ -99,11 +99,11 @@
 }
 
 .shadow .image1{
-  width: 55px;
-  height: 45px;
+  width: 110rpx;
+  height: 90rpx;
   position: absolute;
-  top: 15px;
-  right: 25px;
+  top: 30rpx;
+  right: 50rpx;
 }
 
 .image2{
@@ -116,33 +116,33 @@
 
 .block{
   width: 100%;
-  padding: 105px 10px;
+  padding: 210rpx 20rpx;
   box-sizing: border-box;
   text-align: center;
 }
 
 .block image{
-  width: 255px;
-  height: 175px;
+  width: 510rpx;
+  height: 350rpx;
   margin:auto;
 }
 
 .block .text {
   width: 100%;
   text-align: center;
-  font-size: 14px;
+  font-size: 28rpx;
   color: #666666;
-  margin-top: 15px;
+  margin-top: 30rpx;
 }
 
 .block .btn{
-  width: 70px;
-  height: 25px;
-  line-height: 25px;
+  width: 140rpx;
+  height: 50rpx;
+  line-height: 50rpx;
   text-align: center;
   color: #666666;
-  font-size: 14px;
-  border: 1px solid #666666;
-  border-radius: 4px;
-  margin: 15px auto;
+  font-size: 28rpx;
+  border: 2rpx solid #666666;
+  border-radius: 8rpx;
+  margin: 30rpx auto;
 }

@@ -216,6 +216,7 @@ Page({
       }
       that.onClose()
     }, err => {
+      console.log(err)
       wx.showToast({
         title: '加载数据失败',
       })
@@ -259,6 +260,8 @@ Page({
         })
       }
     }, err => {
+      console.log(err)
+      wx.hideLoading()
       wx.showToast({
         title: '加载数据失败',
       })
@@ -285,6 +288,8 @@ Page({
         })
       }
     }, err => {
+      console.log(err)
+      wx.hideLoading()
       wx.showToast({
         title: '加载数据失败',
       })
