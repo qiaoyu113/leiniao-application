@@ -24,9 +24,10 @@ Page({
     })
     this.init()
   },
-
   init(){
     this.getSearchHistory()
+    const vehicleList = this.selectComponent('#vehicleList')
+    vehicleList && vehicleList.init()
   },
   //获取搜索历史
   getSearchHistory(){

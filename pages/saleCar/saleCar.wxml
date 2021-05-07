@@ -1,7 +1,7 @@
 <!-- 自定义导航 -->
 <view>
   <view class="top_box">
-    <navigation-bar default-data="{{ defaultData }}"></navigation-bar>
+    <navigation-bar id="navBar" default-data="{{ defaultData }}"></navigation-bar>
   </view>
   <view>
     <hotNew class="hotnew_box" bindgotoadList="gotoadList"></hotNew>

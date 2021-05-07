@@ -5,7 +5,7 @@
   padding: 40rpx 0;
   box-sizing: border-box;
   border-bottom: 1rpx solid #E8E8E8;
-  /* position: relative; */
+  position: relative;
 }
 
 .img{
@@ -74,17 +74,16 @@
 }
 
 .price{
-  margin-top: 9px;
   color: #FF4652;
-  font-size: 17px;
+  font-size: 34rpx;
   font-weight: bold;
 }
 
 .price .icon{
-  width: 18px;
-  height: 18px;
+  width: 36rpx;
+  height: 36rpx;
   float: right;
-  margin-top: 3px;
+  margin-top: 6rpx;
 }
 
 .shadow {
@@ -99,50 +98,49 @@
 }
 
 .shadow .image1{
-  width: 55px;
-  height: 45px;
+  width: 110rpx;
+  height: 90rpx;
   position: absolute;
-  top: 15px;
-  right: 25px;
+  top: 30rpx;
+  right: 30rpx;
 }
 
-.shadow .image2{
-  width: 18px;
-  height: 18px;
-  position: absolute;
-  bottom: 18px;
-  right: 20px;
+.image2{
+  width: 36rpx;
+  height: 36rpx;
+  bottom: 50rpx;
+  right: 4rpx;
 }
 
 .block{
   width: 100%;
-  padding: 105px 10px;
+  padding: 210rpx 20rpx;
   box-sizing: border-box;
   text-align: center;
 }
 
 .block image{
-  width: 255px;
-  height: 175px;
+  width: 510rpx;
+  height: 350rpx;
   margin:auto;
 }
 
 .block .text {
   width: 100%;
   text-align: center;
-  font-size: 14px;
+  font-size: 28rpx;
   color: #666666;
-  margin-top: 15px;
+  margin-top: 30rpx;
 }
 
 .block .btn{
-  width: 70px;
-  height: 25px;
-  line-height: 25px;
+  width: 140rpx;
+  height: 50rpx;
+  line-height: 50rpx;
   text-align: center;
   color: #666666;
-  font-size: 14px;
-  border: 1px solid #666666;
-  border-radius: 4px;
-  margin: 15px auto;
+  font-size: 28rpx;
+  border: 2rpx solid #666666;
+  border-radius: 8rpx;
+  margin: 30rpx auto;
 }
