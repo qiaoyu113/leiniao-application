@@ -13,14 +13,12 @@ var getMap = function (app) {
     wx.getLocation({
       type: 'wgs84',
       success(res) {
-        console.log('gotLocation:', res)
         qqmapsdk.reverseGeocoder({
           location: {
             latitude: res.latitude,
             longitude: res.longitude
           },
           success: function (addressRes) {
-            console.log('parsedLoction:', addressRes)
             var {city, province, district} = addressRes.result.address_component
             var address = province + city + district
             //获取城市code

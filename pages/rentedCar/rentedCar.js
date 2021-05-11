@@ -2,7 +2,6 @@ const app = getApp()
 const utils = require('../../utils/getMap')
 const net = require('../../utils/network')
 
-const { requestLoading } = require('../../utils/network')
 // pages/rentedCar/rentedCar.js
 Page({
   /**
@@ -28,9 +27,10 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    this.getHotModels(this.init)
+    this.loadBeijingCode(this.init)
   },
   init () {
+    this.getHotModels()
     this.initLocationCity()
     const navBar = this.selectComponent('#navBar')
     navBar && navBar.getBanners()
@@ -40,13 +40,13 @@ Page({
   initLocationCity () {
     const that = this
     let { cityName, cityCode } = app.globalData.locationCity
-    if (!cityCode) {
+    if (!cityCode || (cityCode === app.globalData.beijingCode && cityName !== '北京市')) {
       utils.getMap.call(this, app).then((info)=>{
         console.log('then:', info)
         that.checkCity()
       }).catch((err)=>{
         console.log('catch:', err)
-        app.globalData.locationCity.cityCode = app.globalData.beijingCode || 276
+        app.globalData.locationCity.cityCode = app.globalData.beijingCode
         app.globalData.locationCity.cityName = '北京市'
         this.setData({
           'defaultData.cityName': '北京市',
@@ -60,43 +60,34 @@ Page({
       })
       this.loadData(cityCode)
     }
-    this.loadBeijingCode()
   },
   //检查当前获取城市是否在城市列表内
   checkCity(){
     var that = this
     //此处加判断，如果获取的城市在开通城市内显示该城市，否则切换到北京
-    requestLoading(
-      'api/base/v3/base/office/getHasLeiNiaoCityGroupHeader',
-      {},
-      'GET',
-      '',
-      '',
-      function (res) {
-        if (res.success) {
-          let dataList =  res.data
-          let newarr = []
-          for(let key in dataList){
-            dataList[key].forEach(item=>{
-              newarr.push(item.parentName)
-            })
-          }
-          let checkCity = newarr.includes(app.globalData.locationCity.cityName)
-          const cityCode = checkCity ? app.globalData.locationCity.cityCode : (app.globalData.beijingCode||276)
-          const cityName = checkCity ? app.globalData.locationCity.cityName : '北京市'
-          that.setData({
-            cityCode,
-            'defaultData.cityName': cityName
+    net.get('api/base/v3/base/office/getHasLeiNiaoCityGroupHeader', function (res) {
+      if (res.success) {
+        let dataList =  res.data
+        let newarr = []
+        for(let key in dataList){
+          dataList[key].forEach(item=>{
+            newarr.push(item.parentName)
           })
-          that.loadData(cityCode)
         }
-      },
-      function (res) {
-        wx.showToast({
-          title: '加载数据失败',
+        let checkCity = newarr.includes(app.globalData.locationCity.cityName)
+        const cityCode = checkCity ? app.globalData.locationCity.cityCode : app.globalData.beijingCode
+        const cityName = checkCity ? app.globalData.locationCity.cityName : '北京市'
+        that.setData({
+          cityCode,
+          'defaultData.cityName': cityName
         })
+        that.loadData(cityCode)
       }
-    )
+    }, function (res) {
+      wx.showToast({
+        title: '加载数据失败',
+      })
+    })
   },
   loadData (cityCode) {
     const vehicleList = this.selectComponent('#vehicleList')
@@ -136,7 +127,7 @@ Page({
       this.loadData(cityCode)
     } else {
     }
-    cityCode && this.setData({
+    cityCode && !(cityCode === app.globalData.beijingCode && cityName !== '北京市') && this.setData({
       'defaultData.cityName': cityName,
     })
   },
@@ -178,7 +169,7 @@ Page({
   onShareAppMessage: function () {
   },
   // 获取热门车型
-  getHotModels: function (callback) {
+  getHotModels: function () {
     net.get('api/car/v1/car/carHotInfo/getCarHotListForApplets', res => {
       const data = (res.data || []).map((v, i) => {
         v.label = v.name
@@ -188,7 +179,6 @@ Page({
       this.setData({
         hotModels: data.length > 4 ? data.slice(0, 4) : data
       })
-      callback && callback()
     })
   },
   // 前往热门车型页面
@@ -199,25 +189,17 @@ Page({
     })
   },
   //保存北京code
-  loadBeijingCode(){
-    requestLoading(
-      'api/base/v3/base/office/getOfficeIdByCityName',
-      {
-        cityName: '北京市',
-      },
-      'GET',
-      '',
-      '',
-      function (res) {
-        if (res.success) {
-          app.globalData.beijingCode = res.data
-        }
-      },
-      function (res) {
-        wx.showToast({
-          title: '加载数据失败',
-        })
+  loadBeijingCode(callback){
+    net.get('api/base/v3/base/office/getOfficeIdByCityName', {cityName: '北京市'}, res => {
+      if (res.success) {
+        app.globalData.beijingCode = res.data || 276
       }
-    )
+      callback && callback()
+    }, function (err) {
+      console.log(err)
+      wx.showToast({
+        title: '加载数据失败',
+      })
+    })
   }
 })
