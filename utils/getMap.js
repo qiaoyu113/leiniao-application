@@ -23,7 +23,6 @@ var getMap = function (app) {
             console.log('parsedLoction:', addressRes)
             var {city, province, district} = addressRes.result.address_component
             var address = province + city + district
-            console.log(address)
             //获取城市code
             network.requestLoading(
               'api/base/v3/base/office/getOfficeIdByCityName', {

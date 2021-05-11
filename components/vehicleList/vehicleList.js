@@ -80,7 +80,7 @@ Component({
       Object.assign(formData, {
         limit: this.data.pageSize,
         page: pageIndex,
-        searchCityId: (app.globalData.locationCity || {}).cityCode || '',
+        searchCityId: (app.globalData.locationCity || {}).cityCode || formData.searchCityId,
         searchType: isRent ? 1 : 2 // pullDownRefresh 时先于 init 执行
       })
       formData.searchContent = formData.keyword || formData.searchContent || ''

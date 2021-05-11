@@ -136,7 +136,7 @@ Page({
       this.loadData(cityCode)
     } else {
     }
-    this.setData({
+    cityCode && this.setData({
       'defaultData.cityName': cityName,
     })
   },
