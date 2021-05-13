@@ -67,7 +67,7 @@ function requestLoading(url, params, met, message, types, success, fail, ctx) {
         },
         method: met,
         success: function (res) {
-          if (res.data.code == 40101) {
+          if (res.data.code == 40101 || res.data.code == 402) {
             wx.removeStorage({
               key: 'token',
               success: function(res) {}

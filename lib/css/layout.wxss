@@ -432,6 +432,16 @@
 .text-24 {
   font-size: 48rpx;
 }
+/* transform */
+.rotate-180 {
+  transform: rotate(180deg);
+}
+rotate-270 {
+  transform: rotate(270deg);
+}
+.rotate-90 {
+  transform: rotate(90deg);
+}
 /* width by percent */
 .width-25p {
   width: 25%;
@@ -444,7 +454,7 @@
 }
 
 /* utils */
-.hide {
+.hide, .none {
   display: none;
 }
 .inline-block {
