@@ -88,7 +88,6 @@ Page({
                         })
                         let pages = getCurrentPages();
                         let prevpage = pages[pages.length - 2];
-                        console.log('prevpage',prevpage.route)
                         if(prevpage.route == 'pages/shareLogin/shareLogin'){
                           wx.navigateBack({
                             delta: 2,

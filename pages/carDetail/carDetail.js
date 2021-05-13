@@ -1,5 +1,6 @@
 // pages/carDetail/carDetail.js
 const app = getApp()
+const { get } = require('../../utils/network')
 const net = require('../../utils/network')
 Page({
   /**
@@ -33,7 +34,6 @@ Page({
       rentOrSale: options.type
     })
     if(options.isshare){
-      console.log('isshare')
       this.setData({
         isshare:'1'
       })
@@ -62,17 +62,38 @@ Page({
       if (res.success) {
         let carInfo = res.data
         carInfo.carDescribe = carInfo.carDescribe.trim()
-        if(carInfo.isVogue){
-          that.setData({
-            carData:carInfo,
-            showHotIntroduce:true
-          })
-        }else{
-          that.setData({
-            carData:carInfo,
-            showHotIntroduce:false
-          })
+        carInfo.imageList = []
+        const getAllImageInfo = carInfo.imageUrlList.map(v => wx.getImageInfo({src: v}))
+        const rotate = {
+          'down': 'rotate-180',
+          'down-mirrored': 'rotate-180',
+          'left': 'rotate-270',
+          'left-mirrored': 'rotate-270',
+          'right': 'rotate-90',
+          'right-mirrored': 'rotate-90'
         }
+        Promise.all(getAllImageInfo).then(resList => {
+          carInfo.imageList = resList.map((v, i) => {
+            const orientation = v.orientation || 'up'
+            const img = {
+              src: carInfo.imageUrlList[i],
+              orientation,
+              rotateClass: rotate[orientation] || ''
+            }
+            return img
+          })
+          if(carInfo.isVogue){
+            that.setData({
+              carData:carInfo,
+              showHotIntroduce:true
+            })
+          }else{
+            that.setData({
+              carData:carInfo,
+              showHotIntroduce:false
+            })
+          }
+        })
       }
     }, err => {
       wx.showToast({

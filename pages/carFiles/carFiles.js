@@ -14,7 +14,6 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    console.log('carId', options)
     //调用车辆档案接口
     this.getCarFilesInfo(options.carId,options.rentorsale)
   },
@@ -79,7 +78,6 @@ Page({
 
   //复制
   copyText: function (e) {
-    console.log(e)
     wx.setClipboardData({
       data: e.currentTarget.dataset.text,
       success: function (res) {
