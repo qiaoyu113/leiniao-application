@@ -49,22 +49,18 @@ Component({
     },
     addRotateClassForImage (item) {
       wx.getImageInfo({
-        src: item.pic,
+        src: item.pic.replace('http://', 'https://'),
         success: res => {
           const orientation = res.orientation || 'up'
-          const rotate = {
-            'down': 'rotate-180',
-            'down-mirrored': 'rotate-180',
-            'left': 'rotate-270',
-            'left-mirrored': 'rotate-270',
-            'right': 'rotate-90',
-            'right-mirrored': 'rotate-90'
-          }
           if (orientation !== 'up') {
             console.log(orientation, item)
           }
           item.orientation = orientation
-          item.rotateClass = rotate[orientation] || ''
+          item.rotateClass = app.consts.rotateClasses[orientation] || ''
+          this.setData({info: item})
+        },
+        fail: err => {
+          console.log(err)
           this.setData({info: item})
         }
       })

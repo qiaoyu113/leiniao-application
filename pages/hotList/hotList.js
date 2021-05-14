@@ -1,6 +1,6 @@
 const app = getApp()
 const util = require('../../utils/storage.js')
-const { requestLoading } = require('../../utils/network')
+const net = require('../../utils/network')
 // pages/hotList/hotList.js
 Page({
   /**
@@ -153,88 +153,90 @@ Page({
 
   //获取超值爆款列表
   getVogueList(type){
-    var that = this
     //请求列表接口
-    requestLoading(
-      'api/car_center/v1/cargo/getVogueList',
-      {searchType:type,
-      searchCityId:app.globalData.locationCity.cityCode,
-      page:that.data.page,
+    net.post('api/car_center/v1/cargo/getVogueList', {
+      searchType: type,
+      searchCityId: app.globalData.locationCity.cityCode,
+      page: this.data.page,
       limit:30
-      },
-      'POST',
-      '',
-      'json',
-      function (res) {
-        if (res.success) {
-          let cardata = res.data
-          that.setData({
-            total: (res.page || {}).total || 0
-          })
-        that.getListHandle(cardata,that.data.page)
-        }
-      },
-      function (res) {
-        wx.showToast({
-          title: '加载数据失败',
+    }, (res) => {
+      if (res.success) {
+        let cardata = res.data
+        this.setData({
+          total: (res.page || {}).total || 0
         })
+        this.getListHandle(cardata, this.data.page)
+      }
+    }, err => {
+      console.log(err)
+      wx.showToast({
+        title: '加载数据失败',
+      })
       }
     )
   },
   //获取今日上新接口
   getNewList(type){
-    var that = this
     //请求列表接口
-    requestLoading(
-      'api/car_center/v1/cargo/getNewestCarList',
-      {searchType:type,
-        searchCityId:app.globalData.locationCity.cityCode,
-        page:that.data.page,
-        limit:30
-      },
-      'POST',
-      '',
-      'json',
-      function (res) {
-        if (res.success) {
-          let cardata = res.data
-          that.setData({
-            total: (res.page || {}).total || 0
-          })
-        that.getListHandle(cardata,that.data.page)
-        }
-      },
-      function (res) {
-        wx.showToast({
-          title: '加载数据失败',
+    net.post('api/car_center/v1/cargo/getNewestCarList', {
+      searchType: type,
+      searchCityId: app.globalData.locationCity.cityCode,
+      page: this.data.page,
+      limit:30
+    }, res => {
+      if (res.success) {
+        let cardata = res.data
+        this.setData({
+          total: (res.page || {}).total || 0
         })
+        this.getListHandle(cardata, this.data.page)
       }
-    )
+    }, err => {
+      console.log(err)
+      wx.showToast({
+        title: '加载数据失败',
+      })
+    })
+  },
+  composeCarList(cardata, page) {
+    this.setData({
+      carList: page > 1 ? this.data.carList.concat(cardata) : cardata,
+    })
   },
   //提取两个接口重复代码
-  getListHandle(cardata,page){
-    var that = this
+  getListHandle(cardata, page){
     if (cardata.length) {
-      if(page>1){
-        let newcarList = that.data.carList.concat(cardata)
-        that.setData({
-          carList: newcarList,
+      const parseCarMainImg = cardata.map(v => {
+        const mainImgUrl = (v.imageUrlList[0] || '').replace('http://', 'https://')
+        return mainImgUrl ? wx.getImageInfo({
+          src: mainImgUrl
+        }) : Promise.resolve({src: ''})
+      })
+      Promise.all(parseCarMainImg).then(res => {
+        cardata.forEach((v, i) => {
+          const orientation = res[i].orientation || 'up'
+          v.mainImg = {
+            src: v.imageUrlList[0] || '',
+            orientation,
+            rotateClass: app.consts.rotateClasses[orientation] || ''
+          }
         })
-      }else{
-        that.setData({
-          carList:cardata
+        this.composeCarList(cardata, page)
+      }).catch(err => {
+        console.log(err)
+        carData.forEach(v => {
+          v.mainImg = {src: v.imageUrlList[0] || ''}
         })
-      }
+        this.composeCarList(cardata, page)
+      })
     } else {
-      //到底了
       this.setData({
         bottomText: '到底了亲~'
       })
-      if(!this.data.carList.length){
-        that.setData({
-          showList: false,
+      if (!this.data.carList.length) {
+        this.setData({
+          showList: false
         })
-      }else{
       }
     }
   }
