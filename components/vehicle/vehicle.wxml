@@ -1,5 +1,4 @@
 <view class="px-15">
-  <canvas class="none" id="theCanvas" type="2d"></canvas>
   <view class="py-20 space-between bb-solid-e" bindtap="onViewDetail">
     <image mode="aspectFill" class="{{'img-100 ' + info.rotateClass}}" style="border-radius: 8rpx;" src="{{info.pic}}"></image>
     <view class="flex-y space-between pt-5" style="width: 430rpx;">

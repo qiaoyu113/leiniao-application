@@ -63,36 +63,32 @@ Page({
         let carInfo = res.data
         carInfo.carDescribe = carInfo.carDescribe.trim()
         carInfo.imageList = []
-        const getAllImageInfo = carInfo.imageUrlList.map(v => wx.getImageInfo({src: v}))
-        const rotate = {
-          'down': 'rotate-180',
-          'down-mirrored': 'rotate-180',
-          'left': 'rotate-270',
-          'left-mirrored': 'rotate-270',
-          'right': 'rotate-90',
-          'right-mirrored': 'rotate-90'
-        }
+        const getAllImageInfo = carInfo.imageUrlList.map(v => wx.getImageInfo({src: v.replace('http://', 'https://')}))
         Promise.all(getAllImageInfo).then(resList => {
           carInfo.imageList = resList.map((v, i) => {
             const orientation = v.orientation || 'up'
             const img = {
               src: carInfo.imageUrlList[i],
               orientation,
-              rotateClass: rotate[orientation] || ''
+              rotateClass: app.consts.rotateClasses[orientation] || ''
             }
             return img
           })
-          if(carInfo.isVogue){
-            that.setData({
-              carData:carInfo,
-              showHotIntroduce:true
-            })
-          }else{
-            that.setData({
-              carData:carInfo,
-              showHotIntroduce:false
-            })
-          }
+          that.setData({
+            carData:carInfo,
+            showHotIntroduce: !!carInfo.isVogue
+          })
+        }).catch(err => {
+          console.log(err)
+          carInfo.imageList = carInfo.imageUrlList.map(v => {
+            return {
+              src: v
+            }
+          })
+          that.setData({
+            carData: carInfo,
+            showHotIntroduce: !!carInfo.isVogue
+          })
         })
       }
     }, err => {

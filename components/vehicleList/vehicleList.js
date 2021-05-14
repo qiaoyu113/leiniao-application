@@ -1,5 +1,20 @@
 const net = require('../../utils/network')
 const app = getApp()
+const initData = {
+  formData: {
+    sort: '1'
+  },
+  isRent: false,
+  pageSize: 30,
+  pageIndex: 1,
+  fastFeatures: [],
+  vehicleList: [],
+  isPageWithCustomNav: false,
+  navbarHeight: 64,
+  loadStatus: 0, // 0 初始化 1请求中 2请求完毕
+  total: 0,
+  bottomText: ''
+}
 
 Component({
   options: {
@@ -15,21 +30,7 @@ Component({
   /**
    * 组件的初始数据
    */
-  data: {
-    formData: {
-      sort: '1'
-    },
-    isRent: false,
-    pageSize: 30,
-    pageIndex: 1,
-    fastFeatures: [],
-    vehicleList: [],
-    isPageWithCustomNav: false,
-    navbarHeight: 64,
-    loadStatus: 0, // 0 初始化 1请求中 2请求完毕
-    total: 0,
-    bottomText: ''
-  },
+  data: {...initData},
 
   lifetimes: {
     attached: function() {
@@ -188,21 +189,7 @@ Component({
       this.onParamChange({keyword: val}, 'isPageInit=true')
     },
     onPageRefresh () {
-      this.setData({
-        formData: {
-          sort: '1'
-        },
-        isRent: false,
-        pageSize: 30,
-        pageIndex: 1,
-        fastFeatures: [],
-        vehicleList: [],
-        isPageWithCustomNav: false,
-        navbarHeight: 64,
-        loadStatus: 0, // 0 初始化 1请求中 2请求完毕
-        total: 0,
-        bottomText: ''
-      }, () => {
+      this.setData({...initData}, () => {
         this.init()
         const vehicleFilter = this.selectComponent('#vehicleFilter')
         vehicleFilter && vehicleFilter.onPageRefresh()

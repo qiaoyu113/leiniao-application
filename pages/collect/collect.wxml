@@ -6,7 +6,7 @@
         <image class="image1" src="../../lib/image/off.png" mode="aspectFit"></image>
         <image wx:if="{{item.offTheShelf}}" class="image2 absolute" src="../../lib/image/heart.png" mode="aspectFit" catchtap="cancelCollect" data-id="{{item.carId}}" data-type="{{item.rentOrSale}}"></image>
       </view>
-      <image mode="aspectFill" class="img" src="{{item.url}}"></image>
+      <image mode="aspectFill" class="{{'img ' + item.img.rotateClass}}" src="{{item.img.src}}"></image>
       <view class="info">
         <view class="title">{{item.title}}</view>
         <view class="value">

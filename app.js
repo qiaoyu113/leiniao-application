@@ -127,7 +127,7 @@ App({
     locationCity: {},
     brandList: [],
     windowHeight: 0,
-    beijingCode:''
+    beijingCode:'',
   },
   utils: {
     getCurrentRoute: () => {
@@ -139,4 +139,14 @@ App({
       return currentPageRoutes[0].split('/').pop()
     },
   },
+  consts: {
+    rotateClasses: {
+      'down': 'rotate-180',
+      'down-mirrored': 'rotate-180',
+      'left': 'rotate-270',
+      'left-mirrored': 'rotate-270',
+      'right': 'rotate-90',
+      'right-mirrored': 'rotate-90'
+    }
+  }
 })

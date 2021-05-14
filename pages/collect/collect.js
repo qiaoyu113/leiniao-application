@@ -1,5 +1,5 @@
 var app = getApp();
-var network = require("../../utils/network.js");// pages/collect/collect.js
+var net = require("../../utils/network.js");
 Page({
 
   /**
@@ -26,28 +26,44 @@ Page({
   },
 
   getList(){
-    var that = this;
-    that.setData({
+    this.setData({
       noneType: false
     })
     //获取我的收藏
-    network.requestLoading('255/car/v1/car/cargo/favoriteList',
-    {
+    net.get('255/car/v1/car/cargo/favoriteList', {
       "limit": 30,
-      "page": that.data.page
-    },
-    'get',
-    '',
-    'json',
-    function(res) {
+      "page": this.data.page
+    }, res => {
       if (res.success) {
-        that.setData({
-          list: that.data.list.concat(res.data),
-          noneType: true
-        });
+        const dataList = res.data || []
+        const parseCarImgs = dataList.map(v => wx.getImageInfo({src: (v.url || '').replace('http://', 'https://')}))
+        Promise.all(parseCarImgs).then(resList => {
+          resList.map((img, i) => {
+            const orientation = img.orientation || 'up'
+            dataList[i].img = {
+              src: (dataList[i].url || '').replace('http://', 'https://'),
+              orientation,
+              rotateClass: app.consts.rotateClasses[orientation] || ''
+            }
+          })
+          this.setData({
+            list: this.data.list.concat(dataList),
+            noneType: true
+          });
+        }).catch(err => {
+          console.log(err)
+          dataList.forEach(v => {
+            v.img = {src: v.url}
+          })
+          this.setData({
+            list: this.data.list.concat(dataList),
+            noneType: true
+          });
+        })
+        
       }
-    },
-    function(res) {
+    }, err => {
+      console.log(err)
       wx.showToast({
         title: '加载数据失败',
       });
@@ -56,30 +72,24 @@ Page({
 
   // 取消收藏
   cancelCollect(e) {
-    let that = this;
     let id = e.currentTarget.dataset.id
     let type = e.currentTarget.dataset.type
-    network.requestLoading('255/car/v1/car/cargo/cancelFavorite',
-    {
+    net.post('255/car/v1/car/cargo/cancelFavorite', {
       "carId": id,
       "rentOrSale": type
-    },
-    'post',
-    '',
-    'json',
-    function(res) {
+    }, res => {
       if (res.success) {
         wx.showToast({
           title: '已取消',
         });
-        that.onPullDownRefresh()
+        this.onPullDownRefresh()
       } else {
         wx.showToast({
           title: res.errorMsg,
         });
       }
-    },
-    function(res) {
+    }, err => {
+      console.log(err)
       wx.showToast({
         title: '加载数据失败',
       });
