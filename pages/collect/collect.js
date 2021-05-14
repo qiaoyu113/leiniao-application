@@ -41,7 +41,7 @@ Page({
           resList.map((img, i) => {
             const orientation = img.orientation || 'up'
             dataList[i].img = {
-              src: dataList[i].url || '',
+              src: (dataList[i].url || '').replace('http://', 'https://'),
               orientation,
               rotateClass: app.consts.rotateClasses[orientation] || ''
             }

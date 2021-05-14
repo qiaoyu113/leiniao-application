@@ -216,7 +216,7 @@ Page({
         cardata.forEach((v, i) => {
           const orientation = res[i].orientation || 'up'
           v.mainImg = {
-            src: v.imageUrlList[0] || '',
+            src: (v.imageUrlList[0] || '').replace('http://', 'https://'),
             orientation,
             rotateClass: app.consts.rotateClasses[orientation] || ''
           }

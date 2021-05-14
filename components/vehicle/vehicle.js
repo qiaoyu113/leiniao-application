@@ -48,8 +48,9 @@ Component({
       wx.navigateTo({url})
     },
     addRotateClassForImage (item) {
+      item.pic = item.pic.replace('http://', 'https://')
       wx.getImageInfo({
-        src: item.pic.replace('http://', 'https://'),
+        src: item.pic,
         success: res => {
           const orientation = res.orientation || 'up'
           if (orientation !== 'up') {
